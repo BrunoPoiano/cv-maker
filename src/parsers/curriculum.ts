@@ -16,7 +16,7 @@ export function parseCurriculum(value: unknown) {
 			linkedin: 'linkedin.com/in/',
 			github: 'github.com/'
 		},
-		Summary: [],
+		Summary: '',
 		CoreSkills: {
 			languages: [],
 			apis: [],
@@ -109,6 +109,8 @@ export function parseCurriculum(value: unknown) {
 			acc.push(isStringOrDefault(item, undefined))
 			return acc
 		}, [])
+	} else {
+		cv.Summary = isStringOrDefault(value.Summary, '')
 	}
 
 	if (Array.isArray(value.Experience)) {

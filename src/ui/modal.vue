@@ -15,7 +15,9 @@ const key = generateKey(10)
 
 <template>
 	<dialog :id="key" :style="minWidth ? `min-width: min(${minWidth},100%)` : ''">
-		<slot name="header" />
+		<div class="header">
+			<slot name="header" />
+		</div>
 		<slot />
 		<div class="footer">
 			<slot name="footer" />
@@ -26,6 +28,9 @@ const key = generateKey(10)
 </template>
 
 <style scoped>
+.header {
+	margin-bottom: 1rem;
+}
 .footer {
 	margin-top: 1rem;
 	display: flex;

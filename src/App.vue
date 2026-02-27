@@ -32,11 +32,15 @@ function savePDF() {
 <template>
 	<h1>CV-Maker</h1>
 	<div class="menu">
-		<Header />
-		<Contact />
-		<Sumarry />
-		<Button @click="saveData" label="save" />
-		<Button @click="savePDF" label="save PDF" />
+		<div>
+			<Header />
+			<Contact />
+			<Sumarry />
+		</div>
+		<div>
+			<Button @click="saveData" label="save" />
+			<Button @click="savePDF" label="generate PDF" />
+		</div>
 	</div>
 	<CurriculumModel />
 </template>
@@ -49,5 +53,10 @@ h1 {
 .menu {
 	display: flex;
 	gap: 0.8rem;
+	justify-content: space-between;
+	div {
+		display: flex;
+		gap: 0.8rem;
+	}
 }
 </style>

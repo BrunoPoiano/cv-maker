@@ -10,18 +10,24 @@ import Toggle from '@/ui/toggle.vue'
 import { CurriculumKey } from '@/main'
 
 const curriculum = inject<Curriculum>(CurriculumKey)!
-const list = ref(Array.isArray(curriculum.Summary))
 
 const summary = ref(
 	Array.isArray(curriculum?.Summary)
-		? curriculum.Summary.join(' \n')
+		? curriculum.Summary.join('\n')
 		: curriculum?.Summary
 )
 
-function saveSummary() {
-	console.log('Saving:', summary.value) // Add this to debug
-	curriculum.Summary = list.value ? summary.value.split('\n') : summary.value
-	console.log('After save, curriculum.Summary:', curriculum.Summary) // And this
+const list = computed<boolean>({
+	get() {
+		return Array.isArray(curriculum.Summary)
+	},
+	set(value: boolean) {
+		saveSummary(value)
+	}
+})
+
+function saveSummary(list: boolean) {
+	curriculum.Summary = list ? summary.value.split('\n') : summary.value
 }
 </script>
 
@@ -33,20 +39,28 @@ function saveSummary() {
 		v-if="curriculum"
 	>
 		<template #header>
-			<h4>CV Summary {{ list }}</h4>
+			<div class="header">
+				<h4>Summary</h4>
+				<Toggle v-model="list" labelEnd="List" labelStart="Text" />
+			</div>
 		</template>
 		<form>
-			<Toggle v-model="list" labelEnd="List" labelStart="Text" />
-			<Textarea label="User Name" placeholder="User Name" v-model="summary" />
-			<p>{{ Array.isArray(curriculum.Summary) }}</p>
+			<Textarea
+				placeholder="User Name"
+				v-model="summary"
+				:keyup="saveSummary(list)"
+			/>
 		</form>
-		<template #footer>
-			<Button command="show-modal" label="save" @click="saveSummary" />
-		</template>
 	</Modal>
 </template>
 
 <style scoped>
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 form {
 	display: grid;
 	gap: 1rem;

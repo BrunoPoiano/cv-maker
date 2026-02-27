@@ -16,7 +16,7 @@ const curriculum = inject<Curriculum>(CurriculumKey)
 		v-if="curriculum"
 	>
 		<template #header>
-			<h3>Contact</h3>
+			<h4>Contact</h4>
 		</template>
 		<form>
 			<Input

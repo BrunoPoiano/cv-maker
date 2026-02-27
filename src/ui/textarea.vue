@@ -28,7 +28,7 @@ function onInput(event: InputEvent) {
 
 <template>
 	<div class="content">
-		<label :for="id ?? key">{{ props.label }}</label>
+		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
 		<textarea
 			v-bind="$attrs"
 			:id="id ?? key"
@@ -49,7 +49,7 @@ function onInput(event: InputEvent) {
 	textarea {
 		border: 1px solid #80808070;
 		border-radius: 10px;
-		padding: 0.3rem 0.6rem;
+		padding: 1rem 0.6rem;
 		min-height: 241px;
 		font-size: var(--font-size-base);
 	}
