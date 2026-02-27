@@ -2,9 +2,8 @@
 import { generateKey } from '@/helpers/generateKey'
 
 type Props = {
-	modelValue: string | number | null
+	modelValue: string
 	label?: string
-	type?: string
 	id?: string
 }
 
@@ -19,19 +18,20 @@ const emit = defineEmits<{
 	(e: 'update:modelValue', value: string | number | null): void
 }>()
 
-function onInput(event: Event) {
+function onInput(event: InputEvent) {
 	const target = event.target as HTMLInputElement
-	emit('update:modelValue', target.value)
+	if (event.target) {
+		emit('update:modelValue', target.value)
+	}
 }
 </script>
 
 <template>
 	<div class="content">
 		<label :for="id ?? key">{{ props.label }}</label>
-		<input
+		<textarea
 			v-bind="$attrs"
 			:id="id ?? key"
-			:type="props.type ?? 'text'"
 			:value="props.modelValue"
 			@input="onInput"
 		/>
@@ -46,10 +46,12 @@ function onInput(event: Event) {
 		text-transform: capitalize;
 	}
 
-	input {
+	textarea {
 		border: 1px solid #80808070;
 		border-radius: 10px;
 		padding: 0.3rem 0.6rem;
+		min-height: 241px;
+		font-size: var(--font-size-base);
 	}
 }
 </style>

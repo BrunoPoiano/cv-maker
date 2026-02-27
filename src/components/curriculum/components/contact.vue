@@ -1,27 +1,28 @@
 <script setup lang="ts">
 import { CurriculumConst } from '@/constants/curriculum'
+import { CurriculumKey } from '@/main'
 import type { Curriculum } from '@/types'
 import { inject } from 'vue'
 
-const contact = inject<Curriculum>('curriculum', CurriculumConst).Contact
+const contact = inject<Curriculum>(CurriculumKey, CurriculumConst).Contact
 </script>
 
 <template>
-  <div class="contact" v-if="contact">
-    <span>Email: {{ contact.email }}</span>
-    <span>Linkedin: {{ contact.linkedin }}</span>
-    <span>GitHub: {{ contact.github }}</span>
-  </div>
+	<div class="contact" v-if="contact">
+		<span>Email: {{ contact.email }}</span>
+		<span>Linkedin: {{ contact.linkedin }}</span>
+		<span>GitHub: {{ contact.github }}</span>
+	</div>
 </template>
 
 <style scoped>
 .contact {
-  display: grid;
-  gap: 0.2cm;
-  span {
-    color: var(--light-color);
-    font-size: 12px;
-    font-weight: var(--font-weight);
-  }
+	display: grid;
+	gap: 0.2cm;
+	span {
+		color: var(--light-text-color);
+		font-size: 12px;
+		font-weight: var(--font-weight);
+	}
 }
 </style>

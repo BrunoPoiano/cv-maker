@@ -1,14 +1,15 @@
 <template>
-  <h3><slot /></h3>
+	<h3><slot /></h3>
 </template>
 
 <style scoped>
 h3 {
-  color: black;
-  margin: 0;
-  font-size: 20px;
-  font-weight: var(--font-weight);
-  letter-spacing: 0.099em;
-  text-transform: uppercase;
+	color: black;
+	font-size: 20px;
+	font-weight: var(--font-weight);
+	letter-spacing: 0.099em;
+	text-transform: uppercase;
+	margin: 0;
+	margin-bottom: calc((var(--_a4-gap) * 0.9) * -1);
 }
 </style>

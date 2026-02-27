@@ -8,38 +8,37 @@ import CoreSkills from './components/coreSkills.vue'
 </script>
 
 <template>
-  <div class="a4-page" id="curriculumPage">
-    <Header />
-    <Contact />
-    <Summary />
-    <CoreSkills />
-    <Experience />
-  </div>
+	<div class="a4-page" id="curriculumPage">
+		<Header />
+		<Contact />
+		<Summary />
+		<CoreSkills />
+		<Experience />
+	</div>
 </template>
 
 <style>
 .a4-page {
-  --light-color: #65615f;
-  --font-weight: 400;
+	--_a4-gap: 0.8rem;
 
-  display: grid;
-  place-content: start;
+	display: grid;
+	place-content: start;
 
-  gap: 0.8rem;
+	gap: var(--_a4-gap);
 
-  min-height: 100vh;
+	min-height: 100vh;
 
-  width: 210mm;
-  height: 297mm;
-  padding: 3mm;
-  margin-inline: auto;
-  margin-top: 4rem;
+	width: 210mm;
+	height: 297mm;
+	padding: 3mm;
+	margin-inline: auto;
+	margin-top: 4rem;
 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
 
-  background-color: #ffffff;
+	background-color: #ffffff;
 
-  font-family: 'EB Garamond', serif;
+	font-family: 'EB Garamond', serif;
 }
 </style>
