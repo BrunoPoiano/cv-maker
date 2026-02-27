@@ -5,21 +5,19 @@ import Contact from './components/contact.vue'
 import Experience from './components/experience.vue'
 import Summary from './components/summary.vue'
 import CoreSkills from './components/coreSkills.vue'
-
-const { curriculum } = defineProps<{ curriculum: Curriculum }>()
 </script>
 
 <template>
-  <div class="a4-page">
-    <Header :header="curriculum.Header" />
-    <Contact :contact="curriculum.Contact" />
-    <Summary :summary="curriculum.Summary" />
-    <CoreSkills :coreSkills="curriculum.CoreSkills" />
-    <Experience :experience="curriculum.Experience" />
+  <div class="a4-page" id="curriculumPage">
+    <Header />
+    <Contact />
+    <Summary />
+    <CoreSkills />
+    <Experience />
   </div>
 </template>
 
-<style scoped>
+<style>
 .a4-page {
   --light-color: #65615f;
   --font-weight: 400;
@@ -40,7 +38,7 @@ const { curriculum } = defineProps<{ curriculum: Curriculum }>()
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 
-  background-color: #e0e0e02e;
+  background-color: #ffffff;
 
   font-family: 'EB Garamond', serif;
 }

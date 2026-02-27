@@ -4,16 +4,17 @@ import Button from '../ui/button.vue'
 type Props = {
   buttonLabel: string | Element
   closeLabel: string | Element
+  minWidth?: string
 }
 
-const { buttonLabel, closeLabel } = defineProps<Props>()
+const { buttonLabel, closeLabel, minWidth } = defineProps<Props>()
 
 import { generateKey } from '@/helpers/generateKey'
 const key = generateKey(10)
 </script>
 
 <template>
-  <dialog :id="key">
+  <dialog :id="key" :style="minWidth ? `min-width: min(${minWidth},100%)` : ''">
     <slot name="header" />
     <slot />
     <div class="footer">
@@ -30,19 +31,5 @@ const key = generateKey(10)
   display: flex;
   align-items: center;
   justify-content: flex-end;
-}
-
-dialog {
-  width: min(20rem, 100%);
-  border: none;
-  border-radius: 20px;
-  padding: 1rem 2rem;
-
-  box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.44);
-
-  &::backdrop {
-    background: #00000078;
-    filter: blur(1.5rem);
-  }
 }
 </style>

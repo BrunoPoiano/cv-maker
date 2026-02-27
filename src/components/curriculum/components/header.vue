@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { CurriculumConst } from '@/constants/curriculum'
 import type { Curriculum } from '@/types'
-const { header } = defineProps<{ header: Curriculum['Header'] }>()
+import { inject } from 'vue'
+const header = inject<Curriculum>('curriculum', CurriculumConst).Header
 </script>
 
 <template>
@@ -15,7 +17,7 @@ const { header } = defineProps<{ header: Curriculum['Header'] }>()
   h1 {
     padding: 0;
     margin: 0;
-    font-size: 36px;
+    font-size: 46px;
     color: #000000;
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -23,7 +25,7 @@ const { header } = defineProps<{ header: Curriculum['Header'] }>()
   }
 
   .label {
-    font-size: 16px;
+    font-size: 26px;
     color: var(--light-color);
     text-transform: uppercase;
     letter-spacing: 0.099em;

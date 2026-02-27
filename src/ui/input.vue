@@ -46,7 +46,7 @@ function onInput(event: Event) {
   input {
     border: 1px solid #80808070;
     border-radius: 10px;
-    padding: 0.6rem;
+    padding: 0.3rem 0.6rem;
   }
 }
 </style>

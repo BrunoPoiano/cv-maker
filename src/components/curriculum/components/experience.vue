@@ -2,7 +2,9 @@
 import type { Curriculum } from '@/types'
 import List from '@/ui/list.vue'
 import Title from './title.vue'
-const { experience } = defineProps<{ experience: Curriculum['Experience'] }>()
+import { inject } from 'vue'
+import { CurriculumConst } from '@/constants/curriculum'
+const experience = inject<Curriculum>('curriculum', CurriculumConst).Experience
 
 function fixDate(date: unknown) {
   if (date instanceof Date) {
@@ -36,6 +38,7 @@ function fixDate(date: unknown) {
   display: grid;
   gap: 0.6rem;
   .title {
+    color: black;
     display: block;
     font-size: 14px;
     font-weight: var(--font-weight);

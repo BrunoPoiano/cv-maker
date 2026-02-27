@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { CurriculumConst } from '@/constants/curriculum'
 import type { Curriculum } from '@/types'
+import { inject } from 'vue'
 
-const { contact } = defineProps<{ contact: Curriculum['Contact'] }>()
+const contact = inject<Curriculum>('curriculum', CurriculumConst).Contact
 </script>
 
 <template>
-  <div class="contact">
+  <div class="contact" v-if="contact">
     <span>Email: {{ contact.email }}</span>
     <span>Linkedin: {{ contact.linkedin }}</span>
     <span>GitHub: {{ contact.github }}</span>

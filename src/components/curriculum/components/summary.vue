@@ -2,8 +2,10 @@
 import type { Curriculum } from '@/types'
 import List from '@/ui/list.vue'
 import Title from './title.vue'
+import { inject } from 'vue'
+import { CurriculumConst } from '@/constants/curriculum'
 
-const { summary } = defineProps<{ summary: Curriculum['Summary'] }>()
+const summary = inject<Curriculum>('curriculum', CurriculumConst).Summary
 </script>
 
 <template>

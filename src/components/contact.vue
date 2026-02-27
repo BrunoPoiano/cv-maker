@@ -2,13 +2,15 @@
 import type { Curriculum } from '@/types'
 import Modal from '../ui/modal.vue'
 import Input from '../ui/input.vue'
-const { curriculum } = defineProps<{ curriculum: Curriculum }>()
+import { inject } from 'vue'
+import { CurriculumConst } from '@/constants/curriculum'
+const curriculum = inject<Curriculum>('curriculum', CurriculumConst)
 </script>
 
 <template>
-  <Modal buttonLabel="Contact" closeLabel="close">
+  <Modal buttonLabel="Contact" closeLabel="close" minWidth="40rem" v-if="curriculum">
     <template #header>
-      <h2>Contact</h2>
+      <h3>Contact</h3>
     </template>
     <form>
       <Input label="email" type="email" placeholder="email" v-model="curriculum.Contact.email" />

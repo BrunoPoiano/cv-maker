@@ -19,10 +19,22 @@ const props = defineProps<Props>()
 
 <style scoped>
 button {
-  padding: 0.4rem 0.8rem;
-  background: white;
+  --bg: light-dark(#f4f4f4e3, #333b3c);
+
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+
+  padding: 0.2rem 0.4rem;
+
+  border: 1px solid #00000036;
   border-radius: 8px;
   min-width: 5ch;
-  cursor: pointer;
+
+  background: var(--bg);
+  color: lch(from var(--bg) calc((49.44 - l) * infinity) 0 0);
+
+  &:hover {
+    background: hsl(from var(--bg) h s calc(l - 10%));
+  }
 }
 </style>

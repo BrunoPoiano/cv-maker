@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import type { Curriculum } from '@/types'
 import Modal from '../ui/modal.vue'
 import Input from '../ui/input.vue'
-const { curriculum } = defineProps<{ curriculum: Curriculum }>()
+import { inject } from 'vue'
+import type { Curriculum } from '@/types'
+import { CurriculumConst } from '@/constants/curriculum'
+
+const curriculum = inject<Curriculum>('curriculum', CurriculumConst)
 </script>
 
 <template>
-  <Modal buttonLabel="Header" closeLabel="close">
+  <Modal buttonLabel="Header" closeLabel="close" minWidth="30rem">
     <template #header>
-      <h2>CV Header</h2>
+      <h3>CV Header</h3>
     </template>
     <form>
       <Input
