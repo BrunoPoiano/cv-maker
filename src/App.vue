@@ -3,6 +3,7 @@ import { reactive, provide, type InjectionKey } from 'vue'
 import Header from './components/header.vue'
 import Contact from './components/contact.vue'
 import Sumarry from './components/sumarry.vue'
+import CoreSkills from './components/coreSkills.vue'
 import Button from '@/ui/button.vue'
 
 import type { Curriculum } from './types'
@@ -35,7 +36,7 @@ function savePDF() {
 		<div>
 			<Header />
 			<Contact />
-			<Sumarry />
+			<Sumarry /><CoreSkills />
 		</div>
 		<div>
 			<Button @click="saveData" label="save" />

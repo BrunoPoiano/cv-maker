@@ -4,6 +4,13 @@ function isString(value: unknown): value is string {
 	return typeof value === 'string'
 }
 
+export function isOneOf<T extends string>(
+	value: T,
+	array: T[] | readonly T[]
+): value is T {
+	return array.includes(value as T)
+}
+
 export function isNumber(value: unknown): value is number {
 	return typeof value === 'number'
 }

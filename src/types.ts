@@ -1,13 +1,15 @@
-const skillList = [
+export const skillList = [
 	'Languages',
-	'APIs',
-	'Databases',
 	'Frontend',
+	'Backend',
+	'Databases',
+	'APIs',
 	'Containers_DevOps',
-	'Practices'
+	'Practices',
+	'HTTP_Integrations'
 ] as const
 
-type Skills = (typeof skillList)[number]
+export type Skills = Lowercase<(typeof skillList)[number]>
 
 type Email = `${string}@${string}`
 type Linkedin = `linkedin.com/in/${string}`
@@ -19,7 +21,7 @@ type Contact = {
 	github: GitHub
 }
 
-export type CoreSkills = Record<Lowercase<Skills>, Array<String>>
+export type CoreSkills = Partial<Record<Skills, Array<String>>>
 
 type Experience = {
 	Label: string

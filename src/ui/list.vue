@@ -22,11 +22,13 @@ const { genericList, coreSkills } = defineProps<Props>()
 			</li>
 		</template>
 		<template v-if="coreSkills">
-			<li v-for="(skills, core) in coreSkills">
-				<span class="core">{{ core.replace('_', ' & ') }}: </span>
-				<span>
-					{{ skills.join(', ') }}
-				</span>
+			<li v-for="(skill, core) in coreSkills">
+				<div v-if="skill">
+					<span class="core">{{ core.replace('_', ' & ') }}: </span>
+					<span>
+						{{ skill.join(', ') }}
+					</span>
+				</div>
 			</li>
 		</template>
 	</ul>
@@ -41,6 +43,10 @@ ul {
 		font-weight: var(--font-weight);
 		margin-bottom: 5px;
 		color: var(--light-text-color);
+
+		.core {
+			text-transform: capitalize;
+		}
 	}
 }
 </style>

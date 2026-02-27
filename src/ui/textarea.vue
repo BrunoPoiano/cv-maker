@@ -4,6 +4,7 @@ import { generateKey } from '@/helpers/generateKey'
 type Props = {
 	modelValue: string
 	label?: string
+	minHeight?: string
 	id?: string
 }
 
@@ -30,6 +31,7 @@ function onInput(event: InputEvent) {
 	<div class="content">
 		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
 		<textarea
+			:style="props.minHeight ? `min-height:${props.minHeight}` : ''"
 			v-bind="$attrs"
 			:id="id ?? key"
 			:value="props.modelValue"
