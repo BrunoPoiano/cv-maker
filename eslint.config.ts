@@ -25,5 +25,12 @@ export default defineConfigWithVueTs(
 
 	...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
 
+	{
+		name: 'app/no-unused-imports',
+		rules: {
+			'no-unused-imports': 'error'
+		}
+	},
+
 	skipFormatting
 )

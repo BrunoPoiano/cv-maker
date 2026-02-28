@@ -1,31 +1,49 @@
 <script setup lang="ts">
-import type { CoreSkills } from '@/types'
+import type { Skills, FontSize } from '@/types'
 
 type Props =
 	| {
 			genericList: Array<string>
-			coreSkills?: CoreSkills
+			coreSkills?: Skills
+			boldMatches?: (v: string) => string
+			fontSize?: FontSize
 	  }
 	| {
 			genericList?: Array<string>
-			coreSkills: CoreSkills
+			coreSkills: Skills
+			boldMatches?: (v: string) => string
+			fontSize?: FontSize
 	  }
 
-const { genericList, coreSkills } = defineProps<Props>()
+const { genericList, coreSkills, boldMatches, fontSize } = defineProps<Props>()
 </script>
 
 <template>
 	<ul>
 		<template v-if="genericList">
 			<li v-for="item in genericList">
-				{{ item }}
+				<span
+					:style="`font-size: var(${fontSize})`"
+					v-if="boldMatches"
+					v-html="boldMatches(item)"
+				/>
+				<span :style="`font-size: var(${fontSize})`" v-else>
+					{{ item }}
+				</span>
 			</li>
 		</template>
 		<template v-if="coreSkills">
 			<li v-for="(skill, core) in coreSkills">
 				<div v-if="skill">
-					<span class="core">{{ core.replace('_', ' & ') }}: </span>
-					<span>
+					<span :style="`font-size: var(${fontSize})`" class="core"
+						>{{ core.replace('_', ' & ') }}:
+					</span>
+					<span
+						:style="`font-size: var(${fontSize})`"
+						v-if="boldMatches"
+						v-html="boldMatches(skill.join(', '))"
+					/>
+					<span :style="`font-size: var(${fontSize})`" v-else>
 						{{ skill.join(', ') }}
 					</span>
 				</div>

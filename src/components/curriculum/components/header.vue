@@ -8,8 +8,12 @@ const header = inject<Curriculum>(CurriculumKey, CurriculumConst).Header
 
 <template>
 	<div class="header">
-		<h1>{{ header.UserName }}</h1>
-		<span class="label">{{ header.Label }}</span>
+		<h1 :style="`font-size: var(${header.UserName.size})`">
+			{{ header.UserName.value }}
+		</h1>
+		<span :style="`font-size: var(${header.Label.size})`" class="label">{{
+			header.Label.value
+		}}</span>
 	</div>
 </template>
 
@@ -18,7 +22,7 @@ const header = inject<Curriculum>(CurriculumKey, CurriculumConst).Header
 	h1 {
 		padding: 0;
 		margin: 0;
-		font-size: 46px;
+		font-size: var(--font-size-xxxl);
 		color: #000000;
 		text-transform: uppercase;
 		letter-spacing: 0.03em;
@@ -26,7 +30,7 @@ const header = inject<Curriculum>(CurriculumKey, CurriculumConst).Header
 	}
 
 	.label {
-		font-size: 26px;
+		font-size: var(--font-size-lg);
 		color: var(--light-text-color);
 		text-transform: uppercase;
 		letter-spacing: 0.099em;

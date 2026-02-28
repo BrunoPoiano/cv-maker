@@ -9,9 +9,15 @@ const contact = inject<Curriculum>(CurriculumKey, CurriculumConst).Contact
 
 <template>
 	<div class="contact" v-if="contact">
-		<span>Email: {{ contact.email }}</span>
-		<span>Linkedin: {{ contact.linkedin }}</span>
-		<span>GitHub: {{ contact.github }}</span>
+		<span :style="`font-size: var(${contact.size})`"
+			>Email: {{ contact.email }}</span
+		>
+		<span :style="`font-size: var(${contact.size})`"
+			>Linkedin: {{ contact.linkedin }}</span
+		>
+		<span :style="`font-size: var(${contact.size})`"
+			>GitHub: {{ contact.github }}</span
+		>
 	</div>
 </template>
 
@@ -21,7 +27,7 @@ const contact = inject<Curriculum>(CurriculumKey, CurriculumConst).Contact
 	gap: 0.2cm;
 	span {
 		color: var(--light-text-color);
-		font-size: 12px;
+		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight);
 	}
 }

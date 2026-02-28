@@ -5,18 +5,24 @@ import Paragraph from '@/ui/paragraph.vue'
 import Title from './title.vue'
 import { computed, inject } from 'vue'
 import { CurriculumConst } from '@/constants/curriculum'
-import { CurriculumKey } from '@/main'
+import { BolderKey, CurriculumKey } from '@/main'
 
 const curriculum = inject<Curriculum>(CurriculumKey, CurriculumConst)!
-const summary = computed(() => curriculum.Summary)
+const summary = computed(() => curriculum.Summary.value)
+const fontsize = computed(() => curriculum.Summary.size)
+
+const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
 </script>
 
 <template>
 	<Title>SUMMARY</Title>
 	<div class="summary">
-		<List :genericList="summary" v-if="Array.isArray(summary)" />
-		<Paragraph v-else>
-			{{ summary }}
-		</Paragraph>
+		<List
+			v-if="Array.isArray(summary)"
+			:fontSize="fontsize"
+			:genericList="summary"
+			:boldMatches="boldMatches"
+		/>
+		<Paragraph v-else :fontSize="fontsize" v-html="boldMatches(summary)" />
 	</div>
 </template>

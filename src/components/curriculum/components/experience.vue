@@ -6,6 +6,8 @@ import Title from './title.vue'
 import { inject } from 'vue'
 import { CurriculumConst } from '@/constants/curriculum'
 import { CurriculumKey } from '@/main'
+
+const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
 const experience = inject<Curriculum>(CurriculumKey, CurriculumConst).Experience
 
 function fixDate(date: unknown) {
@@ -33,8 +35,9 @@ function fixDate(date: unknown) {
 			<List
 				:genericList="job.Description"
 				v-if="Array.isArray(job.Description)"
+				:boldMatches="boldMatches"
 			/>
-			<Paragraph v-else>{{ job.Description }}</Paragraph>
+			<Paragraph v-else v-html="boldMatches(job.Description)" />
 		</div>
 	</div>
 </template>

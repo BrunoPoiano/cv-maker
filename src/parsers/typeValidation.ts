@@ -11,6 +11,17 @@ export function isOneOf<T extends string>(
 	return array.includes(value as T)
 }
 
+export function isOneOforDefault<T extends string>(
+	value: unknown | string,
+	array: T[] | readonly T[],
+	defaultValue: T
+): T {
+	if (typeof value === 'string') {
+		return isOneOf(value, array) ? (value as T) : defaultValue
+	}
+	return defaultValue
+}
+
 export function isNumber(value: unknown): value is number {
 	return typeof value === 'number'
 }

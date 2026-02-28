@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Modal from '../ui/modal.vue'
-import Input from '../ui/input.vue'
+import Select from '../ui/select.vue'
 import { computed, inject, ref } from 'vue'
 import type { Curriculum } from '@/types'
 import { CurriculumConst } from '@/constants/curriculum'
@@ -8,18 +8,19 @@ import Textarea from '@/ui/textarea.vue'
 import Button from '@/ui/button.vue'
 import Toggle from '@/ui/toggle.vue'
 import { CurriculumKey } from '@/main'
+import { fontSizeSelect } from '@/constants/font-size'
 
 const curriculum = inject<Curriculum>(CurriculumKey)!
 
 const summary = ref(
-	Array.isArray(curriculum?.Summary)
-		? curriculum.Summary.join('\n')
-		: curriculum?.Summary
+	Array.isArray(curriculum?.Summary.value)
+		? curriculum.Summary.value.join('\n')
+		: curriculum?.Summary.value
 )
 
 const list = computed<boolean>({
 	get() {
-		return Array.isArray(curriculum.Summary)
+		return Array.isArray(curriculum.Summary.value)
 	},
 	set(value: boolean) {
 		saveSummary(value)
@@ -27,7 +28,7 @@ const list = computed<boolean>({
 })
 
 function saveSummary(list: boolean) {
-	curriculum.Summary = list ? summary.value.split('\n') : summary.value
+	curriculum.Summary.value = list ? summary.value.split('\n') : summary.value
 }
 </script>
 
@@ -45,6 +46,11 @@ function saveSummary(list: boolean) {
 			</div>
 		</template>
 		<form>
+			<Select
+				label="size"
+				:items="fontSizeSelect"
+				v-model="curriculum.Summary.size"
+			/>
 			<Textarea
 				placeholder="User Name"
 				v-model="summary"

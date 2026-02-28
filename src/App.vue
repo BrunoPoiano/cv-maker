@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { reactive, provide, type InjectionKey } from 'vue'
+import { reactive, provide, type InjectionKey, computed } from 'vue'
 import Header from './components/header.vue'
 import Contact from './components/contact.vue'
 import Sumarry from './components/sumarry.vue'
+import Bolder from './components/bolder.vue'
 import CoreSkills from './components/coreSkills.vue'
 import Button from '@/ui/button.vue'
 
@@ -14,12 +15,17 @@ import {
 } from './helpers/localstorage'
 import { parseCurriculum } from './parsers/curriculum'
 import { CurriculumConst } from './constants/curriculum'
-import { CurriculumKey } from './main'
+import { BolderKey, CurriculumKey } from './main'
+import { parseBolder } from './parsers/bolder'
 
-const curriculum = reactive<Curriculum>(
+const curriculum = reactive(
 	getDataFromLocalStorage('curriculum', parseCurriculum, CurriculumConst)
 )
+
+const bolder = reactive(getDataFromLocalStorage('bolder', parseBolder, []))
+
 provide(CurriculumKey, curriculum)
+provide(BolderKey, bolder)
 
 function saveData() {
 	saveDataToLocalStorage('curriculum', curriculum)
@@ -36,7 +42,9 @@ function savePDF() {
 		<div>
 			<Header />
 			<Contact />
-			<Sumarry /><CoreSkills />
+			<Sumarry />
+			<CoreSkills />
+			<Bolder />
 		</div>
 		<div>
 			<Button @click="saveData" label="save" />

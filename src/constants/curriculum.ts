@@ -2,22 +2,35 @@ import type { Curriculum } from '@/types'
 
 export const CurriculumConst: Curriculum = {
 	Header: {
-		UserName: '',
-		Label: ''
+		UserName: {
+			value: '',
+			size: '--font-size-xl'
+		},
+		Label: {
+			value: '',
+			size: '--font-size-lg'
+		}
 	},
 	Contact: {
+		size: '--font-size-sm',
 		email: 'email@email',
 		linkedin: 'linkedin.com/in/',
 		github: 'github.com/'
 	},
-	Summary: [],
+	Summary: {
+		value: [],
+		size: '--font-size-md'
+	},
 	CoreSkills: {
-		languages: [],
-		apis: [],
-		databases: [],
-		frontend: [],
-		containers_devops: [],
-		practices: []
+		skills: {
+			languages: [],
+			apis: [],
+			databases: [],
+			frontend: [],
+			containers_devops: [],
+			practices: []
+		},
+		size: '--font-size-md'
 	},
 	Experience: []
 }

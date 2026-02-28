@@ -2,9 +2,11 @@
 import type { Curriculum } from '@/types'
 import Modal from '../ui/modal.vue'
 import Input from '../ui/input.vue'
+import Select from '../ui/select.vue'
 import { inject } from 'vue'
 import { CurriculumConst } from '@/constants/curriculum'
 import { CurriculumKey } from '@/main'
+import { fontSizeSelect } from '@/constants/font-size'
 const curriculum = inject<Curriculum>(CurriculumKey)
 </script>
 
@@ -19,6 +21,11 @@ const curriculum = inject<Curriculum>(CurriculumKey)
 			<h4>Contact</h4>
 		</template>
 		<form>
+			<Select
+				label="size"
+				:items="fontSizeSelect"
+				v-model="curriculum.Contact.size"
+			/>
 			<Input
 				label="email"
 				type="email"

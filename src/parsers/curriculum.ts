@@ -2,45 +2,46 @@ import type { Curriculum } from '@/types'
 import {
 	isExtendedStringOrDefault,
 	isObject,
+	isOneOf,
+	isOneOforDefault,
 	isStringOrDefault
 } from './typeValidation'
+import { CurriculumConst } from '@/constants/curriculum'
+import { fontSize } from '@/constants/font-size'
 
 export function parseCurriculum(value: unknown) {
-	const cv: Curriculum = {
-		Header: {
-			UserName: '',
-			Label: ''
-		},
-		Contact: {
-			email: 'email@email',
-			linkedin: 'linkedin.com/in/',
-			github: 'github.com/'
-		},
-		Summary: '',
-		CoreSkills: {
-			languages: [],
-			apis: [],
-			databases: [],
-			frontend: [],
-			containers_devops: [],
-			practices: []
-		},
-		Experience: []
-	}
+	const cv = CurriculumConst
 
 	if (!isObject(value)) {
 		return cv
 	}
 
 	if (isObject(value.Header)) {
-		cv.Header = {
-			UserName: isStringOrDefault(value.Header.UserName, ''),
-			Label: isStringOrDefault(value.Header.Label, '')
+		if (isObject(value.Header.UserName)) {
+			cv.Header.UserName = {
+				value: isStringOrDefault(value.Header.UserName.value, ''),
+				size: isOneOforDefault(
+					value.Header.UserName.size,
+					fontSize,
+					'--font-size-xl'
+				)
+			}
+			if (isObject(value.Header.Label)) {
+				cv.Header.Label = {
+					value: isStringOrDefault(value.Header.Label.value, ''),
+					size: isOneOforDefault(
+						value.Header.Label.size,
+						fontSize,
+						'--font-size-xl'
+					)
+				}
+			}
 		}
 	}
 
 	if (isObject(value.Contact)) {
 		cv.Contact = {
+			size: isOneOforDefault(value.Contact.size, fontSize, '--font-size-sm'),
 			email: isExtendedStringOrDefault(value.Contact.email, 'email@email'),
 			linkedin: isExtendedStringOrDefault(
 				value.Contact.linkedin,
@@ -51,66 +52,82 @@ export function parseCurriculum(value: unknown) {
 	}
 
 	if (isObject(value.CoreSkills)) {
-		if (Array.isArray(value.CoreSkills.languages)) {
-			cv.CoreSkills.languages = value.CoreSkills.languages.reduce(
-				(acc, item) => {
-					acc.push(isStringOrDefault(item, undefined))
-					return acc
-				},
-				[]
-			)
-		}
+		cv.CoreSkills.size = isOneOforDefault(
+			value.CoreSkills.size,
+			fontSize,
+			'--font-size-md'
+		)
 
-		if (Array.isArray(value.CoreSkills.apis)) {
-			cv.CoreSkills.apis = value.CoreSkills.apis.reduce((acc, item) => {
-				acc.push(isStringOrDefault(item, undefined))
-				return acc
-			}, [])
-		}
+		if (isObject(value.CoreSkills.skills)) {
+			if (Array.isArray(value.CoreSkills.skills.languages)) {
+				cv.CoreSkills.skills.languages =
+					value.CoreSkills.skills.languages.reduce((acc, item) => {
+						acc.push(isStringOrDefault(item, undefined))
+						return acc
+					}, [])
+			}
 
-		if (Array.isArray(value.CoreSkills.databases)) {
-			cv.CoreSkills.databases = value.CoreSkills.databases.reduce(
-				(acc, item) => {
-					acc.push(isStringOrDefault(item, undefined))
-					return acc
-				},
-				[]
-			)
-		}
+			if (Array.isArray(value.CoreSkills.skills.apis)) {
+				cv.CoreSkills.skills.apis = value.CoreSkills.skills.apis.reduce(
+					(acc, item) => {
+						acc.push(isStringOrDefault(item, undefined))
+						return acc
+					},
+					[]
+				)
+			}
 
-		if (Array.isArray(value.CoreSkills.frontend)) {
-			cv.CoreSkills.frontend = value.CoreSkills.frontend.reduce((acc, item) => {
-				acc.push(isStringOrDefault(item, undefined))
-				return acc
-			}, [])
-		}
+			if (Array.isArray(value.CoreSkills.skills.databases)) {
+				cv.CoreSkills.skills.databases =
+					value.CoreSkills.skills.databases.reduce((acc, item) => {
+						acc.push(isStringOrDefault(item, undefined))
+						return acc
+					}, [])
+			}
 
-		if (Array.isArray(value.CoreSkills.containers_devops)) {
-			cv.CoreSkills.containers_devops =
-				value.CoreSkills.containers_devops.reduce((acc, item) => {
-					acc.push(isStringOrDefault(item, undefined))
-					return acc
-				}, [])
-		}
+			if (Array.isArray(value.CoreSkills.skills.frontend)) {
+				cv.CoreSkills.skills.frontend = value.CoreSkills.skills.frontend.reduce(
+					(acc, item) => {
+						acc.push(isStringOrDefault(item, undefined))
+						return acc
+					},
+					[]
+				)
+			}
 
-		if (Array.isArray(value.CoreSkills.practices)) {
-			cv.CoreSkills.practices = value.CoreSkills.practices.reduce(
-				(acc, item) => {
-					acc.push(isStringOrDefault(item, undefined))
-					return acc
-				},
-				[]
-			)
+			if (Array.isArray(value.CoreSkills.skills.containers_devops)) {
+				cv.CoreSkills.skills.containers_devops =
+					value.CoreSkills.skills.containers_devops.reduce((acc, item) => {
+						acc.push(isStringOrDefault(item, undefined))
+						return acc
+					}, [])
+			}
+
+			if (Array.isArray(value.CoreSkills.skills.practices)) {
+				cv.CoreSkills.skills.practices =
+					value.CoreSkills.skills.practices.reduce((acc, item) => {
+						acc.push(isStringOrDefault(item, undefined))
+						return acc
+					}, [])
+			}
 		}
 	}
 
-	if (Array.isArray(value.Summary)) {
-		cv.Summary = value.Summary.reduce((acc, item) => {
-			acc.push(isStringOrDefault(item, undefined))
-			return acc
-		}, [])
-	} else {
-		cv.Summary = isStringOrDefault(value.Summary, '')
+	if (isObject(value.Summary)) {
+		cv.Summary.size = isOneOforDefault(
+			value.Summary.size,
+			fontSize,
+			'--font-size-md'
+		)
+
+		if (Array.isArray(value.Summary.value)) {
+			cv.Summary.value = value.Summary.value.reduce((acc, item) => {
+				acc.push(isStringOrDefault(item, undefined))
+				return acc
+			}, [])
+		} else {
+			cv.Summary.value = isStringOrDefault(value.Summary.value, '')
+		}
 	}
 
 	if (Array.isArray(value.Experience)) {

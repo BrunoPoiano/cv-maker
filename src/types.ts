@@ -1,27 +1,22 @@
-export const skillList = [
-	'Languages',
-	'Frontend',
-	'Backend',
-	'Databases',
-	'APIs',
-	'Containers_DevOps',
-	'Practices',
-	'HTTP_Integrations'
-] as const
+import type { Reactive } from 'vue'
+import type { skillList } from './constants/skillList'
+import type { fontSize } from './constants/font-size'
 
-export type Skills = Lowercase<(typeof skillList)[number]>
+export type FontSize = (typeof fontSize)[number]
+export type SkillsList = Lowercase<(typeof skillList)[number]>
+export type Skills = Partial<Record<SkillsList, Array<string>>>
+export type SelectItem = Array<{ value: string; label: string }>
 
 type Email = `${string}@${string}`
 type Linkedin = `linkedin.com/in/${string}`
 type GitHub = `github.com/${string}`
 
 type Contact = {
+	size: FontSize
 	email: Email
 	linkedin: Linkedin
 	github: GitHub
 }
-
-export type CoreSkills = Partial<Record<Skills, Array<String>>>
 
 type Experience = {
 	Label: string
@@ -31,13 +26,31 @@ type Experience = {
 	Description: Array<string> | string
 }
 
-export type Curriculum = {
-	Header: {
-		UserName: string
-		Label: string
+type Header = {
+	UserName: {
+		value: string
+		size: FontSize
 	}
+	Label: {
+		value: string
+		size: FontSize
+	}
+}
+
+type Sumarry = {
+	value: Array<string> | string
+	size: FontSize
+}
+
+type CoreSkills = {
+	skills: Skills
+	size: FontSize
+}
+
+export type Curriculum = {
+	Header: Header
 	Contact: Contact
-	Summary: Array<string> | string
+	Summary: Sumarry
 	CoreSkills: CoreSkills
 	Experience: Array<Experience>
 }

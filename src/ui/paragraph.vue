@@ -1,5 +1,15 @@
+<script setup lang="ts">
+import type { Skills, FontSize } from '@/types'
+
+type Props = {
+	fontSize?: FontSize
+}
+
+const { fontSize } = defineProps<Props>()
+</script>
+
 <template>
-	<p><slot /></p>
+	<p :style="`font-size: var(${fontSize})`"><slot /></p>
 </template>
 
 <style scoped>
