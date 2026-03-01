@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { CurriculumConst } from '@/constants/curriculum'
+import { BolderKey, CurriculumKey } from '@/main'
 import type { Curriculum } from '@/types'
 import List from '@/ui/list.vue'
 import Paragraph from '@/ui/paragraph.vue'
-import Title from './title.vue'
 import { computed, inject } from 'vue'
-import { CurriculumConst } from '@/constants/curriculum'
-import { BolderKey, CurriculumKey } from '@/main'
+import Title from './title.vue'
 
 const curriculum = inject<Curriculum>(CurriculumKey, CurriculumConst)!
 const summary = computed(() => curriculum.Summary.value)

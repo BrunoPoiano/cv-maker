@@ -1,13 +1,12 @@
+import { CurriculumConst } from '@/constants/curriculum'
+import { fontSize } from '@/constants/font-size'
 import type { Curriculum } from '@/types'
 import {
 	isExtendedStringOrDefault,
 	isObject,
-	isOneOf,
 	isOneOforDefault,
 	isStringOrDefault
 } from './typeValidation'
-import { CurriculumConst } from '@/constants/curriculum'
-import { fontSize } from '@/constants/font-size'
 
 export function parseCurriculum(value: unknown) {
 	const cv = CurriculumConst
@@ -39,15 +38,23 @@ export function parseCurriculum(value: unknown) {
 		}
 	}
 
-	if (isObject(value.Contact)) {
+	if (isObject(value.Contact) && isObject(value.Contact.value)) {
 		cv.Contact = {
 			size: isOneOforDefault(value.Contact.size, fontSize, '--font-size-sm'),
-			email: isExtendedStringOrDefault(value.Contact.email, 'email@email'),
-			linkedin: isExtendedStringOrDefault(
-				value.Contact.linkedin,
-				'linkedin.com/in/'
-			),
-			github: isExtendedStringOrDefault(value.Contact.github, 'github.com/')
+			value: {
+				email: isExtendedStringOrDefault(
+					value.Contact.value.email,
+					'email@email'
+				),
+				linkedin: isExtendedStringOrDefault(
+					value.Contact.value.linkedin,
+					'linkedin.com/in/'
+				),
+				github: isExtendedStringOrDefault(
+					value.Contact.value.github,
+					'github.com/'
+				)
+			}
 		}
 	}
 

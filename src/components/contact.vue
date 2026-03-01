@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { Curriculum } from '@/types'
-import Modal from '../ui/modal.vue'
-import Input from '../ui/input.vue'
-import Select from '../ui/select.vue'
-import { inject } from 'vue'
 import { CurriculumConst } from '@/constants/curriculum'
-import { CurriculumKey } from '@/main'
 import { fontSizeSelect } from '@/constants/font-size'
+import { CurriculumKey } from '@/main'
+import type { Curriculum } from '@/types'
+import { inject } from 'vue'
+import Input from '../ui/input.vue'
+import Modal from '../ui/modal.vue'
+import Select from '../ui/select.vue'
 const curriculum = inject<Curriculum>(CurriculumKey)
 </script>
 
@@ -30,19 +30,19 @@ const curriculum = inject<Curriculum>(CurriculumKey)
 				label="email"
 				type="email"
 				placeholder="email"
-				v-model="curriculum.Contact.email"
+				v-model="curriculum.Contact.value.email"
 			/>
 			<Input
 				type="text"
 				label="linkedin"
 				placeholder="linkedin"
-				v-model="curriculum.Contact.linkedin"
+				v-model="curriculum.Contact.value.linkedin"
 			/>
 			<Input
 				type="text"
 				label="github"
 				placeholder="github"
-				v-model="curriculum.Contact.github"
+				v-model="curriculum.Contact.value.github"
 			/>
 		</form>
 	</Modal>

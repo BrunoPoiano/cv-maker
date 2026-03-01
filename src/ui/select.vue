@@ -6,27 +6,19 @@ defineOptions({
 	inheritAttrs: false
 })
 type Props = {
-	modelValue: string
 	items: SelectItem
 	id?: string
 	label?: string
 }
 const props = defineProps<Props>()
 const key = generateKey(5)
-
-const emit = defineEmits<{
-	(e: 'update:modelValue', value: string | number | null): void
-}>()
-function onInput(event: Event) {
-	const target = event.target as HTMLInputElement
-	emit('update:modelValue', target.value)
-}
+const model = defineModel()
 </script>
 
 <template>
 	<div class="content">
 		<label :for="id ?? key">{{ props.label }}</label>
-		<select v-bind="$attrs" :value="props.modelValue" @input="onInput">
+		<select v-bind="$attrs" v-model="model">
 			<option v-for="item in items" :value="item.value">
 				{{ item.label }}
 			</option>
@@ -38,6 +30,7 @@ function onInput(event: Event) {
 .content {
 	display: grid;
 	gap: 0.5rem;
+
 	label {
 		text-transform: capitalize;
 	}

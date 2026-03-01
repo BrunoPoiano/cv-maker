@@ -1,11 +1,11 @@
-import { globalIgnores } from 'eslint/config'
 import {
 	defineConfigWithVueTs,
 	vueTsConfigs
 } from '@vue/eslint-config-typescript'
-import pluginVue from 'eslint-plugin-vue'
-import pluginOxlint from 'eslint-plugin-oxlint'
 import skipFormatting from 'eslint-config-prettier/flat'
+import pluginOxlint from 'eslint-plugin-oxlint'
+import pluginVue from 'eslint-plugin-vue'
+import { globalIgnores } from 'eslint/config'
 
 // To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
 // import { configureVueProject } from '@vue/eslint-config-typescript'
@@ -28,7 +28,8 @@ export default defineConfigWithVueTs(
 	{
 		name: 'app/no-unused-imports',
 		rules: {
-			'no-unused-imports': 'error'
+			'no-unused-vars': 'error',
+			'unused-imports/no-unused-imports': 'error'
 		}
 	},
 

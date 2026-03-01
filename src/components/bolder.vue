@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import Modal from '../ui/modal.vue'
-import Input from '../ui/input.vue'
-import { computed, inject, ref } from 'vue'
-import type { Curriculum } from '@/types'
 import { CurriculumConst } from '@/constants/curriculum'
-import Textarea from '@/ui/textarea.vue'
-import Button from '@/ui/button.vue'
-import Toggle from '@/ui/toggle.vue'
-import { BolderKey } from '@/main'
 import { saveDataToLocalStorage } from '@/helpers/localstorage'
+import { BolderKey } from '@/main'
+import type { Curriculum } from '@/types'
+import Button from '@/ui/button.vue'
+import Textarea from '@/ui/textarea.vue'
+import Toggle from '@/ui/toggle.vue'
+import { computed, inject, ref } from 'vue'
+import Input from '../ui/input.vue'
+import Modal from '../ui/modal.vue'
 
 const bolderValue = inject<string[]>(BolderKey)!
 
@@ -29,9 +29,7 @@ const bolder = computed<string>({
 <template>
 	<Modal buttonLabel="Bolder Words" closeLabel="close" minWidth="40rem">
 		<template #header>
-			<div class="header">
-				<h4>Bolder Words</h4>
-			</div>
+			<h4>Bolder Words</h4>
 		</template>
 		<form>
 			<Textarea placeholder="User Name" v-model="bolder" />
@@ -40,12 +38,6 @@ const bolder = computed<string>({
 </template>
 
 <style scoped>
-.header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
 form {
 	display: grid;
 	gap: 1rem;

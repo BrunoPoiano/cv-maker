@@ -1,28 +1,20 @@
 <script setup lang="ts">
 import { generateKey } from '@/helpers/generateKey'
+import type { InputTypeHTMLAttribute } from 'vue'
 
 type Props = {
-	modelValue: string | number | null
 	label?: string
-	type?: string
+	type?: InputTypeHTMLAttribute
 	id?: string
 }
 
+const model = defineModel()
 const props = defineProps<Props>()
 const key = generateKey(5)
 
 defineOptions({
 	inheritAttrs: false
 })
-
-const emit = defineEmits<{
-	(e: 'update:modelValue', value: string | number | null): void
-}>()
-
-function onInput(event: Event) {
-	const target = event.target as HTMLInputElement
-	emit('update:modelValue', target.value)
-}
 </script>
 
 <template>
@@ -32,8 +24,7 @@ function onInput(event: Event) {
 			v-bind="$attrs"
 			:id="id ?? key"
 			:type="props.type ?? 'text'"
-			:value="props.modelValue"
-			@input="onInput"
+			v-model="model"
 		/>
 	</div>
 </template>
@@ -42,6 +33,7 @@ function onInput(event: Event) {
 .content {
 	display: grid;
 	gap: 0.5rem;
+
 	label {
 		text-transform: capitalize;
 	}

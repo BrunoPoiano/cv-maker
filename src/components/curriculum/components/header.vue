@@ -27,6 +27,7 @@ const header = inject<Curriculum>(CurriculumKey, CurriculumConst).Header
 		text-transform: uppercase;
 		letter-spacing: 0.03em;
 		font-weight: var(--font-weight);
+		line-height: 1.3;
 	}
 
 	.label {
@@ -35,6 +36,7 @@ const header = inject<Curriculum>(CurriculumKey, CurriculumConst).Header
 		text-transform: uppercase;
 		letter-spacing: 0.099em;
 		font-weight: var(--font-weight);
+		line-height: 1.2;
 	}
 }
 </style>

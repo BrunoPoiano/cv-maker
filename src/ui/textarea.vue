@@ -2,7 +2,6 @@
 import { generateKey } from '@/helpers/generateKey'
 
 type Props = {
-	modelValue: string
 	label?: string
 	minHeight?: string
 	id?: string
@@ -10,21 +9,11 @@ type Props = {
 
 const props = defineProps<Props>()
 const key = generateKey(5)
+const model = defineModel<string>()
 
 defineOptions({
 	inheritAttrs: false
 })
-
-const emit = defineEmits<{
-	(e: 'update:modelValue', value: string | number | null): void
-}>()
-
-function onInput(event: InputEvent) {
-	const target = event.target as HTMLInputElement
-	if (event.target) {
-		emit('update:modelValue', target.value)
-	}
-}
 </script>
 
 <template>
@@ -34,8 +23,7 @@ function onInput(event: InputEvent) {
 			:style="props.minHeight ? `min-height:${props.minHeight}` : ''"
 			v-bind="$attrs"
 			:id="id ?? key"
-			:value="props.modelValue"
-			@input="onInput"
+			v-model="model"
 		/>
 	</div>
 </template>
@@ -44,6 +32,7 @@ function onInput(event: InputEvent) {
 .content {
 	display: grid;
 	gap: 0.5rem;
+
 	label {
 		text-transform: capitalize;
 	}

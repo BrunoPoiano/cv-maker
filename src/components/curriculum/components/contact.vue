@@ -9,22 +9,24 @@ const contact = inject<Curriculum>(CurriculumKey, CurriculumConst).Contact
 
 <template>
 	<div class="contact" v-if="contact">
-		<span :style="`font-size: var(${contact.size})`"
-			>Email: {{ contact.email }}</span
+		<span
+			v-for="(item, type) in contact.value"
+			:style="`font-size: var(${contact.size})`"
 		>
-		<span :style="`font-size: var(${contact.size})`"
-			>Linkedin: {{ contact.linkedin }}</span
-		>
-		<span :style="`font-size: var(${contact.size})`"
-			>GitHub: {{ contact.github }}</span
-		>
+			<span class="type"> {{ type }}: </span>
+			<span> {{ item }} </span>
+		</span>
 	</div>
 </template>
 
 <style scoped>
 .contact {
 	display: grid;
-	gap: 0.2cm;
+	gap: 0.4rem;
+
+	.type {
+		text-transform: capitalize;
+	}
 	span {
 		color: var(--light-text-color);
 		font-size: var(--font-size-sm);

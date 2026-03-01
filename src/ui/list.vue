@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Skills, FontSize } from '@/types'
+import type { FontSize, Skills } from '@/types'
 
 type Props =
 	| {
@@ -9,8 +9,8 @@ type Props =
 			fontSize?: FontSize
 	  }
 	| {
-			genericList?: Array<string>
 			coreSkills: Skills
+			genericList?: Array<string>
 			boldMatches?: (v: string) => string
 			fontSize?: FontSize
 	  }
@@ -55,11 +55,12 @@ const { genericList, coreSkills, boldMatches, fontSize } = defineProps<Props>()
 <style scoped>
 ul {
 	margin: 0;
-	padding-left: 15px;
+	padding-left: 1rem;
+	display: grid;
+	gap: 0.4rem;
 	li {
 		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight);
-		margin-bottom: 5px;
 		color: var(--light-text-color);
 
 		.core {

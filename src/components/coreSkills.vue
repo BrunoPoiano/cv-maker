@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import Modal from '../ui/modal.vue'
-import Input from '../ui/input.vue'
-import { computed, inject, ref } from 'vue'
-import { type Skills, type Curriculum, type SkillsList } from '@/types'
 import { CurriculumConst } from '@/constants/curriculum'
-import Textarea from '@/ui/textarea.vue'
-import Select from '@/ui/select.vue'
-import Toggle from '@/ui/toggle.vue'
+import { fontSizeSelect } from '@/constants/font-size'
+import { skillList } from '@/constants/skillList'
 import { CurriculumKey } from '@/main'
 import { isOneOf } from '@/parsers/typeValidation'
-import { skillList } from '@/constants/skillList'
-import { fontSizeSelect } from '@/constants/font-size'
+import { type Curriculum, type Skills, type SkillsList } from '@/types'
+import Modal from '@/ui/modal.vue'
+import Select from '@/ui/select.vue'
+import Textarea from '@/ui/textarea.vue'
+import Toggle from '@/ui/toggle.vue'
+import { computed, inject, ref } from 'vue'
+import Input from '../ui/input.vue'
 
 const curriculum = inject<Curriculum>(CurriculumKey)!
 

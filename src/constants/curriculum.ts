@@ -13,9 +13,11 @@ export const CurriculumConst: Curriculum = {
 	},
 	Contact: {
 		size: '--font-size-sm',
-		email: 'email@email',
-		linkedin: 'linkedin.com/in/',
-		github: 'github.com/'
+		value: {
+			email: 'email@email',
+			linkedin: 'linkedin.com/in/',
+			github: 'github.com/'
+		}
 	},
 	Summary: {
 		value: [],

@@ -1,6 +1,5 @@
-import type { Reactive } from 'vue'
-import type { skillList } from './constants/skillList'
 import type { fontSize } from './constants/font-size'
+import type { skillList } from './constants/skillList'
 
 export type FontSize = (typeof fontSize)[number]
 export type SkillsList = Lowercase<(typeof skillList)[number]>
@@ -13,9 +12,11 @@ type GitHub = `github.com/${string}`
 
 type Contact = {
 	size: FontSize
-	email: Email
-	linkedin: Linkedin
-	github: GitHub
+	value: {
+		email: Email
+		linkedin: Linkedin
+		github: GitHub
+	}
 }
 
 type Experience = {
