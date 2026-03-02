@@ -13,11 +13,8 @@ defineOptions({
 })
 
 const desc = ref(
-	Array.isArray(model.value)
-		? model.value.join('\n')
-		: model.value
+	Array.isArray(model.value) ? model.value.join('\n') : model.value
 )
-
 
 watch(
 	() => list,
@@ -31,8 +28,6 @@ function updateData(list: boolean) {
 		model.value = list ? desc.value.split('\n') : desc.value
 	}
 }
-
-
 </script>
 
 <template>

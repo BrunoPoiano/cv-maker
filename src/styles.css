@@ -20,7 +20,7 @@
 	--light-text-color: #65615f;
 	--font-weight: 400;
 	--background: light-dark(#f9f9f9, #000);
-	--input-background:light-dark(#fff, #1a1a1a);
+	--input-background: light-dark(#fff, #1a1a1a);
 
 	--font-family:
 		system-ui, -apple-system, blinkmacsystemfont, 'segoe ui', roboto, oxygen,
@@ -37,7 +37,7 @@ body {
 	padding: 1em;
 }
 
-body> :is(header, footer),
+body > :is(header, footer),
 section,
 main,
 article {

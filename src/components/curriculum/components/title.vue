@@ -11,6 +11,6 @@ h3 {
 	line-height: 1.2;
 	text-transform: uppercase;
 	margin: 0;
-	margin-bottom: calc((var(--_a4-gap) * 0.9) * -1);
+	margin-bottom: calc((var(--_a4-gap) * 0.6));
 }
 </style>

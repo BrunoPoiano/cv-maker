@@ -8,15 +8,17 @@ defineOptions({
 	inheritAttrs: false
 })
 
-
-const date = ref(
-	fixDate(model.value)
-)
-
+const date = ref(fixDate(model.value))
 
 function fixDate(date?: Date | null) {
 	if (date) {
-		return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0')
+		return (
+			date.getFullYear() +
+			'-' +
+			String(date.getMonth() + 1).padStart(2, '0') +
+			'-' +
+			String(date.getDate()).padStart(2, '0')
+		)
 	}
 	return null
 }
@@ -24,7 +26,6 @@ function fixDate(date?: Date | null) {
 function changeDate() {
 	model.value = date.value ? new Date(date.value) : null
 }
-
 </script>
 
 <template>

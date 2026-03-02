@@ -22,7 +22,7 @@ type Contact = {
 }
 
 export type Experience = {
-	id?:string,
+	id?: string
 	Role: string
 	CompanyName: string
 	StartDate: Date
@@ -57,7 +57,7 @@ export type Curriculum = {
 	Summary: Sumarry
 	CoreSkills: CoreSkills
 	Experience: {
-		size:{
+		size: {
 			title: FontSize
 			description: FontSize
 		}

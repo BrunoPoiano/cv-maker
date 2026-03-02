@@ -4,8 +4,7 @@ export function parseBolder(value: unknown): string[] {
 	if (!Array.isArray(value)) return []
 
 	return value.reduce((acc, item) => {
-
-		if(item === "") return acc
+		if (item === '') return acc
 
 		acc.push(isStringOrDefault(item, undefined))
 		return acc

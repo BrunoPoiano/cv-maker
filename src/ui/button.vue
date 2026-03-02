@@ -11,7 +11,7 @@ defineOptions({
 
 <template>
 	<button v-bind="$attrs" :type="props.type ?? 'button'">
-		<slot/>
+		<slot />
 	</button>
 </template>
 

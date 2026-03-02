@@ -3,7 +3,9 @@ import { CurriculumConst } from '@/constants/curriculum'
 import { ProviderKey } from '@/main'
 import type { Curriculum } from '@/types'
 import { inject } from 'vue'
-const { curriculum: { Header } } = inject(ProviderKey)!
+const {
+	curriculum: { Header }
+} = inject(ProviderKey)!
 </script>
 
 <template>

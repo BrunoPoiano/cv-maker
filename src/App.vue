@@ -25,11 +25,27 @@ import Select from './ui/select.vue'
 import { languagesSelect } from './constants/language'
 
 const curriculum = reactive(
-	getDataFromLocalStorage({ key: 'curriculum', parseFunction: parseCurriculum, initialValue: CurriculumConst })
+	getDataFromLocalStorage({
+		key: 'curriculum',
+		parseFunction: parseCurriculum,
+		initialValue: CurriculumConst
+	})
 )
 
-const bolder = reactive(getDataFromLocalStorage({ key: 'bolder', parseFunction: parseBolder, initialValue: [] }))
-const language = ref(getDataFromLocalStorage<Languages>({ key: 'language', parseFunction: parseLanguage, initialValue: "pt" }))
+const bolder = reactive(
+	getDataFromLocalStorage({
+		key: 'bolder',
+		parseFunction: parseBolder,
+		initialValue: []
+	})
+)
+const language = ref(
+	getDataFromLocalStorage<Languages>({
+		key: 'language',
+		parseFunction: parseLanguage,
+		initialValue: 'pt'
+	})
+)
 
 provide(ProviderKey, {
 	curriculum,
@@ -45,12 +61,29 @@ function saveLanguage() {
 }
 
 function savePDF() {
-	const originalTitle = document.title;
+	const originalTitle = document.title
 
-	document.title = `${curriculum.Header.UserName.value}-${curriculum.Header.Role.value}`.toLocaleLowerCase().replace(/\s+/g, '_');
-	window.print();
+	document.title =
+		`${curriculum.Header.UserName.value}-${curriculum.Header.Role.value}`
+			.toLocaleLowerCase()
+			.replace(/\s+/g, '_')
+	window.print()
 
-	document.title = originalTitle;
+	document.title = originalTitle
+}
+
+function calcgoldr() {
+	const gr = [1, 1]
+
+	for (let index = 1; index < 20; index++) {
+		const oldValue = gr[index - 1] ?? 1
+
+		const value = index + oldValue
+		gr.push(value)
+		console.log(value)
+	}
+
+	console.log(gr)
 }
 </script>
 
@@ -70,10 +103,14 @@ function savePDF() {
 			<CoreSkills />
 			<Experience />
 			<Bolder />
-			<Select :items="languagesSelect" v-model="language" @change="saveLanguage" />
+			<Select
+				:items="languagesSelect"
+				v-model="language"
+				@change="saveLanguage"
+			/>
 		</div>
 		<div>
-
+			<button @click="calcgoldr">calc</button>
 			<Button @click="saveData">Save </Button>
 			<Button @click="savePDF">Generate PDF </Button>
 		</div>
@@ -90,9 +127,9 @@ function savePDF() {
 
 	h1 {
 		margin: 0;
-		display:flex;
+		display: flex;
 		align-items: center;
-		gap:0.5rem;
+		gap: 0.5rem;
 	}
 }
 

@@ -1,4 +1,3 @@
-
 type LocalStorageProps<T> = {
 	key: string
 	initialValue: T
@@ -8,13 +7,11 @@ type GetDataProps<T> = LocalStorageProps<T> & {
 	parseFunction?: (value: unknown) => T
 }
 
-export function getDataFromLocalStorage<T>(
-	{
-		key,
-		parseFunction,
-		initialValue
-	}: GetDataProps<T>
-): T {
+export function getDataFromLocalStorage<T>({
+	key,
+	parseFunction,
+	initialValue
+}: GetDataProps<T>): T {
 	const item = window.localStorage.getItem(key)
 
 	if (item) {
@@ -31,6 +28,9 @@ export function getDataFromLocalStorage<T>(
 	return initialValue
 }
 
-export function saveDataToLocalStorage<T>({ key, initialValue }: LocalStorageProps<T>) {
+export function saveDataToLocalStorage<T>({
+	key,
+	initialValue
+}: LocalStorageProps<T>) {
 	window.localStorage.setItem(key, JSON.stringify(initialValue))
 }

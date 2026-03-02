@@ -57,7 +57,8 @@ ul {
 	margin: 0;
 	padding-left: 1rem;
 	display: grid;
-	gap: 0.4rem;
+	gap: calc((var(--_a4-gap) * 0.3));
+
 	li {
 		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight);

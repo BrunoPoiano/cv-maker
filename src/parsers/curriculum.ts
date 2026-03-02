@@ -153,33 +153,31 @@ export function parseCurriculum(value: unknown) {
 			}
 		}
 		if (Array.isArray(value.Experience.value)) {
-
-			cv.Experience.value = value.Experience.value.reduce<Curriculum['Experience']["value"]>(
-				(acc, item) => {
-					if (!isObject(item)) {
-						return acc
-					}
-
-					let desc: Array<string> = []
-
-					if (Array.isArray(item.Description)) {
-						desc = item.Description.reduce<Array<string>>((accc, item) => {
-							accc.push(isStringOrDefault(item, undefined))
-							return accc
-						}, [])
-					}
-
-					acc.push({
-						Role: isStringOrDefault(item.Role),
-						CompanyName: isStringOrDefault(item.CompanyName),
-						StartDate: new Date(item.StartDate as string),
-						EndDate: item.EndDate ? new Date(item.EndDate as string) : null,
-						Description: desc
-					})
+			cv.Experience.value = value.Experience.value.reduce<
+				Curriculum['Experience']['value']
+			>((acc, item) => {
+				if (!isObject(item)) {
 					return acc
-				},
-				[]
-			)
+				}
+
+				let desc: Array<string> = []
+
+				if (Array.isArray(item.Description)) {
+					desc = item.Description.reduce<Array<string>>((accc, item) => {
+						accc.push(isStringOrDefault(item, undefined))
+						return accc
+					}, [])
+				}
+
+				acc.push({
+					Role: isStringOrDefault(item.Role),
+					CompanyName: isStringOrDefault(item.CompanyName),
+					StartDate: new Date(item.StartDate as string),
+					EndDate: item.EndDate ? new Date(item.EndDate as string) : null,
+					Description: desc
+				})
+				return acc
+			}, [])
 		}
 	}
 

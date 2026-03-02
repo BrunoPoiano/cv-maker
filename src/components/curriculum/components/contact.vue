@@ -4,13 +4,17 @@ import { ProviderKey } from '@/main'
 import type { Curriculum } from '@/types'
 import { inject } from 'vue'
 
-const { curriculum: { Contact } } = inject(ProviderKey)!
-
+const {
+	curriculum: { Contact }
+} = inject(ProviderKey)!
 </script>
 
 <template>
 	<div class="contact">
-		<span v-for="(item, type) in Contact.value" :style="`font-size: var(${Contact.size})`">
+		<span
+			v-for="(item, type) in Contact.value"
+			:style="`font-size: var(${Contact.size})`"
+		>
 			<span class="type"> {{ type }}: </span>
 			<span> {{ item }} </span>
 		</span>
@@ -20,7 +24,7 @@ const { curriculum: { Contact } } = inject(ProviderKey)!
 <style scoped>
 .contact {
 	display: grid;
-	gap: 0.4rem;
+	gap: calc((var(--_a4-gap) * 0.3));
 
 	.type {
 		text-transform: capitalize;

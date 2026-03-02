@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { fontSizeSelect } from '@/constants/font-size'
 import { skillList } from '@/constants/skillList'
-import {  ProviderKey } from '@/main'
+import { ProviderKey } from '@/main'
 import { type Curriculum, type Skills, type SkillsList } from '@/types'
 import Modal from '@/ui/modal.vue'
 import Select from '@/ui/select.vue'
@@ -9,7 +9,6 @@ import Textarea from '@/ui/textarea.vue'
 import { inject, ref } from 'vue'
 
 const { curriculum } = inject(ProviderKey)!
-
 
 type SkillList = Partial<Record<keyof Skills, string>>
 

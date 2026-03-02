@@ -7,14 +7,12 @@ import Experience from './components/experience.vue'
 import Header from './components/header.vue'
 import Summary from './components/summary.vue'
 
-const {bolder} = inject(ProviderKey)!
+const { bolder } = inject(ProviderKey)!
 
 function boldMatches(value: string): string {
 	if (!bolder.length) return value
 
-	const escaped = bolder.map((t) =>
-		t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-	)
+	const escaped = bolder.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
 
 	const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi')
 

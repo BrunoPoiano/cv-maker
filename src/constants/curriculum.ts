@@ -36,8 +36,8 @@ export const CurriculumConst: Curriculum = {
 	},
 	Experience: {
 		size: {
-			title: "--font-size-lg",
-			description: "--font-size-md"
+			title: '--font-size-lg',
+			description: '--font-size-md'
 		},
 		value: []
 	}

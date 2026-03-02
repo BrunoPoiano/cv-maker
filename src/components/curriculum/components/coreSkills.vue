@@ -4,19 +4,26 @@ import List from '@/ui/list.vue'
 import Title from './title.vue'
 import { CurriculumConst } from '@/constants/curriculum'
 import { inject } from 'vue'
-import {  ProviderKey } from '@/main'
+import { ProviderKey } from '@/main'
 
-const { curriculum:{CoreSkills}, language } = inject(ProviderKey)!
+const {
+	curriculum: { CoreSkills },
+	language
+} = inject(ProviderKey)!
 const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
 </script>
 
 <template>
-	<Title>{{language === "en" ? "CORE SKILLS" : "HABILIDADES TÉCNICAS"}}</Title>
-	<div class="coreSkills">
-		<List
-			:fontSize="CoreSkills.size"
-			:coreSkills="CoreSkills.skills"
-			:boldMatches="boldMatches"
-		/>
+	<div>
+		<Title>{{
+			language === 'en' ? 'CORE SKILLS' : 'HABILIDADES TÉCNICAS'
+		}}</Title>
+		<div class="coreSkills">
+			<List
+				:fontSize="CoreSkills.size"
+				:coreSkills="CoreSkills.skills"
+				:boldMatches="boldMatches"
+			/>
+		</div>
 	</div>
 </template>

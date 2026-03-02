@@ -10,7 +10,6 @@ import { computed, inject, ref } from 'vue'
 
 const { curriculum } = inject(ProviderKey)!
 
-
 const summary = ref(
 	Array.isArray(curriculum?.Summary.value)
 		? curriculum.Summary.value.join('\n')

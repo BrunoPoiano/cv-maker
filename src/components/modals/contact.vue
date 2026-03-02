@@ -6,8 +6,7 @@ import { inject } from 'vue'
 import Input from '@/ui/input.vue'
 import Modal from '@/ui/modal.vue'
 import Select from '@/ui/select.vue'
-	const { curriculum } = inject(ProviderKey)!
-
+const { curriculum } = inject(ProviderKey)!
 </script>
 
 <template>
