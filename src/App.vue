@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { reactive, provide, type InjectionKey, computed, ref } from 'vue'
-import Header from './components/modals/header.vue'
-import Contact from './components/modals/contact.vue'
-import Sumarry from './components/modals/sumarry.vue'
-import Bolder from './components/modals/bolder.vue'
-import CoreSkills from './components/modals/coreSkills.vue'
 import Button from '@/ui/button.vue'
+import { computed, provide, reactive, ref, type InjectionKey } from 'vue'
+import Bolder from './components/modals/bolder.vue'
+import Contact from './components/modals/contact.vue'
+import CoreSkills from './components/modals/coreSkills.vue'
+import Header from './components/modals/header.vue'
+import Sumarry from './components/modals/sumarry.vue'
 
-import type { Curriculum, Languages } from './types'
 import CurriculumModel from './components/curriculum/index.vue'
+import { CurriculumConst } from './constants/curriculum'
 import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from './helpers/localstorage'
-import { parseCurriculum } from './parsers/curriculum'
-import { CurriculumConst } from './constants/curriculum'
+import { parseCurriculum, parseCurriculumList } from './parsers/curriculum'
+import type { Languages } from './types'
 
-import { parseBolder } from './parsers/bolder'
-import Experience from './components/modals/experience/index.vue'
 import ColorScheme from './components/colorScheme.vue'
+import Experience from './components/modals/experience/index.vue'
+import { languagesSelect } from './constants/language'
 import { ProviderKey } from './main'
+import { parseBolder } from './parsers/bolder'
 import { parseLanguage } from './parsers/language'
 import Select from './ui/select.vue'
-import { languagesSelect } from './constants/language'
 
 const curriculum = reactive(
 	getDataFromLocalStorage({
@@ -71,20 +71,6 @@ function savePDF() {
 
 	document.title = originalTitle
 }
-
-function calcgoldr() {
-	const gr = [1, 1]
-
-	for (let index = 1; index < 20; index++) {
-		const oldValue = gr[index - 1] ?? 1
-
-		const value = index + oldValue
-		gr.push(value)
-		console.log(value)
-	}
-
-	console.log(gr)
-}
 </script>
 
 <template>
@@ -110,7 +96,6 @@ function calcgoldr() {
 			/>
 		</div>
 		<div>
-			<button @click="calcgoldr">calc</button>
 			<Button @click="saveData">Save </Button>
 			<Button @click="savePDF">Generate PDF </Button>
 		</div>

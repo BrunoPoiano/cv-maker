@@ -36,6 +36,7 @@ const model = defineModel()
 	}
 
 	select {
+		font-size: var(--font-size-base);
 		border: 1px solid #80808070;
 		border-radius: 10px;
 		padding: 0.3rem 0.6rem;

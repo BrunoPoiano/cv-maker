@@ -183,3 +183,16 @@ export function parseCurriculum(value: unknown) {
 
 	return cv
 }
+
+export function parseCurriculumList(value: unknown) {
+	const cvList = [CurriculumConst]
+
+	if (!Array.isArray(value)) {
+		return cvList
+	}
+
+	return value.reduce<Array<Curriculum>>((acc, item) => {
+		acc.push(parseCurriculum(item))
+		return acc
+	}, [])
+}

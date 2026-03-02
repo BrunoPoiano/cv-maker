@@ -22,30 +22,29 @@ const { curriculum } = inject(ProviderKey)!
 
 		<form>
 			<div>
+				<Select
+					label="size"
+					:items="fontSizeSelect"
+					v-model="curriculum.Header.UserName.size"
+				/>
 				<Input
 					type="text"
 					label="Name"
 					placeholder="User Name"
 					v-model="curriculum.Header.UserName.value"
 				/>
-
-				<Select
-					label="size"
-					:items="fontSizeSelect"
-					v-model="curriculum.Header.UserName.size"
-				/>
 			</div>
 			<div>
-				<Input
-					type="text"
-					label="label"
-					placeholder="Label"
-					v-model="curriculum.Header.Role.value"
-				/>
 				<Select
 					label="size"
 					:items="fontSizeSelect"
 					v-model="curriculum.Header.Role.size"
+				/>
+				<Input
+					type="text"
+					label="Role"
+					placeholder="Role"
+					v-model="curriculum.Header.Role.value"
 				/>
 			</div>
 		</form>

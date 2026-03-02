@@ -83,10 +83,11 @@ h3 {
 }
 
 p,
+li,
 figcaption {
 	text-wrap: stable;
 	text-wrap: pretty;
-	max-width: 80ch;
+	max-width: 100ch;
 }
 
 p {
