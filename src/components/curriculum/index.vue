@@ -1,42 +1,40 @@
 <script setup lang="ts">
-import type { Curriculum } from '@/types'
-import Header from './components/header.vue'
+import { ProviderKey } from '@/main'
+import { inject } from 'vue'
 import Contact from './components/contact.vue'
-import Experience from './components/experience.vue'
-import Summary from './components/summary.vue'
 import CoreSkills from './components/coreSkills.vue'
-import { h, inject } from 'vue'
-import { BolderKey } from '@/main'
-import type { JsxFragment } from 'typescript'
+import Experience from './components/experience.vue'
+import Header from './components/header.vue'
+import Summary from './components/summary.vue'
 
-const bolderValue = inject<string[]>(BolderKey)!
+const {bolder} = inject(ProviderKey)!
 
 function boldMatches(value: string): string {
-	if (!bolderValue.length) return value
+	if (!bolder.length) return value
 
-	const escaped = bolderValue.map((t) =>
+	const escaped = bolder.map((t) =>
 		t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 	)
 
-	const regex = new RegExp(`(${escaped.join('|')})`, 'gi')
+	const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi')
 
 	return value.replace(regex, '<b>$1</b>')
 }
 </script>
 
 <template>
-	<div class="a4-page page" id="curriculumPage">
+	<section class="a4-page page" id="curriculumPage">
 		<Header />
 		<Contact />
 		<Summary :boldMatches="boldMatches" />
 		<CoreSkills :boldMatches="boldMatches" />
 		<Experience :boldMatches="boldMatches" />
-	</div>
+	</section>
 </template>
 
 <style>
 .a4-page {
-	--_a4-gap: 0.8rem;
+	--_a4-gap: 1.3rem;
 
 	width: 21cm;
 	min-height: 29.7cm;

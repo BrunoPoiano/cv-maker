@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Button from '../ui/button.vue'
+import Button from '@/ui/button.vue'
 
 type Props = {
 	buttonLabel: string | Element
@@ -21,16 +21,17 @@ const key = generateKey(10)
 		<slot />
 		<div class="footer">
 			<slot name="footer" />
-			<Button :commandfor="key" command="close" :label="closeLabel" />
+			<Button :commandfor="key" command="close">{{ closeLabel }}</Button>
 		</div>
 	</dialog>
-	<Button command="show-modal" :commandfor="key" :label="buttonLabel" />
+	<Button command="show-modal" :commandfor="key">{{ buttonLabel }}</Button>
 </template>
 
 <style scoped>
 .header {
 	margin-bottom: 1rem;
 }
+
 .footer {
 	margin-top: 1rem;
 	display: flex;

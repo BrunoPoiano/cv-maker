@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import Modal from '../ui/modal.vue'
-import Select from '../ui/select.vue'
-import { computed, inject, ref } from 'vue'
-import type { Curriculum } from '@/types'
-import { CurriculumConst } from '@/constants/curriculum'
-import Textarea from '@/ui/textarea.vue'
-import Button from '@/ui/button.vue'
-import Toggle from '@/ui/toggle.vue'
-import { CurriculumKey } from '@/main'
 import { fontSizeSelect } from '@/constants/font-size'
+import { ProviderKey } from '@/main'
+import type { Curriculum } from '@/types'
+import Modal from '@/ui/modal.vue'
+import Select from '@/ui/select.vue'
+import Textarea from '@/ui/textarea.vue'
+import Toggle from '@/ui/toggle.vue'
+import { computed, inject, ref } from 'vue'
 
-const curriculum = inject<Curriculum>(CurriculumKey)!
+const { curriculum } = inject(ProviderKey)!
+
 
 const summary = ref(
 	Array.isArray(curriculum?.Summary.value)

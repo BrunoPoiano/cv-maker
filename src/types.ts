@@ -1,6 +1,8 @@
 import type { fontSize } from './constants/font-size'
+import type { languages } from './constants/language'
 import type { skillList } from './constants/skillList'
 
+export type Languages = (typeof languages)[number]
 export type FontSize = (typeof fontSize)[number]
 export type SkillsList = Lowercase<(typeof skillList)[number]>
 export type Skills = Partial<Record<SkillsList, Array<string>>>
@@ -19,8 +21,9 @@ type Contact = {
 	}
 }
 
-type Experience = {
-	Label: string
+export type Experience = {
+	id?:string,
+	Role: string
 	CompanyName: string
 	StartDate: Date
 	EndDate: Date | null
@@ -32,7 +35,7 @@ type Header = {
 		value: string
 		size: FontSize
 	}
-	Label: {
+	Role: {
 		value: string
 		size: FontSize
 	}
@@ -53,5 +56,11 @@ export type Curriculum = {
 	Contact: Contact
 	Summary: Sumarry
 	CoreSkills: CoreSkills
-	Experience: Array<Experience>
+	Experience: {
+		size:{
+			title: FontSize
+			description: FontSize
+		}
+		value: Array<Experience>
+	}
 }

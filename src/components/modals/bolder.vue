@@ -1,16 +1,11 @@
 <script setup lang="ts">
-import { CurriculumConst } from '@/constants/curriculum'
 import { saveDataToLocalStorage } from '@/helpers/localstorage'
-import { BolderKey } from '@/main'
-import type { Curriculum } from '@/types'
-import Button from '@/ui/button.vue'
+import { ProviderKey } from '@/main'
 import Textarea from '@/ui/textarea.vue'
-import Toggle from '@/ui/toggle.vue'
-import { computed, inject, ref } from 'vue'
-import Input from '../ui/input.vue'
-import Modal from '../ui/modal.vue'
+import { computed, inject } from 'vue'
+import Modal from '@/ui/modal.vue'
 
-const bolderValue = inject<string[]>(BolderKey)!
+const { bolder: bolderValue } = inject(ProviderKey)!
 
 const bolder = computed<string>({
 	get() {
@@ -21,7 +16,7 @@ const bolder = computed<string>({
 
 		Object.assign(bolderValue, bolderSplit)
 
-		saveDataToLocalStorage('bolder', bolderSplit)
+		saveDataToLocalStorage({ key: 'bolder', initialValue: bolderSplit })
 	}
 })
 </script>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { CurriculumConst } from '@/constants/curriculum'
 import { fontSizeSelect } from '@/constants/font-size'
-import { CurriculumKey } from '@/main'
+import { ProviderKey } from '@/main'
 import type { Curriculum } from '@/types'
 import { inject } from 'vue'
-import Input from '../ui/input.vue'
-import Modal from '../ui/modal.vue'
-import Select from '../ui/select.vue'
-const curriculum = inject<Curriculum>(CurriculumKey)
+import Input from '@/ui/input.vue'
+import Modal from '@/ui/modal.vue'
+import Select from '@/ui/select.vue'
+	const { curriculum } = inject(ProviderKey)!
+
 </script>
 
 <template>

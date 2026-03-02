@@ -1,8 +1,14 @@
-import { createApp, type InjectionKey } from 'vue'
+import { createApp, type InjectionKey, type Ref } from 'vue'
 import App from './App.vue'
-import type { Curriculum } from './types'
+import type { Curriculum, Languages } from './types'
 
-export const CurriculumKey: InjectionKey<Curriculum> = Symbol('curriculum')
-export const BolderKey: InjectionKey<string[]> = Symbol('bolder')
+
+type Provider = {
+    curriculum: Curriculum
+    bolder: string[]
+    language: Ref<Languages>
+}
+
+export const ProviderKey: InjectionKey<Provider> = Symbol('provider')
 
 createApp(App).mount('#app')

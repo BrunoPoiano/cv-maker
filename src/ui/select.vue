@@ -17,7 +17,7 @@ const model = defineModel()
 
 <template>
 	<div class="content">
-		<label :for="id ?? key">{{ props.label }}</label>
+		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
 		<select v-bind="$attrs" v-model="model">
 			<option v-for="item in items" :value="item.value">
 				{{ item.label }}
@@ -39,6 +39,7 @@ const model = defineModel()
 		border: 1px solid #80808070;
 		border-radius: 10px;
 		padding: 0.3rem 0.6rem;
+		background: var(--input-background);
 	}
 }
 </style>

@@ -6,7 +6,7 @@ export const CurriculumConst: Curriculum = {
 			value: '',
 			size: '--font-size-xl'
 		},
-		Label: {
+		Role: {
 			value: '',
 			size: '--font-size-lg'
 		}
@@ -34,5 +34,11 @@ export const CurriculumConst: Curriculum = {
 		},
 		size: '--font-size-md'
 	},
-	Experience: []
+	Experience: {
+		size: {
+			title: "--font-size-lg",
+			description: "--font-size-md"
+		},
+		value: []
+	}
 }

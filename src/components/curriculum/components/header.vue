@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { CurriculumConst } from '@/constants/curriculum'
-import { CurriculumKey } from '@/main'
+import { ProviderKey } from '@/main'
 import type { Curriculum } from '@/types'
 import { inject } from 'vue'
-const header = inject<Curriculum>(CurriculumKey, CurriculumConst).Header
+const { curriculum: { Header } } = inject(ProviderKey)!
 </script>
 
 <template>
 	<div class="header">
-		<h1 :style="`font-size: var(${header.UserName.size})`">
-			{{ header.UserName.value }}
+		<h1 :style="`font-size: var(${Header.UserName.size})`">
+			{{ Header.UserName.value }}
 		</h1>
-		<span :style="`font-size: var(${header.Label.size})`" class="label">{{
-			header.Label.value
+		<span :style="`font-size: var(${Header.Role.size})`" class="label">{{
+			Header.Role.value
 		}}</span>
 	</div>
 </template>

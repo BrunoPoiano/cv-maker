@@ -1,7 +1,6 @@
 <script setup lang="ts">
 type Props = {
 	type?: 'button' | 'submit' | 'reset'
-	label: string | Element
 }
 
 const props = defineProps<Props>()
@@ -12,15 +11,15 @@ defineOptions({
 
 <template>
 	<button v-bind="$attrs" :type="props.type ?? 'button'">
-		{{ props.label }}
+		<slot/>
 	</button>
 </template>
 
 <style scoped>
 button {
-	--bg: light-dark(#f4f4f4e3, #333b3c);
+	--bg: light-dark(#fff, #333b3c);
 
-	font-size: var(--font-size-sm);
+	font-size: var(--font-size-base);
 	cursor: pointer;
 
 	padding: 0.2rem 0.4rem;

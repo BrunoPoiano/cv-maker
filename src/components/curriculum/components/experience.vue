@@ -4,11 +4,11 @@ import List from '@/ui/list.vue'
 import Paragraph from '@/ui/paragraph.vue'
 import Title from './title.vue'
 import { inject } from 'vue'
-import { CurriculumConst } from '@/constants/curriculum'
-import { CurriculumKey } from '@/main'
+import { ProviderKey } from '@/main'
 
 const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
-const experience = inject<Curriculum>(CurriculumKey, CurriculumConst).Experience
+
+const { curriculum, language } = inject(ProviderKey)!
 
 function fixDate(date: unknown) {
 	if (date instanceof Date) {
@@ -22,22 +22,29 @@ function fixDate(date: unknown) {
 
 	return ''
 }
+
+function generateTitle(job: Curriculum['Experience']['value'][number]) {
+
+	const role = job.Role.toLocaleLowerCase()
+	const company = job.CompanyName.toLocaleLowerCase()
+	const startDate = fixDate(job.StartDate)
+	const endDate = job.EndDate ? fixDate(job.EndDate) : 'atual'
+
+	return `${role} ${company ? " - " + company : ""} | ${startDate} - ${endDate}`
+}
 </script>
 
 <template>
-	<Title>PROFESSIONAL EXPERIENCE</Title>
+	<Title>{{ language === "en" ? "PROFESSIONAL EXPERIENCE" : "Experiência" }}</Title>
 	<div class="experience">
-		<div v-for="job in experience">
-			<span class="title">
-				{{ job.Label }} - {{ job.CompanyName }} | {{ fixDate(job.StartDate) }} -
-				{{ job.EndDate ? fixDate(job.EndDate) : 'atual' }}
+		<div v-for="job in curriculum.Experience.value">
+			<span class="title" :style="`font-size: var(${curriculum.Experience.size.title})`">
+				{{ generateTitle(job)}}
 			</span>
-			<List
-				:genericList="job.Description"
-				v-if="Array.isArray(job.Description)"
-				:boldMatches="boldMatches"
-			/>
-			<Paragraph v-else v-html="boldMatches(job.Description)" />
+			<List :genericList="job.Description" v-if="Array.isArray(job.Description)" :boldMatches="boldMatches"
+				:fontSize="curriculum.Experience.size.description" />
+			<Paragraph v-else v-html="boldMatches(job.Description)"
+				:fontSize="curriculum.Experience.size.description" />
 		</div>
 	</div>
 </template>
@@ -46,12 +53,14 @@ function fixDate(date: unknown) {
 .experience {
 	display: grid;
 	gap: 0.6rem;
+
 	.title {
 		color: black;
 		display: block;
 		font-size: 14px;
 		font-weight: var(--font-weight);
 		margin-bottom: 0.5rem;
+		text-transform: capitalize;
 	}
 }
 </style>

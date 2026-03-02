@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { reactive, provide, type InjectionKey, computed } from 'vue'
-import Header from './components/header.vue'
-import Contact from './components/contact.vue'
-import Sumarry from './components/sumarry.vue'
-import Bolder from './components/bolder.vue'
-import CoreSkills from './components/coreSkills.vue'
+import { reactive, provide, type InjectionKey, computed, ref } from 'vue'
+import Header from './components/modals/header.vue'
+import Contact from './components/modals/contact.vue'
+import Sumarry from './components/modals/sumarry.vue'
+import Bolder from './components/modals/bolder.vue'
+import CoreSkills from './components/modals/coreSkills.vue'
 import Button from '@/ui/button.vue'
 
-import type { Curriculum } from './types'
+import type { Curriculum, Languages } from './types'
 import CurriculumModel from './components/curriculum/index.vue'
 import {
 	getDataFromLocalStorage,
@@ -15,54 +15,92 @@ import {
 } from './helpers/localstorage'
 import { parseCurriculum } from './parsers/curriculum'
 import { CurriculumConst } from './constants/curriculum'
-import { BolderKey, CurriculumKey } from './main'
+
 import { parseBolder } from './parsers/bolder'
+import Experience from './components/modals/experience/index.vue'
+import ColorScheme from './components/colorScheme.vue'
+import { ProviderKey } from './main'
+import { parseLanguage } from './parsers/language'
+import Select from './ui/select.vue'
+import { languagesSelect } from './constants/language'
 
 const curriculum = reactive(
-	getDataFromLocalStorage('curriculum', parseCurriculum, CurriculumConst)
+	getDataFromLocalStorage({ key: 'curriculum', parseFunction: parseCurriculum, initialValue: CurriculumConst })
 )
 
-const bolder = reactive(getDataFromLocalStorage('bolder', parseBolder, []))
+const bolder = reactive(getDataFromLocalStorage({ key: 'bolder', parseFunction: parseBolder, initialValue: [] }))
+const language = ref(getDataFromLocalStorage<Languages>({ key: 'language', parseFunction: parseLanguage, initialValue: "pt" }))
 
-provide(CurriculumKey, curriculum)
-provide(BolderKey, bolder)
+provide(ProviderKey, {
+	curriculum,
+	bolder,
+	language
+})
 
 function saveData() {
-	saveDataToLocalStorage('curriculum', curriculum)
+	saveDataToLocalStorage({ key: 'curriculum', initialValue: curriculum })
+}
+function saveLanguage() {
+	saveDataToLocalStorage({ key: 'language', initialValue: language.value })
 }
 
 function savePDF() {
-	window.print()
+	const originalTitle = document.title;
+
+	document.title = `${curriculum.Header.UserName.value}-${curriculum.Header.Role.value}`.toLocaleLowerCase().replace(/\s+/g, '_');
+	window.print();
+
+	document.title = originalTitle;
 }
 </script>
 
 <template>
-	<h1>CV-Maker</h1>
-	<div class="menu">
+	<div class="header">
+		<h1>
+			<img src="/document.svg" alt="app logo" width="50" height="50" />
+			CV-Maker
+		</h1>
+		<ColorScheme />
+	</div>
+	<nav class="menu">
 		<div>
 			<Header />
 			<Contact />
 			<Sumarry />
 			<CoreSkills />
+			<Experience />
 			<Bolder />
+			<Select :items="languagesSelect" v-model="language" @change="saveLanguage" />
 		</div>
 		<div>
-			<Button @click="saveData" label="save" />
-			<Button @click="savePDF" label="generate PDF" />
+
+			<Button @click="saveData">Save </Button>
+			<Button @click="savePDF">Generate PDF </Button>
 		</div>
-	</div>
+	</nav>
 	<CurriculumModel />
 </template>
 
 <style scoped>
-h1 {
-	text-align: Center;
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem;
+
+	h1 {
+		margin: 0;
+		display:flex;
+		align-items: center;
+		gap:0.5rem;
+	}
 }
 
 .menu {
 	display: flex;
 	gap: 0.8rem;
 	justify-content: space-between;
+
 	div {
 		display: flex;
 		gap: 0.8rem;

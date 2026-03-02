@@ -42,6 +42,7 @@ defineOptions({
 		border-radius: 10px;
 		padding: 1rem 0.6rem;
 		min-height: 241px;
+		background: var(--input-background);
 		font-size: var(--font-size-base);
 	}
 }

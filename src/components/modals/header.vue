@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import Modal from '../ui/modal.vue'
-import Input from '../ui/input.vue'
-import Select from '../ui/select.vue'
-import { inject } from 'vue'
+import { fontSizeSelect } from '@/constants/font-size'
+import { ProviderKey } from '@/main'
 import type { Curriculum } from '@/types'
-import { CurriculumConst } from '@/constants/curriculum'
-import { CurriculumKey } from '@/main'
-import { fontSize, fontSizeSelect } from '@/constants/font-size'
+import { inject } from 'vue'
+import Input from '@/ui/input.vue'
+import Modal from '@/ui/modal.vue'
+import Select from '@/ui/select.vue'
+const { curriculum } = inject(ProviderKey)!
 
-const curriculum = inject<Curriculum>(CurriculumKey)
 </script>
 
 <template>
@@ -42,12 +41,12 @@ const curriculum = inject<Curriculum>(CurriculumKey)
 					type="text"
 					label="label"
 					placeholder="Label"
-					v-model="curriculum.Header.Label.value"
+					v-model="curriculum.Header.Role.value"
 				/>
 				<Select
 					label="size"
 					:items="fontSizeSelect"
-					v-model="curriculum.Header.Label.size"
+					v-model="curriculum.Header.Role.size"
 				/>
 			</div>
 		</form>

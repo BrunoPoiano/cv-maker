@@ -1,18 +1,15 @@
 <script setup lang="ts">
-import { CurriculumConst } from '@/constants/curriculum'
 import { fontSizeSelect } from '@/constants/font-size'
 import { skillList } from '@/constants/skillList'
-import { CurriculumKey } from '@/main'
-import { isOneOf } from '@/parsers/typeValidation'
+import {  ProviderKey } from '@/main'
 import { type Curriculum, type Skills, type SkillsList } from '@/types'
 import Modal from '@/ui/modal.vue'
 import Select from '@/ui/select.vue'
 import Textarea from '@/ui/textarea.vue'
-import Toggle from '@/ui/toggle.vue'
-import { computed, inject, ref } from 'vue'
-import Input from '../ui/input.vue'
+import { inject, ref } from 'vue'
 
-const curriculum = inject<Curriculum>(CurriculumKey)!
+const { curriculum } = inject(ProviderKey)!
+
 
 type SkillList = Partial<Record<keyof Skills, string>>
 

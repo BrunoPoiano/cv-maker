@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { CurriculumConst } from '@/constants/curriculum'
-import { CurriculumKey } from '@/main'
+import { ProviderKey } from '@/main'
 import type { Curriculum } from '@/types'
 import { inject } from 'vue'
 
-const contact = inject<Curriculum>(CurriculumKey, CurriculumConst).Contact
+const { curriculum: { Contact } } = inject(ProviderKey)!
+
 </script>
 
 <template>
-	<div class="contact" v-if="contact">
-		<span
-			v-for="(item, type) in contact.value"
-			:style="`font-size: var(${contact.size})`"
-		>
+	<div class="contact">
+		<span v-for="(item, type) in Contact.value" :style="`font-size: var(${Contact.size})`">
 			<span class="type"> {{ type }}: </span>
 			<span> {{ item }} </span>
 		</span>
@@ -27,6 +25,7 @@ const contact = inject<Curriculum>(CurriculumKey, CurriculumConst).Contact
 	.type {
 		text-transform: capitalize;
 	}
+
 	span {
 		color: var(--light-text-color);
 		font-size: var(--font-size-sm);

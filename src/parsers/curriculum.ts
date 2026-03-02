@@ -25,11 +25,11 @@ export function parseCurriculum(value: unknown) {
 					'--font-size-xl'
 				)
 			}
-			if (isObject(value.Header.Label)) {
-				cv.Header.Label = {
-					value: isStringOrDefault(value.Header.Label.value, ''),
+			if (isObject(value.Header.Role)) {
+				cv.Header.Role = {
+					value: isStringOrDefault(value.Header.Role.value, ''),
 					size: isOneOforDefault(
-						value.Header.Label.size,
+						value.Header.Role.size,
 						fontSize,
 						'--font-size-xl'
 					)
@@ -137,33 +137,50 @@ export function parseCurriculum(value: unknown) {
 		}
 	}
 
-	if (Array.isArray(value.Experience)) {
-		cv.Experience = value.Experience.reduce<Curriculum['Experience']>(
-			(acc, item) => {
-				if (!isObject(item)) {
+	if (isObject(value.Experience)) {
+		if (isObject(value.Experience.size)) {
+			cv.Experience.size = {
+				title: isOneOforDefault(
+					value.Experience.size.title,
+					fontSize,
+					'--font-size-lg'
+				),
+				description: isOneOforDefault(
+					value.Experience.size.description,
+					fontSize,
+					'--font-size-md'
+				)
+			}
+		}
+		if (Array.isArray(value.Experience.value)) {
+
+			cv.Experience.value = value.Experience.value.reduce<Curriculum['Experience']["value"]>(
+				(acc, item) => {
+					if (!isObject(item)) {
+						return acc
+					}
+
+					let desc: Array<string> = []
+
+					if (Array.isArray(item.Description)) {
+						desc = item.Description.reduce<Array<string>>((accc, item) => {
+							accc.push(isStringOrDefault(item, undefined))
+							return accc
+						}, [])
+					}
+
+					acc.push({
+						Role: isStringOrDefault(item.Role),
+						CompanyName: isStringOrDefault(item.CompanyName),
+						StartDate: new Date(item.StartDate as string),
+						EndDate: item.EndDate ? new Date(item.EndDate as string) : null,
+						Description: desc
+					})
 					return acc
-				}
-
-				let desc: Array<string> = []
-
-				if (Array.isArray(item.Description)) {
-					desc = item.Description.reduce<Array<string>>((accc, item) => {
-						accc.push(isStringOrDefault(item, undefined))
-						return accc
-					}, [])
-				}
-
-				acc.push({
-					Label: isStringOrDefault(item.Label),
-					CompanyName: isStringOrDefault(item.CompanyName),
-					StartDate: new Date(item.StartDate as string),
-					EndDate: item.EndDate ? new Date(item.EndDate as string) : null,
-					Description: desc
-				})
-				return acc
-			},
-			[]
-		)
+				},
+				[]
+			)
+		}
 	}
 
 	return cv
