@@ -7,6 +7,12 @@ import Experience from './components/experience.vue'
 import Header from './components/header.vue'
 import Summary from './components/summary.vue'
 
+import ContactModal from './modals/contact.vue'
+import CoreSkillsModal from './modals/coreSkills.vue'
+import HeaderModal from './modals/header.vue'
+import SumarryModal from './modals/sumarry.vue'
+import ExperienceModal from './modals/experience/index.vue'
+
 const { bolder } = inject(ProviderKey)!
 
 function boldMatches(value: string): string {
@@ -21,6 +27,13 @@ function boldMatches(value: string): string {
 </script>
 
 <template>
+	<nav class="menu">
+		<HeaderModal />
+		<ContactModal />
+		<SumarryModal />
+		<CoreSkillsModal />
+		<ExperienceModal />
+	</nav>
 	<section class="a4-page page" id="curriculumPage">
 		<Header />
 		<Contact />
@@ -30,7 +43,14 @@ function boldMatches(value: string): string {
 	</section>
 </template>
 
-<style>
+<style scoped>
+.menu {
+	margin-inline: auto;
+	display: flex;
+	gap: 0.8rem;
+	margin-top: 2rem;
+}
+
 .a4-page {
 	--_a4-gap: 1.3rem;
 
@@ -43,7 +63,7 @@ function boldMatches(value: string): string {
 
 	padding: 0.8cm 0px 0.8cm 0.8cm;
 	margin-inline: auto;
-	margin-top: 4rem;
+	margin-top: 2rem;
 
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	box-sizing: border-box;

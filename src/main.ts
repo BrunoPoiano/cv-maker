@@ -1,9 +1,14 @@
-import { createApp, type InjectionKey, type Ref } from 'vue'
+import {
+	createApp,
+	type InjectionKey,
+	type Ref,
+	type WritableComputedRef
+} from 'vue'
 import App from './App.vue'
 import type { Curriculum, Languages } from './types'
 
 type Provider = {
-	curriculum: Curriculum
+	curriculum: WritableComputedRef<Curriculum>
 	bolder: string[]
 	language: Ref<Languages>
 }

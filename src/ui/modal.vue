@@ -5,9 +5,10 @@ type Props = {
 	buttonLabel: string | Element
 	closeLabel: string | Element
 	minWidth?: string
+	buttonIcon?: string
 }
 
-const { buttonLabel, closeLabel, minWidth } = defineProps<Props>()
+const { buttonLabel, buttonIcon, closeLabel, minWidth } = defineProps<Props>()
 
 import { generateKey } from '@/helpers/generateKey'
 const key = generateKey(10)
@@ -24,7 +25,9 @@ const key = generateKey(10)
 			<Button :commandfor="key" command="close">{{ closeLabel }}</Button>
 		</div>
 	</dialog>
-	<Button command="show-modal" :commandfor="key">{{ buttonLabel }}</Button>
+	<Button :icon="buttonIcon" command="show-modal" :commandfor="key">{{
+		buttonLabel
+	}}</Button>
 </template>
 
 <style scoped>

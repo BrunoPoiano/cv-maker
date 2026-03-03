@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { CurriculumConst } from '@/constants/curriculum'
 import { ProviderKey } from '@/main'
 import type { Curriculum } from '@/types'
 import { inject } from 'vue'
 
 const {
-	curriculum: { Contact }
+	curriculum: {
+		value: { Contact }
+	}
 } = inject(ProviderKey)!
 </script>
 

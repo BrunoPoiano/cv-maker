@@ -1,6 +1,8 @@
 <script setup lang="ts">
 type Props = {
 	type?: 'button' | 'submit' | 'reset'
+	background?: string
+	icon?: string
 }
 
 const props = defineProps<Props>()
@@ -10,7 +12,20 @@ defineOptions({
 </script>
 
 <template>
-	<button v-bind="$attrs" :type="props.type ?? 'button'">
+	<button
+		:style="{
+			'--bg': props.background
+		}"
+		v-bind="$attrs"
+		:type="props.type ?? 'button'"
+	>
+		<img
+			:src="props.icon"
+			v-if="props.icon"
+			alt="button icon"
+			width="16"
+			height="16"
+		/>
 		<slot />
 	</button>
 </template>
@@ -19,7 +34,12 @@ defineOptions({
 button {
 	--bg: light-dark(#fff, #333b3c);
 
+	display: flex;
+	gap: 0.5ch;
+	align-items: center;
+
 	font-size: var(--font-size-base);
+	font-weight: 500;
 	cursor: pointer;
 
 	padding: 0.2rem 0.4rem;
@@ -32,7 +52,7 @@ button {
 	color: lch(from var(--bg) calc((49.44 - l) * infinity) 0 0);
 
 	&:hover {
-		background: hsl(from var(--bg) h s calc(l - 10%));
+		background: hsl(from var(--bg) h s calc(l - 10));
 	}
 }
 </style>

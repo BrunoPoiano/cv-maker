@@ -15,8 +15,8 @@ type SkillList = Partial<Record<keyof Skills, string>>
 const coreSkills = ref(
 	skillList.reduce<SkillList>((acc, item) => {
 		const skill = item.toLowerCase() as SkillsList
-		if (curriculum.CoreSkills.skills[skill]) {
-			acc[skill] = curriculum.CoreSkills.skills[skill].join(', ')
+		if (curriculum.value.CoreSkills.skills[skill]) {
+			acc[skill] = curriculum.value.CoreSkills.skills[skill].join(', ')
 		} else {
 			acc[skill] = ''
 		}
@@ -26,9 +26,10 @@ const coreSkills = ref(
 
 function saveSkill(core: SkillsList) {
 	if (coreSkills.value[core] === '') {
-		delete curriculum.CoreSkills.skills[core]
+		delete curriculum.value.CoreSkills.skills[core]
 	} else {
-		curriculum.CoreSkills.skills[core] = coreSkills.value[core]?.split(',')
+		curriculum.value.CoreSkills.skills[core] =
+			coreSkills.value[core]?.split(',')
 	}
 }
 </script>
@@ -39,6 +40,7 @@ function saveSkill(core: SkillsList) {
 		closeLabel="close"
 		minWidth="40rem"
 		v-if="curriculum"
+		buttonIcon="/svgs/pen.svg"
 	>
 		<template #header>
 			<div class="header">

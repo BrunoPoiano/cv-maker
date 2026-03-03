@@ -15,6 +15,7 @@ const { curriculum } = inject(ProviderKey)!
 		closeLabel="close"
 		minWidth="30rem"
 		v-if="curriculum"
+		buttonIcon="/svgs/pen.svg"
 	>
 		<template #header>
 			<h4>Header</h4>

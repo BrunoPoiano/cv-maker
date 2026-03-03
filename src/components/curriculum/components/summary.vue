@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { CurriculumConst } from '@/constants/curriculum'
 import { ProviderKey } from '@/main'
 import type { Curriculum } from '@/types'
 import List from '@/ui/list.vue'
@@ -8,8 +7,6 @@ import { computed, inject } from 'vue'
 import Title from './title.vue'
 
 const { curriculum, language } = inject(ProviderKey)!
-const summary = computed(() => curriculum.Summary.value)
-const fontsize = computed(() => curriculum.Summary.size)
 
 const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
 </script>
@@ -19,12 +16,16 @@ const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
 		<Title>{{ language === 'en' ? 'SUMMARY' : 'Resumo' }}</Title>
 		<div class="summary">
 			<List
-				v-if="Array.isArray(summary)"
-				:fontSize="fontsize"
-				:genericList="summary"
+				v-if="Array.isArray(curriculum.Summary.value)"
+				:fontSize="curriculum.Summary.size"
+				:genericList="curriculum.Summary.value"
 				:boldMatches="boldMatches"
 			/>
-			<Paragraph v-else :fontSize="fontsize" v-html="boldMatches(summary)" />
+			<Paragraph
+				v-else
+				:fontSize="curriculum.Summary.size"
+				v-html="boldMatches(curriculum.Summary.value)"
+			/>
 		</div>
 	</div>
 </template>

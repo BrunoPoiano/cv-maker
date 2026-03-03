@@ -9,7 +9,7 @@ import {
 } from './typeValidation'
 
 export function parseCurriculum(value: unknown) {
-	const cv = CurriculumConst
+	const cv = CurriculumConst()
 
 	if (!isObject(value)) {
 		return cv
@@ -185,7 +185,7 @@ export function parseCurriculum(value: unknown) {
 }
 
 export function parseCurriculumList(value: unknown) {
-	const cvList = [CurriculumConst]
+	const cvList = [CurriculumConst()]
 
 	if (!Array.isArray(value)) {
 		return cvList

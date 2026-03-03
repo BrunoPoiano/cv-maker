@@ -11,7 +11,7 @@ defineOptions({
 const date = ref(fixDate(model.value))
 
 function fixDate(date?: Date | null) {
-	if (date) {
+	if (date instanceof Date) {
 		return (
 			date.getFullYear() +
 			'-' +

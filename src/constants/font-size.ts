@@ -14,7 +14,7 @@ export const fontSize = [
 export const fontSizeSelect = fontSize.reduce<SelectItem>((acc, item) => {
 	acc.push({
 		value: item as string,
-		label: item.replace('--font-size-', '')
+		label: item.replace('--font-size-', '').toUpperCase()
 	})
 	return acc
 }, [])

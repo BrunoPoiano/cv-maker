@@ -14,10 +14,12 @@ import Button from '@/ui/button.vue'
 import { generateKey } from '@/helpers/generateKey'
 const { curriculum } = inject(ProviderKey)!
 
-const list = ref(Array.isArray(curriculum.Experience.value[0]?.Description))
+const list = ref(
+	Array.isArray(curriculum.value.Experience.value[0]?.Description)
+)
 
 function newExperience() {
-	curriculum.Experience.value.unshift({
+	curriculum.value.Experience.value.unshift({
 		id: generateKey(),
 		CompanyName: '',
 		Role: '',
@@ -34,11 +36,14 @@ function newExperience() {
 		closeLabel="close"
 		minWidth="40rem"
 		v-if="curriculum"
+		buttonIcon="/svgs/pen.svg"
 	>
 		<template #header>
-			<h4>Experience</h4>
-			<Toggle v-model="list" labelEnd="List" labelStart="Text" />
-			<Button label="New" @click="newExperience" />
+			<div class="modalHeader">
+				<h4>Experience</h4>
+				<Toggle v-model="list" labelEnd="List" labelStart="Text" />
+				<Button @click="newExperience">New</Button>
+			</div>
 		</template>
 		<form>
 			<div class="size">
@@ -64,8 +69,8 @@ function newExperience() {
 					/>
 					<Input
 						type="text"
-						label="Label"
-						placeholder="Label"
+						label="Role"
+						placeholder="Role"
 						v-model="job.Role"
 					/>
 				</div>
@@ -97,6 +102,16 @@ function newExperience() {
 </template>
 
 <style scoped>
+.modalHeader {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.8rem;
+	button {
+		grid-area: 2 / 2;
+		place-self: end;
+	}
+}
+
 form {
 	display: grid;
 	gap: 1rem;

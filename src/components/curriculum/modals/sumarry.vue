@@ -11,14 +11,14 @@ import { computed, inject, ref } from 'vue'
 const { curriculum } = inject(ProviderKey)!
 
 const summary = ref(
-	Array.isArray(curriculum?.Summary.value)
-		? curriculum.Summary.value.join('\n')
-		: curriculum?.Summary.value
+	Array.isArray(curriculum.value.Summary.value)
+		? curriculum.value.Summary.value.join('\n')
+		: curriculum.value.Summary.value
 )
 
 const list = computed<boolean>({
 	get() {
-		return Array.isArray(curriculum.Summary.value)
+		return Array.isArray(curriculum.value.Summary.value)
 	},
 	set(value: boolean) {
 		saveSummary(value)
@@ -26,15 +26,18 @@ const list = computed<boolean>({
 })
 
 function saveSummary(list: boolean) {
-	curriculum.Summary.value = list ? summary.value.split('\n') : summary.value
+	curriculum.value.Summary.value = list
+		? summary.value.split('\n')
+		: summary.value
 }
 </script>
 
 <template>
 	<Modal
-		buttonLabel="Sumarry"
+		buttonLabel="Summary"
 		closeLabel="close"
 		minWidth="40rem"
+		buttonIcon="/svgs/pen.svg"
 		v-if="curriculum"
 	>
 		<template #header>
