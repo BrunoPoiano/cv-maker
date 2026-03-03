@@ -20,7 +20,9 @@ const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
 
 const cvSelect = computed(() =>
 	curriculumList.value.map((curriculum, index) => ({
-		label: curriculum.Header.Role.value || `Curriculum ${index + 1}`,
+		label:
+			`${curriculum.language} - ${curriculum.Header.Role.value}` ||
+			`Curriculum ${index + 1}`,
 		value: index
 	}))
 )
@@ -96,11 +98,27 @@ function deleteCv() {
 				@click="deleteCv"
 				:disabled="curriculumIndex === 0"
 				icon="/svgs/trash.svg"
+				hover-background="var(--red)"
 				>delete
 			</Button>
-			<Button @click="copyCv" icon="/svgs/copy.svg">Copy </Button>
-			<Button @click="newCv" icon="/svgs/new-document.svg">New </Button>
-			<Button @click="saveData" icon="/svgs/save.svg">Save </Button>
+			<Button
+				@click="copyCv"
+				hover-background="var(--blue)"
+				icon="/svgs/copy.svg"
+				>Copy
+			</Button>
+			<Button
+				@click="newCv"
+				hover-background="var(--green)"
+				icon="/svgs/new-document.svg"
+				>New
+			</Button>
+			<Button
+				@click="saveData"
+				hover-background="var(--green)"
+				icon="/svgs/save.svg"
+				>Save
+			</Button>
 		</div>
 	</nav>
 </template>

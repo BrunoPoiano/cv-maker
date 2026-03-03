@@ -22,6 +22,11 @@
 	--background: light-dark(#f9f9f9, #000);
 	--input-background: light-dark(#fff, #1a1a1a);
 
+	--red: hsl(0, 90%, 61%);
+	--blue: hsl(210, 90%, 85%);
+	--yellow: hsl(55, 90%, 85%);
+	--green: hsl(130, 90%, 85%);
+
 	--font-family:
 		system-ui, -apple-system, blinkmacsystemfont, 'segoe ui', roboto, oxygen,
 		ubuntu, cantarell, 'open sans', 'helvetica neue', sans-serif;

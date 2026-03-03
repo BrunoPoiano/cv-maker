@@ -24,9 +24,13 @@ function savePDF() {
 	const originalTitle = document.title
 
 	document.title =
-		`${curriculum.Header.UserName.value}-${curriculum.Header.Role.value}`
-			.toLocaleLowerCase()
+		`${curriculum.Header.UserName.value}_${curriculum.Header.Role.value}`
+			.toLowerCase()
+			.replace(/[^\w\s-]/g, '')
 			.replace(/\s+/g, '_')
+			.replace(/_+/g, '_')
+			.replace(/-+/g, '_')
+
 	window.print()
 
 	document.title = originalTitle

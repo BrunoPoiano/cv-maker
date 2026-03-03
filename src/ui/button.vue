@@ -2,6 +2,7 @@
 type Props = {
 	type?: 'button' | 'submit' | 'reset'
 	background?: string
+	hoverBackground?: string
 	icon?: string
 }
 
@@ -14,7 +15,8 @@ defineOptions({
 <template>
 	<button
 		:style="{
-			'--bg': props.background
+			'--bg': props.background,
+			'--hover-bg': props.hoverBackground
 		}"
 		v-bind="$attrs"
 		:type="props.type ?? 'button'"
@@ -33,7 +35,6 @@ defineOptions({
 <style scoped>
 button {
 	--bg: light-dark(#fff, #333b3c);
-
 	display: flex;
 	gap: 0.5ch;
 	align-items: center;
@@ -51,13 +52,20 @@ button {
 	background: var(--bg);
 	color: lch(from var(--bg) calc((49.44 - l) * infinity) 0 0);
 
+	transition:
+		background 500ms,
+		transform 200ms ease-out;
+
 	&:hover:not(:disabled) {
-		background: hsl(from var(--bg) h s calc(l - 10));
+		background: hsl(from var(--hover-bg, var(--bg)) h s calc(l - 10));
 	}
 
 	&:disabled {
 		opacity: 60%;
 		cursor: initial;
+	}
+	&:active:not(:disabled) {
+		transform: scale(0.98);
 	}
 }
 </style>
