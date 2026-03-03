@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Input from '@/ui/input.vue'
+import Input from '@/ui/appInput.vue'
 import { ref } from 'vue'
 
 const model = defineModel<Date | null>()

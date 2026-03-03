@@ -3,7 +3,7 @@ import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
-import Button from '@/ui/button.vue'
+import Button from '@/ui/appButton.vue'
 import { onBeforeMount, ref } from 'vue'
 
 const colorScheme = ref(

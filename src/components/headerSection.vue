@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import type { Curriculum } from '@/types'
-import Button from '@/ui/button.vue'
+import Button from '@/ui/appButton.vue'
 
 type Props = {
 	curriculum: Curriculum

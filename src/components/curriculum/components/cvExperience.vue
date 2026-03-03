@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { Curriculum } from '@/types'
-import List from '@/ui/list.vue'
-import Paragraph from '@/ui/paragraph.vue'
-import Title from './title.vue'
+import List from '@/ui/appList.vue'
+import Paragraph from '@/ui/appParagraph.vue'
+import Title from './CvTitle.vue'
 import { inject } from 'vue'
 import { ProviderKey } from '@/main'
 
-const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
+const { boldMatches } = defineProps<{ boldMatches: (value:string) => string }>()
 
 const { curriculum } = inject(ProviderKey)!
 
@@ -39,7 +39,7 @@ function generateTitle(job: Curriculum['Experience']['value'][number]) {
 			curriculum.language === 'en' ? 'PROFESSIONAL EXPERIENCE' : 'Experiência'
 		}}</Title>
 		<div class="experience">
-			<div v-for="job in curriculum.Experience.value">
+			<div v-for="job in curriculum.Experience.value" :key="job.CompanyName + job.Role">
 				<span
 					class="title"
 					:style="`font-size: var(${curriculum.Experience.size.title})`"

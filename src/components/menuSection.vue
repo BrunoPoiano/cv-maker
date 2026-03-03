@@ -2,14 +2,14 @@
 import { saveDataToLocalStorage } from '@/helpers/localstorage'
 import { ProviderKey } from '@/main'
 import type { Curriculum } from '@/types'
-import Button from '@/ui/button.vue'
-import Select from '@/ui/select.vue'
-import { computed, inject, type Reactive, type Ref } from 'vue'
-import Bolder from './modals/bolder.vue'
+import Button from '@/ui/appButton.vue'
+import Select from '@/ui/appSelect.vue'
+import { computed, inject } from 'vue'
+import Bolder from './modals/modalBolder.vue'
 import { deepClone } from '@/helpers/clone'
 import { CurriculumConst } from '@/constants/curriculum'
 import { parseCurriculum } from '@/parsers/curriculum'
-import GeneratePrompt from './modals/generatePrompt.vue'
+import GeneratePrompt from './modals/modalGeneratePrompt.vue'
 
 const { curriculum } = inject(ProviderKey)!
 
@@ -21,8 +21,7 @@ const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
 const cvSelect = computed(() =>
 	curriculumList.value.map((curriculum, index) => ({
 		label:
-			`${curriculum.language} - ${curriculum.Header.Role.value}` ||
-			`Curriculum ${index + 1}`,
+			`${curriculum.language} - ${curriculum.Header.Role.value}`,
 		value: index
 	}))
 )

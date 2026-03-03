@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Button from '@/ui/button.vue'
+import Button from '@/ui/appButton.vue'
 
 type Props = {
 	buttonLabel: string | Element

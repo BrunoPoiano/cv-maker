@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { saveDataToLocalStorage } from '@/helpers/localstorage'
-import { ProviderKey } from '@/main'
-import Textarea from '@/ui/textarea.vue'
-import { computed, inject, ref } from 'vue'
-import Modal from '@/ui/modal.vue'
-import Button from '@/ui/button.vue'
+import Textarea from '@/ui/appTextarea.vue'
+import { computed,  ref } from 'vue'
+import Modal from '@/ui/appModal.vue'
+import Button from '@/ui/appButton.vue'
 
 const jobDescription = ref('')
 

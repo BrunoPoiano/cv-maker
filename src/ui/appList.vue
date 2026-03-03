@@ -21,7 +21,7 @@ const { genericList, coreSkills, boldMatches, fontSize } = defineProps<Props>()
 <template>
 	<ul>
 		<template v-if="genericList">
-			<li v-for="item in genericList">
+			<li v-for="(item,index) in genericList" :key="index">
 				<span
 					:style="`font-size: var(${fontSize})`"
 					v-if="boldMatches"
@@ -33,7 +33,7 @@ const { genericList, coreSkills, boldMatches, fontSize } = defineProps<Props>()
 			</li>
 		</template>
 		<template v-if="coreSkills">
-			<li v-for="(skill, core) in coreSkills">
+			<li v-for="(skill, core) in coreSkills" :key="core">
 				<div v-if="skill">
 					<span :style="`font-size: var(${fontSize})`" class="core"
 						>{{ core.replace('_', ' & ') }}:

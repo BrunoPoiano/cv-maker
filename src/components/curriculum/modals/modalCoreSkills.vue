@@ -2,10 +2,10 @@
 import { fontSizeSelect } from '@/constants/font-size'
 import { skillList } from '@/constants/skillList'
 import { ProviderKey } from '@/main'
-import { type Curriculum, type Skills, type SkillsList } from '@/types'
-import Modal from '@/ui/modal.vue'
-import Select from '@/ui/select.vue'
-import Textarea from '@/ui/textarea.vue'
+import { type Skills, type SkillsList } from '@/types'
+import Modal from '@/ui/appModal.vue'
+import Select from '@/ui/appSelect.vue'
+import Textarea from '@/ui/appTextarea.vue'
 import { inject, ref } from 'vue'
 
 const { curriculum } = inject(ProviderKey)!
@@ -53,7 +53,7 @@ function saveSkill(core: SkillsList) {
 				:items="fontSizeSelect"
 				v-model="curriculum.CoreSkills.size"
 			/>
-			<div v-for="(_, core) in coreSkills" class="skills">
+			<div v-for="(_, core) in coreSkills" class="skills" :key="core">
 				<span>{{ core.replace('_', ' & ') }}</span>
 				<Textarea
 					placeholder="User Name"

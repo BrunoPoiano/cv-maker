@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import type { Curriculum } from '@/types'
-import List from '@/ui/list.vue'
-import Title from './title.vue'
+import List from '@/ui/appList.vue'
+import Title from './CvTitle.vue'
 import { inject } from 'vue'
 import { ProviderKey } from '@/main'
 
 const { curriculum } = inject(ProviderKey)!
-const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
+const { boldMatches } = defineProps<{ boldMatches: (value: string) => string }>()
 </script>
 
 <template>

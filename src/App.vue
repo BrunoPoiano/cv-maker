@@ -1,28 +1,21 @@
 <script setup lang="ts">
-import Button from '@/ui/button.vue'
-import { computed, provide, reactive, ref, type InjectionKey } from 'vue'
+import { computed, provide, reactive, ref } from 'vue'
 
-import Bolder from './components/modals/bolder.vue'
 
-import CurriculumModel from './components/curriculum/index.vue'
+import CurriculumModel from './components/curriculum/cvIndex.vue'
 import {
 	getDataFromLocalStorage,
-	saveDataToLocalStorage
 } from './helpers/localstorage'
 import { parseCurriculum, parseCurriculumList } from './parsers/curriculum'
-import type { Curriculum, Languages } from './types'
 
 import ColorScheme from './components/colorScheme.vue'
-import { languagesSelect } from './constants/language'
 import { ProviderKey } from './main'
 import { parseBolder } from './parsers/bolder'
-import { parseLanguage } from './parsers/language'
-import Select from './ui/select.vue'
 import { isNumberOrDefault } from './parsers/typeValidation'
 import { CurriculumConst } from './constants/curriculum'
-import Menu from './components/menu.vue'
+import Menu from './components/menuSection.vue'
 import { deepClone } from './helpers/clone'
-import Header from './components/header.vue'
+import Header from './components/headerSection.vue'
 
 const curriculumList = reactive(
 	getDataFromLocalStorage({

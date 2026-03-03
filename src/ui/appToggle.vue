@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { generateKey } from '@/helpers/generateKey'
-import type { ModelRef } from 'vue'
-
 type Props = {
 	labelStart?: string | Element
 	labelEnd?: string | Element
 }
 const modelValue = defineModel<boolean>()
-const props = defineProps<Props>()
+const {labelStart} = defineProps<Props>()
 const key = generateKey(5)
+
 defineOptions({
 	inheritAttrs: false
 })

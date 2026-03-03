@@ -59,12 +59,11 @@ export function isNumberOrDefault<T extends number | undefined>(
 			return parsed
 		}
 	}
-	if (defaultValue !== undefined) {
+	if (defaultValue !== undefined && typeof defaultValue === "number") {
 		return defaultValue
 	}
 
-	// rome-ignore lint/suspicious/noExplicitAny: <explanation>
-	return null as any
+	return null as T extends number ? number : number | null
 }
 
 export function isBooleanOrDefault(

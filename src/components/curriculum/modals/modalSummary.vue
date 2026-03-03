@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey } from '@/main'
-import type { Curriculum } from '@/types'
-import Modal from '@/ui/modal.vue'
-import Select from '@/ui/select.vue'
-import Textarea from '@/ui/textarea.vue'
-import Toggle from '@/ui/toggle.vue'
+import Modal from '@/ui/appModal.vue'
+import Select from '@/ui/appSelect.vue'
+import Textarea from '@/ui/appTextarea.vue'
+import Toggle from '@/ui/appToggle.vue'
 import { computed, inject, ref } from 'vue'
 
 const { curriculum } = inject(ProviderKey)!

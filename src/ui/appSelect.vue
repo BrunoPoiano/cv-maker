@@ -19,7 +19,7 @@ const model = defineModel()
 	<div class="content">
 		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
 		<select v-bind="$attrs" v-model="model">
-			<option v-for="item in items" :value="item.value">
+			<option v-for="item in items" :value="item.value" :key="item.value">
 				{{ item.label }}
 			</option>
 		</select>

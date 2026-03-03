@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Textarea from '@/ui/textarea.vue'
+import Textarea from '@/ui/appTextarea.vue'
 import { ref, watch } from 'vue'
 type Props = {
 	list: boolean
