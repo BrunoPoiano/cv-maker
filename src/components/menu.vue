@@ -10,6 +10,7 @@ import Bolder from './modals/bolder.vue'
 import { deepClone } from '@/helpers/clone'
 import { CurriculumConst } from '@/constants/curriculum'
 import { parseCurriculum } from '@/parsers/curriculum'
+import GeneratePrompt from './modals/generatePrompt.vue'
 
 const { curriculum, language } = inject(ProviderKey)!
 1
@@ -98,6 +99,7 @@ function deleteCv() {
 				@change="saveLanguage"
 			/>
 			<Bolder />
+			<GeneratePrompt />
 		</div>
 		<div>
 			<Button

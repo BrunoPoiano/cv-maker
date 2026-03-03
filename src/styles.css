@@ -147,27 +147,16 @@ dialog {
 	}
 }
 
-/*form {
-  width: 100%;
-  max-width: 50ch;
-
-  input:not(:placeholder-shown):valid,
-  textarea:not(:placeholder-shown):valid,
-  select:not(:placeholder-shown):valid {
-    outline-color: green;
-  }
-  input:not(:placeholder-shown):invalid,
-  textarea:not(:placeholder-shown):invalid,
-  select:not(:placeholder-shown):invalid {
-    outline-color: red;
-  }
-
-  input:focus:invalid,
-  textarea:focus:invalid,
-  select:focus:invalid {
-    outline-color: blue;
-  }
-}*/
+pre {
+	display: block;
+	unicode-bidi: embed;
+	font-family: monospace;
+	white-space: pre;
+	overflow: auto;
+	background: #8080801a;
+	border-radius: 10px;
+	padding: 1rem;
+}
 
 @media (prefers-reduced-motion: no-preference) {
 	:has(:target) {

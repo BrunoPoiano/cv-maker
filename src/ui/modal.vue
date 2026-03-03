@@ -5,17 +5,22 @@ type Props = {
 	buttonLabel: string | Element
 	closeLabel: string | Element
 	minWidth?: string
+	maxWidth?: string
 	buttonIcon?: string
 }
 
-const { buttonLabel, buttonIcon, closeLabel, minWidth } = defineProps<Props>()
+const { buttonLabel, buttonIcon, closeLabel, minWidth, maxWidth } =
+	defineProps<Props>()
 
 import { generateKey } from '@/helpers/generateKey'
 const key = generateKey(10)
 </script>
 
 <template>
-	<dialog :id="key" :style="minWidth ? `min-width: min(${minWidth},100%)` : ''">
+	<dialog
+		:id="key"
+		:style="`min-width: min(${minWidth},100%); max-width: ${maxWidth || '100%'}`"
+	>
 		<div class="header">
 			<slot name="header" />
 		</div>
