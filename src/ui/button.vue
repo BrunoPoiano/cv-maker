@@ -51,8 +51,13 @@ button {
 	background: var(--bg);
 	color: lch(from var(--bg) calc((49.44 - l) * infinity) 0 0);
 
-	&:hover {
+	&:hover:not(:disabled) {
 		background: hsl(from var(--bg) h s calc(l - 10));
+	}
+
+	&:disabled {
+		opacity: 60%;
+		cursor: initial;
 	}
 }
 </style>

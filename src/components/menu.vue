@@ -21,7 +21,7 @@ const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
 
 const cvSelect = computed(() =>
 	curriculumList.value.map((curriculum, index) => ({
-		label: curriculum.Header.UserName.value || `Curriculum ${index + 1}`,
+		label: curriculum.Header.Role.value || `Curriculum ${index + 1}`,
 		value: index
 	}))
 )
@@ -30,10 +30,17 @@ function saveLanguage() {
 	saveDataToLocalStorage({ key: 'language', initialValue: language.value })
 }
 
+function saveCurriculumIndex() {
+	saveDataToLocalStorage({
+		key: 'curriculumIndex',
+		initialValue: curriculumIndex.value
+	})
+}
+
 function saveData() {
 	saveDataToLocalStorage({
 		key: 'curriculumList',
-		initialValue: curriculumList
+		initialValue: curriculumList.value
 	})
 }
 
@@ -70,14 +77,6 @@ function deleteCv() {
 
 	curriculumList.value.splice(curriculumIndex.value, 1)
 
-	if (curriculumList.value.length === 0) {
-		curriculumList.value.push(
-			deepClone({ obj: CurriculumConst(), parseFunction: parseCurriculum })
-		)
-		curriculumIndex.value = 0
-		return
-	}
-
 	curriculumIndex.value = Math.min(
 		curriculumIndex.value,
 		curriculumList.value.length - 1
@@ -88,7 +87,11 @@ function deleteCv() {
 <template>
 	<nav class="menu">
 		<div>
-			<Select :items="cvSelect" v-model="curriculumIndex" />
+			<Select
+				:items="cvSelect"
+				v-model="curriculumIndex"
+				@vue:updated="saveCurriculumIndex"
+			/>
 			<Select
 				:items="languagesSelect"
 				v-model="language"
@@ -97,7 +100,12 @@ function deleteCv() {
 			<Bolder />
 		</div>
 		<div>
-			<Button @click="deleteCv" icon="/svgs/trash.svg">delete </Button>
+			<Button
+				@click="deleteCv"
+				:disabled="curriculumIndex === 0"
+				icon="/svgs/trash.svg"
+				>delete
+			</Button>
 			<Button @click="copyCv" icon="/svgs/copy.svg">Copy </Button>
 			<Button @click="newCv" icon="/svgs/new-document.svg">New </Button>
 			<Button @click="saveData" icon="/svgs/save.svg">Save </Button>

@@ -5,12 +5,7 @@ import Title from './title.vue'
 import { inject } from 'vue'
 import { ProviderKey } from '@/main'
 
-const {
-	curriculum: {
-		value: { CoreSkills }
-	},
-	language
-} = inject(ProviderKey)!
+const { curriculum, language } = inject(ProviderKey)!
 const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
 </script>
 
@@ -21,8 +16,8 @@ const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
 		}}</Title>
 		<div class="coreSkills">
 			<List
-				:fontSize="CoreSkills.size"
-				:coreSkills="CoreSkills.skills"
+				:fontSize="curriculum.CoreSkills.size"
+				:coreSkills="curriculum.CoreSkills.skills"
 				:boldMatches="boldMatches"
 			/>
 		</div>

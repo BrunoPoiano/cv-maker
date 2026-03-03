@@ -42,6 +42,7 @@ const model = defineModel()
 		border-radius: 10px;
 		padding: 0.3rem 0.6rem;
 		background: var(--input-background);
+		max-width: 20ch;
 	}
 }
 </style>

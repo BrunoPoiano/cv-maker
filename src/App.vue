@@ -83,7 +83,6 @@ provide(ProviderKey, {
 		v-model:curriculum-index="curriculumIndex"
 		v-model:curriculum-list="curriculumList"
 	/>
-
 	<CurriculumModel :key="curriculumIndex" />
 	<footer>
 		<ColorScheme />

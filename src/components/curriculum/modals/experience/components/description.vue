@@ -25,7 +25,9 @@ watch(
 
 function updateData(list: boolean) {
 	if (desc.value) {
-		model.value = list ? desc.value.split('\n') : desc.value
+		model.value = list
+			? desc.value.split('\n').filter((item) => item !== '')
+			: desc.value
 	}
 }
 </script>

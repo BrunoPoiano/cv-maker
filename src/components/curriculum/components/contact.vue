@@ -3,18 +3,14 @@ import { ProviderKey } from '@/main'
 import type { Curriculum } from '@/types'
 import { inject } from 'vue'
 
-const {
-	curriculum: {
-		value: { Contact }
-	}
-} = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
 </script>
 
 <template>
 	<div class="contact">
 		<span
-			v-for="(item, type) in Contact.value"
-			:style="`font-size: var(${Contact.size})`"
+			v-for="(item, type) in curriculum.Contact.value"
+			:style="`font-size: var(${curriculum.Contact.size})`"
 		>
 			<span class="type"> {{ type }}: </span>
 			<span> {{ item }} </span>
@@ -35,6 +31,9 @@ const {
 		color: var(--light-text-color);
 		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight);
+		> span {
+			font-size: inherit;
+		}
 	}
 }
 </style>

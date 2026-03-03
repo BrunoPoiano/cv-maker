@@ -3,21 +3,19 @@ import { ProviderKey } from '@/main'
 import type { Curriculum } from '@/types'
 import { inject } from 'vue'
 
-const {
-	curriculum: {
-		value: { Header }
-	}
-} = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
 </script>
 
 <template>
 	<div class="header">
-		<h1 :style="`font-size: var(${Header.UserName.size})`">
-			{{ Header.UserName.value }}
+		<h1 :style="`font-size: var(${curriculum.Header.UserName.size})`">
+			{{ curriculum.Header.UserName.value }}
 		</h1>
-		<span :style="`font-size: var(${Header.Role.size})`" class="label">{{
-			Header.Role.value
-		}}</span>
+		<span
+			:style="`font-size: var(${curriculum.Header.Role.size})`"
+			class="label"
+			>{{ curriculum.Header.Role.value }}</span
+		>
 	</div>
 </template>
 

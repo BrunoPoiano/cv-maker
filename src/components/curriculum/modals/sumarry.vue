@@ -27,7 +27,7 @@ const list = computed<boolean>({
 
 function saveSummary(list: boolean) {
 	curriculum.value.Summary.value = list
-		? summary.value.split('\n')
+		? summary.value.split('\n').filter((item) => item !== '')
 		: summary.value
 }
 </script>
