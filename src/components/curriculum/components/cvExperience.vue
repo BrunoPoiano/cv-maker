@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import type { Curriculum } from '@/types'
+import type { BoldMatchReturn, Curriculum } from '@/types'
 import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
 import Title from './CvTitle.vue'
 import { inject } from 'vue'
 import { ProviderKey } from '@/main'
+import AppBoldMatch from '@/ui/appBoldMatch.vue'
 
-const { boldMatches } = defineProps<{ boldMatches: (value:string) => string }>()
+const { boldMatches } = defineProps<{
+	boldMatches: (value: string) => BoldMatchReturn
+}>()
 
 const { curriculum } = inject(ProviderKey)!
 
@@ -39,7 +42,10 @@ function generateTitle(job: Curriculum['Experience']['value'][number]) {
 			curriculum.language === 'en' ? 'PROFESSIONAL EXPERIENCE' : 'Experiência'
 		}}</Title>
 		<div class="experience">
-			<div v-for="job in curriculum.Experience.value" :key="job.CompanyName + job.Role">
+			<div
+				v-for="job in curriculum.Experience.value"
+				:key="job.CompanyName + job.Role"
+			>
 				<span
 					class="title"
 					:style="`font-size: var(${curriculum.Experience.size.title})`"
@@ -52,11 +58,9 @@ function generateTitle(job: Curriculum['Experience']['value'][number]) {
 					:boldMatches="boldMatches"
 					:fontSize="curriculum.Experience.size.description"
 				/>
-				<Paragraph
-					v-else
-					v-html="boldMatches(job.Description)"
-					:fontSize="curriculum.Experience.size.description"
-				/>
+				<Paragraph v-else :fontSize="curriculum.Experience.size.description">
+					<AppBoldMatch :value="boldMatches(job.Description)" />
+				</Paragraph>
 			</div>
 		</div>
 	</div>

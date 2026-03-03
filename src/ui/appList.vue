@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import type { FontSize, Skills } from '@/types'
+import type { BoldMatchReturn, FontSize, Skills } from '@/types'
+import AppBoldMatch from './appBoldMatch.vue'
 
 type Props =
 	| {
 			genericList: Array<string>
 			coreSkills?: Skills
-			boldMatches?: (v: string) => string
+			boldMatches?: (v: string) => BoldMatchReturn
 			fontSize?: FontSize
 	  }
 	| {
 			coreSkills: Skills
 			genericList?: Array<string>
-			boldMatches?: (v: string) => string
+			boldMatches?: (v: string) => BoldMatchReturn
 			fontSize?: FontSize
 	  }
 
@@ -21,12 +22,10 @@ const { genericList, coreSkills, boldMatches, fontSize } = defineProps<Props>()
 <template>
 	<ul>
 		<template v-if="genericList">
-			<li v-for="(item,index) in genericList" :key="index">
-				<span
-					:style="`font-size: var(${fontSize})`"
-					v-if="boldMatches"
-					v-html="boldMatches(item)"
-				/>
+			<li v-for="(item, index) in genericList" :key="index">
+				<span :style="`font-size: var(${fontSize})`" v-if="boldMatches">
+					<AppBoldMatch :value="boldMatches(item)" />
+				</span>
 				<span :style="`font-size: var(${fontSize})`" v-else>
 					{{ item }}
 				</span>
@@ -38,11 +37,9 @@ const { genericList, coreSkills, boldMatches, fontSize } = defineProps<Props>()
 					<span :style="`font-size: var(${fontSize})`" class="core"
 						>{{ core.replace('_', ' & ') }}:
 					</span>
-					<span
-						:style="`font-size: var(${fontSize})`"
-						v-if="boldMatches"
-						v-html="boldMatches(skill.join(', '))"
-					/>
+					<span :style="`font-size: var(${fontSize})`" v-if="boldMatches">
+						<AppBoldMatch :value="boldMatches(skill.join(', '))" />
+					</span>
 					<span :style="`font-size: var(${fontSize})`" v-else>
 						{{ skill.join(', ') }}
 					</span>

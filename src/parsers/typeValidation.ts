@@ -59,7 +59,7 @@ export function isNumberOrDefault<T extends number | undefined>(
 			return parsed
 		}
 	}
-	if (defaultValue !== undefined && typeof defaultValue === "number") {
+	if (defaultValue !== undefined && typeof defaultValue === 'number') {
 		return defaultValue
 	}
 

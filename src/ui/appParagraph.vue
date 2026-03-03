@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {  FontSize } from '@/types'
+import type { FontSize } from '@/types'
 
 type Props = {
 	fontSize?: FontSize

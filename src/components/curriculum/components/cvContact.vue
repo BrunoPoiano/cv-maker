@@ -7,8 +7,11 @@ const { curriculum } = inject(ProviderKey)!
 
 <template>
 	<div class="contact">
-		<span :key="type" v-for="(item, type) in curriculum.Contact.value"
-			:style="`font-size: var(${curriculum.Contact.size})`">
+		<span
+			:key="type"
+			v-for="(item, type) in curriculum.Contact.value"
+			:style="`font-size: var(${curriculum.Contact.size})`"
+		>
 			<span class="type"> {{ type }}: </span>
 			<span> {{ item }} </span>
 		</span>
@@ -29,7 +32,7 @@ const { curriculum } = inject(ProviderKey)!
 		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight);
 
-		>span {
+		> span {
 			font-size: inherit;
 		}
 	}

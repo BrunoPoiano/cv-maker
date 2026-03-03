@@ -5,7 +5,7 @@ type Props = {
 	labelEnd?: string | Element
 }
 const modelValue = defineModel<boolean>()
-const {labelStart} = defineProps<Props>()
+const { labelStart } = defineProps<Props>()
 const key = generateKey(5)
 
 defineOptions({

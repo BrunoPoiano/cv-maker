@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Textarea from '@/ui/appTextarea.vue'
-import { computed,  ref } from 'vue'
+import { computed, ref } from 'vue'
 import Modal from '@/ui/appModal.vue'
 import Button from '@/ui/appButton.vue'
 

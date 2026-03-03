@@ -3,9 +3,12 @@ import List from '@/ui/appList.vue'
 import Title from './CvTitle.vue'
 import { inject } from 'vue'
 import { ProviderKey } from '@/main'
+import type { BoldMatchReturn } from '@/types'
 
 const { curriculum } = inject(ProviderKey)!
-const { boldMatches } = defineProps<{ boldMatches: (value: string) => string }>()
+const { boldMatches } = defineProps<{
+	boldMatches: (value: string) => BoldMatchReturn
+}>()
 </script>
 
 <template>

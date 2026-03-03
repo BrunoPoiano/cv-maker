@@ -4,10 +4,14 @@ import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
 import { inject } from 'vue'
 import Title from './CvTitle.vue'
+import type { BoldMatchReturn } from '@/types'
+import AppBoldMatch from '@/ui/appBoldMatch.vue'
 
 const { curriculum } = inject(ProviderKey)!
 
-const { boldMatches } = defineProps<{ boldMatches: (value: string) => string }>()
+const { boldMatches } = defineProps<{
+	boldMatches: (value: string) => BoldMatchReturn
+}>()
 </script>
 
 <template>
@@ -20,11 +24,9 @@ const { boldMatches } = defineProps<{ boldMatches: (value: string) => string }>(
 				:genericList="curriculum.Summary.value"
 				:boldMatches="boldMatches"
 			/>
-			<Paragraph
-				v-else
-				:fontSize="curriculum.Summary.size"
-				v-html="boldMatches(curriculum.Summary.value)"
-			/>
+			<Paragraph v-else :fontSize="curriculum.Summary.size">
+				<AppBoldMatch :value="boldMatches(curriculum.Summary.value)" />
+			</Paragraph>
 		</div>
 	</div>
 </template>

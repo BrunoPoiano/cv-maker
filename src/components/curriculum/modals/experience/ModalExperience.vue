@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey } from '@/main'
-import {  inject, ref } from 'vue'
+import { inject, ref } from 'vue'
 import Input from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'

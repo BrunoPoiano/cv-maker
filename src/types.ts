@@ -1,3 +1,4 @@
+import type { RendererElement, RendererNode, VNode } from 'vue'
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
 import type { skillList } from './constants/skillList'
@@ -11,6 +12,19 @@ export type SelectItem = Array<{ value: string | number; label: string }>
 type Email = `${string}@${string}`
 type Linkedin = `linkedin.com/in/${string}`
 type GitHub = `github.com/${string}`
+
+export type BoldMatchReturn =
+	| string
+	| (
+			| string
+			| VNode<
+					RendererNode,
+					RendererElement,
+					{
+						[key: string]: unknown
+					}
+			  >
+	  )[]
 
 type Contact = {
 	size: FontSize

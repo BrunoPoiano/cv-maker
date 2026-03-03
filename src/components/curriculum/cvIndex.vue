@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ProviderKey } from '@/main'
-import { inject } from 'vue'
+import { h, inject } from 'vue'
 import Contact from './components/cvContact.vue'
 import CoreSkills from './components/vCoreSkills.vue'
 import Experience from './components/cvExperience.vue'
@@ -18,14 +18,20 @@ import { saveDataToLocalStorage } from '@/helpers/localstorage'
 
 const { bolder, curriculum } = inject(ProviderKey)!
 
-function boldMatches(value: string): string {
+function boldMatches(value: string) {
 	if (!bolder.length) return value
 
 	const escaped = bolder.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
 
 	const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi')
 
-	return value.replace(regex, '<b>$1</b>')
+	const parts = value.split(regex)
+
+	return parts.map((part) =>
+		bolder.some((b) => b.toLowerCase() === part.toLowerCase())
+			? h('b', part)
+			: part
+	)
 }
 
 function saveLanguage() {
