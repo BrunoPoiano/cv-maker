@@ -8,7 +8,7 @@ import { ProviderKey } from '@/main'
 
 const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
 
-const { curriculum, language } = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
 
 function fixDate(date: unknown) {
 	if (date instanceof Date) {
@@ -36,7 +36,7 @@ function generateTitle(job: Curriculum['Experience']['value'][number]) {
 <template>
 	<div>
 		<Title>{{
-			language === 'en' ? 'PROFESSIONAL EXPERIENCE' : 'Experiência'
+			curriculum.language === 'en' ? 'PROFESSIONAL EXPERIENCE' : 'Experiência'
 		}}</Title>
 		<div class="experience">
 			<div v-for="job in curriculum.Experience.value">

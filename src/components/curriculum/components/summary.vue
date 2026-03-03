@@ -6,14 +6,14 @@ import Paragraph from '@/ui/paragraph.vue'
 import { computed, inject } from 'vue'
 import Title from './title.vue'
 
-const { curriculum, language } = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
 
 const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
 </script>
 
 <template>
 	<div>
-		<Title>{{ language === 'en' ? 'SUMMARY' : 'Resumo' }}</Title>
+		<Title>{{ curriculum.language === 'en' ? 'SUMMARY' : 'Resumo' }}</Title>
 		<div class="summary">
 			<List
 				v-if="Array.isArray(curriculum.Summary.value)"

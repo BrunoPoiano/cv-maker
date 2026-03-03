@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { languagesSelect } from '@/constants/language'
 import { saveDataToLocalStorage } from '@/helpers/localstorage'
 import { ProviderKey } from '@/main'
-import type { Curriculum, Languages } from '@/types'
+import type { Curriculum } from '@/types'
 import Button from '@/ui/button.vue'
 import Select from '@/ui/select.vue'
 import { computed, inject, type Reactive, type Ref } from 'vue'
@@ -12,8 +11,7 @@ import { CurriculumConst } from '@/constants/curriculum'
 import { parseCurriculum } from '@/parsers/curriculum'
 import GeneratePrompt from './modals/generatePrompt.vue'
 
-const { curriculum, language } = inject(ProviderKey)!
-1
+const { curriculum } = inject(ProviderKey)!
 
 const curriculumIndex = defineModel<number>('curriculum-index')
 const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
@@ -26,10 +24,6 @@ const cvSelect = computed(() =>
 		value: index
 	}))
 )
-
-function saveLanguage() {
-	saveDataToLocalStorage({ key: 'language', initialValue: language.value })
-}
 
 function saveCurriculumIndex() {
 	saveDataToLocalStorage({
@@ -93,11 +87,7 @@ function deleteCv() {
 				v-model="curriculumIndex"
 				@vue:updated="saveCurriculumIndex"
 			/>
-			<Select
-				:items="languagesSelect"
-				v-model="language"
-				@change="saveLanguage"
-			/>
+
 			<Bolder />
 			<GeneratePrompt />
 		</div>

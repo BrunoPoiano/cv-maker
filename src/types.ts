@@ -52,6 +52,7 @@ type CoreSkills = {
 }
 
 export type Curriculum = {
+	language: Languages
 	Header: Header
 	Contact: Contact
 	Summary: Sumarry

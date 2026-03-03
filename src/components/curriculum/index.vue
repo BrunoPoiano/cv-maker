@@ -12,8 +12,11 @@ import CoreSkillsModal from './modals/coreSkills.vue'
 import HeaderModal from './modals/header.vue'
 import SumarryModal from './modals/sumarry.vue'
 import ExperienceModal from './modals/experience/index.vue'
+import Select from '@/ui/select.vue'
+import { languagesSelect } from '@/constants/language'
+import { saveDataToLocalStorage } from '@/helpers/localstorage'
 
-const { bolder } = inject(ProviderKey)!
+const { bolder, curriculum } = inject(ProviderKey)!
 
 function boldMatches(value: string): string {
 	if (!bolder.length) return value
@@ -24,6 +27,13 @@ function boldMatches(value: string): string {
 
 	return value.replace(regex, '<b>$1</b>')
 }
+
+function saveLanguage() {
+	saveDataToLocalStorage({
+		key: 'language',
+		initialValue: curriculum.value.language
+	})
+}
 </script>
 
 <template>
@@ -33,6 +43,11 @@ function boldMatches(value: string): string {
 		<SumarryModal />
 		<CoreSkillsModal />
 		<ExperienceModal />
+		<Select
+			:items="languagesSelect"
+			v-model="curriculum.language"
+			@change="saveLanguage"
+		/>
 	</nav>
 	<section class="a4-page page" id="curriculumPage">
 		<Header />

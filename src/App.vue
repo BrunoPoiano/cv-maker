@@ -62,18 +62,9 @@ const bolder = reactive(
 	})
 )
 
-const language = ref(
-	getDataFromLocalStorage<Languages>({
-		key: 'language',
-		parseFunction: parseLanguage,
-		initialValue: 'pt'
-	})
-)
-
 provide(ProviderKey, {
 	curriculum,
-	bolder,
-	language
+	bolder
 })
 </script>
 

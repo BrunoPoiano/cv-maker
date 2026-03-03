@@ -7,6 +7,7 @@ import {
 	isOneOforDefault,
 	isStringOrDefault
 } from './typeValidation'
+import { languages } from '@/constants/language'
 
 export function parseCurriculum(value: unknown) {
 	const cv = CurriculumConst()
@@ -14,6 +15,8 @@ export function parseCurriculum(value: unknown) {
 	if (!isObject(value)) {
 		return cv
 	}
+
+	cv.language = isOneOforDefault(value.language, languages, 'en')
 
 	if (isObject(value.Header)) {
 		if (isObject(value.Header.UserName)) {

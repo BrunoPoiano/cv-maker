@@ -2,6 +2,7 @@ import type { Curriculum } from '@/types'
 
 export function CurriculumConst(): Curriculum {
 	return {
+		language: 'en',
 		Header: {
 			UserName: {
 				value: '',

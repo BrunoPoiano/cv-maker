@@ -17,6 +17,8 @@ Here is the job description:
 [${jobDescription.value}]
 Rewrite my resume to perfectly match:
 
+> use attached resume as template - do not change formatting or structure
+> do not add more information, only rephrase existing content to match job description
 > Incorporate exact keywords/phrases from job description
 > Quantify achievements where possible
 > Keep under 1 page, bullet format

@@ -1,5 +1,5 @@
 import type { Languages } from '@/types'
-import { isOneOf, isOneOforDefault, isStringOrDefault } from './typeValidation'
+import { isOneOforDefault } from './typeValidation'
 import { languages } from '@/constants/language'
 
 export function parseLanguage(value: unknown): Languages {

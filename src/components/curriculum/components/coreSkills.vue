@@ -5,14 +5,14 @@ import Title from './title.vue'
 import { inject } from 'vue'
 import { ProviderKey } from '@/main'
 
-const { curriculum, language } = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
 const { boldMatches } = defineProps<{ boldMatches: (v: string) => string }>()
 </script>
 
 <template>
 	<div>
 		<Title>{{
-			language === 'en' ? 'CORE SKILLS' : 'HABILIDADES TÉCNICAS'
+			curriculum.language === 'en' ? 'CORE SKILLS' : 'HABILIDADES TÉCNICAS'
 		}}</Title>
 		<div class="coreSkills">
 			<List
