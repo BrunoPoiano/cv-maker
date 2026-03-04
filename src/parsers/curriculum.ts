@@ -111,6 +111,36 @@ export function parseCurriculum(value: unknown) {
 				)
 			}
 
+			if (Array.isArray(value.CoreSkills.skills.backend)) {
+				cv.CoreSkills.skills.backend = value.CoreSkills.skills.backend.reduce(
+					(acc, item) => {
+						acc.push(isStringOrDefault(item, undefined))
+						return acc
+					},
+					[]
+				)
+			}
+
+			if (Array.isArray(value.CoreSkills.skills.other)) {
+				cv.CoreSkills.skills.other = value.CoreSkills.skills.other.reduce(
+					(acc, item) => {
+						acc.push(isStringOrDefault(item, undefined))
+						return acc
+					},
+					[]
+				)
+			}
+
+			if (Array.isArray(value.CoreSkills.skills.http_integrations)) {
+				cv.CoreSkills.skills.http_integrations = value.CoreSkills.skills.http_integrations.reduce(
+					(acc, item) => {
+						acc.push(isStringOrDefault(item, undefined))
+						return acc
+					},
+					[]
+				)
+			}
+
 			if (Array.isArray(value.CoreSkills.skills.containers_devops)) {
 				cv.CoreSkills.skills.containers_devops =
 					value.CoreSkills.skills.containers_devops.reduce((acc, item) => {

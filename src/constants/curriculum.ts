@@ -36,7 +36,10 @@ export function CurriculumConst(): Curriculum {
 				databases: [],
 				frontend: [],
 				containers_devops: [],
-				practices: []
+				practices: [],
+				backend: [],
+				http_integrations:[],
+				other:[]
 			},
 			size: '--font-size-md'
 		},

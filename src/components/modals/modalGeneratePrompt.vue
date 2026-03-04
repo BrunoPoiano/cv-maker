@@ -12,11 +12,11 @@ const prompt = computed(
 Fix Resume
 Here is my current resume. [Attach resume]
 Here is the job description:
-[${jobDescription.value}]
+[${jobDescription.value.replace(/^\s*[\r\n]/gm, '')}]
 Rewrite my resume to perfectly match:
 
-> use attached resume as template - do not change formatting or structure
-> do not add more information, only rephrase existing content to match job description
+> use attached resume as template
+> rephrase existing content to match job description and remove irrelevant info
 > Incorporate exact keywords/phrases from job description
 > Quantify achievements where possible
 > Keep under 1 page, bullet format
@@ -28,17 +28,14 @@ Output: Full revised resume + list of changes made.
 )
 
 function copyPrompt() {
-	navigator.clipboard.writeText(prompt.value.replace(/^\s*[\r\n]/gm, ''))
+	navigator.clipboard.writeText(prompt.value).catch((err) => {
+		console.error('Failed to copy prompt: ', err)
+	})
 }
 </script>
 
 <template>
-	<Modal
-		buttonLabel="Generate Prompt"
-		closeLabel="close"
-		minWidth="40rem"
-		maxWidth="40ch"
-	>
+	<Modal buttonLabel="Generate Prompt" closeLabel="close" minWidth="40rem" maxWidth="40ch">
 		<template #header>
 			<h4>Generate Prompt</h4>
 		</template>
@@ -47,9 +44,8 @@ function copyPrompt() {
 		</form>
 		<div class="prompt-preview">
 			<pre ref="prompt">
-				{{ prompt.replace(/^\s*[\r\n]/gm, '') }}
-			</pre
-			>
+		{{ prompt }}
+	</pre>
 			<Button @click="copyPrompt">Copy Prompt</Button>
 		</div>
 	</Modal>
@@ -68,6 +64,7 @@ form {
 		margin-bottom: 0;
 		max-height: 30ch;
 	}
+
 	button {
 		place-self: end;
 	}
