@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { ProviderKey } from '@/main'
 import type { BoldMatchReturn, Curriculum } from '@/types'
+import AppBoldMatch from '@/ui/appBoldMatch.vue'
 import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
-import Title from './CvTitle.vue'
 import { inject } from 'vue'
-import { ProviderKey } from '@/main'
-import AppBoldMatch from '@/ui/appBoldMatch.vue'
+import Title from './CvTitle.vue'
 
 const { boldMatches } = defineProps<{
 	boldMatches: (value: string) => BoldMatchReturn
@@ -37,9 +37,11 @@ function generateTitle(job: Curriculum['Experience']['value'][number]) {
 </script>
 
 <template>
-	<div>
+	<div v-if="curriculum.Experience.show">
 		<Title>{{
-			curriculum.language === 'en' ? 'PROFESSIONAL EXPERIENCE' : 'Experiência'
+			curriculum.Settings.language === 'en'
+				? 'PROFESSIONAL EXPERIENCE'
+				: 'Experiência'
 		}}</Title>
 		<div class="experience">
 			<div

@@ -3,6 +3,7 @@ import { fontSizeSelect } from '@/constants/font-size'
 import { skillList } from '@/constants/skillList'
 import { ProviderKey } from '@/main'
 import { type Skills, type SkillsList } from '@/types'
+import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
 import Textarea from '@/ui/appTextarea.vue'
@@ -44,7 +45,13 @@ function saveSkill(core: SkillsList) {
 	>
 		<template #header>
 			<div class="header">
-				<h4>Core Skills</h4>
+				<h4>
+					<AppInput
+						type="checkbox"
+						label="Core Skills"
+						v-model="curriculum.CoreSkills.show"
+					/>
+				</h4>
 			</div>
 		</template>
 		<form>
@@ -70,10 +77,12 @@ function saveSkill(core: SkillsList) {
 .skills {
 	display: grid;
 	gap: 0.8rem;
+
 	span {
 		text-transform: capitalize;
 	}
 }
+
 form {
 	display: grid;
 	gap: 1rem;

@@ -1,13 +1,14 @@
 import { CurriculumConst } from '@/constants/curriculum'
 import { fontSize } from '@/constants/font-size'
-import type { Curriculum } from '@/types'
+import { languages } from '@/constants/language'
+import type { Curriculum, Experience } from '@/types'
 import {
+	isBooleanOrDefault,
 	isExtendedStringOrDefault,
 	isObject,
 	isOneOforDefault,
 	isStringOrDefault
 } from './typeValidation'
-import { languages } from '@/constants/language'
 
 export function parseCurriculum(value: unknown) {
 	const cv = CurriculumConst()
@@ -16,7 +17,11 @@ export function parseCurriculum(value: unknown) {
 		return cv
 	}
 
-	cv.language = isOneOforDefault(value.language, languages, 'en')
+	if (isObject(value.Settings)) {
+		cv.Settings = {
+			language: isOneOforDefault(value.Settings.language, languages, 'en')
+		}
+	}
 
 	if (isObject(value.Header)) {
 		if (isObject(value.Header.UserName)) {
@@ -67,6 +72,7 @@ export function parseCurriculum(value: unknown) {
 			fontSize,
 			'--font-size-md'
 		)
+		cv.CoreSkills.show = isBooleanOrDefault(value.CoreSkills.show, true)
 
 		if (isObject(value.CoreSkills.skills)) {
 			if (Array.isArray(value.CoreSkills.skills.languages)) {
@@ -129,6 +135,7 @@ export function parseCurriculum(value: unknown) {
 			fontSize,
 			'--font-size-md'
 		)
+		cv.Summary.show = isBooleanOrDefault(value.Summary.show, true)
 
 		if (Array.isArray(value.Summary.value)) {
 			cv.Summary.value = value.Summary.value.reduce((acc, item) => {
@@ -141,6 +148,8 @@ export function parseCurriculum(value: unknown) {
 	}
 
 	if (isObject(value.Experience)) {
+		cv.Experience.show = isBooleanOrDefault(value.Experience.show, true)
+
 		if (isObject(value.Experience.size)) {
 			cv.Experience.size = {
 				title: isOneOforDefault(
@@ -163,13 +172,15 @@ export function parseCurriculum(value: unknown) {
 					return acc
 				}
 
-				let desc: Array<string> = []
+				let desc: Experience['Description'] = []
 
 				if (Array.isArray(item.Description)) {
 					desc = item.Description.reduce<Array<string>>((accc, item) => {
 						accc.push(isStringOrDefault(item, undefined))
 						return accc
 					}, [])
+				} else {
+					desc = isStringOrDefault(item.Description, '')
 				}
 
 				acc.push({

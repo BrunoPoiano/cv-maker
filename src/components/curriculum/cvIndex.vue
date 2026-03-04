@@ -2,19 +2,19 @@
 import { ProviderKey } from '@/main'
 import { h, inject } from 'vue'
 import Contact from './components/cvContact.vue'
-import CoreSkills from './components/vCoreSkills.vue'
 import Experience from './components/cvExperience.vue'
 import Header from './components/cvHeader.vue'
 import Summary from './components/cvSummary.vue'
+import CoreSkills from './components/vCoreSkills.vue'
 
+import { languagesSelect } from '@/constants/language'
+import { saveDataToLocalStorage } from '@/helpers/localstorage'
+import Select from '@/ui/appSelect.vue'
+import ExperienceModal from './modals/experience/ModalExperience.vue'
 import ContactModal from './modals/modalContact.vue'
 import CoreSkillsModal from './modals/modalCoreSkills.vue'
 import HeaderModal from './modals/modalHeader.vue'
 import SumarryModal from './modals/modalSummary.vue'
-import ExperienceModal from './modals/experience/ModalExperience.vue'
-import Select from '@/ui/appSelect.vue'
-import { languagesSelect } from '@/constants/language'
-import { saveDataToLocalStorage } from '@/helpers/localstorage'
 
 const { bolder, curriculum } = inject(ProviderKey)!
 
@@ -33,13 +33,6 @@ function boldMatches(value: string) {
 			: part
 	)
 }
-
-function saveLanguage() {
-	saveDataToLocalStorage({
-		key: 'language',
-		initialValue: curriculum.value.language
-	})
-}
 </script>
 
 <template>
@@ -49,11 +42,7 @@ function saveLanguage() {
 		<SumarryModal />
 		<CoreSkillsModal />
 		<ExperienceModal />
-		<Select
-			:items="languagesSelect"
-			v-model="curriculum.language"
-			@change="saveLanguage"
-		/>
+		<Select :items="languagesSelect" v-model="curriculum.Settings.language" />
 	</nav>
 	<section class="a4-page page" id="curriculumPage">
 		<Header />
@@ -75,8 +64,9 @@ function saveLanguage() {
 .a4-page {
 	--_a4-gap: 1.3rem;
 
-	width: 21cm;
-	min-height: 29.7cm;
+	width: 230mm;
+	min-height: 297mm;
+	box-sizing: border-box;
 
 	display: grid;
 	place-content: start;

@@ -38,7 +38,7 @@ defineOptions({
 	}
 
 	textarea {
-		border: 1px solid #80808070;
+		border: 1px solid var(--input-border);
 		border-radius: 10px;
 		padding: 1rem 0.6rem;
 		min-height: 241px;

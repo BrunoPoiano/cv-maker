@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey } from '@/main'
+import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
 import Textarea from '@/ui/appTextarea.vue'
@@ -41,7 +42,13 @@ function saveSummary(list: boolean) {
 	>
 		<template #header>
 			<div class="header">
-				<h4>Summary</h4>
+				<h4>
+					<AppInput
+						type="checkbox"
+						label="Summary"
+						v-model="curriculum.Summary.show"
+					/>
+				</h4>
 				<Toggle v-model="list" labelEnd="List" labelStart="Text" />
 			</div>
 		</template>

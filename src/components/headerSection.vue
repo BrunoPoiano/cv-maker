@@ -1,15 +1,3 @@
-<template>
-	<div class="header">
-		<h1>
-			<img src="/svgs/document.svg" alt="app logo" width="50" height="50" />
-			CV-Maker
-		</h1>
-		<Button @click="savePDF" background="var(--app-color)"
-			>Generate PDF
-		</Button>
-	</div>
-</template>
-
 <script setup lang="ts">
 import type { Curriculum } from '@/types'
 import Button from '@/ui/appButton.vue'
@@ -36,6 +24,18 @@ function savePDF() {
 	document.title = originalTitle
 }
 </script>
+
+<template>
+	<div class="header">
+		<h1>
+			<img src="/svgs/document.svg" alt="app logo" width="50" height="50" />
+			CV-Maker
+		</h1>
+		<Button @click="savePDF" background="var(--app-color)"
+			>Generate PDF
+		</Button>
+	</div>
+</template>
 
 <style scoped>
 .header {

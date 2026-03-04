@@ -3,6 +3,7 @@ import { generateKey } from '@/helpers/generateKey'
 type Props = {
 	labelStart?: string | Element
 	labelEnd?: string | Element
+	style?: string
 }
 const modelValue = defineModel<boolean>()
 const { labelStart } = defineProps<Props>()
@@ -14,8 +15,8 @@ defineOptions({
 </script>
 
 <template>
-	<div class="toggle">
-		<span v-if="labelStart">{{ labelStart }}</span>
+	<div class="toggle" :style="style">
+		<span v-if="labelStart" :data-check="!modelValue">{{ labelStart }}</span>
 		<label :for="key" class="switch">
 			<input
 				:id="key"
@@ -26,7 +27,7 @@ defineOptions({
 			/>
 			<span class="slider round"></span>
 		</label>
-		<span v-if="labelEnd">{{ labelEnd }}</span>
+		<span v-if="labelEnd" :data-check="modelValue">{{ labelEnd }}</span>
 	</div>
 </template>
 
@@ -38,6 +39,10 @@ defineOptions({
 	width: fit-content;
 
 	--_swith-height: 24px;
+
+	span[data-check='true'] {
+		color: var(--app-color);
+	}
 
 	.switch {
 		position: relative;

@@ -58,20 +58,25 @@ type Header = {
 type Sumarry = {
 	value: Array<string> | string
 	size: FontSize
+	show: boolean
 }
 
 type CoreSkills = {
 	skills: Skills
 	size: FontSize
+	show: boolean
 }
 
 export type Curriculum = {
-	language: Languages
+	Settings: {
+		language: Languages
+	}
 	Header: Header
 	Contact: Contact
 	Summary: Sumarry
 	CoreSkills: CoreSkills
 	Experience: {
+		show: boolean
 		size: {
 			title: FontSize
 			description: FontSize

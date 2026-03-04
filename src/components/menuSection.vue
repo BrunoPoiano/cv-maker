@@ -20,7 +20,7 @@ const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
 
 const cvSelect = computed(() =>
 	curriculumList.value.map((curriculum, index) => ({
-		label: `${curriculum.language} - ${curriculum.Header.Role.value}`,
+		label: `${curriculum.Settings.language} - ${curriculum.Header.Role.value}`,
 		value: index
 	}))
 )

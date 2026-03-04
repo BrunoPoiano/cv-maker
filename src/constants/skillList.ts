@@ -6,5 +6,6 @@ export const skillList = [
 	'APIs',
 	'Containers_DevOps',
 	'Practices',
-	'HTTP_Integrations'
+	'HTTP_Integrations',
+	'other'
 ] as const

@@ -2,7 +2,7 @@
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey } from '@/main'
 import { inject, ref } from 'vue'
-import Input from '@/ui/appInput.vue'
+import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
 import Toggle from '@/ui/appToggle.vue'
@@ -38,8 +38,19 @@ function newExperience() {
 	>
 		<template #header>
 			<div class="modalHeader">
-				<h4>Experience</h4>
-				<Toggle v-model="list" labelEnd="List" labelStart="Text" />
+				<h4>
+					<AppInput
+						type="checkbox"
+						label="Experience"
+						v-model="curriculum.Experience.show"
+					/>
+				</h4>
+				<Toggle
+					style="place-self: end"
+					v-model="list"
+					labelEnd="List"
+					labelStart="Text"
+				/>
 				<Button @click="newExperience">New</Button>
 			</div>
 		</template>
@@ -59,13 +70,13 @@ function newExperience() {
 
 			<div v-for="job in curriculum.Experience.value" class="job" :key="job.id">
 				<div>
-					<Input
+					<AppInput
 						type="text"
 						label="Company Name"
 						placeholder="Company Name"
 						v-model="job.CompanyName"
 					/>
-					<Input
+					<AppInput
 						type="text"
 						label="Role"
 						placeholder="Role"
@@ -104,6 +115,7 @@ function newExperience() {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 0.8rem;
+
 	button {
 		grid-area: 2 / 2;
 		place-self: end;

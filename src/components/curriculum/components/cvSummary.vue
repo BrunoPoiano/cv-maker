@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ProviderKey } from '@/main'
+import type { BoldMatchReturn } from '@/types'
+import AppBoldMatch from '@/ui/appBoldMatch.vue'
 import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
 import { inject } from 'vue'
 import Title from './CvTitle.vue'
-import type { BoldMatchReturn } from '@/types'
-import AppBoldMatch from '@/ui/appBoldMatch.vue'
 
 const { curriculum } = inject(ProviderKey)!
 
@@ -15,8 +15,10 @@ const { boldMatches } = defineProps<{
 </script>
 
 <template>
-	<div>
-		<Title>{{ curriculum.language === 'en' ? 'SUMMARY' : 'Resumo' }}</Title>
+	<div v-if="curriculum.Summary.show">
+		<Title>{{
+			curriculum.Settings.language === 'en' ? 'SUMMARY' : 'Resumo'
+		}}</Title>
 		<div class="summary">
 			<List
 				v-if="Array.isArray(curriculum.Summary.value)"

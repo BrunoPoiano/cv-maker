@@ -2,7 +2,9 @@ import type { Curriculum } from '@/types'
 
 export function CurriculumConst(): Curriculum {
 	return {
-		language: 'en',
+		Settings: {
+			language: 'en'
+		},
 		Header: {
 			UserName: {
 				value: '',
@@ -23,9 +25,11 @@ export function CurriculumConst(): Curriculum {
 		},
 		Summary: {
 			value: [],
-			size: '--font-size-md'
+			size: '--font-size-md',
+			show: true
 		},
 		CoreSkills: {
+			show: true,
 			skills: {
 				languages: [],
 				apis: [],
@@ -37,6 +41,7 @@ export function CurriculumConst(): Curriculum {
 			size: '--font-size-md'
 		},
 		Experience: {
+			show: true,
 			size: {
 				title: '--font-size-lg',
 				description: '--font-size-md'

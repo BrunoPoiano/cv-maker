@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import List from '@/ui/appList.vue'
-import Title from './CvTitle.vue'
-import { inject } from 'vue'
 import { ProviderKey } from '@/main'
 import type { BoldMatchReturn } from '@/types'
+import List from '@/ui/appList.vue'
+import { inject } from 'vue'
+import Title from './CvTitle.vue'
 
 const { curriculum } = inject(ProviderKey)!
 const { boldMatches } = defineProps<{
@@ -12,9 +12,11 @@ const { boldMatches } = defineProps<{
 </script>
 
 <template>
-	<div>
+	<div v-if="curriculum.CoreSkills.show">
 		<Title>{{
-			curriculum.language === 'en' ? 'CORE SKILLS' : 'HABILIDADES TÉCNICAS'
+			curriculum.Settings.language === 'en'
+				? 'CORE SKILLS'
+				: 'HABILIDADES TÉCNICAS'
 		}}</Title>
 		<div class="coreSkills">
 			<List
