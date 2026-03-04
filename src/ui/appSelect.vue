@@ -36,6 +36,9 @@ const model = defineModel()
 	}
 
 	select {
+		--bg: light-dark(#fff, #333b3c);
+
+		cursor: pointer;
 		font-size: var(--font-size-base);
 		font-weight: 500;
 		border: 1px solid var(--input-border);
@@ -43,6 +46,23 @@ const model = defineModel()
 		padding: 0.3rem 0.6rem;
 		background: var(--input-background);
 		max-width: 20ch;
+
+		transition:
+			background 500ms,
+			transform 200ms ease-out;
+
+		&:hover:not(:disabled) {
+			background: hsl(from var(--hover-bg, var(--bg)) h s calc(l - 10));
+		}
+
+		&:disabled {
+			opacity: 60%;
+			cursor: initial;
+		}
+
+		&:active:not(:disabled) {
+			transform: scale(0.98);
+		}
 	}
 }
 </style>
