@@ -80,3 +80,17 @@ export function isBooleanOrDefault(
 export function isObject(data: unknown): data is GenericObject {
 	return data !== null && typeof data === 'object'
 }
+
+export function isValidDateOrNull(value: unknown): Date | null {
+	if (value instanceof Date) {
+		return value
+	}
+	if (typeof value === 'string') {
+		const date = new Date(value)
+		if (!isNaN(date.getTime())) {
+			return date
+		}
+	}
+
+	return null
+}

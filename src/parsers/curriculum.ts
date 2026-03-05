@@ -9,6 +9,7 @@ import {
 	isOneOforDefault,
 	isStringOrDefault
 } from './typeValidation'
+import { monthOptions } from '@/constants/monthOptions'
 
 export function parseCurriculum(value: unknown) {
 	const cv = CurriculumConst()
@@ -178,6 +179,11 @@ export function parseCurriculum(value: unknown) {
 
 	if (isObject(value.Experience)) {
 		cv.Experience.show = isBooleanOrDefault(value.Experience.show, true)
+		cv.Experience.dateMonth = isOneOforDefault(
+			value.Experience.dateMonth,
+			monthOptions,
+			'2-digit'
+		)
 
 		if (isObject(value.Experience.size)) {
 			cv.Experience.size = {

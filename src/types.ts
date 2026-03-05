@@ -9,6 +9,10 @@ export type SkillsList = Lowercase<(typeof skillList)[number]>
 export type Skills = Partial<Record<SkillsList, Array<string>>>
 export type SelectItem = Array<{ value: string | number; label: string }>
 export type Translation = Record<string | SkillsList, Each<Languages>>
+export type MonthOptions = Extract<
+	Intl.DateTimeFormatOptions['month'],
+	'2-digit' | 'short' | 'long'
+>
 
 type Each<T extends string> = {
 	[K in T]: string
@@ -84,6 +88,7 @@ export type Curriculum = {
 	CoreSkills: CoreSkills
 	Experience: {
 		show: boolean
+		dateMonth: MonthOptions
 		size: {
 			title: FontSize
 			subTitle: FontSize

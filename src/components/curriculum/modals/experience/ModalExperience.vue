@@ -10,6 +10,7 @@ import Button from '@/ui/appButton.vue'
 import { generateKey } from '@/helpers/generateKey'
 import AppToggle from '@/ui/appToggle.vue'
 import AppInput from '@/ui/appInput.vue'
+import { monthOptionsSelect } from '@/constants/monthOptions'
 const { curriculum } = inject(ProviderKey)!
 
 const list = ref(
@@ -72,6 +73,11 @@ function newExperience() {
 					:items="fontSizeSelect"
 					v-model="curriculum.Experience.size.description"
 				/>
+				<Select
+					label="Month"
+					:items="monthOptionsSelect"
+					v-model="curriculum.Experience.dateMonth"
+				/>
 			</div>
 
 			<div v-for="job in curriculum.Experience.value" class="job" :key="job.id">
@@ -103,6 +109,7 @@ function newExperience() {
 						v-model="job.EndDate"
 					/>
 				</div>
+
 				<div class="desc">
 					<Description
 						:list="list"

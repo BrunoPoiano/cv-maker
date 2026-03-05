@@ -7,6 +7,7 @@ import Paragraph from '@/ui/appParagraph.vue'
 import { inject } from 'vue'
 import Title from './CvTitle.vue'
 import { Translate } from '@/constants/translations'
+import { isValidDateOrNull } from '@/parsers/typeValidation'
 
 const { boldMatches } = defineProps<{
 	boldMatches: (value: string) => BoldMatchReturn
@@ -15,30 +16,19 @@ const { boldMatches } = defineProps<{
 const { curriculum } = inject(ProviderKey)!
 
 function fixDate(date: unknown) {
-	if (date instanceof Date) {
-		return date
-			.toLocaleString(curriculum.value.Settings.language, {
-				month: 'short',
-				year: 'numeric'
-			})
-			.split(' ')
-			.join('/')
-			.replace(/\.\/de/g, '')
-	}
+	const newDate = isValidDateOrNull(date)
 
-	if (typeof date === 'string') {
-		const newDate = new Date(date)
-		return newDate
-			.toLocaleString(curriculum.value.Settings.language, {
-				month: 'short',
-				year: 'numeric'
-			})
-			.split(' ')
-			.join('/')
-			.replace(/\.\/de/g, '')
-	}
+	if (!newDate) return ''
 
-	return ''
+	return newDate
+		.toLocaleString(curriculum.value.Settings.language, {
+			month: curriculum.value.Experience.dateMonth,
+			year: 'numeric'
+		})
+		.split(' ')
+		.join('/')
+		.replace(/\/de/g, '')
+		.replace('.', '')
 }
 
 function isRemote(job: Curriculum['Experience']['value'][number]) {
@@ -91,6 +81,7 @@ function generateDate(job: Curriculum['Experience']['value'][number]) {
 					v-if="Array.isArray(job.Description)"
 					:boldMatches="boldMatches"
 					:fontSize="curriculum.Experience.size.description"
+					:language="curriculum.Settings.language"
 				/>
 				<Paragraph v-else :fontSize="curriculum.Experience.size.description">
 					<AppBoldMatch :value="boldMatches(job.Description)" />

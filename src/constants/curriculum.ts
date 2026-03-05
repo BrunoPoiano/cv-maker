@@ -45,6 +45,7 @@ export function CurriculumConst(): Curriculum {
 			size: '--font-size-md'
 		},
 		Experience: {
+			dateMonth: '2-digit',
 			show: true,
 			size: {
 				title: '--font-size-lg',
