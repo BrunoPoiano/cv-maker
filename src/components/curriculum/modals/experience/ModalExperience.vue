@@ -2,14 +2,14 @@
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey } from '@/main'
 import { inject, ref } from 'vue'
-import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
-import Toggle from '@/ui/appToggle.vue'
 import Description from './components/exDescription.vue'
 import DateInput from './components/exDateInput.vue'
 import Button from '@/ui/appButton.vue'
 import { generateKey } from '@/helpers/generateKey'
+import AppToggle from '@/ui/appToggle.vue'
+import AppInput from '@/ui/appInput.vue'
 const { curriculum } = inject(ProviderKey)!
 
 const list = ref(
@@ -23,7 +23,8 @@ function newExperience() {
 		Role: '',
 		StartDate: new Date(),
 		EndDate: null,
-		Description: ''
+		Description: '',
+		Remote: false
 	})
 }
 </script>
@@ -45,7 +46,7 @@ function newExperience() {
 						v-model="curriculum.Experience.show"
 					/>
 				</h4>
-				<Toggle
+				<AppToggle
 					style="place-self: end"
 					v-model="list"
 					labelEnd="List"
@@ -57,9 +58,14 @@ function newExperience() {
 		<form>
 			<div class="size">
 				<Select
-					label="title"
+					label="Title"
 					:items="fontSizeSelect"
 					v-model="curriculum.Experience.size.title"
+				/>
+				<Select
+					label="Subtitle"
+					:items="fontSizeSelect"
+					v-model="curriculum.Experience.size.subTitle"
 				/>
 				<Select
 					label="Description"
@@ -105,6 +111,9 @@ function newExperience() {
 						v-model="job.Description"
 					/>
 				</div>
+				<div>
+					<AppInput type="checkbox" label="Remote" v-model="job.Remote" />
+				</div>
 			</div>
 		</form>
 	</Modal>
@@ -128,7 +137,7 @@ form {
 
 	.size {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr 1fr 1fr;
 		gap: 0.8rem;
 	}
 

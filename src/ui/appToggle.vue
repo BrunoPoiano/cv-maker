@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { generateKey } from '@/helpers/generateKey'
+import type { HTMLAttributes } from 'vue'
 type Props = {
 	labelStart?: string | Element
 	labelEnd?: string | Element
-	style?: string
+	style?: HTMLAttributes['style']
 }
 const modelValue = defineModel<boolean>()
 const { labelStart } = defineProps<Props>()

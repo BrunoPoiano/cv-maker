@@ -8,6 +8,11 @@ export type FontSize = (typeof fontSize)[number]
 export type SkillsList = Lowercase<(typeof skillList)[number]>
 export type Skills = Partial<Record<SkillsList, Array<string>>>
 export type SelectItem = Array<{ value: string | number; label: string }>
+export type Translation = Record<string | SkillsList, Each<Languages>>
+
+type Each<T extends string> = {
+	[K in T]: string
+}
 
 type Email = `${string}@${string}`
 type Linkedin = `linkedin.com/in/${string}`
@@ -42,6 +47,7 @@ export type Experience = {
 	StartDate: Date
 	EndDate: Date | null
 	Description: Array<string> | string
+	Remote: boolean
 }
 
 type Header = {
@@ -56,6 +62,7 @@ type Header = {
 }
 
 type Sumarry = {
+	smallText: string
 	value: Array<string> | string
 	size: FontSize
 	show: boolean
@@ -79,6 +86,7 @@ export type Curriculum = {
 		show: boolean
 		size: {
 			title: FontSize
+			subTitle: FontSize
 			description: FontSize
 		}
 		value: Array<Experience>

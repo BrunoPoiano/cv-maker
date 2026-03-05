@@ -58,8 +58,15 @@ function saveSummary(list: boolean) {
 				:items="fontSizeSelect"
 				v-model="curriculum.Summary.size"
 			/>
+
 			<Textarea
-				placeholder="User Name"
+				rows="6"
+				placeholder="Small Text"
+				v-model="curriculum.Summary.smallText"
+			/>
+
+			<Textarea
+				placeholder="Summary"
 				v-model="summary"
 				:keyup="saveSummary(list)"
 			/>

@@ -8,7 +8,6 @@ import Summary from './components/cvSummary.vue'
 import CoreSkills from './components/vCoreSkills.vue'
 
 import { languagesSelect } from '@/constants/language'
-import { saveDataToLocalStorage } from '@/helpers/localstorage'
 import Select from '@/ui/appSelect.vue'
 import ExperienceModal from './modals/experience/ModalExperience.vue'
 import ContactModal from './modals/modalContact.vue'
@@ -72,7 +71,7 @@ function boldMatches(value: string) {
 	place-content: start;
 	gap: var(--_a4-gap);
 
-	padding: 0.8cm 0px 0.8cm 0.8cm;
+	padding: 0.8cm;
 	margin-inline: auto;
 	margin-top: 2rem;
 

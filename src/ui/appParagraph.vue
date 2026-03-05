@@ -17,7 +17,6 @@ p {
 	max-width: 105ch;
 
 	margin: 0;
-	padding-left: 0.5rem;
 
 	color: var(--light-text-color);
 	font-size: var(--font-size-sm);

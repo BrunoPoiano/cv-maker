@@ -35,7 +35,12 @@ function copyPrompt() {
 </script>
 
 <template>
-	<Modal buttonLabel="Generate Prompt" closeLabel="close" minWidth="40rem" maxWidth="40ch">
+	<Modal
+		buttonLabel="Generate Prompt"
+		closeLabel="close"
+		minWidth="40rem"
+		maxWidth="40ch"
+	>
 		<template #header>
 			<h4>Generate Prompt</h4>
 		</template>
@@ -45,7 +50,8 @@ function copyPrompt() {
 		<div class="prompt-preview">
 			<pre ref="prompt">
 		{{ prompt }}
-	</pre>
+	</pre
+			>
 			<Button @click="copyPrompt">Copy Prompt</Button>
 		</div>
 	</Modal>

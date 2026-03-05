@@ -3,7 +3,7 @@ import type { Curriculum } from '@/types'
 export function CurriculumConst(): Curriculum {
 	return {
 		Settings: {
-			language: 'en'
+			language: 'en-us'
 		},
 		Header: {
 			UserName: {
@@ -24,6 +24,7 @@ export function CurriculumConst(): Curriculum {
 			}
 		},
 		Summary: {
+			smallText: '',
 			value: [],
 			size: '--font-size-md',
 			show: true
@@ -38,8 +39,8 @@ export function CurriculumConst(): Curriculum {
 				containers_devops: [],
 				practices: [],
 				backend: [],
-				http_integrations:[],
-				other:[]
+				http_integrations: [],
+				other: []
 			},
 			size: '--font-size-md'
 		},
@@ -47,6 +48,7 @@ export function CurriculumConst(): Curriculum {
 			show: true,
 			size: {
 				title: '--font-size-lg',
+				subTitle: '--font-size-md',
 				description: '--font-size-md'
 			},
 			value: []

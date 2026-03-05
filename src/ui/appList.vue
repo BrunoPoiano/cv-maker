@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import type { BoldMatchReturn, FontSize, Skills } from '@/types'
+import type { BoldMatchReturn, FontSize, Languages, Skills } from '@/types'
 import AppBoldMatch from './appBoldMatch.vue'
+import { Translate } from '@/constants/translations'
 
 type Props =
 	| {
 			genericList: Array<string>
+			language: Languages
 			coreSkills?: Skills
 			boldMatches?: (v: string) => BoldMatchReturn
 			fontSize?: FontSize
 	  }
 	| {
 			coreSkills: Skills
+			language: Languages
 			genericList?: Array<string>
 			boldMatches?: (v: string) => BoldMatchReturn
 			fontSize?: FontSize
@@ -35,7 +38,7 @@ const { genericList, coreSkills, boldMatches, fontSize } = defineProps<Props>()
 			<li v-for="(skill, core) in coreSkills" :key="core">
 				<div v-if="skill">
 					<span :style="`font-size: var(${fontSize})`" class="core"
-						>{{ core.replace('_', ' & ') }}:
+						>{{ Translate[core][language] }}:
 					</span>
 					<span :style="`font-size: var(${fontSize})`" v-if="boldMatches">
 						<AppBoldMatch :value="boldMatches(skill.join(', '))" />

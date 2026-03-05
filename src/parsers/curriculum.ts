@@ -19,7 +19,7 @@ export function parseCurriculum(value: unknown) {
 
 	if (isObject(value.Settings)) {
 		cv.Settings = {
-			language: isOneOforDefault(value.Settings.language, languages, 'en')
+			language: isOneOforDefault(value.Settings.language, languages, 'en-us')
 		}
 	}
 
@@ -132,13 +132,11 @@ export function parseCurriculum(value: unknown) {
 			}
 
 			if (Array.isArray(value.CoreSkills.skills.http_integrations)) {
-				cv.CoreSkills.skills.http_integrations = value.CoreSkills.skills.http_integrations.reduce(
-					(acc, item) => {
+				cv.CoreSkills.skills.http_integrations =
+					value.CoreSkills.skills.http_integrations.reduce((acc, item) => {
 						acc.push(isStringOrDefault(item, undefined))
 						return acc
-					},
-					[]
-				)
+					}, [])
 			}
 
 			if (Array.isArray(value.CoreSkills.skills.containers_devops)) {
@@ -166,6 +164,7 @@ export function parseCurriculum(value: unknown) {
 			'--font-size-md'
 		)
 		cv.Summary.show = isBooleanOrDefault(value.Summary.show, true)
+		cv.Summary.smallText = isStringOrDefault(value.Summary.smallText, '')
 
 		if (Array.isArray(value.Summary.value)) {
 			cv.Summary.value = value.Summary.value.reduce((acc, item) => {
@@ -184,6 +183,11 @@ export function parseCurriculum(value: unknown) {
 			cv.Experience.size = {
 				title: isOneOforDefault(
 					value.Experience.size.title,
+					fontSize,
+					'--font-size-lg'
+				),
+				subTitle: isOneOforDefault(
+					value.Experience.size.subTitle,
 					fontSize,
 					'--font-size-lg'
 				),
@@ -218,7 +222,8 @@ export function parseCurriculum(value: unknown) {
 					CompanyName: isStringOrDefault(item.CompanyName),
 					StartDate: new Date(item.StartDate as string),
 					EndDate: item.EndDate ? new Date(item.EndDate as string) : null,
-					Description: desc
+					Description: desc,
+					Remote: isBooleanOrDefault(item.Remote, false)
 				})
 				return acc
 			}, [])
