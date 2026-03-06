@@ -7,9 +7,8 @@ import Button from '@/ui/appButton.vue'
 const jobDescription = ref('')
 
 const prompt = computed(
-	() => `
-
-Fix Resume
+	() =>
+		`Fix Resume
 Here is my current resume. [Attach resume]
 Here is the job description:
 [${jobDescription.value.replace(/^\s*[\r\n]/gm, '')}]
@@ -21,10 +20,10 @@ Rewrite my resume to perfectly match:
 > Quantify achievements where possible
 > Keep under 1 page, bullet format
 > Highlight top 3–5 matches in a summary
+> bullet point should be 100ch max, concise and impactful
 > Match language of job description
 
-Output: Full revised resume + list of changes made.
-`
+Output: Full revised resume + list of changes made.`
 )
 
 function copyPrompt() {
@@ -44,31 +43,31 @@ function copyPrompt() {
 		<template #header>
 			<h4>Generate Prompt</h4>
 		</template>
-		<form>
+		<div class="content">
 			<Textarea placeholder="Job Description" v-model="jobDescription" />
-		</form>
-		<div class="prompt-preview">
-			<pre ref="prompt">
-		{{ prompt }}
-	</pre
-			>
+			<div class="prompt-preview">
+				<pre ref="prompt">
+			{{ prompt }}
+		</pre
+				>
+			</div>
 			<Button @click="copyPrompt">Copy Prompt</Button>
 		</div>
 	</Modal>
 </template>
 
 <style scoped>
-form {
+.content {
 	display: grid;
 	gap: 1rem;
-}
 
-.prompt-preview {
-	display: grid;
+	.prompt-preview {
+		display: grid;
 
-	pre {
-		margin-bottom: 0;
-		max-height: 30ch;
+		pre {
+			margin-bottom: 0;
+			max-height: 30ch;
+		}
 	}
 
 	button {
