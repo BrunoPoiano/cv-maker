@@ -50,6 +50,7 @@ export function parseCurriculum(value: unknown) {
 	if (isObject(value.Contact) && isObject(value.Contact.value)) {
 		cv.Contact = {
 			size: isOneOforDefault(value.Contact.size, fontSize, '--font-size-sm'),
+			sideBySide: isBooleanOrDefault(value.Contact.sideBySide, false),
 			value: {
 				email: isExtendedStringOrDefault(
 					value.Contact.value.email,

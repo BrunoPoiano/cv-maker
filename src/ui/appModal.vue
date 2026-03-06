@@ -4,6 +4,8 @@ import Button from '@/ui/appButton.vue'
 type Props = {
 	buttonLabel: string | Element
 	closeLabel: string | Element
+	openAction?: () => void
+	closeAction?: () => void
 	minWidth?: string
 	maxWidth?: string
 	buttonIcon?: string
@@ -27,12 +29,19 @@ const key = generateKey(10)
 		<slot />
 		<div class="footer">
 			<slot name="footer" />
-			<Button :commandfor="key" command="close">{{ closeLabel }}</Button>
+			<Button :commandfor="key" command="close" @click="closeAction">{{
+				closeLabel
+			}}</Button>
 		</div>
 	</dialog>
-	<Button :icon="buttonIcon" command="show-modal" :commandfor="key">{{
-		buttonLabel
-	}}</Button>
+	<Button
+		:icon="buttonIcon"
+		command="show-modal"
+		:commandfor="key"
+		@click="openAction"
+	>
+		{{ buttonLabel }}
+	</Button>
 </template>
 
 <style scoped>
@@ -42,6 +51,7 @@ const key = generateKey(10)
 
 .footer {
 	margin-top: 1rem;
+	gap: 0.5rem;
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;

@@ -37,6 +37,7 @@ export type BoldMatchReturn =
 
 type Contact = {
 	size: FontSize
+	sideBySide: boolean
 	value: {
 		email: Email
 		linkedin: Linkedin

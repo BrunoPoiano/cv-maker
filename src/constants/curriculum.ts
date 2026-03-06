@@ -17,6 +17,7 @@ export function CurriculumConst(): Curriculum {
 		},
 		Contact: {
 			size: '--font-size-sm',
+			sideBySide: false,
 			value: {
 				email: 'email@email',
 				linkedin: 'linkedin.com/in/',

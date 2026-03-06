@@ -26,6 +26,11 @@ const { curriculum } = inject(ProviderKey)!
 				v-model="curriculum.Contact.size"
 			/>
 			<Input
+				type="checkbox"
+				label="Side by Side"
+				v-model="curriculum.Contact.sideBySide"
+			/>
+			<Input
 				label="email"
 				type="email"
 				placeholder="email"

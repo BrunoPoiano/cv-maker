@@ -5,6 +5,7 @@ import type { InputTypeHTMLAttribute } from 'vue'
 type Props = {
 	label?: string
 	type?: InputTypeHTMLAttribute
+	alert?: string
 	id?: string
 }
 
@@ -19,20 +20,22 @@ defineOptions({
 
 <template>
 	<div class="content">
-		<label :for="id ?? key">{{ props.label }}</label>
+		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
 		<input
 			v-bind="$attrs"
 			:id="id ?? key"
 			:type="props.type ?? 'text'"
 			v-model="model"
 		/>
+		<small v-if="alert">{{ alert }}</small>
 	</div>
 </template>
 
 <style scoped>
 .content {
+	--_gap: 0.5rem;
 	display: grid;
-	gap: 0.5rem;
+	gap: var(--_gap);
 
 	label {
 		text-transform: capitalize;
@@ -46,6 +49,29 @@ defineOptions({
 		padding: 0.3rem 0.6rem;
 	}
 
+	small {
+		font-weight: bold;
+		margin-top: calc(var(--_gap) * -0.5);
+		color: var(--red);
+	}
+
+	&:has(input[type='file']) {
+		input::file-selector-button {
+			font-size: var(--font-size-base);
+			font-weight: 500;
+			cursor: pointer;
+
+			padding: 0.2rem 0.4rem;
+
+			border: 1px solid #00000036;
+			border-radius: 8px;
+			min-width: 5ch;
+
+			background: var(--bg);
+			color: lch(from var(--bg) calc((49.44 - l) * infinity) 0 0);
+		}
+	}
+
 	&:has(input[type='checkbox']) {
 		--_size: 1.15em;
 
@@ -55,6 +81,7 @@ defineOptions({
 		> label {
 			grid-area: 1/2;
 		}
+
 		> input[type='checkbox'] {
 			grid-area: 1;
 			-webkit-appearance: none;

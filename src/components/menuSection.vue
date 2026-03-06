@@ -10,6 +10,7 @@ import { deepClone } from '@/helpers/clone'
 import { CurriculumConst } from '@/constants/curriculum'
 import { parseCurriculum } from '@/parsers/curriculum'
 import GeneratePrompt from './modals/modalGeneratePrompt.vue'
+import ModalBackup from './modals/modalBackup.vue'
 
 const { curriculum } = inject(ProviderKey)!
 
@@ -90,6 +91,7 @@ function deleteCv() {
 
 			<Bolder />
 			<GeneratePrompt />
+			<ModalBackup v-model:curriculumList="curriculumList" />
 		</div>
 		<div>
 			<Button

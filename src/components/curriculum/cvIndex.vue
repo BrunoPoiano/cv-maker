@@ -80,8 +80,6 @@ function boldMatches(value: string) {
 
 	background-color: #ffffff;
 
-	font-family: 'EB Garamond', serif;
-
 	border: 1px #d3d3d3 solid;
 	border-radius: 5px;
 }
