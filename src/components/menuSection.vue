@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { saveDataToLocalStorage } from '@/helpers/localstorage'
-import { ProviderKey } from '@/main'
+import { ProviderKey } from '@/keys'
 import type { Curriculum } from '@/types'
 import Button from '@/ui/appButton.vue'
 import Select from '@/ui/appSelect.vue'

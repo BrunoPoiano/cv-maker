@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { fontSizeSelect } from '@/constants/font-size'
 import { skillList } from '@/constants/skillList'
-import { ProviderKey } from '@/main'
+import { ProviderKey } from '@/keys'
 import { type Skills, type SkillsList } from '@/types'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'

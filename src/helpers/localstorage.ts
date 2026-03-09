@@ -1,5 +1,7 @@
+import type { LocalStorageKeys } from "@/types"
+
 type LocalStorageProps<T> = {
-	key: string
+	key: LocalStorageKeys
 	initialValue: T
 }
 

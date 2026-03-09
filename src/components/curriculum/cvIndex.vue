@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ProviderKey } from '@/main'
+import { ProviderKey } from '@/keys'
 import { h, inject } from 'vue'
 import Contact from './components/cvContact.vue'
 import Experience from './components/cvExperience.vue'
@@ -9,11 +9,11 @@ import CoreSkills from './components/vCoreSkills.vue'
 
 import { languagesSelect } from '@/constants/language'
 import Select from '@/ui/appSelect.vue'
-import ExperienceModal from './modals/experience/ModalExperience.vue'
+import ExperienceModal from './modals/experience/modalExperience.vue'
 import ContactModal from './modals/modalContact.vue'
 import CoreSkillsModal from './modals/modalCoreSkills.vue'
 import HeaderModal from './modals/modalHeader.vue'
-import SumarryModal from './modals/modalSummary.vue'
+import SummaryModal from './modals/modalSummary.vue'
 
 const { bolder, curriculum } = inject(ProviderKey)!
 
@@ -38,7 +38,7 @@ function boldMatches(value: string) {
 	<nav class="menu">
 		<HeaderModal />
 		<ContactModal />
-		<SumarryModal />
+		<SummaryModal />
 		<CoreSkillsModal />
 		<ExperienceModal />
 		<Select :items="languagesSelect" v-model="curriculum.Settings.language" />

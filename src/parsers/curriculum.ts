@@ -10,6 +10,7 @@ import {
 	isStringOrDefault
 } from './typeValidation'
 import { monthOptions } from '@/constants/monthOptions'
+import { generateKey } from '@/helpers/generateKey'
 
 export function parseCurriculum(value: unknown) {
 	const cv = CurriculumConst()
@@ -225,6 +226,7 @@ export function parseCurriculum(value: unknown) {
 				}
 
 				acc.push({
+					id: isStringOrDefault(item.id, generateKey()),
 					Role: isStringOrDefault(item.Role),
 					CompanyName: isStringOrDefault(item.CompanyName),
 					StartDate: new Date(item.StartDate as string),

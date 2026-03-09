@@ -1,8 +1,15 @@
-import type { RendererElement, RendererNode, VNode } from 'vue'
+import type {
+	RendererElement,
+	RendererNode,
+	VNode,
+	WritableComputedRef
+} from 'vue'
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
 import type { skillList } from './constants/skillList'
+import type { localStorageKeys } from '@/keys'
 
+export type LocalStorageKeys = (typeof localStorageKeys)[number]
 export type Languages = (typeof languages)[number]
 export type FontSize = (typeof fontSize)[number]
 export type SkillsList = Lowercase<(typeof skillList)[number]>
@@ -21,6 +28,11 @@ type Each<T extends string> = {
 type Email = `${string}@${string}`
 type Linkedin = `linkedin.com/in/${string}`
 type GitHub = `github.com/${string}`
+
+export type Provider = {
+	curriculum: WritableComputedRef<Curriculum>
+	bolder: string[]
+}
 
 export type BoldMatchReturn =
 	| string
@@ -46,7 +58,7 @@ type Contact = {
 }
 
 export type Experience = {
-	id?: string
+	id: string
 	Role: string
 	CompanyName: string
 	StartDate: Date
@@ -66,7 +78,7 @@ type Header = {
 	}
 }
 
-type Sumarry = {
+type Summary = {
 	smallText: string
 	value: Array<string> | string
 	size: FontSize
@@ -85,7 +97,7 @@ export type Curriculum = {
 	}
 	Header: Header
 	Contact: Contact
-	Summary: Sumarry
+	Summary: Summary
 	CoreSkills: CoreSkills
 	Experience: {
 		show: boolean

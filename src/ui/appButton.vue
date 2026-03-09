@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { ButtonHTMLAttributes } from 'vue'
+
 type Props = {
-	type?: 'button' | 'submit' | 'reset'
+	type?: ButtonHTMLAttributes['type']
 	background?: string
 	hoverBackground?: string
 	icon?: string

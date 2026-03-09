@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { saveDataToLocalStorage } from '@/helpers/localstorage'
-import { ProviderKey } from '@/main'
+import { ProviderKey } from '@/keys'
 import Textarea from '@/ui/appTextarea.vue'
 import { computed, inject } from 'vue'
 import Modal from '@/ui/appModal.vue'
@@ -14,7 +14,7 @@ const bolder = computed<string>({
 	set(value: string) {
 		const bolderSplit = value.split(',').map((item) => item.trim())
 
-		Object.assign(bolderValue, bolderSplit)
+		bolderValue.splice(0, bolderValue.length, ...bolderSplit)
 
 		saveDataToLocalStorage({ key: 'bolder', initialValue: bolderSplit })
 	}

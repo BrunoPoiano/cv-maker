@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ProviderKey } from '@/main'
+import { ProviderKey } from '@/keys'
 import { inject } from 'vue'
 
 const { curriculum } = inject(ProviderKey)!
