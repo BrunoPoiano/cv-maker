@@ -5,7 +5,7 @@ import Contact from './components/cvContact.vue'
 import Experience from './components/cvExperience.vue'
 import Header from './components/cvHeader.vue'
 import Summary from './components/cvSummary.vue'
-import CoreSkills from './components/vCoreSkills.vue'
+import CoreSkills from './components/cvCoreSkills.vue'
 
 import { languagesSelect } from '@/constants/language'
 import Select from '@/ui/appSelect.vue'
