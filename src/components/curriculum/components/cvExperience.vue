@@ -18,7 +18,7 @@ const { curriculum } = inject(ProviderKey)!
 function isRemote(job: Curriculum['Experience']['value'][number]) {
 	if (!job.Remote) return ''
 
-	return ` | ${Translate['remote'][curriculum.value.Settings.language]}`
+	return `${Translate['remote'][curriculum.value.Settings.language]}`
 }
 
 
@@ -26,18 +26,26 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 
 <template>
 	<div v-if="curriculum.Experience.show">
-		<Title>{{
+		<Title :fontsize="curriculum.Settings.section.size">{{
 			Translate['professional experience'][curriculum.Settings.language]
 		}}</Title>
 		<div class="experience">
 			<div v-for="job in curriculum.Experience.value" :key="job.id">
-				<span class="title" :style="`font-size: var(${curriculum.Experience.size.title})`">
-					{{ generateTitle(job) }}
-				</span>
-				<span class="sub-title" :style="`font-size: var(${curriculum.Experience.size.subTitle})`">,
-					{{ generateDate(job, curriculum.Settings.language, curriculum.Experience.dateMonth) }} {{
-						isRemote(job) }}
-				</span>
+				<div :data-side-by-side="curriculum.Experience.sideBySide" class="job-title">
+					<span class="title" :style="`font-size: var(${curriculum.Experience.size.title})`">
+						{{ generateTitle(job) }}
+					</span>
+					<span class="sub-title"
+						:style="`font-size: var(${curriculum.Experience.sideBySide ? curriculum.Experience.size.title : curriculum.Experience.size.subTitle})`">
+						<span>
+							{{ generateDate(job, curriculum.Settings.language, curriculum.Experience.dateMonth) }}
+						</span>
+						<span v-if="job.Remote">|</span>
+						<span v-if="job.Remote">
+							{{isRemote(job) }}
+						</span>
+					</span>
+				</div>
 				<List :genericList="job.Description" v-if="Array.isArray(job.Description)" :boldMatches="boldMatches"
 					:fontSize="curriculum.Experience.size.description" :language="curriculum.Settings.language" />
 				<Paragraph v-else :fontSize="curriculum.Experience.size.description">
@@ -53,18 +61,35 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 	display: grid;
 	gap: calc((var(--_a4-gap) * 0.5));
 
-	.title,
-	.sub-title {
-		display: block;
-		color: black;
-		text-transform: capitalize;
-		font-size: var(--font-size-base);
-		font-weight: var(--font-weight);
+	.job-title {
 		margin-bottom: calc((var(--_a4-gap) * 0.2));
+
+		.title,
+		.sub-title {
+			display: block;
+			color: black;
+			text-transform: capitalize;
+			font-size: var(--font-size-base);
+			font-weight: var(--font-weight);
+		}
+
+		.sub-title {
+			color: var(--light-text-color);
+			display: flex;
+			gap: 0.5ch;
+		}
+
+		&[data-side-by-side="true"] {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			>.sub-title {
+				color: black;
+				flex-direction: row-reverse;
+			}
+		}
 	}
 
-	.sub-title {
-		color: var(--light-text-color);
-	}
 }
 </style>

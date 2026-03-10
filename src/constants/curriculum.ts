@@ -3,7 +3,10 @@ import type { Curriculum } from '@/types'
 export function CurriculumConst(): Curriculum {
 	return {
 		Settings: {
-			language: 'en-us'
+			language: 'en-us',
+			section:{
+				size: "--font-size-lg"
+			}
 		},
 		Header: {
 			UserName: {
@@ -48,6 +51,7 @@ export function CurriculumConst(): Curriculum {
 		Experience: {
 			dateMonth: '2-digit',
 			show: true,
+			sideBySide:false,
 			size: {
 				title: '--font-size-lg',
 				subTitle: '--font-size-md',

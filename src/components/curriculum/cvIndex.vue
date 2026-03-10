@@ -14,6 +14,7 @@ import ContactModal from './modals/modalContact.vue'
 import CoreSkillsModal from './modals/modalCoreSkills.vue'
 import HeaderModal from './modals/modalHeader.vue'
 import SummaryModal from './modals/modalSummary.vue'
+import ModalSection from './modals/modalSection.vue'
 
 const { bolder, curriculum } = inject(ProviderKey)!
 
@@ -36,6 +37,7 @@ function boldMatches(value: string) {
 
 <template>
 	<nav class="menu">
+		<ModalSection />
 		<HeaderModal />
 		<ContactModal />
 		<SummaryModal />
@@ -68,7 +70,7 @@ function boldMatches(value: string) {
 	box-sizing: border-box;
 
 	display: grid;
-	place-content: start;
+	align-content: baseline;
 	gap: var(--_a4-gap);
 
 	padding: 0.8cm;
@@ -82,5 +84,7 @@ function boldMatches(value: string) {
 
 	border: 1px #d3d3d3 solid;
 	border-radius: 5px;
+
+	
 }
 </style>

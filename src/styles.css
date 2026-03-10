@@ -28,6 +28,8 @@
 	--orange: hsl(28.9, 90%, 64.1%);
 	--yellow: hsl(55, 90%, 85%);
 	--green: hsl(130, 90%, 85%);
+
+	--max-width: 105ch
 }
 
 html {
@@ -42,7 +44,7 @@ body {
 	place-items: center;
 
 	font-family: 'EBGaramondPDF', serif;
-	line-height: 1.35; /* explicit */
+	line-height: 1.35;
 }
 
 #app {
@@ -50,7 +52,7 @@ body {
 	width: 100%;
 }
 
-body > :is(header, footer),
+body> :is(header, footer),
 section,
 main,
 article {
@@ -100,7 +102,7 @@ li,
 figcaption {
 	text-wrap: stable;
 	text-wrap: pretty;
-	max-width: 100ch;
+	max-width: var(--max-width);
 }
 
 p {
@@ -124,7 +126,10 @@ input,
 textarea {
 	font-size: inherit;
 	caret-color: var(--app-color);
+}
 
+input,
+textarea {
 	&:focus-visible {
 		outline-color: var(--app-color) !important;
 	}

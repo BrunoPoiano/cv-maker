@@ -1,11 +1,23 @@
+<script setup lang="ts">
+import type { FontSize } from '@/types';
+
+type Props = {
+	fontsize?: FontSize
+}
+
+const props = defineProps<Props>()
+</script>
+
 <template>
-	<h3><slot /></h3>
+	<h3 :style="`font-size: var(${props.fontsize})`">
+		<slot />
+	</h3>
 </template>
 
 <style scoped>
 h3 {
 	color: black;
-	font-size: 20px;
+	font-size: var(--font-size-lg);
 	font-weight: var(--font-weight);
 	letter-spacing: 0.099em;
 	line-height: 1.2;

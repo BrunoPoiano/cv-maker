@@ -18,7 +18,7 @@ const model = defineModel()
 <template>
 	<div class="content">
 		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
-		<select v-bind="$attrs" v-model="model">
+		<select v-bind="$attrs" :id="id ?? key" v-model="model">
 			<option v-for="item in items" :value="item.value" :key="item.value">
 				{{ item.label }}
 			</option>
@@ -62,6 +62,10 @@ const model = defineModel()
 
 		&:active:not(:disabled) {
 			transform: scale(0.98);
+		}
+
+		&:focus-visible {
+			outline-color: var(--input-border) !important;
 		}
 	}
 }

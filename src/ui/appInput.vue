@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { generateKey } from '@/helpers/generateKey'
-import type { InputTypeHTMLAttribute } from 'vue'
+import type { InputTypeHTMLAttribute, StyleValue } from 'vue'
 
 type Props = {
 	label?: string
 	type?: InputTypeHTMLAttribute
 	alert?: string
 	id?: string
+	divStyle?: StyleValue
 }
 
 const model = defineModel()
@@ -19,7 +20,7 @@ defineOptions({
 </script>
 
 <template>
-	<div class="content">
+	<div class="content" :style="props.divStyle">
 		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
 		<input
 			v-bind="$attrs"

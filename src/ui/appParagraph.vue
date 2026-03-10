@@ -14,7 +14,7 @@ const { fontSize } = defineProps<Props>()
 
 <style scoped>
 p {
-	max-width: 105ch;
+	max-width: var(--max-width);
 
 	margin: 0;
 
