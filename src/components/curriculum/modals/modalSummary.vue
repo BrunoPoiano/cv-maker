@@ -4,6 +4,7 @@ import { ProviderKey } from '@/keys'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
+import AppSmall from '@/ui/appSmall.vue'
 import Textarea from '@/ui/appTextarea.vue'
 import Toggle from '@/ui/appToggle.vue'
 import { computed, inject, ref } from 'vue'
@@ -51,10 +52,11 @@ function saveSummary(list: boolean) {
 				</h4>
 				<Toggle v-model="list" labelEnd="List" labelStart="Text" />
 			</div>
+			<AppSmall>{{list ?  "Items will be separeted by line breaks" : ""}}</AppSmall>
 		</template>
 		<form>
 			<Select
-				label="size"
+				label="Font Size"
 				:items="fontSizeSelect"
 				v-model="curriculum.Summary.size"
 			/>

@@ -21,7 +21,7 @@ const { curriculum } = inject(ProviderKey)!
 		</template>
 		<form>
 			<Select
-				label="size"
+				label="Font Size"
 				:items="fontSizeSelect"
 				v-model="curriculum.Contact.size"
 			/>

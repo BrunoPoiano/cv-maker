@@ -6,6 +6,7 @@ import { type Skills, type SkillsList } from '@/types'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
+import AppSmall from '@/ui/appSmall.vue'
 import Textarea from '@/ui/appTextarea.vue'
 import { inject, ref } from 'vue'
 
@@ -52,11 +53,12 @@ function saveSkill(core: SkillsList) {
 						v-model="curriculum.CoreSkills.show"
 					/>
 				</h4>
+				<AppSmall >Items will be separeted by commas (,)</AppSmall >
 			</div>
 		</template>
 		<form>
 			<Select
-				label="size"
+				label="Font Size"
 				:items="fontSizeSelect"
 				v-model="curriculum.CoreSkills.size"
 			/>

@@ -23,7 +23,7 @@ const { curriculum } = inject(ProviderKey)!
 		<form>
 			<div>
 				<Select
-					label="size"
+					label="Font Size"
 					:items="fontSizeSelect"
 					v-model="curriculum.Header.UserName.size"
 				/>
@@ -36,7 +36,7 @@ const { curriculum } = inject(ProviderKey)!
 			</div>
 			<div>
 				<Select
-					label="size"
+					label="Font Size"
 					:items="fontSizeSelect"
 					v-model="curriculum.Header.Role.size"
 				/>
