@@ -1,4 +1,4 @@
-import type { LocalStorageKeys } from "@/types"
+import type { LocalStorageKeys } from '@/types'
 
 type LocalStorageProps<T> = {
 	key: LocalStorageKeys

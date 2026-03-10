@@ -14,7 +14,9 @@ const { boldMatches } = defineProps<{
 
 <template>
 	<div v-if="curriculum.CoreSkills.show">
-		<Title :fontsize="curriculum.Settings.section.size">{{ Translate['core skills'][curriculum.Settings.language] }}</Title>
+		<Title :fontsize="curriculum.Settings.section.size">{{
+			Translate['core skills'][curriculum.Settings.language]
+		}}</Title>
 		<div class="coreSkills">
 			<List
 				:fontSize="curriculum.CoreSkills.size"

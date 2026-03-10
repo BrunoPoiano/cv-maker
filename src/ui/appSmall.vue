@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { generateKey } from '@/helpers/generateKey'
-import type { InputTypeHTMLAttribute } from 'vue'
-
 type Props = {
-	type?: "attention" | "danger" | "success" | "primary"
+	type?: 'attention' | 'danger' | 'success' | 'primary'
 }
 
 const { type } = defineProps<Props>()
@@ -22,24 +19,23 @@ defineOptions({
 <style scoped>
 small {
 	font-weight: bolder;
-    display: inline-block;
+	display: inline-block;
 	height: 2ch;
 
-	&[data-type="attention"] {
+	&[data-type='attention'] {
 		color: var(--orange);
 	}
 
-	&[data-type="danger"] {
+	&[data-type='danger'] {
 		color: var(--red);
 	}
 
-	&[data-type="success"] {
+	&[data-type='success'] {
 		color: var(--green);
 	}
 
-	&[data-type="primary"] {
+	&[data-type='primary'] {
 		color: var(--blue);
 	}
-
 }
 </style>

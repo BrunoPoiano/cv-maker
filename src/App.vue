@@ -16,7 +16,7 @@ import { ProviderKey } from '@/keys'
 
 const curriculumList = ref(
 	getDataFromLocalStorage({
-		key: "curriculumList",
+		key: 'curriculumList',
 		parseFunction: parseCurriculumList,
 		initialValue: [
 			deepClone({ obj: CurriculumConst(), parseFunction: parseCurriculum })
@@ -60,7 +60,10 @@ provide(ProviderKey, {
 
 <template>
 	<Header :curriculum="currentCurriculum" />
-	<Menu v-model:curriculum-index="curriculumIndex" v-model:curriculum-list="curriculumList" />
+	<Menu
+		v-model:curriculum-index="curriculumIndex"
+		v-model:curriculum-list="curriculumList"
+	/>
 	<CurriculumModel :key="curriculumIndex" />
 	<footer>
 		<ColorScheme />

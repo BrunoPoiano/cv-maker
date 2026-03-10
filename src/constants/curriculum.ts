@@ -4,8 +4,8 @@ export function CurriculumConst(): Curriculum {
 	return {
 		Settings: {
 			language: 'en-us',
-			section:{
-				size: "--font-size-lg"
+			section: {
+				size: '--font-size-lg'
 			}
 		},
 		Header: {
@@ -51,7 +51,7 @@ export function CurriculumConst(): Curriculum {
 		Experience: {
 			dateMonth: '2-digit',
 			show: true,
-			sideBySide:false,
+			sideBySide: false,
 			size: {
 				title: '--font-size-lg',
 				subTitle: '--font-size-md',

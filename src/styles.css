@@ -29,7 +29,7 @@
 	--yellow: hsl(55, 90%, 85%);
 	--green: hsl(130, 90%, 85%);
 
-	--max-width: 105ch
+	--max-width: 105ch;
 }
 
 html {
@@ -52,7 +52,7 @@ body {
 	width: 100%;
 }
 
-body> :is(header, footer),
+body > :is(header, footer),
 section,
 main,
 article {

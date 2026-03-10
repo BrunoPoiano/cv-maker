@@ -84,7 +84,5 @@ function boldMatches(value: string) {
 
 	border: 1px #d3d3d3 solid;
 	border-radius: 5px;
-
-	
 }
 </style>

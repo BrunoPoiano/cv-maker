@@ -53,7 +53,7 @@ function saveSkill(core: SkillsList) {
 						v-model="curriculum.CoreSkills.show"
 					/>
 				</h4>
-				<AppSmall >Items will be separeted by commas (,)</AppSmall >
+				<AppSmall>Items will be separeted by commas (,)</AppSmall>
 			</div>
 		</template>
 		<form>

@@ -52,7 +52,9 @@ function saveSummary(list: boolean) {
 				</h4>
 				<Toggle v-model="list" labelEnd="List" labelStart="Text" />
 			</div>
-			<AppSmall>{{list ?  "Items will be separeted by line breaks" : ""}}</AppSmall>
+			<AppSmall>{{
+				list ? 'Items will be separeted by line breaks' : ''
+			}}</AppSmall>
 		</template>
 		<form>
 			<Select

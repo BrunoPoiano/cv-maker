@@ -10,19 +10,29 @@ type Props = {
 	maxWidth?: string
 	buttonIcon?: string
 	id?: string
-	closedby?: "none" | "closerequest" | "any"
+	closedby?: 'none' | 'closerequest' | 'any'
 }
 
-const { buttonLabel, buttonIcon, closeLabel, minWidth, maxWidth, id, closedby } =
-	defineProps<Props>()
+const {
+	buttonLabel,
+	buttonIcon,
+	closeLabel,
+	minWidth,
+	maxWidth,
+	id,
+	closedby
+} = defineProps<Props>()
 
 import { generateKey } from '@/helpers/generateKey'
 const key = id || generateKey(10)
 </script>
 
 <template>
-	<dialog :closedby="closedby || 'any'" :id="key"
-		:style="`min-width: min(${minWidth},100%); max-width: ${maxWidth || '100%'}`">
+	<dialog
+		:closedby="closedby || 'any'"
+		:id="key"
+		:style="`min-width: min(${minWidth},100%); max-width: ${maxWidth || '100%'}`"
+	>
 		<div class="header">
 			<slot name="header" />
 		</div>
@@ -34,7 +44,12 @@ const key = id || generateKey(10)
 			}}</Button>
 		</div>
 	</dialog>
-	<Button :icon="buttonIcon" command="show-modal" :commandfor="key" @click="openAction">
+	<Button
+		:icon="buttonIcon"
+		command="show-modal"
+		:commandfor="key"
+		@click="openAction"
+	>
 		{{ buttonLabel }}
 	</Button>
 </template>

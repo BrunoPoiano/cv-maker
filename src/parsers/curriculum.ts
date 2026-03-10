@@ -20,7 +20,11 @@ export function parseCurriculum(value: unknown) {
 	}
 
 	if (isObject(value.Settings)) {
-		cv.Settings.language = isOneOforDefault(value.Settings.language, languages, 'en-us')
+		cv.Settings.language = isOneOforDefault(
+			value.Settings.language,
+			languages,
+			'en-us'
+		)
 		if (isObject(value.Settings.section)) {
 			cv.Settings.section.size = isOneOforDefault(
 				value.Settings.section.size,
@@ -186,7 +190,10 @@ export function parseCurriculum(value: unknown) {
 
 	if (isObject(value.Experience)) {
 		cv.Experience.show = isBooleanOrDefault(value.Experience.show, true)
-		cv.Experience.sideBySide = isBooleanOrDefault(value.Experience.sideBySide, false)
+		cv.Experience.sideBySide = isBooleanOrDefault(
+			value.Experience.sideBySide,
+			false
+		)
 		cv.Experience.dateMonth = isOneOforDefault(
 			value.Experience.dateMonth,
 			monthOptions,

@@ -37,15 +37,15 @@ export type Provider = {
 export type BoldMatchReturn =
 	| string
 	| (
-		| string
-		| VNode<
-			RendererNode,
-			RendererElement,
-			{
-				[key: string]: unknown
-			}
-		>
-	)[]
+			| string
+			| VNode<
+					RendererNode,
+					RendererElement,
+					{
+						[key: string]: unknown
+					}
+			  >
+	  )[]
 
 type Contact = {
 	size: FontSize
@@ -92,8 +92,7 @@ type CoreSkills = {
 }
 type Settings = {
 	language: Languages
-	section:
-	{
+	section: {
 		size: FontSize
 	}
 }

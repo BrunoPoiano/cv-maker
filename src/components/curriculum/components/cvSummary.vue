@@ -17,15 +17,23 @@ const { boldMatches } = defineProps<{
 
 <template>
 	<div v-if="curriculum.Summary.show">
-		<Title :fontsize="curriculum.Settings.section.size">{{ Translate['summary'][curriculum.Settings.language] }}
+		<Title :fontsize="curriculum.Settings.section.size"
+			>{{ Translate['summary'][curriculum.Settings.language] }}
 		</Title>
 		<div class="summary">
-			<Paragraph v-if="curriculum.Summary.smallText !== ''" :fontSize="curriculum.Summary.size">
+			<Paragraph
+				v-if="curriculum.Summary.smallText !== ''"
+				:fontSize="curriculum.Summary.size"
+			>
 				{{ curriculum.Summary.smallText }}
 			</Paragraph>
-			<List v-if="Array.isArray(curriculum.Summary.value)" :fontSize="curriculum.Summary.size"
-				:genericList="curriculum.Summary.value" :boldMatches="boldMatches"
-				:language="curriculum.Settings.language" />
+			<List
+				v-if="Array.isArray(curriculum.Summary.value)"
+				:fontSize="curriculum.Summary.size"
+				:genericList="curriculum.Summary.value"
+				:boldMatches="boldMatches"
+				:language="curriculum.Settings.language"
+			/>
 			<Paragraph v-else :fontSize="curriculum.Summary.size">
 				<AppBoldMatch :value="boldMatches(curriculum.Summary.value)" />
 			</Paragraph>

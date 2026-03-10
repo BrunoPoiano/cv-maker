@@ -8,12 +8,22 @@ const { curriculum } = inject(ProviderKey)!
 </script>
 
 <template>
-	<Modal buttonLabel="Section" closeLabel="close" minWidth="40rem" buttonIcon="/svgs/pen.svg" v-if="curriculum">
+	<Modal
+		buttonLabel="Section"
+		closeLabel="close"
+		minWidth="40rem"
+		buttonIcon="/svgs/pen.svg"
+		v-if="curriculum"
+	>
 		<template #header>
 			<h4>Sections</h4>
 		</template>
 		<form>
-			<Select label="Font Size" :items="fontSizeSelect" v-model="curriculum.Settings.section.size" />
+			<Select
+				label="Font Size"
+				:items="fontSizeSelect"
+				v-model="curriculum.Settings.section.size"
+			/>
 		</form>
 	</Modal>
 </template>
