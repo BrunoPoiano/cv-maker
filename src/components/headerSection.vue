@@ -29,8 +29,6 @@ function savePDF() {
 <template>
 	<div class="header">
 		<h1>
-			<!-- <img src="/svgs/document.svg" alt="app logo" width="50" height="50" /> -->
-
 			<SvgDocument />
 			CV-Maker
 		</h1>
