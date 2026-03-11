@@ -12,7 +12,7 @@ import {
 import { monthOptions } from '@/constants/monthOptions'
 import { generateKey } from '@/helpers/generateKey'
 
-export function parseCurriculum(value: unknown) {
+export function parseCurriculum(value: unknown): Curriculum {
 	const cv = CurriculumConst()
 
 	if (!isObject(value)) {
@@ -255,15 +255,15 @@ export function parseCurriculum(value: unknown) {
 	return cv
 }
 
-export function parseCurriculumList(value: unknown) {
-	const cvList = [CurriculumConst()]
-
+export function parseCurriculumList(value: unknown): Array<Curriculum> {
 	if (!Array.isArray(value)) {
-		return cvList
+		return [CurriculumConst()]
 	}
 
-	return value.reduce<Array<Curriculum>>((acc, item) => {
+	const cvList = value.reduce<Array<Curriculum>>((acc, item) => {
 		acc.push(parseCurriculum(item))
 		return acc
 	}, [])
+
+	return cvList.sort((item) => (item.Settings.language === 'en-us' ? 0 : 1))
 }

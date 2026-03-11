@@ -1,4 +1,4 @@
-export const generateKey = (length = 5, type?: 'number' | 'string') => {
+export function generateKey(length = 5, type?: 'number' | 'string'): string {
 	let len = length
 
 	if (len < 5) {

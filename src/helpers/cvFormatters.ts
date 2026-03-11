@@ -2,7 +2,9 @@ import { Translate } from '@/constants/translations'
 import { isValidDateOrNull } from '@/parsers/typeValidation'
 import type { Curriculum, Languages, MonthOptions } from '@/types'
 
-export function generateTitle(job: Curriculum['Experience']['value'][number]) {
+export function generateTitle(
+	job: Curriculum['Experience']['value'][number]
+): string {
 	const role = job.Role.toLocaleLowerCase()
 	const company = job.CompanyName.toLocaleLowerCase()
 
@@ -13,7 +15,7 @@ export function generateDate(
 	job: Curriculum['Experience']['value'][number],
 	language: Languages,
 	dateFormat: MonthOptions
-) {
+): string {
 	const startDate = fixDate(job.StartDate, language, dateFormat)
 	const endDate = job.EndDate
 		? fixDate(job.EndDate, language, dateFormat)
@@ -26,7 +28,7 @@ export function fixDate(
 	date: unknown,
 	language: Languages,
 	dateFormat: MonthOptions
-) {
+): string {
 	const newDate = isValidDateOrNull(date)
 
 	if (!newDate) return ''
