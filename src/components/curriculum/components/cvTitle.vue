@@ -16,7 +16,6 @@ const props = defineProps<Props>()
 
 <style scoped>
 h3 {
-	color: black;
 	font-size: var(--font-size-lg);
 	font-weight: var(--font-weight);
 	letter-spacing: 0.099em;

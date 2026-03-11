@@ -83,8 +83,8 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 
 		.title,
 		.sub-title {
+			color: light-dark(#000, #fff);
 			display: block;
-			color: black;
 			text-transform: capitalize;
 			font-size: var(--font-size-base);
 			font-weight: var(--font-weight);
@@ -102,7 +102,6 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 			justify-content: space-between;
 
 			> .sub-title {
-				color: black;
 				flex-direction: row-reverse;
 			}
 		}

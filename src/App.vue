@@ -5,7 +5,6 @@ import CurriculumModel from './components/curriculum/cvIndex.vue'
 import { getDataFromLocalStorage } from './helpers/localstorage'
 import { parseCurriculum, parseCurriculumList } from './parsers/curriculum'
 
-import ColorScheme from './components/colorScheme.vue'
 import { parseBolder } from './parsers/bolder'
 import { isNumberOrDefault } from './parsers/typeValidation'
 import { CurriculumConst } from './constants/curriculum'
@@ -13,6 +12,7 @@ import Menu from './components/menuSection.vue'
 import { deepClone } from './helpers/clone'
 import Header from './components/headerSection.vue'
 import { ProviderKey } from '@/keys'
+import AppFooter from './components/appFooter.vue'
 
 const curriculumList = ref(
 	getDataFromLocalStorage({
@@ -65,7 +65,5 @@ provide(ProviderKey, {
 		v-model:curriculum-list="curriculumList"
 	/>
 	<CurriculumModel :key="curriculumIndex" />
-	<footer>
-		<ColorScheme />
-	</footer>
+	<AppFooter />
 </template>

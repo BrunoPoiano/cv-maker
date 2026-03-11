@@ -11,6 +11,10 @@ import { CurriculumConst } from '@/constants/curriculum'
 import { parseCurriculum } from '@/parsers/curriculum'
 import GeneratePrompt from './modals/modalGeneratePrompt.vue'
 import ModalBackup from './modals/modalBackup.vue'
+import SvgCopy from '@/svgs/svgCopy.vue'
+import SvgTrash from '@/svgs/svgTrash.vue'
+import SvgSave from '@/svgs/svgSave.vue'
+import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 
 const { curriculum } = inject(ProviderKey)!
 
@@ -97,27 +101,22 @@ function deleteCv() {
 			<Button
 				@click="deleteCv"
 				:disabled="curriculumIndex === 0"
-				icon="/svgs/trash.svg"
 				hover-background="var(--red)"
-				>delete
+			>
+				<SvgTrash />
+				delete
 			</Button>
-			<Button
-				@click="copyCv"
-				hover-background="var(--blue)"
-				icon="/svgs/copy.svg"
-				>Copy
+			<Button @click="copyCv" hover-background="var(--blue)">
+				<SvgCopy />
+				Copy
 			</Button>
-			<Button
-				@click="newCv"
-				hover-background="var(--green)"
-				icon="/svgs/new-document.svg"
-				>New
+			<Button @click="newCv" hover-background="var(--green)">
+				<SvgNewDocument />
+				New
 			</Button>
-			<Button
-				@click="saveData"
-				hover-background="var(--green)"
-				icon="/svgs/save.svg"
-				>Save
+			<Button @click="saveData" hover-background="var(--green)">
+				<SvgSave />
+				Save
 			</Button>
 		</div>
 	</nav>

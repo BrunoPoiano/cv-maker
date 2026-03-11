@@ -48,7 +48,7 @@ function defineHeight() {
 	textarea {
 		border: 1px solid var(--input-border);
 		border-radius: 10px;
-		padding: 1rem 0.6rem;
+		padding: 0.8rem;
 		min-height: 241px;
 		background: var(--input-background);
 		font-size: var(--font-size-base);

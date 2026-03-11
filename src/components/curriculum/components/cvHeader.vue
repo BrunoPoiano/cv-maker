@@ -24,7 +24,6 @@ const { curriculum } = inject(ProviderKey)!
 		padding: 0;
 		margin: 0;
 		font-size: var(--font-size-xxxl);
-		color: #000000;
 		text-transform: uppercase;
 		letter-spacing: 0.03em;
 		font-weight: var(--font-weight);

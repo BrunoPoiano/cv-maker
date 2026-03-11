@@ -4,6 +4,7 @@ import { ProviderKey } from '@/keys'
 import { inject } from 'vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
+import SvgPen from '@/svgs/SvgPen.vue'
 const { curriculum } = inject(ProviderKey)!
 </script>
 
@@ -12,9 +13,9 @@ const { curriculum } = inject(ProviderKey)!
 		buttonLabel="Section"
 		closeLabel="close"
 		minWidth="40rem"
-		buttonIcon="/svgs/pen.svg"
 		v-if="curriculum"
 	>
+		<template #buttonLabel> <SvgPen /> Section </template>
 		<template #header>
 			<h4>Sections</h4>
 		</template>

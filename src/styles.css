@@ -17,11 +17,11 @@
 	--font-size-xxxxl: clamp(1.8662rem, 1.2252rem + 2.8491vw, 3.4332rem);
 
 	--app-color: oklch(51.4% 0.222 16.935);
-	--light-text-color: #65615f;
+	--light-text-color: light-dark(#65615f, #bebcbc);
 	--font-weight: 400;
-	--background: light-dark(#f9f9f9, #000);
+	--background: light-dark(#fff, oklch(0.147 0.004 49.25));
 	--input-background: light-dark(#fff, #1a1a1a);
-	--input-border: #80808070;
+	--input-border: light-dark(hsla(0, 0%, 50%, 0.205), hsla(0, 0%, 50%, 0.5));
 
 	--red: hsl(0, 90%, 61%);
 	--blue: hsl(210, 90%, 85%);
@@ -38,13 +38,18 @@ html {
 }
 
 body {
+	--body-padding: 1rem;
+
 	font-size: 1.125rem;
-	padding: 0.8em;
+	padding: var(--body-padding);
 	display: grid;
 	place-items: center;
+	background-color: var(--background);
 
 	font-family: 'EBGaramondPDF', serif;
 	line-height: 1.35;
+	accent-color: var(--app-color);
+	caret-color: var(--app-color);
 }
 
 #app {
@@ -65,6 +70,7 @@ h3,
 h4,
 h5,
 h6 {
+	color: light-dark(#000, #fff);
 	text-wrap: balance;
 	margin: 0px;
 }
@@ -114,6 +120,10 @@ p {
 a {
 	text-decoration: none;
 	cursor: pointer;
+
+	&:visited {
+		color: var(--app-color);
+	}
 }
 
 small {
@@ -125,14 +135,11 @@ select,
 input,
 textarea {
 	font-size: inherit;
-	caret-color: var(--app-color);
 }
 
-input,
-textarea {
-	&:focus-visible {
-		outline-color: var(--app-color) !important;
-	}
+input:focus-visible,
+textarea:focus-visible {
+	outline: 1px solid var(--app-color);
 }
 
 img {
@@ -184,6 +191,7 @@ pre {
 @media print {
 	body * {
 		visibility: hidden;
+		color-scheme: light;
 	}
 
 	#curriculumPage,

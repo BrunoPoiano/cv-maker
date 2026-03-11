@@ -77,12 +77,10 @@ function boldMatches(value: string) {
 	margin-inline: auto;
 	margin-top: 2rem;
 
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 10px light-dark(rgba(0, 0, 0, 0.3), rgb(255, 255, 255, 0.3));
 	box-sizing: border-box;
 
-	background-color: #ffffff;
-
-	border: 1px #d3d3d3 solid;
+	border: 1px light-dark(#d3d3d3, hsla(0, 0%, 16.9%)) solid;
 	border-radius: 5px;
 }
 </style>

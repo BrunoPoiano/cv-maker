@@ -5,17 +5,13 @@ import { inject } from 'vue'
 import Input from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
+import SvgPen from '@/svgs/SvgPen.vue'
 const { curriculum } = inject(ProviderKey)!
 </script>
 
 <template>
-	<Modal
-		buttonLabel="Header"
-		closeLabel="close"
-		minWidth="30rem"
-		v-if="curriculum"
-		buttonIcon="/svgs/pen.svg"
-	>
+	<Modal closeLabel="close" minWidth="30rem" v-if="curriculum">
+		<template #buttonLabel> <SvgPen /> Header </template>
 		<template #header>
 			<h4>Header</h4>
 		</template>

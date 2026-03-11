@@ -12,6 +12,7 @@ import AppToggle from '@/ui/appToggle.vue'
 import AppInput from '@/ui/appInput.vue'
 import { monthOptionsSelect } from '@/constants/monthOptions'
 import AppSmall from '@/ui/appSmall.vue'
+import SvgPen from '@/svgs/SvgPen.vue'
 const { curriculum } = inject(ProviderKey)!
 
 const list = ref(
@@ -37,8 +38,8 @@ function newExperience() {
 		closeLabel="close"
 		minWidth="40rem"
 		v-if="curriculum"
-		buttonIcon="/svgs/pen.svg"
 	>
+		<template #buttonLabel> <SvgPen /> Experience </template>
 		<template #header>
 			<div class="modalHeader">
 				<h4>

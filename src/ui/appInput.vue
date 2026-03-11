@@ -47,7 +47,7 @@ defineOptions({
 		border: 1px solid var(--input-border);
 		border-radius: 10px;
 		background: var(--input-background);
-		padding: 0.3rem 0.6rem;
+		padding: 0.4rem 0.8rem;
 	}
 
 	small {
@@ -62,9 +62,9 @@ defineOptions({
 			font-weight: 500;
 			cursor: pointer;
 
-			padding: 0.2rem 0.4rem;
+			padding: 0.4rem 0.8rem;
 
-			border: 1px solid #00000036;
+			border: 1px solid var(--input-border);
 			border-radius: 8px;
 			min-width: 5ch;
 
@@ -97,6 +97,7 @@ defineOptions({
 			border: 0.15em solid var(--input-border);
 			border-radius: 0.15em;
 
+			padding: 0.4rem;
 			display: grid;
 			place-content: center;
 

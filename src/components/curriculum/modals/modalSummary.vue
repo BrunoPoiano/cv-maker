@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey } from '@/keys'
+import SvgPen from '@/svgs/SvgPen.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
@@ -38,9 +39,9 @@ function saveSummary(list: boolean) {
 		buttonLabel="Summary"
 		closeLabel="close"
 		minWidth="40rem"
-		buttonIcon="/svgs/pen.svg"
 		v-if="curriculum"
 	>
+		<template #buttonLabel> <SvgPen /> Summary </template>
 		<template #header>
 			<div class="header">
 				<h4>

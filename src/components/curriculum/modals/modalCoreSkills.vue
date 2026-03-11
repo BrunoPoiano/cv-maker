@@ -2,6 +2,7 @@
 import { fontSizeSelect } from '@/constants/font-size'
 import { skillList } from '@/constants/skillList'
 import { ProviderKey } from '@/keys'
+import SvgPen from '@/svgs/SvgPen.vue'
 import { type Skills, type SkillsList } from '@/types'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
@@ -37,13 +38,8 @@ function saveSkill(core: SkillsList) {
 </script>
 
 <template>
-	<Modal
-		buttonLabel="Core Skills"
-		closeLabel="close"
-		minWidth="40rem"
-		v-if="curriculum"
-		buttonIcon="/svgs/pen.svg"
-	>
+	<Modal closeLabel="close" minWidth="40rem" v-if="curriculum">
+		<template #buttonLabel> <SvgPen /> Core Skills </template>
 		<template #header>
 			<div class="header">
 				<h4>

@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import Button from '@/ui/appButton.vue'
+import { useSlots } from 'vue'
 
 type Props = {
-	buttonLabel: string | Element
+	buttonLabel?: string | Element
 	closeLabel: string | Element
 	openAction?: () => void
 	closeAction?: () => void
 	minWidth?: string
 	maxWidth?: string
-	buttonIcon?: string
 	id?: string
+	buttonIcon?: string
 	closedby?: 'none' | 'closerequest' | 'any'
 }
 
@@ -22,6 +23,10 @@ const {
 	id,
 	closedby
 } = defineProps<Props>()
+
+const slots = useSlots()
+
+const hasButtonLabel = !!slots.buttonLabel
 
 import { generateKey } from '@/helpers/generateKey'
 const key = id || generateKey(10)
@@ -50,7 +55,10 @@ const key = id || generateKey(10)
 		:commandfor="key"
 		@click="openAction"
 	>
-		{{ buttonLabel }}
+		<slot name="buttonLabel" v-if="hasButtonLabel" />
+		<span v-else>
+			{{ buttonLabel }}
+		</span>
 	</Button>
 </template>
 

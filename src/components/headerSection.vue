@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SvgDocument from '@/svgs/svgDocument.vue'
 import type { Curriculum } from '@/types'
 import Button from '@/ui/appButton.vue'
 
@@ -28,7 +29,9 @@ function savePDF() {
 <template>
 	<div class="header">
 		<h1>
-			<img src="/svgs/document.svg" alt="app logo" width="50" height="50" />
+			<!-- <img src="/svgs/document.svg" alt="app logo" width="50" height="50" /> -->
+
+			<SvgDocument />
 			CV-Maker
 		</h1>
 		<Button @click="savePDF" background="var(--app-color)"
@@ -44,7 +47,7 @@ function savePDF() {
 	flex-wrap: wrap;
 	align-items: center;
 	margin-bottom: 1rem;
-	margin-inline: -1rem;
+	margin-inline: calc(var(--body-padding) * -1);
 
 	h1 {
 		margin: 0;
