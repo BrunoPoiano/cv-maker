@@ -22,7 +22,7 @@ const { curriculum } = inject(ProviderKey)!
 <style scoped>
 .contact {
 	display: grid;
-	gap: calc((var(--_a4-gap) * 0.3));
+	gap: calc((var(--_a4-gap) * 0.5));
 
 	.type {
 		text-transform: capitalize;
@@ -32,6 +32,8 @@ const { curriculum } = inject(ProviderKey)!
 		color: var(--light-text-color);
 		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight);
+		text-box-trim: trim-both;
+		text-box-edge: cap alphabetic;
 
 		> span {
 			font-size: inherit;
@@ -41,7 +43,7 @@ const { curriculum } = inject(ProviderKey)!
 	&[data-side-by-side='true'] {
 		display: flex;
 		gap: 1ch;
-		margin-top: calc(var(--_a4-gap) * -0.6);
+		margin-top: calc(var(--_a4-gap) * -0.4);
 
 		[data-type='email'] span {
 			font-weight: bold;

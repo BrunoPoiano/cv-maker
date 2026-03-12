@@ -73,6 +73,9 @@ h6 {
 	color: light-dark(#000, #fff);
 	text-wrap: balance;
 	margin: 0px;
+
+	text-box-trim: trim-both;
+	text-box-edge: cap alphabetic;
 }
 
 h1 {

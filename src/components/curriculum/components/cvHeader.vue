@@ -23,6 +23,7 @@ const { curriculum } = inject(ProviderKey)!
 	h1 {
 		padding: 0;
 		margin: 0;
+		margin-bottom: calc(var(--_a4-gap) * 0.5);
 		font-size: var(--font-size-xxxl);
 		text-transform: uppercase;
 		letter-spacing: 0.03em;
@@ -31,12 +32,17 @@ const { curriculum } = inject(ProviderKey)!
 	}
 
 	.label {
-		font-size: var(--font-size-lg);
+		display: block;
+
 		color: var(--light-text-color);
-		text-transform: uppercase;
-		letter-spacing: 0.099em;
+
+		font-size: var(--font-size-lg);
 		font-weight: var(--font-weight);
+		letter-spacing: 0.099em;
 		line-height: 1.2;
+		text-transform: uppercase;
+		text-box-trim: trim-both;
+		text-box-edge: cap alphabetic;
 	}
 }
 </style>

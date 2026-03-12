@@ -1,7 +1,15 @@
 <script setup lang="ts">
-import type { BoldMatchReturn, FontSize, Languages, Skills } from '@/types'
+import type {
+	BoldMatchReturn,
+	FontSize,
+	Languages,
+	Skills,
+	SkillsList
+} from '@/types'
 import AppBoldMatch from './appBoldMatch.vue'
 import { Translate } from '@/constants/translations'
+import { computed } from 'vue'
+import { skillList } from '@/constants/skillList'
 
 type Props =
 	| {
@@ -20,6 +28,22 @@ type Props =
 	  }
 
 const { genericList, coreSkills, boldMatches, fontSize } = defineProps<Props>()
+
+const orderedCoreSkills = computed(() => {
+	const ordered: Skills = {}
+
+	if (!coreSkills) return ordered
+
+	for (const key of skillList) {
+		const core = key.toLocaleLowerCase() as SkillsList
+
+		if (coreSkills[core]) {
+			ordered[core] = coreSkills[core]
+		}
+	}
+
+	return ordered
+})
 </script>
 
 <template>
@@ -35,7 +59,7 @@ const { genericList, coreSkills, boldMatches, fontSize } = defineProps<Props>()
 			</li>
 		</template>
 		<template v-if="coreSkills">
-			<li v-for="(skill, core) in coreSkills" :key="core">
+			<li v-for="(skill, core) in orderedCoreSkills" :key="core">
 				<div v-if="skill">
 					<span :style="`font-size: var(${fontSize})`" class="core"
 						>{{ Translate[core][language] }}:
@@ -60,6 +84,8 @@ ul {
 	gap: calc((var(--_a4-gap) * 0.3));
 
 	li {
+		text-box-trim: trim-end;
+		text-box-edge: cap alphabetic;
 		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight);
 		color: var(--light-text-color);

@@ -48,6 +48,9 @@ const { boldMatches } = defineProps<{
 
 	p:nth-child(1) {
 		margin-top: calc(((var(--_a4-gap) * 0.2) * -1));
+
+		text-box-trim: trim-end;
+		text-box-edge: cap alphabetic;
 	}
 }
 </style>

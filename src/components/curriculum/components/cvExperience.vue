@@ -76,10 +76,10 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 <style scoped>
 .experience {
 	display: grid;
-	gap: calc((var(--_a4-gap) * 0.5));
+	gap: calc((var(--_a4-gap) * 0.8));
 
 	.job-title {
-		margin-bottom: calc((var(--_a4-gap) * 0.2));
+		margin-bottom: calc((var(--_a4-gap) * 0.4));
 
 		.title,
 		.sub-title {
@@ -88,12 +88,24 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 			text-transform: capitalize;
 			font-size: var(--font-size-base);
 			font-weight: var(--font-weight);
+
+			text-box-trim: trim-end;
+			text-box-edge: cap alphabetic;
+		}
+
+		.title {
+			margin-bottom: calc((var(--_a4-gap) * 0.5));
 		}
 
 		.sub-title {
 			color: var(--light-text-color);
 			display: flex;
 			gap: 0.5ch;
+
+			> span {
+				text-box-trim: trim-both;
+				text-box-edge: cap alphabetic;
+			}
 		}
 
 		&[data-side-by-side='true'] {
