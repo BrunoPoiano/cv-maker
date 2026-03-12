@@ -7,11 +7,11 @@ const { curriculum } = inject(ProviderKey)!
 
 <template>
 	<div class="header">
-		<h1 :style="`font-size: var(${curriculum.Header.UserName.size})`">
+		<h1 :style="{ fontSize: `var(${curriculum.Header.UserName.size})` }">
 			{{ curriculum.Header.UserName.value }}
 		</h1>
 		<span
-			:style="`font-size: var(${curriculum.Header.Role.size})`"
+			:style="{ fontSize: `var(${curriculum.Header.Role.size})` }"
 			class="label"
 			>{{ curriculum.Header.Role.value }}</span
 		>

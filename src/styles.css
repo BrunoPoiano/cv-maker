@@ -111,7 +111,6 @@ li,
 figcaption {
 	text-wrap: stable;
 	text-wrap: pretty;
-	max-width: var(--max-width);
 }
 
 p {

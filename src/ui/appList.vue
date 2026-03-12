@@ -50,10 +50,10 @@ const orderedCoreSkills = computed(() => {
 	<ul>
 		<template v-if="genericList">
 			<li v-for="(item, index) in genericList" :key="index">
-				<span :style="`font-size: var(${fontSize})`" v-if="boldMatches">
+				<span :style="{ fontSize: `var(${fontSize})` }" v-if="boldMatches">
 					<AppBoldMatch :value="boldMatches(item)" />
 				</span>
-				<span :style="`font-size: var(${fontSize})`" v-else>
+				<span :style="{ fontSize: `var(${fontSize})` }" v-else>
 					{{ item }}
 				</span>
 			</li>
@@ -61,13 +61,13 @@ const orderedCoreSkills = computed(() => {
 		<template v-if="coreSkills">
 			<li v-for="(skill, core) in orderedCoreSkills" :key="core">
 				<div v-if="skill">
-					<span :style="`font-size: var(${fontSize})`" class="core"
+					<span :style="{ fontSize: `var(${fontSize})` }" class="core"
 						>{{ Translate[core][language] }}:
 					</span>
-					<span :style="`font-size: var(${fontSize})`" v-if="boldMatches">
+					<span :style="{ fontSize: `var(${fontSize})` }" v-if="boldMatches">
 						<AppBoldMatch :value="boldMatches(skill.join(', '))" />
 					</span>
-					<span :style="`font-size: var(${fontSize})`" v-else>
+					<span :style="{ fontSize: `var(${fontSize})` }" v-else>
 						{{ skill.join(', ') }}
 					</span>
 				</div>

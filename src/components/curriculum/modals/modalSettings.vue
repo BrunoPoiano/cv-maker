@@ -5,6 +5,7 @@ import { inject } from 'vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
 import SvgPen from '@/svgs/SvgPen.vue'
+import { marginListSelect } from '@/constants/margin'
 const { curriculum } = inject(ProviderKey)!
 </script>
 
@@ -15,13 +16,18 @@ const { curriculum } = inject(ProviderKey)!
 		minWidth="40rem"
 		v-if="curriculum"
 	>
-		<template #buttonLabel> <SvgPen /> Section </template>
+		<template #buttonLabel> <SvgPen /> Settings </template>
 		<template #header>
-			<h4>Sections</h4>
+			<h4>Settings</h4>
 		</template>
 		<form>
 			<Select
-				label="Font Size"
+				label="Curriculum Margin"
+				:items="marginListSelect"
+				v-model="curriculum.Settings.margin"
+			/>
+			<Select
+				label="Section Header"
 				:items="fontSizeSelect"
 				v-model="curriculum.Settings.section.size"
 			/>

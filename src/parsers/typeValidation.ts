@@ -4,22 +4,19 @@ function isString(value: unknown): value is string {
 	return typeof value === 'string'
 }
 
-export function isOneOf<T extends string>(
+export function isOneOf<T extends unknown | string | number>(
 	value: T,
 	array: T[] | readonly T[]
 ): value is T {
 	return array.includes(value as T)
 }
 
-export function isOneOforDefault<T extends string>(
-	value: unknown | string,
+export function isOneOforDefault<T extends string | number>(
+	value: unknown,
 	array: T[] | readonly T[],
 	defaultValue: T
 ): T {
-	if (typeof value === 'string') {
-		return isOneOf(value, array) ? (value as T) : defaultValue
-	}
-	return defaultValue
+	return isOneOf(value, array) ? (value as T) : defaultValue
 }
 
 export function isNumber(value: unknown): value is number {

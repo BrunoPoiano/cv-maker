@@ -28,7 +28,7 @@ function defineHeight() {
 	<div class="content">
 		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
 		<textarea
-			:style="`min-height:${defineHeight()}`"
+			:style="{ minHeight: `${defineHeight()}` }"
 			v-bind="$attrs"
 			:id="id ?? key"
 			v-model="model"

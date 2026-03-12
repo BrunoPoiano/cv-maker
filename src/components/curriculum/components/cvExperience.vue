@@ -35,13 +35,15 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 				>
 					<span
 						class="title"
-						:style="`font-size: var(${curriculum.Experience.size.title})`"
+						:style="{ fontSize: `var(${curriculum.Experience.size.title})` }"
 					>
 						{{ generateTitle(job) }}
 					</span>
 					<span
 						class="sub-title"
-						:style="`font-size: var(${curriculum.Experience.sideBySide ? curriculum.Experience.size.title : curriculum.Experience.size.subTitle})`"
+						:style="{
+							fontSize: `var(${curriculum.Experience.sideBySide ? curriculum.Experience.size.title : curriculum.Experience.size.subTitle})`
+						}"
 					>
 						<span>
 							{{
@@ -80,6 +82,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 
 	.job-title {
 		margin-bottom: calc((var(--_a4-gap) * 0.4));
+		letter-spacing: 0.07em;
 
 		.title,
 		.sub-title {

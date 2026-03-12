@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ProviderKey } from '@/keys'
-import { h, inject } from 'vue'
+import { computed, h, inject } from 'vue'
 import Contact from './components/cvContact.vue'
 import Experience from './components/cvExperience.vue'
 import Header from './components/cvHeader.vue'
@@ -14,7 +14,7 @@ import ContactModal from './modals/modalContact.vue'
 import CoreSkillsModal from './modals/modalCoreSkills.vue'
 import HeaderModal from './modals/modalHeader.vue'
 import SummaryModal from './modals/modalSummary.vue'
-import ModalSection from './modals/modalSection.vue'
+import modalSettings from './modals/modalSettings.vue'
 
 const { bolder, curriculum } = inject(ProviderKey)!
 
@@ -33,11 +33,13 @@ function boldMatches(value: string) {
 			: part
 	)
 }
+
+const margin = computed(() => curriculum.value.Settings.margin)
 </script>
 
 <template>
 	<nav class="menu">
-		<ModalSection />
+		<modalSettings />
 		<HeaderModal />
 		<ContactModal />
 		<SummaryModal />
@@ -45,7 +47,11 @@ function boldMatches(value: string) {
 		<ExperienceModal />
 		<Select :items="languagesSelect" v-model="curriculum.Settings.language" />
 	</nav>
-	<section class="a4-page page" id="curriculumPage">
+	<section
+		class="a4-page page"
+		id="curriculumPage"
+		:style="{ padding: `${margin}cm` }"
+	>
 		<Header />
 		<Contact />
 		<Summary :boldMatches="boldMatches" />
@@ -73,7 +79,7 @@ function boldMatches(value: string) {
 	align-content: baseline;
 	gap: var(--_a4-gap);
 
-	padding: 0.8cm;
+	padding: 1cm;
 	margin-inline: auto;
 	margin-top: 2rem;
 

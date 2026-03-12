@@ -36,7 +36,10 @@ const key = id || generateKey(10)
 	<dialog
 		:closedby="closedby || 'any'"
 		:id="key"
-		:style="`min-width: min(${minWidth},100%); max-width: ${maxWidth || '100%'}`"
+		:style="{
+			minWidth: `min(${minWidth},100%)`,
+			maxWidth: `${maxWidth || '100%'}`
+		}"
 	>
 		<div class="header">
 			<slot name="header" />

@@ -9,7 +9,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-	<h3 :style="`font-size: var(${props.fontsize})`">
+	<h3 :style="{ fontSize: `var(${props.fontsize})` }">
 		<slot />
 	</h3>
 </template>

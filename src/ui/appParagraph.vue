@@ -9,7 +9,7 @@ const { fontSize } = defineProps<Props>()
 </script>
 
 <template>
-	<p :style="`font-size: var(${fontSize})`"><slot /></p>
+	<p :style="{ fontSize: `var(${fontSize})` }"><slot /></p>
 </template>
 
 <style scoped>

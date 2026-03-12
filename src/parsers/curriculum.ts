@@ -11,6 +11,7 @@ import {
 } from './typeValidation'
 import { monthOptions } from '@/constants/monthOptions'
 import { generateKey } from '@/helpers/generateKey'
+import { marginList } from '@/constants/margin'
 
 export function parseCurriculum(value: unknown): Curriculum {
 	const cv = CurriculumConst()
@@ -25,6 +26,9 @@ export function parseCurriculum(value: unknown): Curriculum {
 			languages,
 			'en-us'
 		)
+
+		cv.Settings.margin = isOneOforDefault(value.Settings.margin, marginList, 1)
+
 		if (isObject(value.Settings.section)) {
 			cv.Settings.section.size = isOneOforDefault(
 				value.Settings.section.size,

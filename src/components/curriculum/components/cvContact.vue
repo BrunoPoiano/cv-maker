@@ -10,7 +10,7 @@ const { curriculum } = inject(ProviderKey)!
 		<span
 			:key="type"
 			v-for="(item, type) in curriculum.Contact.value"
-			:style="`font-size: var(${curriculum.Contact.size})`"
+			:style="{ fontSize: `var(${curriculum.Contact.size})` }"
 			:data-type="type"
 		>
 			<span class="type"> {{ type }}: </span>
