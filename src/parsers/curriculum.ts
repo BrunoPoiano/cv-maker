@@ -5,13 +5,13 @@ import type { Curriculum, Experience } from '@/types'
 import {
 	isBooleanOrDefault,
 	isExtendedStringOrDefault,
+	isNumberOrDefault,
 	isObject,
 	isOneOforDefault,
 	isStringOrDefault
 } from './typeValidation'
 import { monthOptions } from '@/constants/monthOptions'
 import { generateKey } from '@/helpers/generateKey'
-import { marginList } from '@/constants/margin'
 
 export function parseCurriculum(value: unknown): Curriculum {
 	const cv = CurriculumConst()
@@ -27,7 +27,8 @@ export function parseCurriculum(value: unknown): Curriculum {
 			'en-us'
 		)
 
-		cv.Settings.margin = isOneOforDefault(value.Settings.margin, marginList, 1)
+		cv.Settings.margin = isNumberOrDefault(value.Settings.margin, 1)
+		cv.Settings.gap = isNumberOrDefault(value.Settings.gap, 1.3)
 
 		if (isObject(value.Settings.section)) {
 			cv.Settings.section.size = isOneOforDefault(

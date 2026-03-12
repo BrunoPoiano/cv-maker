@@ -116,8 +116,8 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 			align-items: center;
 			justify-content: space-between;
 
-			> .title{
-				margin-bottom:0;
+			> .title {
+				margin-bottom: 0;
 			}
 
 			> .sub-title {

@@ -8,10 +8,8 @@ import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
 import type { skillList } from './constants/skillList'
 import type { localStorageKeys } from '@/keys'
-import type { marginList } from './constants/margin'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
-export type MarginList = (typeof marginList)[number]
 export type Languages = (typeof languages)[number]
 export type FontSize = (typeof fontSize)[number]
 export type SkillsList = Lowercase<(typeof skillList)[number]>
@@ -94,7 +92,8 @@ type CoreSkills = {
 }
 type Settings = {
 	language: Languages
-	margin: MarginList
+	margin: number
+	gap: number
 	section: {
 		size: FontSize
 	}

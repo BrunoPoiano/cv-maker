@@ -5,7 +5,7 @@ import { inject } from 'vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
 import SvgPen from '@/svgs/SvgPen.vue'
-import { marginListSelect } from '@/constants/margin'
+import { a4gapSelect, marginListSelect } from '@/constants/spacings'
 const { curriculum } = inject(ProviderKey)!
 </script>
 
@@ -25,6 +25,11 @@ const { curriculum } = inject(ProviderKey)!
 				label="Curriculum Margin"
 				:items="marginListSelect"
 				v-model="curriculum.Settings.margin"
+			/>
+			<Select
+				label="Curriculum Gap"
+				:items="a4gapSelect"
+				v-model="curriculum.Settings.gap"
 			/>
 			<Select
 				label="Section Header"

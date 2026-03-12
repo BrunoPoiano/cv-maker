@@ -35,6 +35,7 @@ function boldMatches(value: string) {
 }
 
 const margin = computed(() => curriculum.value.Settings.margin)
+const gap = computed(() => curriculum.value.Settings.gap)
 </script>
 
 <template>
@@ -50,7 +51,7 @@ const margin = computed(() => curriculum.value.Settings.margin)
 	<section
 		class="a4-page page"
 		id="curriculumPage"
-		:style="{ padding: `${margin}cm` }"
+		:style="{ padding: `${margin}cm`, '--_a4-gap': `${gap}rem` }"
 	>
 		<Header />
 		<Contact />

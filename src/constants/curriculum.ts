@@ -5,6 +5,7 @@ export function CurriculumConst(): Curriculum {
 		Settings: {
 			language: 'en-us',
 			margin: 1,
+			gap: 1.3,
 			section: {
 				size: '--font-size-lg'
 			}
