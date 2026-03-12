@@ -82,7 +82,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 
 	.job-title {
 		margin-bottom: calc((var(--_a4-gap) * 0.4));
-		letter-spacing: 0.07em;
+		letter-spacing: 0.06em;
 
 		.title,
 		.sub-title {
@@ -115,6 +115,10 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+
+			> .title{
+				margin-bottom:0;
+			}
 
 			> .sub-title {
 				flex-direction: row-reverse;
