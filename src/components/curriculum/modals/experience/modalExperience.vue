@@ -166,7 +166,7 @@ form {
 		background: var(--background);
 
 		padding: 0.5rem;
-		border-radius: 10px;
+		border-radius: var(--border-radius);
 
 		> div:not(.desc) {
 			display: grid;

@@ -20,7 +20,7 @@
 	--light-text-color: light-dark(#65615f, #bebcbc);
 	--font-weight: 400;
 	--background: light-dark(#fff, oklch(0.147 0.004 49.25));
-	--input-background: light-dark(#fff, #1a1a1a);
+	--input-background: light-dark(#f3f3f3, #1a1a1a);
 	--input-border: light-dark(hsla(0, 0%, 50%, 0.205), hsla(0, 0%, 50%, 0.5));
 
 	--red: hsl(0, 90%, 61%);
@@ -30,6 +30,8 @@
 	--green: hsl(130, 90%, 85%);
 
 	--max-width: 105ch;
+
+	--border-radius: 0.5rem;
 }
 
 html {
@@ -152,11 +154,12 @@ img {
 }
 
 dialog {
+	--_padding: 1.2rem;
 	margin: auto;
 	min-width: min(20rem, 100%);
 	border: none;
-	border-radius: 20px;
-	padding: 1rem 1.6rem;
+	padding: var(--_padding);
+	border-radius: calc(var(--border-radius) + var(--_padding) * 0.5);
 
 	box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.44);
 
@@ -174,7 +177,7 @@ pre {
 	white-space: pre;
 	overflow: auto;
 	background: #8080801a;
-	border-radius: 10px;
+	border-radius: var(--border-radius);
 	padding: 1rem;
 }
 

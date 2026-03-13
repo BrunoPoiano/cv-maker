@@ -45,7 +45,8 @@ defineOptions({
 	input {
 		font-size: var(--font-size-base);
 		border: 1px solid var(--input-border);
-		border-radius: 10px;
+		border-radius: var(--border-radius);
+		corner-shape: squircle;
 		background: var(--input-background);
 		padding: 0.4rem 0.8rem;
 	}
@@ -65,7 +66,7 @@ defineOptions({
 			padding: 0.4rem 0.8rem;
 
 			border: 1px solid var(--input-border);
-			border-radius: 8px;
+			border-radius: calc(var(--border-radius) * 0.8);
 			min-width: 5ch;
 
 			background: var(--bg);

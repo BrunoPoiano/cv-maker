@@ -96,7 +96,7 @@ defineOptions({
 		}
 
 		.slider.round {
-			border-radius: 34px;
+			border-radius: var(--border-radius);
 		}
 
 		.slider.round:before {

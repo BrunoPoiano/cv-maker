@@ -42,7 +42,8 @@ const model = defineModel()
 		font-size: var(--font-size-base);
 		font-weight: 500;
 		border: 1px solid var(--input-border);
-		border-radius: 10px;
+		border-radius: var(--border-radius);
+		corner-shape: squircle;
 		padding: 0.4rem 0.8rem;
 		background: var(--bg);
 		max-width: 20ch;

@@ -52,7 +52,8 @@ button {
 	padding: 0.4rem 0.8rem;
 
 	border: 1px solid var(--input-border);
-	border-radius: 8px;
+	border-radius: var(--border-radius);
+	corner-shape: squircle;
 	min-width: 5ch;
 
 	background: var(--bg);

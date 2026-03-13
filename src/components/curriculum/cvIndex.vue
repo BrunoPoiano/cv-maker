@@ -86,8 +86,9 @@ const gap = computed(() => curriculum.value.Settings.gap)
 
 	box-shadow: 0 0 10px light-dark(rgba(0, 0, 0, 0.3), rgb(255, 255, 255, 0.3));
 	box-sizing: border-box;
+	background-color: var(--background);
 
 	border: 1px light-dark(#d3d3d3, hsla(0, 0%, 16.9%)) solid;
-	border-radius: 5px;
+	border-radius: calc(var(--border-radius) * 0.5);
 }
 </style>
