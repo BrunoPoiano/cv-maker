@@ -60,6 +60,7 @@ function importFile(e: Event) {
 
 <template>
 	<Modal
+		id="modalImportExport"
 		buttonLabel="Import/Export"
 		closeLabel="close"
 		minWidth="40rem"

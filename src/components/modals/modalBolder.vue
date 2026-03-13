@@ -22,7 +22,12 @@ const bolder = computed<string>({
 </script>
 
 <template>
-	<Modal buttonLabel="Bolder Words" closeLabel="close" minWidth="40rem">
+	<Modal
+		id="modalBolderWords"
+		buttonLabel="Bolder Words"
+		closeLabel="close"
+		minWidth="40rem"
+	>
 		<template #header>
 			<h4>Bolder Words</h4>
 		</template>

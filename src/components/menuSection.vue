@@ -1,20 +1,25 @@
 <script setup lang="ts">
+import { computed, defineAsyncComponent, inject } from 'vue'
 import { saveDataToLocalStorage } from '@/helpers/localstorage'
 import { ProviderKey } from '@/keys'
 import type { Curriculum } from '@/types'
 import Button from '@/ui/appButton.vue'
 import Select from '@/ui/appSelect.vue'
-import { computed, inject } from 'vue'
-import Bolder from './modals/modalBolder.vue'
 import { deepClone } from '@/helpers/clone'
 import { CurriculumConst } from '@/constants/curriculum'
 import { parseCurriculum } from '@/parsers/curriculum'
-import GeneratePrompt from './modals/modalGeneratePrompt.vue'
-import ModalBackup from './modals/modalBackup.vue'
 import SvgCopy from '@/svgs/svgCopy.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
 import SvgSave from '@/svgs/svgSave.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
+
+const GeneratePrompt = defineAsyncComponent(
+	() => import('./modals/modalGeneratePrompt.vue')
+)
+const Bolder = defineAsyncComponent(() => import('./modals/modalBolder.vue'))
+const ModalBackup = defineAsyncComponent(
+	() => import('./modals/modalBackup.vue')
+)
 
 const { curriculum } = inject(ProviderKey)!
 

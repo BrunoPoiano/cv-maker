@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ProviderKey } from '@/keys'
-import { computed, h, inject } from 'vue'
+import { computed, defineAsyncComponent, h, inject } from 'vue'
 import Contact from './components/cvContact.vue'
 import Experience from './components/cvExperience.vue'
 import Header from './components/cvHeader.vue'
@@ -9,12 +9,25 @@ import CoreSkills from './components/cvCoreSkills.vue'
 
 import { languagesSelect } from '@/constants/language'
 import Select from '@/ui/appSelect.vue'
-import ExperienceModal from './modals/experience/modalExperience.vue'
-import ContactModal from './modals/modalContact.vue'
-import CoreSkillsModal from './modals/modalCoreSkills.vue'
-import HeaderModal from './modals/modalHeader.vue'
-import SummaryModal from './modals/modalSummary.vue'
-import modalSettings from './modals/modalSettings.vue'
+
+const ExperienceModal = defineAsyncComponent(
+	() => import('./modals/experience/modalExperience.vue')
+)
+const ContactModal = defineAsyncComponent(
+	() => import('./modals/modalContact.vue')
+)
+const CoreSkillsModal = defineAsyncComponent(
+	() => import('./modals/modalCoreSkills.vue')
+)
+const HeaderModal = defineAsyncComponent(
+	() => import('./modals/modalHeader.vue')
+)
+const SummaryModal = defineAsyncComponent(
+	() => import('./modals/modalSummary.vue')
+)
+const modalSettings = defineAsyncComponent(
+	() => import('./modals/modalSettings.vue')
+)
 
 const { bolder, curriculum } = inject(ProviderKey)!
 

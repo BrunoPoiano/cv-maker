@@ -11,6 +11,7 @@ const { curriculum } = inject(ProviderKey)!
 
 <template>
 	<Modal
+		id="modalCvSettings"
 		buttonLabel="Section"
 		closeLabel="close"
 		minWidth="40rem"

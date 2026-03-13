@@ -10,7 +10,12 @@ const { curriculum } = inject(ProviderKey)!
 </script>
 
 <template>
-	<Modal closeLabel="close" minWidth="30rem" v-if="curriculum">
+	<Modal
+		id="modalCvHeader"
+		closeLabel="close"
+		minWidth="30rem"
+		v-if="curriculum"
+	>
 		<template #buttonLabel> <SvgPen /> Header </template>
 		<template #header>
 			<h4>Header</h4>

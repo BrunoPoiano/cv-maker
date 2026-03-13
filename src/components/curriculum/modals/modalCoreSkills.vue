@@ -38,7 +38,12 @@ function saveSkill(core: SkillsList) {
 </script>
 
 <template>
-	<Modal closeLabel="close" minWidth="40rem" v-if="curriculum">
+	<Modal
+		id="modalCvCoreSkills"
+		closeLabel="close"
+		minWidth="40rem"
+		v-if="curriculum"
+	>
 		<template #buttonLabel> <SvgPen /> Core Skills </template>
 		<template #header>
 			<div class="header">

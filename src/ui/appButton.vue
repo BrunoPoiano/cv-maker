@@ -47,6 +47,8 @@ button {
 	font-size: var(--font-size-base);
 	font-weight: 500;
 	text-transform: capitalize;
+	text-box-trim: trim-both;
+	text-box-edge: cap alphabetic;
 	cursor: pointer;
 
 	padding: 0.4rem 0.8rem;

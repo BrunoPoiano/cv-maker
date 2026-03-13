@@ -36,6 +36,7 @@ function saveSummary(list: boolean) {
 
 <template>
 	<Modal
+		id="modalCvSummary"
 		buttonLabel="Summary"
 		closeLabel="close"
 		minWidth="40rem"

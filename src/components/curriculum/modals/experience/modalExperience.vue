@@ -34,6 +34,7 @@ function newExperience() {
 
 <template>
 	<Modal
+		id="modalCvExperience"
 		buttonLabel="Experience"
 		closeLabel="close"
 		minWidth="40rem"

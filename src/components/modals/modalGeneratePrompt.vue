@@ -35,6 +35,7 @@ function copyPrompt() {
 
 <template>
 	<Modal
+		id="modalGeneratePrompt"
 		buttonLabel="Generate Prompt"
 		closeLabel="close"
 		minWidth="40rem"
