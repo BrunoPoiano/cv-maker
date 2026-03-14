@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { fontSizeSelect } from '@/constants/font-size'
-import { ProviderKey } from '@/keys'
 import { inject } from 'vue'
+
+import { fontSizeSelect } from '@/constants/font-size'
+import { a4gapSelect, marginListSelect } from '@/constants/spacings'
+import { ProviderKey } from '@/keys'
+import SvgPen from '@/svgs/SvgPen.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
-import SvgPen from '@/svgs/SvgPen.vue'
-import { a4gapSelect, marginListSelect } from '@/constants/spacings'
 const { curriculum } = inject(ProviderKey)!
 </script>
 

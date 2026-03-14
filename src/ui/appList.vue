@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
+import { skillList } from '@/constants/skillList'
+import { Translate } from '@/constants/translations'
 import type {
 	BoldMatchReturn,
 	FontSize,
@@ -6,10 +10,8 @@ import type {
 	Skills,
 	SkillsList
 } from '@/types'
+
 import AppBoldMatch from './appBoldMatch.vue'
-import { Translate } from '@/constants/translations'
-import { computed } from 'vue'
-import { skillList } from '@/constants/skillList'
 
 type Props =
 	| {

@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, inject } from 'vue'
+
+import { CurriculumConst } from '@/constants/curriculum'
+import { deepClone } from '@/helpers/clone'
 import { saveDataToLocalStorage } from '@/helpers/localstorage'
 import { ProviderKey } from '@/keys'
+import { parseCurriculum } from '@/parsers/curriculum'
+import SvgCopy from '@/svgs/svgCopy.vue'
+import SvgNewDocument from '@/svgs/svgNewDocument.vue'
+import SvgSave from '@/svgs/svgSave.vue'
+import SvgTrash from '@/svgs/svgTrash.vue'
 import type { Curriculum } from '@/types'
 import Button from '@/ui/appButton.vue'
 import Select from '@/ui/appSelect.vue'
-import { deepClone } from '@/helpers/clone'
-import { CurriculumConst } from '@/constants/curriculum'
-import { parseCurriculum } from '@/parsers/curriculum'
-import SvgCopy from '@/svgs/svgCopy.vue'
-import SvgTrash from '@/svgs/svgTrash.vue'
-import SvgSave from '@/svgs/svgSave.vue'
-import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 
 const GeneratePrompt = defineAsyncComponent(
 	() => import('./modals/modalGeneratePrompt.vue')

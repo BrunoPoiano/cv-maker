@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { ProviderKey } from '@/keys'
 import { computed, defineAsyncComponent, h, inject } from 'vue'
+
+import { languagesSelect } from '@/constants/language'
+import { ProviderKey } from '@/keys'
+import Select from '@/ui/appSelect.vue'
+
 import Contact from './components/cvContact.vue'
+import CoreSkills from './components/cvCoreSkills.vue'
 import Experience from './components/cvExperience.vue'
 import Header from './components/cvHeader.vue'
 import Summary from './components/cvSummary.vue'
-import CoreSkills from './components/cvCoreSkills.vue'
-
-import { languagesSelect } from '@/constants/language'
-import Select from '@/ui/appSelect.vue'
 
 const ExperienceModal = defineAsyncComponent(
 	() => import('./modals/experience/modalExperience.vue')

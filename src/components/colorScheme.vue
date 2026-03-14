@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { onBeforeMount, ref } from 'vue'
+
 import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
 import Button from '@/ui/appButton.vue'
-import { onBeforeMount, ref } from 'vue'
 
 const colorScheme = ref(
 	getDataFromLocalStorage({ key: 'theme', initialValue: 'light' })

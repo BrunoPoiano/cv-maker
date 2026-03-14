@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { inject } from 'vue'
+
+import { Translate } from '@/constants/translations'
+import { generateDate, generateTitle } from '@/helpers/cvFormatters'
 import { ProviderKey } from '@/keys'
 import type { BoldMatchReturn, Curriculum } from '@/types'
 import AppBoldMatch from '@/ui/appBoldMatch.vue'
 import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
-import { inject } from 'vue'
+
 import Title from './cvTitle.vue'
-import { Translate } from '@/constants/translations'
-import { generateDate, generateTitle } from '@/helpers/cvFormatters'
 
 const { boldMatches } = defineProps<{
 	boldMatches: (value: string) => BoldMatchReturn

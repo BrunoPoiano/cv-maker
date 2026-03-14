@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed, inject, ref } from 'vue'
+
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey } from '@/keys'
 import SvgPen from '@/svgs/SvgPen.vue'
@@ -8,7 +10,6 @@ import Select from '@/ui/appSelect.vue'
 import AppSmall from '@/ui/appSmall.vue'
 import Textarea from '@/ui/appTextarea.vue'
 import Toggle from '@/ui/appToggle.vue'
-import { computed, inject, ref } from 'vue'
 
 const { curriculum } = inject(ProviderKey)!
 

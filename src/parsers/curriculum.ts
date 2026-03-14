@@ -1,7 +1,10 @@
 import { CurriculumConst } from '@/constants/curriculum'
 import { fontSize } from '@/constants/font-size'
 import { languages } from '@/constants/language'
+import { monthOptions } from '@/constants/monthOptions'
+import { generateKey } from '@/helpers/generateKey'
 import type { Curriculum, Experience } from '@/types'
+
 import {
 	isBooleanOrDefault,
 	isExtendedStringOrDefault,
@@ -10,8 +13,6 @@ import {
 	isOneOforDefault,
 	isStringOrDefault
 } from './typeValidation'
-import { monthOptions } from '@/constants/monthOptions'
-import { generateKey } from '@/helpers/generateKey'
 
 export function parseCurriculum(value: unknown): Curriculum {
 	const cv = CurriculumConst()

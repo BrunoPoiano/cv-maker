@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { inject } from 'vue'
+
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey } from '@/keys'
-import { inject } from 'vue'
+import SvgPen from '@/svgs/SvgPen.vue'
 import Input from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
-import SvgPen from '@/svgs/SvgPen.vue'
 const { curriculum } = inject(ProviderKey)!
 </script>
 

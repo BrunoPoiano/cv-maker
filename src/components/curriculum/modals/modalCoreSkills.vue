@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { inject, ref } from 'vue'
+
 import { fontSizeSelect } from '@/constants/font-size'
 import { skillList } from '@/constants/skillList'
 import { ProviderKey } from '@/keys'
@@ -9,7 +11,6 @@ import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
 import AppSmall from '@/ui/appSmall.vue'
 import Textarea from '@/ui/appTextarea.vue'
-import { inject, ref } from 'vue'
 
 const { curriculum } = inject(ProviderKey)!
 

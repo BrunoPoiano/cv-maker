@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { computed, inject } from 'vue'
+
 import { saveDataToLocalStorage } from '@/helpers/localstorage'
 import { ProviderKey } from '@/keys'
-import Textarea from '@/ui/appTextarea.vue'
-import { computed, inject } from 'vue'
 import Modal from '@/ui/appModal.vue'
+import Textarea from '@/ui/appTextarea.vue'
 
 const { bolder: bolderValue } = inject(ProviderKey)!
 

@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { inject } from 'vue'
+
+import { Translate } from '@/constants/translations'
 import { ProviderKey } from '@/keys'
 import type { BoldMatchReturn } from '@/types'
 import AppBoldMatch from '@/ui/appBoldMatch.vue'
 import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
-import { inject } from 'vue'
+
 import Title from './cvTitle.vue'
-import { Translate } from '@/constants/translations'
 
 const { curriculum } = inject(ProviderKey)!
 

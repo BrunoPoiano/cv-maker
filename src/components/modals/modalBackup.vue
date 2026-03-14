@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import Textarea from '@/ui/appTextarea.vue'
-import Modal from '@/ui/appModal.vue'
+import { ref } from 'vue'
+
+import { saveDataToLocalStorage } from '@/helpers/localstorage'
+import { parseCurriculumList } from '@/parsers/curriculum'
 import type { Curriculum } from '@/types'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
-import { ref } from 'vue'
-import { parseCurriculumList } from '@/parsers/curriculum'
-import { saveDataToLocalStorage } from '@/helpers/localstorage'
+import Modal from '@/ui/appModal.vue'
+import Textarea from '@/ui/appTextarea.vue'
 
 const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
 	required: true

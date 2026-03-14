@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import { fontSizeSelect } from '@/constants/font-size'
-import { ProviderKey } from '@/keys'
 import { inject, ref } from 'vue'
+
+import { fontSizeSelect } from '@/constants/font-size'
+import { monthOptionsSelect } from '@/constants/monthOptions'
+import { generateKey } from '@/helpers/generateKey'
+import { ProviderKey } from '@/keys'
+import SvgPen from '@/svgs/SvgPen.vue'
+import Button from '@/ui/appButton.vue'
+import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
-import Description from './components/exDescription.vue'
-import DateInput from './components/exDateInput.vue'
-import Button from '@/ui/appButton.vue'
-import { generateKey } from '@/helpers/generateKey'
-import AppToggle from '@/ui/appToggle.vue'
-import AppInput from '@/ui/appInput.vue'
-import { monthOptionsSelect } from '@/constants/monthOptions'
 import AppSmall from '@/ui/appSmall.vue'
-import SvgPen from '@/svgs/SvgPen.vue'
+import AppToggle from '@/ui/appToggle.vue'
+
+import DateInput from './components/exDateInput.vue'
+import Description from './components/exDescription.vue'
 const { curriculum } = inject(ProviderKey)!
 
 const list = ref(

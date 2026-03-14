@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { computed, provide, reactive, ref } from 'vue'
-import CurriculumModel from './components/curriculum/cvIndex.vue'
-import { getDataFromLocalStorage } from './helpers/localstorage'
-import { parseCurriculum, parseCurriculumList } from './parsers/curriculum'
-import { parseBolder } from './parsers/bolder'
-import { isNumberOrDefault } from './parsers/typeValidation'
-import { CurriculumConst } from './constants/curriculum'
-import Menu from './components/menuSection.vue'
-import { deepClone } from './helpers/clone'
-import Header from './components/headerSection.vue'
+
 import { ProviderKey } from '@/keys'
+
 import AppFooter from './components/appFooter.vue'
+import CurriculumModel from './components/curriculum/cvIndex.vue'
+import Header from './components/headerSection.vue'
+import Menu from './components/menuSection.vue'
+import { CurriculumConst } from './constants/curriculum'
+import { deepClone } from './helpers/clone'
+import { getDataFromLocalStorage } from './helpers/localstorage'
+import { parseBolder } from './parsers/bolder'
+import { parseCurriculum, parseCurriculumList } from './parsers/curriculum'
+import { isNumberOrDefault } from './parsers/typeValidation'
 
 const curriculumList = ref(
 	getDataFromLocalStorage({

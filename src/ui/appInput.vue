@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { generateKey } from '@/helpers/generateKey'
 import type { InputTypeHTMLAttribute, StyleValue } from 'vue'
+
+import { generateKey } from '@/helpers/generateKey'
 
 type Props = {
 	label?: string

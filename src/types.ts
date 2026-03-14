@@ -4,10 +4,12 @@ import type {
 	VNode,
 	WritableComputedRef
 } from 'vue'
+
+import type { localStorageKeys } from '@/keys'
+
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
 import type { skillList } from './constants/skillList'
-import type { localStorageKeys } from '@/keys'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
 export type Languages = (typeof languages)[number]

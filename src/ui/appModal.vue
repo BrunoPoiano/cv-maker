@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import Button from '@/ui/appButton.vue'
 import { useSlots } from 'vue'
+
+import Button from '@/ui/appButton.vue'
 
 type Props = {
 	buttonLabel?: string | Element
