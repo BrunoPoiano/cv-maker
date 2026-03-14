@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { computed, provide, reactive, ref } from 'vue'
-
 import CurriculumModel from './components/curriculum/cvIndex.vue'
 import { getDataFromLocalStorage } from './helpers/localstorage'
 import { parseCurriculum, parseCurriculumList } from './parsers/curriculum'
-
 import { parseBolder } from './parsers/bolder'
 import { isNumberOrDefault } from './parsers/typeValidation'
 import { CurriculumConst } from './constants/curriculum'

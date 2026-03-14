@@ -38,8 +38,10 @@ defineOptions({
 <style scoped>
 button {
 	--var-calc: light-dark(10, 50);
-
 	--bg: light-dark(#fff, #000);
+	--_padding-block: 0.4rem;
+	--_padding-inline: calc(var(--_padding-block) * 2);
+
 	display: flex;
 	gap: 0.5ch;
 	align-items: center;
@@ -51,7 +53,8 @@ button {
 	text-box-edge: cap alphabetic;
 	cursor: pointer;
 
-	padding: 0.4rem 0.8rem;
+	padding-inline: var(--_padding-inline);
+	padding-block: var(--_padding-block);
 
 	border: 1px solid var(--input-border);
 	border-radius: var(--border-radius);
@@ -65,6 +68,10 @@ button {
 		background 500ms,
 		color 500ms,
 		transform 200ms ease-out;
+
+	&:has(svg) {
+		padding-inline-start: calc(var(--_padding-inline) * 0.75);
+	}
 
 	&:hover:not(:disabled) {
 		color: lch(
