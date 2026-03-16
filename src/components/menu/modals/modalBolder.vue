@@ -6,6 +6,12 @@ import { ProviderKey } from '@/keys'
 import Modal from '@/ui/appModal.vue'
 import Textarea from '@/ui/appTextarea.vue'
 
+type Props = {
+	id: string
+}
+
+const { id } = defineProps<Props>()
+
 const { bolder: bolderValue } = inject(ProviderKey)!
 
 const bolder = computed<string>({
@@ -23,12 +29,7 @@ const bolder = computed<string>({
 </script>
 
 <template>
-	<Modal
-		id="modalBolderWords"
-		buttonLabel="Bolder Words"
-		closeLabel="close"
-		minWidth="40rem"
-	>
+	<Modal :id="id" closeLabel="close" minWidth="40rem">
 		<template #header>
 			<h4>Bolder Words</h4>
 		</template>

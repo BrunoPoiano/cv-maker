@@ -9,6 +9,11 @@ import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Textarea from '@/ui/appTextarea.vue'
 
+type Props = {
+	id: string
+}
+
+const { id } = defineProps<Props>()
 const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
 	required: true
 })
@@ -61,8 +66,7 @@ function importFile(e: Event) {
 
 <template>
 	<Modal
-		id="modalImportExport"
-		buttonLabel="Import/Export"
+		:id="id"
 		closeLabel="close"
 		minWidth="40rem"
 		:openAction="

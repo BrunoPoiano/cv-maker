@@ -1,4 +1,5 @@
 import type {
+	Component,
 	RendererElement,
 	RendererNode,
 	VNode,
@@ -118,4 +119,11 @@ export type Curriculum = {
 		}
 		value: Array<Experience>
 	}
+}
+
+export type MenuModalItem = {
+	modal: Component
+	id: string
+	icon?: Component
+	label: string
 }

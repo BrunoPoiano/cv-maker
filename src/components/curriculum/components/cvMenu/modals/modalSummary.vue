@@ -3,7 +3,6 @@ import { computed, inject, ref } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey } from '@/keys'
-import SvgPen from '@/svgs/SvgPen.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
@@ -12,7 +11,10 @@ import Textarea from '@/ui/appTextarea.vue'
 import Toggle from '@/ui/appToggle.vue'
 
 const { curriculum } = inject(ProviderKey)!
-
+type Props = {
+	id: string
+}
+const { id } = defineProps<Props>()
 const summary = ref(
 	Array.isArray(curriculum.value.Summary.value)
 		? curriculum.value.Summary.value.join('\n')
@@ -37,13 +39,12 @@ function saveSummary(list: boolean) {
 
 <template>
 	<Modal
-		id="modalCvSummary"
+		:id="id"
 		buttonLabel="Summary"
 		closeLabel="close"
 		minWidth="40rem"
 		v-if="curriculum"
 	>
-		<template #buttonLabel> <SvgPen /> Summary </template>
 		<template #header>
 			<div class="header">
 				<h4>

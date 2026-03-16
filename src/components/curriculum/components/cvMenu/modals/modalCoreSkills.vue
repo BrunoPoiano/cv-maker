@@ -4,7 +4,6 @@ import { inject, ref } from 'vue'
 import { fontSizeSelect } from '@/constants/font-size'
 import { skillList } from '@/constants/skillList'
 import { ProviderKey } from '@/keys'
-import SvgPen from '@/svgs/SvgPen.vue'
 import { type Skills, type SkillsList } from '@/types'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
@@ -12,6 +11,11 @@ import Select from '@/ui/appSelect.vue'
 import AppSmall from '@/ui/appSmall.vue'
 import Textarea from '@/ui/appTextarea.vue'
 
+type Props = {
+	id: string
+}
+
+const { id } = defineProps<Props>()
 const { curriculum } = inject(ProviderKey)!
 
 type SkillList = Partial<Record<keyof Skills, string>>
@@ -39,13 +43,7 @@ function saveSkill(core: SkillsList) {
 </script>
 
 <template>
-	<Modal
-		id="modalCvCoreSkills"
-		closeLabel="close"
-		minWidth="40rem"
-		v-if="curriculum"
-	>
-		<template #buttonLabel> <SvgPen /> Core Skills </template>
+	<Modal :id="id" closeLabel="close" minWidth="40rem" v-if="curriculum">
 		<template #header>
 			<div class="header">
 				<h4>

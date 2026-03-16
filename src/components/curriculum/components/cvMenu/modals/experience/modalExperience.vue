@@ -5,7 +5,6 @@ import { fontSizeSelect } from '@/constants/font-size'
 import { monthOptionsSelect } from '@/constants/monthOptions'
 import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
-import SvgPen from '@/svgs/SvgPen.vue'
 import Button from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
@@ -15,6 +14,13 @@ import AppToggle from '@/ui/appToggle.vue'
 
 import DateInput from './components/exDateInput.vue'
 import Description from './components/exDescription.vue'
+
+type Props = {
+	id: string
+}
+
+const { id } = defineProps<Props>()
+
 const { curriculum } = inject(ProviderKey)!
 
 const list = ref(
@@ -35,14 +41,7 @@ function newExperience() {
 </script>
 
 <template>
-	<Modal
-		id="modalCvExperience"
-		buttonLabel="Experience"
-		closeLabel="close"
-		minWidth="40rem"
-		v-if="curriculum"
-	>
-		<template #buttonLabel> <SvgPen /> Experience </template>
+	<Modal :id="id" buttonLabel="Experience" closeLabel="close" minWidth="40rem">
 		<template #header>
 			<div class="modalHeader">
 				<h4>

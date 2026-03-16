@@ -5,6 +5,10 @@ import Button from '@/ui/appButton.vue'
 import Modal from '@/ui/appModal.vue'
 import Textarea from '@/ui/appTextarea.vue'
 
+type Props = {
+	id: string
+}
+const { id } = defineProps<Props>()
 const jobDescription = ref('')
 
 const prompt = computed(
@@ -35,13 +39,7 @@ function copyPrompt() {
 </script>
 
 <template>
-	<Modal
-		id="modalGeneratePrompt"
-		buttonLabel="Generate Prompt"
-		closeLabel="close"
-		minWidth="40rem"
-		maxWidth="40ch"
-	>
+	<Modal :id="id" closeLabel="close" minWidth="40rem" maxWidth="40ch">
 		<template #header>
 			<h4>Generate Prompt</h4>
 		</template>

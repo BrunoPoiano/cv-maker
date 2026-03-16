@@ -4,21 +4,25 @@ import { inject } from 'vue'
 import { fontSizeSelect } from '@/constants/font-size'
 import { a4gapSelect, marginListSelect } from '@/constants/spacings'
 import { ProviderKey } from '@/keys'
-import SvgPen from '@/svgs/SvgPen.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
 const { curriculum } = inject(ProviderKey)!
+
+type Props = {
+	id: string
+}
+
+const { id } = defineProps<Props>()
 </script>
 
 <template>
 	<Modal
-		id="modalCvSettings"
+		:id="id"
 		buttonLabel="Section"
 		closeLabel="close"
 		minWidth="40rem"
 		v-if="curriculum"
 	>
-		<template #buttonLabel> <SvgPen /> Settings </template>
 		<template #header>
 			<h4>Settings</h4>
 		</template>

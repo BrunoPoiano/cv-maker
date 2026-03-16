@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import type { ButtonHTMLAttributes } from 'vue'
 
-type Props = {
-	type?: ButtonHTMLAttributes['type']
-	background?: string
-	hoverBackground?: string
-	icon?: string
-}
+type Props =
+	| {
+			type?: ButtonHTMLAttributes['type']
+			background?: string
+			hoverBackground?: string
+			modal?: false
+			id?: string
+	  }
+	| {
+			modal: true
+			id: string
+			type?: ButtonHTMLAttributes['type']
+			background?: string
+			hoverBackground?: string
+	  }
 
 const props = defineProps<Props>()
 defineOptions({
@@ -16,6 +25,8 @@ defineOptions({
 
 <template>
 	<button
+		:command="modal ? 'show-modal' : ''"
+		:commandfor="id"
 		:style="{
 			'--bg': props.background,
 			'--hover-bg': props.hoverBackground
@@ -24,13 +35,6 @@ defineOptions({
 		v-bind="$attrs"
 		:type="props.type ?? 'button'"
 	>
-		<img
-			:src="props.icon"
-			v-if="props.icon"
-			alt="button icon"
-			width="16"
-			height="16"
-		/>
 		<slot />
 	</button>
 </template>
