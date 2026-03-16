@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed, defineAsyncComponent, inject } from 'vue'
 
 import { CurriculumConst } from '@/constants/curriculum'
 import { deepClone } from '@/helpers/clone'
@@ -12,10 +12,14 @@ import SvgSave from '@/svgs/svgSave.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
 import type { Curriculum } from '@/types'
 import Button from '@/ui/appButton.vue'
+import AppButton from '@/ui/appButton.vue'
 import AppMenuModalItems from '@/ui/appMenuModalItems.vue'
 import Select from '@/ui/appSelect.vue'
 
 import { menuItems } from './menuItems'
+const ModalBackup = defineAsyncComponent(
+	() => import('./modals/modalBackup.vue')
+)
 
 const { curriculum } = inject(ProviderKey)!
 
@@ -94,6 +98,11 @@ function deleteCv() {
 				@vue:updated="saveCurriculumIndex"
 			/>
 			<AppMenuModalItems :menu-items="menuItems" />
+			<AppButton modal id="modalMenuImportExport"> Import/Export </AppButton>
+			<ModalBackup
+				id="modalMenuImportExport"
+				v-model:curriculum-list="curriculumList"
+			/>
 		</div>
 		<div>
 			<Button

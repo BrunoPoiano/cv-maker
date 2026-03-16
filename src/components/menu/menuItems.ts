@@ -6,9 +6,6 @@ const GeneratePrompt = defineAsyncComponent(
 	() => import('./modals/modalGeneratePrompt.vue')
 )
 const Bolder = defineAsyncComponent(() => import('./modals/modalBolder.vue'))
-const ModalBackup = defineAsyncComponent(
-	() => import('./modals/modalBackup.vue')
-)
 
 export const menuItems: MenuModalItem[] = [
 	{
@@ -20,10 +17,5 @@ export const menuItems: MenuModalItem[] = [
 		modal: GeneratePrompt,
 		label: 'Generate Prompt',
 		id: 'modalGeneratePrompt'
-	},
-	{
-		modal: ModalBackup,
-		id: 'modalMenuImportExport',
-		label: 'Import/Export'
 	}
 ]

@@ -14,6 +14,7 @@ type Props = {
 }
 
 const { id } = defineProps<Props>()
+
 const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
 	required: true
 })
@@ -93,7 +94,7 @@ function importFile(e: Event) {
 			/>
 			<Textarea
 				readonly
-				placeholder="User Name"
+				placeholder="backup"
 				:value="JSON.stringify(curriculumList)"
 			/>
 		</form>
