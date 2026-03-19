@@ -2,21 +2,33 @@
 import { inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
+import SvgPen from '@/svgs/SvgPen.vue'
+import AppButton from '@/ui/appButton.vue'
+import AppInputCv from '@/ui/appInputCv.vue'
 
 const { curriculum } = inject(ProviderKey)!
 </script>
 
 <template>
 	<div class="contact" :data-side-by-side="curriculum.Contact.sideBySide">
-		<span
+		<div
 			:key="type"
-			v-for="(item, type) in curriculum.Contact.value"
-			:style="{ fontSize: `var(${curriculum.Contact.size})` }"
-			:data-type="type"
+			v-for="(_, type) in curriculum.Contact.value"
+			:style="{ '--font_size': `var(${curriculum.Contact.size})` }"
 		>
 			<span class="type"> {{ type }}: </span>
-			<span> {{ item }} </span>
-		</span>
+			<span>
+				<AppInputCv
+					:data-type="type"
+					:size="Math.max(curriculum.Contact.value[type].length, 1)"
+					v-model="curriculum.Contact.value[type]"
+				>
+					<AppButton modal id="modalCvContact">
+						<SvgPen />
+					</AppButton>
+				</AppInputCv>
+			</span>
+		</div>
 	</div>
 </template>
 
@@ -29,12 +41,18 @@ const { curriculum } = inject(ProviderKey)!
 		text-transform: capitalize;
 	}
 
-	span {
+	div,
+	div:deep(input) {
 		color: var(--light-text-color);
-		font-size: var(--font-size-sm);
+		font-size: var(--font_size, var(--font-size-sm));
 		font-weight: var(--font-weight);
 		text-box-trim: trim-both;
 		text-box-edge: cap alphabetic;
+
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0.5ch;
+		align-items: center;
 
 		> span {
 			font-size: inherit;
@@ -42,27 +60,27 @@ const { curriculum } = inject(ProviderKey)!
 	}
 
 	&[data-side-by-side='true'] {
-		display: flex;
+		display: grid;
+		grid-template-columns: auto auto auto;
 		gap: 1ch;
+		justify-content: flex-start;
+		flex-wrap: wrap;
 		margin-top: calc(var(--_a4-gap) * -0.4);
 
-		[data-type='email'] span {
-			font-weight: bold;
+		:deep(input)[data-type='email'] {
+			font-weight: bolder !important;
 		}
 
 		.type {
 			display: none;
 		}
 
+		span {
+			width: 100%;
+		}
+
 		span:not(:last-child) {
 			position: relative;
-
-			&:after {
-				content: ' | ';
-				position: absolute;
-				right: -0.9ch;
-				font-weight: normal;
-			}
 		}
 	}
 }

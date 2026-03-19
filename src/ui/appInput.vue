@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { InputTypeHTMLAttribute, StyleValue } from 'vue'
+import type { CSSProperties, InputTypeHTMLAttribute } from 'vue'
 
 import { generateKey } from '@/helpers/generateKey'
 
@@ -8,7 +8,7 @@ type Props = {
 	type?: InputTypeHTMLAttribute
 	alert?: string
 	id?: string
-	divStyle?: StyleValue
+	divStyle?: CSSProperties | string
 }
 
 const model = defineModel()
