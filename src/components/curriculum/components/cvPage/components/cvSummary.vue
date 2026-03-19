@@ -9,6 +9,9 @@ import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
 
 import Title from './cvTitle.vue'
+import AppAnchor from '@/ui/appAnchor.vue'
+import AppButton from '@/ui/appButton.vue'
+import SvgPen from '@/svgs/SvgPen.vue'
 
 const { curriculum } = inject(ProviderKey)!
 
@@ -19,27 +22,34 @@ const { boldMatches } = defineProps<{
 
 <template>
 	<div v-if="curriculum.Summary.show">
-		<Title :fontsize="curriculum.Settings.section.size"
-			>{{ Translate['summary'][curriculum.Settings.language] }}
-		</Title>
-		<div class="summary">
-			<Paragraph
-				v-if="curriculum.Summary.smallText !== ''"
-				:fontSize="curriculum.Summary.size"
-			>
-				{{ curriculum.Summary.smallText }}
-			</Paragraph>
-			<List
-				v-if="Array.isArray(curriculum.Summary.value)"
-				:fontSize="curriculum.Summary.size"
-				:genericList="curriculum.Summary.value"
-				:boldMatches="boldMatches"
-				:language="curriculum.Settings.language"
-			/>
-			<Paragraph v-else :fontSize="curriculum.Summary.size">
-				<AppBoldMatch :value="boldMatches(curriculum.Summary.value)" />
-			</Paragraph>
-		</div>
+		<AppAnchor>
+			<Title :fontsize="curriculum.Settings.section.size"
+				>{{ Translate['summary'][curriculum.Settings.language] }}
+			</Title>
+			<div class="summary">
+				<Paragraph
+					v-if="curriculum.Summary.smallText !== ''"
+					:fontSize="curriculum.Summary.size"
+				>
+					{{ curriculum.Summary.smallText }}
+				</Paragraph>
+				<List
+					v-if="Array.isArray(curriculum.Summary.value)"
+					:fontSize="curriculum.Summary.size"
+					:genericList="curriculum.Summary.value"
+					:boldMatches="boldMatches"
+					:language="curriculum.Settings.language"
+				/>
+				<Paragraph v-else :fontSize="curriculum.Summary.size">
+					<AppBoldMatch :value="boldMatches(curriculum.Summary.value)" />
+				</Paragraph>
+			</div>
+			<template #button>
+				<AppButton modal id="modalCvSummary">
+					<SvgPen />
+				</AppButton>
+			</template>
+		</AppAnchor>
 	</div>
 </template>
 

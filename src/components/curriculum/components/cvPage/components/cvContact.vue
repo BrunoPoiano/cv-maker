@@ -5,31 +5,35 @@ import { ProviderKey } from '@/keys'
 import SvgPen from '@/svgs/SvgPen.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppInputCv from '@/ui/appInputCv.vue'
+import AppAnchor from '@/ui/appAnchor.vue'
 
 const { curriculum } = inject(ProviderKey)!
 </script>
 
 <template>
-	<div class="contact" :data-side-by-side="curriculum.Contact.sideBySide">
-		<div
-			:key="type"
-			v-for="(_, type) in curriculum.Contact.value"
-			:style="{ '--font_size': `var(${curriculum.Contact.size})` }"
-		>
-			<span class="type"> {{ type }}: </span>
-			<span>
-				<AppInputCv
-					:data-type="type"
-					:size="Math.max(curriculum.Contact.value[type].length, 1)"
-					v-model="curriculum.Contact.value[type]"
-				>
-					<AppButton modal id="modalCvContact">
-						<SvgPen />
-					</AppButton>
-				</AppInputCv>
-			</span>
+	<AppAnchor>
+		<div class="contact" :data-side-by-side="curriculum.Contact.sideBySide">
+			<div
+				:key="type"
+				v-for="(_, type) in curriculum.Contact.value"
+				:style="{ '--font_size': `var(${curriculum.Contact.size})` }"
+			>
+				<span class="type"> {{ type }}: </span>
+				<span>
+					<AppInputCv
+						:data-type="type"
+						:size="Math.max(curriculum.Contact.value[type].length, 1)"
+						v-model="curriculum.Contact.value[type]"
+					/>
+				</span>
+			</div>
 		</div>
-	</div>
+		<template #button>
+			<AppButton modal id="modalCvContact">
+				<SvgPen />
+			</AppButton>
+		</template>
+	</AppAnchor>
 </template>
 
 <style scoped>

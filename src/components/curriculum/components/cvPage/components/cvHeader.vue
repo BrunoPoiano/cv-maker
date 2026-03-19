@@ -5,30 +5,30 @@ import { ProviderKey } from '@/keys'
 import SvgPen from '@/svgs/SvgPen.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppInputCv from '@/ui/appInputCv.vue'
+import AppAnchor from '@/ui/appAnchor.vue'
 
 const { curriculum } = inject(ProviderKey)!
 </script>
 
 <template>
-	<div class="header">
-		<h1 :style="{ '--font_size': `var(${curriculum.Header.UserName.size})` }">
-			<AppInputCv v-model="curriculum.Header.UserName.value">
-				<AppButton modal id="modalCvHeader">
-					<SvgPen />
-				</AppButton>
-			</AppInputCv>
-		</h1>
-		<span
-			:style="{ '--font_size': `var(${curriculum.Header.Role.size})` }"
-			class="label"
-		>
-			<AppInputCv v-model="curriculum.Header.Role.value">
-				<AppButton modal id="modalCvHeader">
-					<SvgPen />
-				</AppButton>
-			</AppInputCv>
-		</span>
-	</div>
+	<AppAnchor>
+		<div class="header">
+			<h1 :style="{ '--font_size': `var(${curriculum.Header.UserName.size})` }">
+				<AppInputCv v-model="curriculum.Header.UserName.value" />
+			</h1>
+			<span
+				:style="{ '--font_size': `var(${curriculum.Header.Role.size})` }"
+				class="label"
+			>
+				<AppInputCv v-model="curriculum.Header.Role.value" />
+			</span>
+		</div>
+		<template #button>
+			<AppButton modal id="modalCvHeader">
+				<SvgPen />
+			</AppButton>
+		</template>
+	</AppAnchor>
 </template>
 
 <style scoped>

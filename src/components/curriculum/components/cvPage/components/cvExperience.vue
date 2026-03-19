@@ -10,6 +10,9 @@ import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
 
 import Title from './cvTitle.vue'
+import AppAnchor from '@/ui/appAnchor.vue'
+import AppButton from '@/ui/appButton.vue'
+import SvgPen from '@/svgs/SvgPen.vue'
 
 const { boldMatches } = defineProps<{
 	boldMatches: (value: string) => BoldMatchReturn
@@ -26,54 +29,61 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 
 <template>
 	<div v-if="curriculum.Experience.show">
-		<Title :fontsize="curriculum.Settings.section.size">{{
-			Translate['professional experience'][curriculum.Settings.language]
-		}}</Title>
-		<div class="experience">
-			<div v-for="job in curriculum.Experience.value" :key="job.id">
-				<div
-					:data-side-by-side="curriculum.Experience.sideBySide"
-					class="job-title"
-				>
-					<span
-						class="title"
-						:style="{ fontSize: `var(${curriculum.Experience.size.title})` }"
+		<AppAnchor>
+			<Title :fontsize="curriculum.Settings.section.size">{{
+				Translate['professional experience'][curriculum.Settings.language]
+			}}</Title>
+			<div class="experience">
+				<div v-for="job in curriculum.Experience.value" :key="job.id">
+					<div
+						:data-side-by-side="curriculum.Experience.sideBySide"
+						class="job-title"
 					>
-						{{ generateTitle(job) }}
-					</span>
-					<span
-						class="sub-title"
-						:style="{
-							fontSize: `var(${curriculum.Experience.sideBySide ? curriculum.Experience.size.title : curriculum.Experience.size.subTitle})`
-						}"
-					>
-						<span>
-							{{
-								generateDate(
-									job,
-									curriculum.Settings.language,
-									curriculum.Experience.dateMonth
-								)
-							}}
+						<span
+							class="title"
+							:style="{ fontSize: `var(${curriculum.Experience.size.title})` }"
+						>
+							{{ generateTitle(job) }}
 						</span>
-						<span v-if="job.Remote">|</span>
-						<span v-if="job.Remote">
-							{{ isRemote(job) }}
+						<span
+							class="sub-title"
+							:style="{
+								fontSize: `var(${curriculum.Experience.sideBySide ? curriculum.Experience.size.title : curriculum.Experience.size.subTitle})`
+							}"
+						>
+							<span>
+								{{
+									generateDate(
+										job,
+										curriculum.Settings.language,
+										curriculum.Experience.dateMonth
+									)
+								}}
+							</span>
+							<span v-if="job.Remote">|</span>
+							<span v-if="job.Remote">
+								{{ isRemote(job) }}
+							</span>
 						</span>
-					</span>
+					</div>
+					<List
+						:genericList="job.Description"
+						v-if="Array.isArray(job.Description)"
+						:boldMatches="boldMatches"
+						:fontSize="curriculum.Experience.size.description"
+						:language="curriculum.Settings.language"
+					/>
+					<Paragraph v-else :fontSize="curriculum.Experience.size.description">
+						<AppBoldMatch :value="boldMatches(job.Description)" />
+					</Paragraph>
 				</div>
-				<List
-					:genericList="job.Description"
-					v-if="Array.isArray(job.Description)"
-					:boldMatches="boldMatches"
-					:fontSize="curriculum.Experience.size.description"
-					:language="curriculum.Settings.language"
-				/>
-				<Paragraph v-else :fontSize="curriculum.Experience.size.description">
-					<AppBoldMatch :value="boldMatches(job.Description)" />
-				</Paragraph>
 			</div>
-		</div>
+			<template #button>
+				<AppButton modal id="modalCvExperience">
+					<SvgPen />
+				</AppButton>
+			</template>
+		</AppAnchor>
 	</div>
 </template>
 
