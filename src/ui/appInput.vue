@@ -9,6 +9,8 @@ type Props = {
 	alert?: string
 	id?: string
 	divStyle?: CSSProperties | string
+	style?: CSSProperties | string
+	cvInput?: true
 }
 
 const model = defineModel()
@@ -21,7 +23,15 @@ defineOptions({
 </script>
 
 <template>
-	<div class="content" :style="props.divStyle">
+	<input
+		v-if="props.cvInput"
+		data-cvInput
+		v-bind="$attrs"
+		:style="style"
+		type="text"
+		v-model="model"
+	/>
+	<div v-else class="content" :style="props.divStyle">
 		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
 		<input
 			v-bind="$attrs"
@@ -34,6 +44,16 @@ defineOptions({
 </template>
 
 <style scoped>
+input[data-cvInput] {
+	font-family: inherit !important;
+	width: 100% !important;
+	padding: 0px !important;
+	margin: 0px !important;
+	border: none;
+	height: calc(var(--font_size) * 1.25);
+	color: inherit;
+}
+
 .content {
 	--_gap: 0.5rem;
 	display: grid;

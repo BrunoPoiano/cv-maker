@@ -9,7 +9,7 @@ const { fontSize } = defineProps<Props>()
 </script>
 
 <template>
-	<p :style="{ fontSize: `var(${fontSize})` }"><slot /></p>
+	<p :style="{ '--font_size': `var(${fontSize})` }"><slot /></p>
 </template>
 
 <style scoped>
@@ -19,7 +19,7 @@ p {
 	margin: 0;
 
 	color: var(--light-text-color);
-	font-size: var(--font-size-sm);
+	font-size: var(--font_size, var(--font-size-sm));
 	font-weight: var(--font-weight);
 	letter-spacing: 0em;
 

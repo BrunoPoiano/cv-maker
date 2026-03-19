@@ -3,15 +3,16 @@ import { inject } from 'vue'
 
 import { Translate } from '@/constants/translations'
 import { ProviderKey } from '@/keys'
+import SvgPen from '@/svgs/SvgPen.vue'
 import type { BoldMatchReturn } from '@/types'
+import AppAnchor from '@/ui/appAnchor.vue'
 import AppBoldMatch from '@/ui/appBoldMatch.vue'
+import AppButton from '@/ui/appButton.vue'
 import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
+import AppTextarea from '@/ui/appTextarea.vue'
 
 import Title from './cvTitle.vue'
-import AppAnchor from '@/ui/appAnchor.vue'
-import AppButton from '@/ui/appButton.vue'
-import SvgPen from '@/svgs/SvgPen.vue'
 
 const { curriculum } = inject(ProviderKey)!
 
@@ -31,7 +32,11 @@ const { boldMatches } = defineProps<{
 					v-if="curriculum.Summary.smallText !== ''"
 					:fontSize="curriculum.Summary.size"
 				>
-					{{ curriculum.Summary.smallText }}
+					<AppTextarea
+						cvTextArea
+						v-model="curriculum.Summary.smallText"
+						:rows="curriculum.Summary.smallText.split('\n').length"
+					/>
 				</Paragraph>
 				<List
 					v-if="Array.isArray(curriculum.Summary.value)"

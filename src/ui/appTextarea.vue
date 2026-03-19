@@ -5,7 +5,8 @@ type Props = {
 	label?: string
 	minHeight?: string
 	id?: string
-	rows?: string
+	rows?: string | number
+	cvTextArea?: true
 }
 
 const props = defineProps<Props>()
@@ -25,7 +26,15 @@ function defineHeight() {
 </script>
 
 <template>
-	<div class="content">
+	<textarea
+		v-if="cvTextArea"
+		data-cvTextArea
+		v-bind="$attrs"
+		:rows="rows"
+		:id="id ?? key"
+		v-model="model"
+	/>
+	<div class="content" v-else>
 		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
 		<textarea
 			:style="{ minHeight: `${defineHeight()}` }"
@@ -37,6 +46,15 @@ function defineHeight() {
 </template>
 
 <style scoped>
+textarea[data-cvTextArea] {
+	font-family: inherit !important;
+	width: 100% !important;
+	padding: 0px !important;
+	margin: 0px !important;
+	border: none;
+	color: inherit;
+}
+
 .content {
 	display: grid;
 	gap: 0.5rem;

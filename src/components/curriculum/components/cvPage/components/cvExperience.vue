@@ -4,15 +4,15 @@ import { inject } from 'vue'
 import { Translate } from '@/constants/translations'
 import { generateDate, generateTitle } from '@/helpers/cvFormatters'
 import { ProviderKey } from '@/keys'
+import SvgPen from '@/svgs/SvgPen.vue'
 import type { BoldMatchReturn, Curriculum } from '@/types'
+import AppAnchor from '@/ui/appAnchor.vue'
 import AppBoldMatch from '@/ui/appBoldMatch.vue'
+import AppButton from '@/ui/appButton.vue'
 import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
 
 import Title from './cvTitle.vue'
-import AppAnchor from '@/ui/appAnchor.vue'
-import AppButton from '@/ui/appButton.vue'
-import SvgPen from '@/svgs/SvgPen.vue'
 
 const { boldMatches } = defineProps<{
 	boldMatches: (value: string) => BoldMatchReturn

@@ -3,9 +3,9 @@ import { inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
 import SvgPen from '@/svgs/SvgPen.vue'
-import AppButton from '@/ui/appButton.vue'
-import AppInputCv from '@/ui/appInputCv.vue'
 import AppAnchor from '@/ui/appAnchor.vue'
+import AppButton from '@/ui/appButton.vue'
+import AppInput from '@/ui/appInput.vue'
 
 const { curriculum } = inject(ProviderKey)!
 </script>
@@ -20,7 +20,8 @@ const { curriculum } = inject(ProviderKey)!
 			>
 				<span class="type"> {{ type }}: </span>
 				<span>
-					<AppInputCv
+					<AppInput
+						cv-input
 						:data-type="type"
 						:size="Math.max(curriculum.Contact.value[type].length, 1)"
 						v-model="curriculum.Contact.value[type]"

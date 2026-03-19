@@ -3,9 +3,9 @@ import { inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
 import SvgPen from '@/svgs/SvgPen.vue'
-import AppButton from '@/ui/appButton.vue'
-import AppInputCv from '@/ui/appInputCv.vue'
 import AppAnchor from '@/ui/appAnchor.vue'
+import AppButton from '@/ui/appButton.vue'
+import AppInput from '@/ui/appInput.vue'
 
 const { curriculum } = inject(ProviderKey)!
 </script>
@@ -14,13 +14,13 @@ const { curriculum } = inject(ProviderKey)!
 	<AppAnchor>
 		<div class="header">
 			<h1 :style="{ '--font_size': `var(${curriculum.Header.UserName.size})` }">
-				<AppInputCv v-model="curriculum.Header.UserName.value" />
+				<AppInput cv-input v-model="curriculum.Header.UserName.value" />
 			</h1>
 			<span
 				:style="{ '--font_size': `var(${curriculum.Header.Role.size})` }"
 				class="label"
 			>
-				<AppInputCv v-model="curriculum.Header.Role.value" />
+				<AppInput cv-input v-model="curriculum.Header.Role.value" />
 			</span>
 		</div>
 		<template #button>
@@ -51,7 +51,7 @@ const { curriculum } = inject(ProviderKey)!
 
 		color: var(--light-text-color);
 
-		font-size: var(--font-size-lg);
+		font-size: var(--font_size, var(--font-size-lg));
 		font-weight: var(--font-weight);
 		letter-spacing: 0.099em;
 		line-height: 1.2;
