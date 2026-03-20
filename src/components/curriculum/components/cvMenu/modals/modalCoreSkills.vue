@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { computed, inject } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
 import { skillList } from '@/constants/skillList'
@@ -20,7 +20,7 @@ const { curriculum } = inject(ProviderKey)!
 
 type SkillList = Partial<Record<keyof Skills, string>>
 
-const coreSkills = ref(
+const coreSkills = computed(() =>
 	skillList.reduce<SkillList>((acc, item) => {
 		const skill = item.toLowerCase() as SkillsList
 		if (curriculum.value.CoreSkills.skills[skill]) {
@@ -37,7 +37,7 @@ function saveSkill(core: SkillsList) {
 		delete curriculum.value.CoreSkills.skills[core]
 	} else {
 		curriculum.value.CoreSkills.skills[core] =
-			coreSkills.value[core]?.split(',')
+			coreSkills.value[core]?.split(' ,')
 	}
 }
 </script>

@@ -7,7 +7,7 @@ import SvgPen from '@/svgs/SvgPen.vue'
 import type { BoldMatchReturn } from '@/types'
 import AppAnchor from '@/ui/appAnchor.vue'
 import AppButton from '@/ui/appButton.vue'
-import List from '@/ui/appList.vue'
+import AppListCoreSkills from '@/ui/appListCoreSkills.vue'
 
 import Title from './cvTitle.vue'
 
@@ -24,9 +24,8 @@ const { boldMatches } = defineProps<{
 				Translate['core skills'][curriculum.Settings.language]
 			}}</Title>
 			<div class="coreSkills">
-				<List
+				<AppListCoreSkills
 					:fontSize="curriculum.CoreSkills.size"
-					:coreSkills="curriculum.CoreSkills.skills"
 					:boldMatches="boldMatches"
 					:language="curriculum.Settings.language"
 				/>

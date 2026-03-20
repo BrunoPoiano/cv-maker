@@ -1,6 +1,6 @@
 <template>
 	<template v-for="(node, i) in props.value" :key="i">
-		<component v-if="typeof node !== 'string'" :is="node" />
+		<component :is="node" v-if="typeof node !== 'string'" />
 		<template v-else>{{ node }}</template>
 	</template>
 </template>

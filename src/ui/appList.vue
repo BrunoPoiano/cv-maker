@@ -1,80 +1,28 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-
-import { skillList } from '@/constants/skillList'
-import { Translate } from '@/constants/translations'
-import type {
-	BoldMatchReturn,
-	FontSize,
-	Languages,
-	Skills,
-	SkillsList
-} from '@/types'
+import type { BoldMatchReturn, FontSize, Languages } from '@/types'
 
 import AppBoldMatch from './appBoldMatch.vue'
 
-type Props =
-	| {
-			genericList: Array<string>
-			language: Languages
-			coreSkills?: Skills
-			boldMatches?: (v: string) => BoldMatchReturn
-			fontSize?: FontSize
-	  }
-	| {
-			coreSkills: Skills
-			language: Languages
-			genericList?: Array<string>
-			boldMatches?: (v: string) => BoldMatchReturn
-			fontSize?: FontSize
-	  }
+type Props = {
+	genericList: Array<string>
+	language: Languages
+	boldMatches?: (v: string) => BoldMatchReturn
+	fontSize?: FontSize
+}
 
-const { genericList, coreSkills, boldMatches, fontSize } = defineProps<Props>()
-
-const orderedCoreSkills = computed(() => {
-	const ordered: Skills = {}
-
-	if (!coreSkills) return ordered
-
-	for (const key of skillList) {
-		const core = key.toLocaleLowerCase() as SkillsList
-
-		if (coreSkills[core]) {
-			ordered[core] = coreSkills[core]
-		}
-	}
-
-	return ordered
-})
+const { genericList, boldMatches, fontSize } = defineProps<Props>()
 </script>
 
 <template>
 	<ul>
-		<template v-if="genericList">
-			<li v-for="(item, index) in genericList" :key="index">
-				<span :style="{ fontSize: `var(${fontSize})` }" v-if="boldMatches">
-					<AppBoldMatch :value="boldMatches(item)" />
-				</span>
-				<span :style="{ fontSize: `var(${fontSize})` }" v-else>
-					{{ item }}
-				</span>
-			</li>
-		</template>
-		<template v-if="coreSkills">
-			<li v-for="(skill, core) in orderedCoreSkills" :key="core">
-				<div v-if="skill">
-					<span :style="{ fontSize: `var(${fontSize})` }" class="core"
-						>{{ Translate[core][language] }}:
-					</span>
-					<span :style="{ fontSize: `var(${fontSize})` }" v-if="boldMatches">
-						<AppBoldMatch :value="boldMatches(skill.join(', '))" />
-					</span>
-					<span :style="{ fontSize: `var(${fontSize})` }" v-else>
-						{{ skill.join(', ') }}
-					</span>
-				</div>
-			</li>
-		</template>
+		<li v-for="(item, index) in genericList" :key="index">
+			<span :style="{ fontSize: `var(${fontSize})` }" v-if="boldMatches">
+				<AppBoldMatch :value="boldMatches(item)" />
+			</span>
+			<span :style="{ fontSize: `var(${fontSize})` }" v-else>
+				{{ item }}
+			</span>
+		</li>
 	</ul>
 </template>
 
