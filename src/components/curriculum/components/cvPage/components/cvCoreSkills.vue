@@ -11,7 +11,7 @@ import AppListCoreSkills from '@/ui/appListCoreSkills.vue'
 
 import Title from './cvTitle.vue'
 
-const { curriculum } = inject(ProviderKey)!
+const { curriculum, readonly } = inject(ProviderKey)!
 const { boldMatches } = defineProps<{
 	boldMatches: (value: string) => BoldMatchReturn
 }>()
@@ -25,6 +25,7 @@ const { boldMatches } = defineProps<{
 			}}</Title>
 			<div class="coreSkills">
 				<AppListCoreSkills
+					:readonly="readonly"
 					:fontSize="curriculum.CoreSkills.size"
 					:boldMatches="boldMatches"
 					:language="curriculum.Settings.language"

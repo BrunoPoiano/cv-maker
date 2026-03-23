@@ -6,9 +6,10 @@ type Props = {
 	labelStart?: string | Element
 	labelEnd?: string | Element
 	style?: CSSProperties
+	change?: () => void
 }
 const modelValue = defineModel<boolean>()
-const { labelStart, style, labelEnd } = defineProps<Props>()
+const { labelStart, style, labelEnd, change } = defineProps<Props>()
 const key = generateKey(5)
 
 defineOptions({
@@ -25,7 +26,11 @@ defineOptions({
 				type="checkbox"
 				:checked="modelValue"
 				v-bind="$attrs"
-				@change="modelValue = !modelValue"
+				@change="
+					{
+						;((modelValue = !modelValue), change && change())
+					}
+				"
 			/>
 			<span class="slider round"></span>
 		</label>

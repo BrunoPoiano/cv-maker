@@ -12,7 +12,7 @@ import { deepClone } from './helpers/clone'
 import { getDataFromLocalStorage } from './helpers/localstorage'
 import { parseBolder } from './parsers/bolder'
 import { parseCurriculum, parseCurriculumList } from './parsers/curriculum'
-import { isNumberOrDefault } from './parsers/typeValidation'
+import { isBooleanOrDefault, isNumberOrDefault } from './parsers/typeValidation'
 
 const curriculumList = ref(
 	getDataFromLocalStorage({
@@ -29,6 +29,14 @@ const curriculumIndex = ref(
 		key: 'curriculumIndex',
 		parseFunction: (value: unknown) => isNumberOrDefault(value, 0),
 		initialValue: 0
+	})
+)
+
+const readonly = ref(
+	getDataFromLocalStorage({
+		key: 'readonly',
+		parseFunction: (value: unknown) => isBooleanOrDefault(value, false),
+		initialValue: false
 	})
 )
 
@@ -54,6 +62,7 @@ const bolder = reactive(
 
 provide(ProviderKey, {
 	curriculum: currentCurriculum,
+	readonly,
 	bolder
 })
 </script>

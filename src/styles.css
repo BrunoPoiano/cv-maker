@@ -146,6 +146,11 @@ textarea:focus-visible {
 	outline: 1px solid var(--app-color);
 }
 
+input[readonly]:focus-visible,
+textarea[readonly]:focus-visible {
+	outline: 0px;
+}
+
 img {
 	max-width: 100%;
 	height: auto;

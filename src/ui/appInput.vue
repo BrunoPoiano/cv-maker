@@ -50,8 +50,8 @@ input[data-cvInput] {
 	padding: 0px !important;
 	margin: 0px !important;
 	border: none;
-	height: calc(var(--font_size) * 1.25);
 	color: inherit;
+	text-box-edge: auto !important;
 }
 
 .content {

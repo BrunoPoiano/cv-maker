@@ -7,20 +7,28 @@ import AppAnchor from '@/ui/appAnchor.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 
-const { curriculum } = inject(ProviderKey)!
+const { curriculum, readonly } = inject(ProviderKey)!
 </script>
 
 <template>
 	<AppAnchor>
 		<div class="header">
 			<h1 :style="{ '--font_size': `var(${curriculum.Header.UserName.size})` }">
-				<AppInput cv-input v-model="curriculum.Header.UserName.value" />
+				<AppInput
+					cv-input
+					v-model="curriculum.Header.UserName.value"
+					:readonly="readonly"
+				/>
 			</h1>
 			<span
 				:style="{ '--font_size': `var(${curriculum.Header.Role.size})` }"
 				class="label"
 			>
-				<AppInput cv-input v-model="curriculum.Header.Role.value" />
+				<AppInput
+					cv-input
+					v-model="curriculum.Header.Role.value"
+					:readonly="readonly"
+				/>
 			</span>
 		</div>
 		<template #button>

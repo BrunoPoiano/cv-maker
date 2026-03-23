@@ -1,5 +1,6 @@
 import type {
 	Component,
+	Ref,
 	RendererElement,
 	RendererNode,
 	VNode,
@@ -36,6 +37,7 @@ type GitHub = `github.com/${string}`
 export type Provider = {
 	curriculum: WritableComputedRef<Curriculum>
 	bolder: string[]
+	readonly: Ref<boolean, boolean>
 }
 
 export type BoldMatchReturn =

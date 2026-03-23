@@ -7,7 +7,7 @@ import AppAnchor from '@/ui/appAnchor.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 
-const { curriculum } = inject(ProviderKey)!
+const { curriculum, readonly } = inject(ProviderKey)!
 </script>
 
 <template>
@@ -21,6 +21,7 @@ const { curriculum } = inject(ProviderKey)!
 				<span class="type"> {{ type }}: </span>
 				<span>
 					<AppInput
+						:readonly="readonly"
 						cv-input
 						:data-type="type"
 						:size="Math.max(curriculum.Contact.value[type].length, 1)"

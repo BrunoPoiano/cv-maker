@@ -12,16 +12,18 @@ import type {
 	SkillsOrdered
 } from '@/types'
 
+import AppBoldMatch from './appBoldMatch.vue'
 import AppInput from './appInput.vue'
 
 type Props = {
 	language: Languages
 	boldMatches?: (v: string) => BoldMatchReturn
 	fontSize?: FontSize
+	readonly?: boolean
 }
 const { curriculum } = inject(ProviderKey)!
 
-const { boldMatches, fontSize } = defineProps<Props>()
+const { boldMatches, fontSize, readonly } = defineProps<Props>()
 
 const orderedCoreSkills = computed(() =>
 	skillList.reduce<SkillsOrdered>((acc, item) => {
@@ -51,15 +53,15 @@ function saveSkill(core: SkillsList, val: string) {
 				<span :style="{ fontSize: `var(${fontSize})` }" class="core"
 					>{{ Translate[core][language] }}:
 				</span>
-				<!-- <span :style="{ fontSize: `var(${fontSize})` }" v-if="boldMatches">
-					<AppBoldMatch :value="boldMatches(skill)" />
-				</span> -->
-				<span :style="{ fontSize: `var(${fontSize})` }">
+				<span :style="{ fontSize: `var(${fontSize})` }" v-if="readonly">
 					<AppInput
 						cv-input
 						v-model="orderedCoreSkills[core]"
 						@update:model-value="(val) => saveSkill(core, val)"
 					/>
+				</span>
+				<span v-else-if="boldMatches" :style="{ fontSize: `var(${fontSize})` }">
+					<AppBoldMatch :value="boldMatches(orderedCoreSkills[core])" />
 				</span>
 			</div>
 		</li>
