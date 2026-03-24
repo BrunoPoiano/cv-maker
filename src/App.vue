@@ -68,7 +68,7 @@ provide(ProviderKey, {
 </script>
 
 <template>
-	<Header :curriculum="currentCurriculum" />
+	<Header :curriculum="currentCurriculum" :readonly="readonly" />
 	<Menu
 		v-model:curriculum-index="curriculumIndex"
 		v-model:curriculum-list="curriculumList"

@@ -19,9 +19,12 @@ const { curriculum, readonly } = inject(ProviderKey)!
 				:style="{ '--font_size': `var(${curriculum.Contact.size})` }"
 			>
 				<span class="type"> {{ type }}: </span>
-				<span>
+				<span :data-type="type">
+					<template v-if="readonly">
+						{{ curriculum.Contact.value[type] }}
+					</template>
 					<AppInput
-						:readonly="readonly"
+						v-else
 						cv-input
 						:data-type="type"
 						:size="Math.max(curriculum.Contact.value[type].length, 1)"
@@ -73,7 +76,8 @@ const { curriculum, readonly } = inject(ProviderKey)!
 		flex-wrap: wrap;
 		margin-top: calc(var(--_a4-gap) * -0.4);
 
-		:deep(input)[data-type='email'] {
+		:deep(input)[data-type='email'],
+		[data-type='email'] {
 			font-weight: bolder !important;
 		}
 

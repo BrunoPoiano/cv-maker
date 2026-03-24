@@ -5,9 +5,10 @@ import Button from '@/ui/appButton.vue'
 
 type Props = {
 	curriculum: Curriculum
+	readonly: boolean
 }
 
-const { curriculum } = defineProps<Props>()
+const { curriculum, readonly } = defineProps<Props>()
 
 function savePDF() {
 	const originalTitle = document.title
@@ -32,7 +33,7 @@ function savePDF() {
 			<SvgDocument />
 			CV-Maker
 		</h1>
-		<Button @click="savePDF" background="var(--app-color)"
+		<Button :disabled="!readonly" @click="savePDF" background="var(--app-color)"
 			>Generate PDF
 		</Button>
 	</div>

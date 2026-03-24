@@ -4,10 +4,11 @@ import { ref, watch } from 'vue'
 import Textarea from '@/ui/appTextarea.vue'
 type Props = {
 	list: boolean
+	rows?: number
 }
 
 const model = defineModel<string | string[]>()
-const { list } = defineProps<Props>()
+const { list, rows } = defineProps<Props>()
 
 defineOptions({
 	inheritAttrs: false
@@ -34,5 +35,10 @@ function updateData(list: boolean) {
 </script>
 
 <template>
-	<Textarea v-bind="$attrs" v-model="desc" @keyup="updateData(list)" />
+	<Textarea
+		v-bind="$attrs"
+		:rows="rows"
+		v-model="desc"
+		@keyup="updateData(list)"
+	/>
 </template>

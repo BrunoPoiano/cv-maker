@@ -53,6 +53,7 @@ textarea[data-cvTextArea] {
 	margin: 0px !important;
 	border: none;
 	color: inherit;
+	border-radius: var(--cv-border-radius) !important;
 }
 
 .content {

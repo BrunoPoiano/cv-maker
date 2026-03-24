@@ -7,34 +7,42 @@ type Props = {
 	labelEnd?: string | Element
 	style?: CSSProperties
 	change?: () => void
+	colorCheck?: true
 }
 const modelValue = defineModel<boolean>()
-const { labelStart, style, labelEnd, change } = defineProps<Props>()
+const { labelStart, style, labelEnd, change, colorCheck } = defineProps<Props>()
 const key = generateKey(5)
 
 defineOptions({
 	inheritAttrs: false
 })
+
+function changeCheckBox() {
+	modelValue.value = !modelValue.value
+	if (change) {
+		change()
+	}
+}
 </script>
 
 <template>
 	<div class="toggle" :style="style">
-		<span v-if="labelStart" :data-check="!modelValue">{{ labelStart }}</span>
+		<span v-if="labelStart" :data-check="colorCheck ?? !modelValue">{{
+			labelStart
+		}}</span>
 		<label :for="key" class="switch">
 			<input
 				:id="key"
 				type="checkbox"
 				:checked="modelValue"
 				v-bind="$attrs"
-				@change="
-					{
-						;((modelValue = !modelValue), change && change())
-					}
-				"
+				@change="changeCheckBox"
 			/>
 			<span class="slider round"></span>
 		</label>
-		<span v-if="labelEnd" :data-check="modelValue">{{ labelEnd }}</span>
+		<span v-if="labelEnd" :data-check="colorCheck ?? modelValue">{{
+			labelEnd
+		}}</span>
 	</div>
 </template>
 

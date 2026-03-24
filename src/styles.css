@@ -32,6 +32,7 @@
 	--max-width: 105ch;
 
 	--border-radius: 0.5rem;
+	--cv-border-radius: 3px;
 }
 
 html {

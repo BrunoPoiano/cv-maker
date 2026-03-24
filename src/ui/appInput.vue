@@ -52,6 +52,12 @@ input[data-cvInput] {
 	border: none;
 	color: inherit;
 	text-box-edge: auto !important;
+	border-radius: var(--cv-border-radius) !important;
+
+	&[type='date'] {
+		background: white !important;
+		border: none;
+	}
 }
 
 .content {
@@ -98,11 +104,13 @@ input[data-cvInput] {
 	&:has(input[type='checkbox']) {
 		--_size: 1.15em;
 
+		width: fit-content;
 		display: grid;
-		grid-template-columns: var(--_size) auto;
+		align-items: center;
 
 		> label {
 			grid-area: 1/2;
+			font-size: initial;
 		}
 
 		> input[type='checkbox'] {
@@ -113,7 +121,6 @@ input[data-cvInput] {
 
 			position: relative;
 			margin: 0;
-			font: inherit;
 			width: var(--_size);
 			height: var(--_size);
 			border: 0.15em solid var(--input-border);

@@ -53,7 +53,7 @@ function saveSkill(core: SkillsList, val: string) {
 				<span :style="{ fontSize: `var(${fontSize})` }" class="core"
 					>{{ Translate[core][language] }}:
 				</span>
-				<span :style="{ fontSize: `var(${fontSize})` }" v-if="readonly">
+				<span :style="{ fontSize: `var(${fontSize})` }" v-if="!readonly">
 					<AppInput
 						cv-input
 						v-model="orderedCoreSkills[core]"

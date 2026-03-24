@@ -114,7 +114,7 @@ function deleteCv() {
 			/>
 			<AppToggle
 				v-model="readonly"
-				label-end="Readonly"
+				label-start="Readonly"
 				:change="updateIsEditable"
 			/>
 		</div>
