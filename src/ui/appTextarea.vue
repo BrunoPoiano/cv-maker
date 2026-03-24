@@ -54,6 +54,7 @@ textarea[data-cvTextArea] {
 	border: none;
 	color: inherit;
 	border-radius: var(--cv-border-radius) !important;
+	background: var(--background) !important;
 }
 
 .content {

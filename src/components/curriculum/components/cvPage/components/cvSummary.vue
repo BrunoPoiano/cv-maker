@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 
 import { Translate } from '@/constants/translations'
 import { ProviderKey } from '@/keys'
@@ -21,9 +21,11 @@ const { boldMatches } = defineProps<{
 	boldMatches: (value: string) => BoldMatchReturn
 }>()
 
-const rows = Array.isArray(curriculum.value.Summary.value)
-	? curriculum.value.Summary.value.length
-	: curriculum.value.Summary.smallText.split('\n').length
+const rows = computed(() =>
+	Array.isArray(curriculum.value.Summary.value)
+		? curriculum.value.Summary.value.length
+		: curriculum.value.Summary.value.split('\n').length
+)
 </script>
 
 <template>

@@ -53,9 +53,9 @@ input[data-cvInput] {
 	color: inherit;
 	text-box-edge: auto !important;
 	border-radius: var(--cv-border-radius) !important;
+	background: var(--background) !important;
 
 	&[type='date'] {
-		background: white !important;
 		border: none;
 	}
 }

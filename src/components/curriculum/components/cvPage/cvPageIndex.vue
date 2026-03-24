@@ -61,7 +61,6 @@ const gap = computed(() => curriculum.value.Settings.gap)
 	margin-inline: auto;
 	margin-top: 2rem;
 
-	box-shadow: 0 0 10px light-dark(rgba(0, 0, 0, 0.3), rgb(255, 255, 255, 0.3));
 	box-sizing: border-box;
 	background-color: var(--background);
 
