@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
 
 import { skillList } from '@/constants/skillList'
 import { Translate } from '@/constants/translations'
@@ -21,47 +21,54 @@ type Props = {
 	fontSize?: FontSize
 	readonly?: boolean
 }
+
 const { curriculum } = inject(ProviderKey)!
-
 const { boldMatches, fontSize, readonly } = defineProps<Props>()
+const localSkills = ref<SkillsOrdered>(skillsObj())
 
-const orderedCoreSkills = computed(() =>
-	skillList.reduce<SkillsOrdered>((acc, item) => {
-		const core = item.toLocaleLowerCase() as SkillsList
+function skillsObj() {
+	const skills = curriculum.value.CoreSkills.skills
+	const result: SkillsOrdered = {}
 
-		if (curriculum.value.CoreSkills.skills[core]) {
-			acc[core] = curriculum.value.CoreSkills.skills[core].join(', ')
+	for (const item of skillList) {
+		const core = item.toLowerCase() as SkillsList
+		const value = skills[core]
+
+		if (value?.length) {
+			result[core] = value.join(', ')
 		}
+	}
 
-		return acc
-	}, {})
-)
+	return result
+}
 
 function saveSkill(core: SkillsList, val: string) {
+	localSkills.value[core] = val
+
 	if (val === '') {
 		delete curriculum.value.CoreSkills.skills[core]
 	} else {
-		curriculum.value.CoreSkills.skills[core] = val.split(' ,')
+		curriculum.value.CoreSkills.skills[core] = val
+			.split(',')
+			.map((s) => s.trim())
 	}
 }
+
+
 </script>
 
 <template>
 	<ul>
-		<li v-for="(skill, core) in orderedCoreSkills" :key="core">
-			<div v-if="orderedCoreSkills[core]">
-				<span :style="{ fontSize: `var(${fontSize})` }" class="core"
-					>{{ Translate[core][language] }}:
+		<li v-for="(skill, core) in localSkills" :key="core">
+			<div v-if="skill">
+				<span :style="{ fontSize: `var(${fontSize})` }" class="core">
+					{{ Translate[core][language] }}:
 				</span>
-				<span :style="{ fontSize: `var(${fontSize})` }" v-if="!readonly">
-					<AppInput
-						cv-input
-						v-model="orderedCoreSkills[core]"
-						@update:model-value="(val) => saveSkill(core, val)"
-					/>
+				<span v-if="!readonly" :style="{ fontSize: `var(${fontSize})` }">
+					<AppInput cv-input :model-value="skill" @update:model-value="(val) => saveSkill(core, val)" />
 				</span>
-				<span v-else-if="boldMatches" :style="{ fontSize: `var(${fontSize})` }">
-					<AppBoldMatch :value="boldMatches(orderedCoreSkills[core])" />
+				<span v-else-if="boldMatches && skill" :style="{ fontSize: `var(${fontSize})` }">
+					<AppBoldMatch :value="boldMatches(skill)" />
 				</span>
 			</div>
 		</li>
