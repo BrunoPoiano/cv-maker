@@ -80,7 +80,7 @@ function saveSummary(list: boolean) {
 			<Textarea
 				placeholder="Summary"
 				v-model="summary"
-				:keyup="saveSummary(list)"
+				@keyup="saveSummary(list)"
 			/>
 		</form>
 	</Modal>
