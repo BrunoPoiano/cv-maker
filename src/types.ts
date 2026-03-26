@@ -1,5 +1,6 @@
 import type {
 	Component,
+	Ref,
 	RendererElement,
 	RendererNode,
 	VNode,
@@ -17,6 +18,7 @@ export type Languages = (typeof languages)[number]
 export type FontSize = (typeof fontSize)[number]
 export type SkillsList = Lowercase<(typeof skillList)[number]>
 export type Skills = Partial<Record<SkillsList, Array<string>>>
+export type SkillsOrdered = Partial<Record<SkillsList, string>>
 export type SelectItem = Array<{ value: string | number; label: string }>
 export type Translation = Record<string | SkillsList, Each<Languages>>
 export type MonthOptions = Extract<
@@ -35,6 +37,7 @@ type GitHub = `github.com/${string}`
 export type Provider = {
 	curriculum: WritableComputedRef<Curriculum>
 	bolder: string[]
+	readonly: Ref<boolean, boolean>
 }
 
 export type BoldMatchReturn =

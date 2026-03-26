@@ -19,7 +19,7 @@
 	--app-color: oklch(51.4% 0.222 16.935);
 	--light-text-color: light-dark(#65615f, #bebcbc);
 	--font-weight: 400;
-	--background: light-dark(#fff, oklch(0.147 0.004 49.25));
+	--background: light-dark(hsl(0, 0%, 99%), hsl(344.17deg 10.1% 4.29%));
 	--input-background: light-dark(#f3f3f3, #1a1a1a);
 	--input-border: light-dark(hsla(0, 0%, 50%, 0.205), hsla(0, 0%, 50%, 0.5));
 
@@ -32,6 +32,7 @@
 	--max-width: 105ch;
 
 	--border-radius: 0.5rem;
+	--cv-border-radius: 3px;
 }
 
 html {
@@ -144,6 +145,11 @@ textarea {
 input:focus-visible,
 textarea:focus-visible {
 	outline: 1px solid var(--app-color);
+}
+
+input[readonly]:focus-visible,
+textarea[readonly]:focus-visible {
+	outline: 0px;
 }
 
 img {

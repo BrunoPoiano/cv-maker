@@ -3,12 +3,15 @@ import { inject } from 'vue'
 
 import { Translate } from '@/constants/translations'
 import { ProviderKey } from '@/keys'
+import SvgPen from '@/svgs/SvgPen.vue'
 import type { BoldMatchReturn } from '@/types'
-import List from '@/ui/appList.vue'
+import AppAnchor from '@/ui/appAnchor.vue'
+import AppButton from '@/ui/appButton.vue'
+import AppListCoreSkills from '@/ui/appListCoreSkills.vue'
 
 import Title from './cvTitle.vue'
 
-const { curriculum } = inject(ProviderKey)!
+const { curriculum, readonly } = inject(ProviderKey)!
 const { boldMatches } = defineProps<{
 	boldMatches: (value: string) => BoldMatchReturn
 }>()
@@ -16,16 +19,23 @@ const { boldMatches } = defineProps<{
 
 <template>
 	<div v-if="curriculum.CoreSkills.show">
-		<Title :fontsize="curriculum.Settings.section.size">{{
-			Translate['core skills'][curriculum.Settings.language]
-		}}</Title>
-		<div class="coreSkills">
-			<List
-				:fontSize="curriculum.CoreSkills.size"
-				:coreSkills="curriculum.CoreSkills.skills"
-				:boldMatches="boldMatches"
-				:language="curriculum.Settings.language"
-			/>
-		</div>
+		<AppAnchor>
+			<Title :fontsize="curriculum.Settings.section.size">{{
+				Translate['core skills'][curriculum.Settings.language]
+			}}</Title>
+			<div class="coreSkills">
+				<AppListCoreSkills
+					:readonly="readonly"
+					:fontSize="curriculum.CoreSkills.size"
+					:boldMatches="boldMatches"
+					:language="curriculum.Settings.language"
+				/>
+			</div>
+			<template #button>
+				<AppButton modal id="modalCvCoreSkills">
+					<SvgPen />
+				</AppButton>
+			</template>
+		</AppAnchor>
 	</div>
 </template>

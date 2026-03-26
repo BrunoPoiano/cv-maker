@@ -1,30 +1,36 @@
 <script setup lang="ts">
 import Button from '@/ui/appButton.vue'
 
-type Props = {
-	closeLabel: string | Element
-	openAction?: () => void
-	closeAction?: () => void
-	minWidth?: string
-	maxWidth?: string
-	id?: string
-	closedby?: 'none' | 'closerequest' | 'any'
-}
-
-const { closeLabel, minWidth, maxWidth, id, closedby } = defineProps<Props>()
-
-import { generateKey } from '@/helpers/generateKey'
-const key = id || generateKey(10)
+const props = defineProps({
+	closeLabel: {
+		type: [String, Object],
+		required: false
+	},
+	closeAction: Function,
+	openAction: Function,
+	minWidth: String,
+	maxWidth: String,
+	id: {
+		type: String,
+		required: true
+	},
+	closedby: {
+		type: String,
+		default: 'any',
+		validator: (v: string) => ['none', 'closerequest', 'any'].includes(v)
+	}
+})
 </script>
 
 <template>
 	<dialog
-		:closedby="closedby || 'any'"
-		:id="key"
+		:closedby="props.closedby || 'any'"
+		:id="props.id"
 		:style="{
-			minWidth: `min(${minWidth},100%)`,
-			maxWidth: `${maxWidth || '100%'}`
+			minWidth: `min(${props.minWidth || '10rem'}, 100%)`,
+			maxWidth: `${props.maxWidth || '100%'}`
 		}"
+		@show="props.openAction?.()"
 	>
 		<div class="header">
 			<slot name="header" />
@@ -32,9 +38,12 @@ const key = id || generateKey(10)
 		<slot />
 		<div class="footer">
 			<slot name="footer" />
-			<Button :commandfor="key" command="close" @click="closeAction">{{
-				closeLabel
-			}}</Button>
+			<Button
+				:commandfor="props.id"
+				command="close"
+				@click="props.closeAction"
+				>{{ props.closeLabel }}</Button
+			>
 		</div>
 	</dialog>
 </template>

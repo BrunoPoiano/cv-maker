@@ -25,7 +25,7 @@ Rewrite my resume to perfectly match:
 > Quantify achievements where possible
 > Keep under 1 page, bullet format
 > Highlight top 3–5 matches in a summary
-> bullet point should be 100ch max, concise and impactful
+> bullet point should be concise and impactful and incorporate exact keywords/phrases
 > Match language of job description
 
 Output: Full revised resume + list of changes made.`
@@ -47,8 +47,8 @@ function copyPrompt() {
 			<Textarea placeholder="Job Description" v-model="jobDescription" />
 			<div class="prompt-preview">
 				<pre ref="prompt">
-			{{ prompt }}
-		</pre
+					{{ prompt }}
+				</pre
 				>
 			</div>
 			<Button @click="copyPrompt">Copy Prompt</Button>

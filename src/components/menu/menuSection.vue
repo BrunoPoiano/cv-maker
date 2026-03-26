@@ -15,15 +15,18 @@ import Button from '@/ui/appButton.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppMenuModalItems from '@/ui/appMenuModalItems.vue'
 import Select from '@/ui/appSelect.vue'
+import AppToggle from '@/ui/appToggle.vue'
 
 import { menuItems } from './menuItems'
 const ModalBackup = defineAsyncComponent(
 	() => import('./modals/modalBackup.vue')
 )
 
-const { curriculum } = inject(ProviderKey)!
+const { curriculum, readonly } = inject(ProviderKey)!
 
-const curriculumIndex = defineModel<number>('curriculum-index')
+const curriculumIndex = defineModel<number>('curriculum-index', {
+	required: true
+})
 const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
 	required: true
 })
@@ -46,6 +49,13 @@ function saveData() {
 	saveDataToLocalStorage({
 		key: 'curriculumList',
 		initialValue: curriculumList.value
+	})
+}
+
+function updateIsEditable() {
+	saveDataToLocalStorage({
+		key: 'readonly',
+		initialValue: readonly.value
 	})
 }
 
@@ -102,6 +112,12 @@ function deleteCv() {
 			<ModalBackup
 				id="modalMenuImportExport"
 				v-model:curriculum-list="curriculumList"
+				v-model:curriculum-index="curriculumIndex"
+			/>
+			<AppToggle
+				v-model="readonly"
+				label-start="Readonly"
+				:afterChange="updateIsEditable"
 			/>
 		</div>
 		<div>

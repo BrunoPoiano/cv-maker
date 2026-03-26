@@ -1,35 +1,49 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
+import type { CSSProperties } from 'vue'
 
 import { generateKey } from '@/helpers/generateKey'
 type Props = {
 	labelStart?: string | Element
 	labelEnd?: string | Element
-	style?: HTMLAttributes['style']
+	style?: CSSProperties
+	afterChange?: () => void
+	colorCheck?: true
 }
 const modelValue = defineModel<boolean>()
-const { labelStart } = defineProps<Props>()
+const { labelStart, style, labelEnd, afterChange, colorCheck } =
+	defineProps<Props>()
 const key = generateKey(5)
 
 defineOptions({
 	inheritAttrs: false
 })
+
+function changeCheckBox() {
+	modelValue.value = !modelValue.value
+	if (afterChange) {
+		afterChange()
+	}
+}
 </script>
 
 <template>
 	<div class="toggle" :style="style">
-		<span v-if="labelStart" :data-check="!modelValue">{{ labelStart }}</span>
+		<span v-if="labelStart" :data-check="colorCheck ?? !modelValue">{{
+			labelStart
+		}}</span>
 		<label :for="key" class="switch">
 			<input
 				:id="key"
 				type="checkbox"
 				:checked="modelValue"
 				v-bind="$attrs"
-				@change="modelValue = !modelValue"
+				@change="changeCheckBox"
 			/>
 			<span class="slider round"></span>
 		</label>
-		<span v-if="labelEnd" :data-check="modelValue">{{ labelEnd }}</span>
+		<span v-if="labelEnd" :data-check="colorCheck ?? modelValue">{{
+			labelEnd
+		}}</span>
 	</div>
 </template>
 

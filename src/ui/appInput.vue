@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { InputTypeHTMLAttribute, StyleValue } from 'vue'
+import type { CSSProperties, InputTypeHTMLAttribute } from 'vue'
 
 import { generateKey } from '@/helpers/generateKey'
 
@@ -8,7 +8,9 @@ type Props = {
 	type?: InputTypeHTMLAttribute
 	alert?: string
 	id?: string
-	divStyle?: StyleValue
+	divStyle?: CSSProperties | string
+	style?: CSSProperties | string
+	cvInput?: true
 }
 
 const model = defineModel()
@@ -21,7 +23,15 @@ defineOptions({
 </script>
 
 <template>
-	<div class="content" :style="props.divStyle">
+	<input
+		v-if="props.cvInput"
+		data-cvInput
+		v-bind="$attrs"
+		:style="style"
+		type="text"
+		v-model="model"
+	/>
+	<div v-else class="content" :style="props.divStyle">
 		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
 		<input
 			v-bind="$attrs"
@@ -34,6 +44,22 @@ defineOptions({
 </template>
 
 <style scoped>
+input[data-cvInput] {
+	font-family: inherit !important;
+	width: 100% !important;
+	padding: 0px !important;
+	margin: 0px !important;
+	border: none;
+	color: inherit;
+	text-box-edge: auto !important;
+	border-radius: var(--cv-border-radius) !important;
+	background: var(--background) !important;
+
+	&[type='date'] {
+		border: none;
+	}
+}
+
 .content {
 	--_gap: 0.5rem;
 	display: grid;
@@ -78,11 +104,13 @@ defineOptions({
 	&:has(input[type='checkbox']) {
 		--_size: 1.15em;
 
+		width: fit-content;
 		display: grid;
-		grid-template-columns: var(--_size) auto;
+		align-items: center;
 
 		> label {
 			grid-area: 1/2;
+			font-size: initial;
 		}
 
 		> input[type='checkbox'] {
@@ -93,7 +121,6 @@ defineOptions({
 
 			position: relative;
 			margin: 0;
-			font: inherit;
 			width: var(--_size);
 			height: var(--_size);
 			border: 0.15em solid var(--input-border);

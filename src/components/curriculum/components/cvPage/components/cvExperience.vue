@@ -4,18 +4,24 @@ import { inject } from 'vue'
 import { Translate } from '@/constants/translations'
 import { generateDate, generateTitle } from '@/helpers/cvFormatters'
 import { ProviderKey } from '@/keys'
+import SvgPen from '@/svgs/SvgPen.vue'
 import type { BoldMatchReturn, Curriculum } from '@/types'
+import AppAnchor from '@/ui/appAnchor.vue'
 import AppBoldMatch from '@/ui/appBoldMatch.vue'
+import AppButton from '@/ui/appButton.vue'
+import AppInput from '@/ui/appInput.vue'
 import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
 
+import ExDateInput from '../../cvMenu/modals/experience/components/exDateInput.vue'
+import ExDescription from '../../cvMenu/modals/experience/components/exDescription.vue'
 import Title from './cvTitle.vue'
 
 const { boldMatches } = defineProps<{
 	boldMatches: (value: string) => BoldMatchReturn
 }>()
 
-const { curriculum } = inject(ProviderKey)!
+const { curriculum, readonly } = inject(ProviderKey)!
 
 function isRemote(job: Curriculum['Experience']['value'][number]) {
 	if (!job.Remote) return ''
@@ -26,54 +32,120 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 
 <template>
 	<div v-if="curriculum.Experience.show">
-		<Title :fontsize="curriculum.Settings.section.size">{{
-			Translate['professional experience'][curriculum.Settings.language]
-		}}</Title>
-		<div class="experience">
-			<div v-for="job in curriculum.Experience.value" :key="job.id">
-				<div
-					:data-side-by-side="curriculum.Experience.sideBySide"
-					class="job-title"
-				>
-					<span
-						class="title"
-						:style="{ fontSize: `var(${curriculum.Experience.size.title})` }"
+		<AppAnchor>
+			<Title :fontsize="curriculum.Settings.section.size">{{
+				Translate['professional experience'][curriculum.Settings.language]
+			}}</Title>
+			<div class="experience">
+				<div v-for="job in curriculum.Experience.value" :key="job.id">
+					<div
+						:data-side-by-side="curriculum.Experience.sideBySide"
+						class="job-title"
 					>
-						{{ generateTitle(job) }}
-					</span>
-					<span
-						class="sub-title"
-						:style="{
-							fontSize: `var(${curriculum.Experience.sideBySide ? curriculum.Experience.size.title : curriculum.Experience.size.subTitle})`
-						}"
-					>
-						<span>
-							{{
-								generateDate(
-									job,
-									curriculum.Settings.language,
-									curriculum.Experience.dateMonth
-								)
-							}}
+						<span
+							class="title"
+							:style="{ fontSize: `var(${curriculum.Experience.size.title})` }"
+						>
+							<template v-if="readonly">
+								{{ generateTitle(job) }}
+							</template>
+							<div class="inputs" v-else>
+								<AppInput v-model="job.Role" cv-input placeholder="Role" />
+								<AppInput
+									v-model="job.CompanyName"
+									cv-input
+									placeholder="Company Name"
+								/>
+							</div>
 						</span>
-						<span v-if="job.Remote">|</span>
-						<span v-if="job.Remote">
-							{{ isRemote(job) }}
+						<span
+							class="sub-title"
+							:style="{
+								fontSize: `var(${curriculum.Experience.sideBySide ? curriculum.Experience.size.title : curriculum.Experience.size.subTitle})`
+							}"
+						>
+							<template v-if="!readonly">
+								<div class="date">
+									<ExDateInput
+										data-cvInput
+										type="date"
+										placeholder="Start Date"
+										v-model="job.StartDate"
+									/>
+									<ExDateInput
+										data-cvInput
+										type="date"
+										placeholder="EndDate"
+										v-model="job.EndDate"
+									/>
+								</div>
+							</template>
+
+							<span v-else>
+								{{
+									generateDate(
+										job,
+										curriculum.Settings.language,
+										curriculum.Experience.dateMonth
+									)
+								}}
+							</span>
+							<template v-if="!readonly">
+								<span>|</span>
+								<AppInput type="checkbox" label="Remote" v-model="job.Remote" />
+							</template>
+							<template v-else>
+								<template v-if="job.Remote">
+									<span>|</span>
+									<span>
+										{{ isRemote(job) }}
+									</span>
+								</template>
+							</template>
 						</span>
-					</span>
+					</div>
+					<template v-if="!readonly">
+						<span
+							:style="{
+								fontSize: `var(${curriculum.Experience.size.description})`,
+								color: `var(--light-text-color)`
+							}"
+						>
+							<ExDescription
+								cvTextArea
+								:rows="
+									Array.isArray(curriculum.Summary.value)
+										? curriculum.Summary.value.length
+										: curriculum.Summary.smallText.split('\n').length
+								"
+								:list="Array.isArray(job.Description)"
+								v-model="job.Description"
+							/>
+						</span>
+					</template>
+					<template v-else>
+						<List
+							:genericList="job.Description"
+							v-if="Array.isArray(job.Description)"
+							:boldMatches="boldMatches"
+							:fontSize="curriculum.Experience.size.description"
+							:language="curriculum.Settings.language"
+						/>
+						<Paragraph
+							v-else
+							:fontSize="curriculum.Experience.size.description"
+						>
+							<AppBoldMatch :value="boldMatches(job.Description)" />
+						</Paragraph>
+					</template>
 				</div>
-				<List
-					:genericList="job.Description"
-					v-if="Array.isArray(job.Description)"
-					:boldMatches="boldMatches"
-					:fontSize="curriculum.Experience.size.description"
-					:language="curriculum.Settings.language"
-				/>
-				<Paragraph v-else :fontSize="curriculum.Experience.size.description">
-					<AppBoldMatch :value="boldMatches(job.Description)" />
-				</Paragraph>
 			</div>
-		</div>
+			<template #button>
+				<AppButton modal id="modalCvExperience">
+					<SvgPen />
+				</AppButton>
+			</template>
+		</AppAnchor>
 	</div>
 </template>
 
@@ -100,16 +172,29 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 
 		.title {
 			margin-bottom: calc((var(--_a4-gap) * 0.5));
+
+			.inputs {
+				display: grid;
+				grid-template-columns: auto 1fr;
+				gap: 1ch;
+			}
 		}
 
 		.sub-title {
 			color: var(--light-text-color);
 			display: flex;
+			align-items: center;
 			gap: 0.5ch;
 
 			> span {
 				text-box-trim: trim-both;
 				text-box-edge: cap alphabetic;
+			}
+
+			.date {
+				display: grid;
+				grid-template-columns: auto 1fr;
+				gap: 1ch;
 			}
 		}
 
@@ -117,6 +202,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+			flex-wrap: wrap;
 
 			> .title {
 				margin-bottom: 0;

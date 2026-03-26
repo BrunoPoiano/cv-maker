@@ -73,8 +73,8 @@ button {
 		color 500ms,
 		transform 200ms ease-out;
 
-	&:has(svg) {
-		padding-inline-start: calc(var(--_padding-inline) * 0.75);
+	& > :deep(svg) {
+		margin-left: calc(var(--_padding-inline) * -0.5);
 	}
 
 	&:hover:not(:disabled) {
