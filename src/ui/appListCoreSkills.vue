@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch } from 'vue'
+import { inject } from 'vue'
 
-import { skillList } from '@/constants/skillList'
 import { Translate } from '@/constants/translations'
-import { ProviderKey } from '@/keys'
+import { ProviderSkillKey } from '@/keys'
 import type {
 	BoldMatchReturn,
 	FontSize,
@@ -22,56 +21,58 @@ type Props = {
 	readonly?: boolean
 }
 
-const { curriculum } = inject(ProviderKey)!
+const { skillsProxy } = inject(ProviderSkillKey)!
 const { boldMatches, fontSize, readonly } = defineProps<Props>()
-const localSkills = ref<SkillsOrdered>(skillsObj())
 
-function skillsObj() {
-	const skills = curriculum.value.CoreSkills.skills
-	const result: SkillsOrdered = {}
-
-	for (const item of skillList) {
-		const core = item.toLowerCase() as SkillsList
-		const value = skills[core]
-
-		if (value?.length) {
-			result[core] = value.join(', ')
-		}
-	}
-
-	return result
-}
-
-function saveSkill(core: SkillsList, val: string) {
-	localSkills.value[core] = val
-
-	if (val === '') {
-		delete curriculum.value.CoreSkills.skills[core]
-	} else {
-		curriculum.value.CoreSkills.skills[core] = val
-			.split(',')
-			.map((s) => s.trim())
+function onInput(core: SkillsList, value?: string) {
+	skillsProxy.value = {
+		...skillsProxy.value,
+		[core]: value
 	}
 }
 
+function orderedSkills(core: SkillsList) {
+	if (skillsProxy.value[core] !== '') {
+		return true
+	}
 
+	return false
+}
 </script>
 
 <template>
 	<ul>
-		<li v-for="(skill, core) in localSkills" :key="core">
-			<div v-if="skill">
-				<span :style="{ fontSize: `var(${fontSize})` }" class="core">
-					{{ Translate[core][language] }}:
-				</span>
-				<span v-if="!readonly" :style="{ fontSize: `var(${fontSize})` }">
-					<AppInput cv-input :model-value="skill" @update:model-value="(val) => saveSkill(core, val)" />
-				</span>
-				<span v-else-if="boldMatches && skill" :style="{ fontSize: `var(${fontSize})` }">
-					<AppBoldMatch :value="boldMatches(skill)" />
-				</span>
-			</div>
-		</li>
+		<template v-if="readonly">
+			<template v-for="(_, core) in skillsProxy" :key="core">
+				<li v-if="boldMatches && orderedSkills(core)">
+					<div>
+						<span :style="{ fontSize: `var(${fontSize})` }" class="core">
+							{{ Translate[core as keyof SkillsOrdered][language] }}:
+						</span>
+
+						<span :style="{ fontSize: `var(${fontSize})` }">
+							<AppBoldMatch :value="boldMatches(skillsProxy[core])" />
+						</span>
+					</div>
+				</li>
+			</template>
+		</template>
+		<template v-else>
+			<li v-for="(_, core) in skillsProxy" :key="core">
+				<div>
+					<span :style="{ fontSize: `var(${fontSize})` }" class="core">
+						{{ Translate[core as keyof SkillsOrdered][language] }}:
+					</span>
+					<span :style="{ fontSize: `var(${fontSize})` }">
+						<AppInput
+							cv-input
+							v-model="skillsProxy[core]"
+							@update:modelValue="onInput(core, $event)"
+						/>
+					</span>
+				</div>
+			</li>
+		</template>
 	</ul>
 </template>
 

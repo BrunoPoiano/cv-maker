@@ -36,7 +36,7 @@ const readonly = ref(
 	getDataFromLocalStorage({
 		key: 'readonly',
 		parseFunction: (value: unknown) => isBooleanOrDefault(value, false),
-		initialValue: false
+		initialValue: true
 	})
 )
 
@@ -69,10 +69,7 @@ provide(ProviderKey, {
 
 <template>
 	<Header :curriculum="currentCurriculum" :readonly="readonly" />
-	<Menu
-		v-model:curriculum-index="curriculumIndex"
-		v-model:curriculum-list="curriculumList"
-	/>
+	<Menu v-model:curriculum-index="curriculumIndex" v-model:curriculum-list="curriculumList" />
 	<CurriculumModel :key="curriculumIndex" />
 	<AppFooter />
 </template>

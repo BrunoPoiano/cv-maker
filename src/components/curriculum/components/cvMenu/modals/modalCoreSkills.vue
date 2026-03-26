@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { inject } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
-import { skillList } from '@/constants/skillList'
-import { ProviderKey } from '@/keys'
-import { type Skills, type SkillsList } from '@/types'
+import { ProviderKey, ProviderSkillKey } from '@/keys'
+import { type SkillsList } from '@/types'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
@@ -16,28 +15,13 @@ type Props = {
 }
 
 const { id } = defineProps<Props>()
+const { skillsProxy } = inject(ProviderSkillKey)!
 const { curriculum } = inject(ProviderKey)!
 
-type SkillList = Partial<Record<keyof Skills, string>>
-
-const coreSkills = computed(() =>
-	skillList.reduce<SkillList>((acc, item) => {
-		const skill = item.toLowerCase() as SkillsList
-		if (curriculum.value.CoreSkills.skills[skill]) {
-			acc[skill] = curriculum.value.CoreSkills.skills[skill].join(', ')
-		} else {
-			acc[skill] = ''
-		}
-		return acc
-	}, {})
-)
-
-function saveSkill(core: SkillsList) {
-	if (coreSkills.value[core] === '') {
-		delete curriculum.value.CoreSkills.skills[core]
-	} else {
-		curriculum.value.CoreSkills.skills[core] =
-			coreSkills.value[core]?.split(' ,')
+function onInput(core: SkillsList, value?: string) {
+	skillsProxy.value = {
+		...skillsProxy.value,
+		[core]: value
 	}
 }
 </script>
@@ -62,13 +46,13 @@ function saveSkill(core: SkillsList) {
 				:items="fontSizeSelect"
 				v-model="curriculum.CoreSkills.size"
 			/>
-			<div v-for="(_, core) in coreSkills" class="skills" :key="core">
+			<div v-for="(_, core) in skillsProxy" class="skills" :key="core">
 				<span>{{ core.replace('_', ' & ') }}</span>
 				<Textarea
 					placeholder="User Name"
-					v-model="coreSkills[core] as string"
+					v-model="skillsProxy[core]"
+					@update:modelValue="onInput(core, $event)"
 					minHeight="100px"
-					:change="saveSkill(core)"
 				/>
 			</div>
 		</form>

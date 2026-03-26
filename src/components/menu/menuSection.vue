@@ -24,7 +24,9 @@ const ModalBackup = defineAsyncComponent(
 
 const { curriculum, readonly } = inject(ProviderKey)!
 
-const curriculumIndex = defineModel<number>('curriculum-index')
+const curriculumIndex = defineModel<number>('curriculum-index', {
+	required: true
+})
 const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
 	required: true
 })
@@ -51,7 +53,6 @@ function saveData() {
 }
 
 function updateIsEditable() {
-	console.log('updateIsEditable', readonly.value)
 	saveDataToLocalStorage({
 		key: 'readonly',
 		initialValue: readonly.value
@@ -111,6 +112,7 @@ function deleteCv() {
 			<ModalBackup
 				id="modalMenuImportExport"
 				v-model:curriculum-list="curriculumList"
+				v-model:curriculum-index="curriculumIndex"
 			/>
 			<AppToggle
 				v-model="readonly"

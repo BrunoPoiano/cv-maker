@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey } from '@/keys'
@@ -15,11 +15,7 @@ type Props = {
 	id: string
 }
 const { id } = defineProps<Props>()
-const summary = ref(
-	Array.isArray(curriculum.value.Summary.value)
-		? curriculum.value.Summary.value.join('\n')
-		: curriculum.value.Summary.value
-)
+const summary = ref('')
 
 const list = computed<boolean>({
 	get() {
@@ -29,6 +25,14 @@ const list = computed<boolean>({
 		saveSummary(value)
 	}
 })
+
+watch(
+	() => curriculum.value.Summary.value,
+	(value) => {
+		summary.value = Array.isArray(value) ? value.join('\n') : (value ?? '')
+	},
+	{ immediate: true }
+)
 
 function saveSummary(list: boolean) {
 	curriculum.value.Summary.value = list

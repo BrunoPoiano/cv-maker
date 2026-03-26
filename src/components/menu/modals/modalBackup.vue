@@ -15,6 +15,9 @@ type Props = {
 
 const { id } = defineProps<Props>()
 
+const curriculumIndex = defineModel<number>('curriculum-index', {
+	required: true
+})
 const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
 	required: true
 })
@@ -57,6 +60,7 @@ function importFile(e: Event) {
 
 			curriculumList.value.splice(0, curriculumList.value.length, ...newCvs)
 			alert.value = `imported successfully!`
+			curriculumIndex.value = 0
 		} catch (error) {
 			console.error('Error parsing JSON:', error)
 			alert.value = `Error updating file!`
