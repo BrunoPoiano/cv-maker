@@ -3,7 +3,6 @@ import { inject } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey, ProviderSkillKey } from '@/keys'
-import { type SkillsList } from '@/types'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
@@ -15,15 +14,8 @@ type Props = {
 }
 
 const { id } = defineProps<Props>()
-const { skillsProxy } = inject(ProviderSkillKey)!
+const { skillsProxy, onInput } = inject(ProviderSkillKey)!
 const { curriculum } = inject(ProviderKey)!
-
-function onInput(core: SkillsList, value?: string) {
-	skillsProxy.value = {
-		...skillsProxy.value,
-		[core]: value
-	}
-}
 </script>
 
 <template>

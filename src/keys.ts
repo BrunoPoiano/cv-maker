@@ -1,10 +1,11 @@
-import type { InjectionKey, WritableComputedRef } from 'vue'
+import type { ComputedRef, InjectionKey } from 'vue'
 
 import type { Provider, SkillsList } from './types'
 
 export const ProviderKey: InjectionKey<Provider> = Symbol('provider')
 export const ProviderSkillKey: InjectionKey<{
-	skillsProxy: WritableComputedRef<Record<SkillsList, string>>
+	skillsProxy: ComputedRef<Record<SkillsList, string>>
+	onInput(core: SkillsList, value?: string): void
 }> = Symbol('provider')
 
 export const localStorageKeys = [

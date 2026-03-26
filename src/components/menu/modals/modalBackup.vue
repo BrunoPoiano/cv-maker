@@ -7,7 +7,6 @@ import type { Curriculum } from '@/types'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
-import Textarea from '@/ui/appTextarea.vue'
 
 type Props = {
 	id: string
@@ -73,7 +72,8 @@ function importFile(e: Event) {
 	<Modal
 		:id="id"
 		closeLabel="close"
-		minWidth="40rem"
+		minWidth="20rem"
+		maxWidth="min(80ch,100%)"
 		:openAction="
 			() => {
 				file = null
@@ -96,11 +96,10 @@ function importFile(e: Event) {
 				"
 				accept=".json"
 			/>
-			<Textarea
-				readonly
-				placeholder="backup"
-				:value="JSON.stringify(curriculumList)"
-			/>
+			<pre>
+		{{ curriculumList }}
+	</pre
+			>
 		</form>
 		<template #footer>
 			<AppButton @click="exportFile">Export Json</AppButton>
@@ -112,5 +111,11 @@ function importFile(e: Event) {
 form {
 	display: grid;
 	gap: 1rem;
+}
+
+pre {
+	overflow-y: auto;
+	max-height: 60ch;
+	white-space: normal;
 }
 </style>

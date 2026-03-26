@@ -3,13 +3,7 @@ import { inject } from 'vue'
 
 import { Translate } from '@/constants/translations'
 import { ProviderSkillKey } from '@/keys'
-import type {
-	BoldMatchReturn,
-	FontSize,
-	Languages,
-	SkillsList,
-	SkillsOrdered
-} from '@/types'
+import type { BoldMatchReturn, FontSize, Languages, SkillsList } from '@/types'
 
 import AppBoldMatch from './appBoldMatch.vue'
 import AppInput from './appInput.vue'
@@ -21,15 +15,8 @@ type Props = {
 	readonly?: boolean
 }
 
-const { skillsProxy } = inject(ProviderSkillKey)!
+const { skillsProxy, onInput } = inject(ProviderSkillKey)!
 const { boldMatches, fontSize, readonly } = defineProps<Props>()
-
-function onInput(core: SkillsList, value?: string) {
-	skillsProxy.value = {
-		...skillsProxy.value,
-		[core]: value
-	}
-}
 
 function orderedSkills(core: SkillsList) {
 	if (skillsProxy.value[core] !== '') {
@@ -47,7 +34,7 @@ function orderedSkills(core: SkillsList) {
 				<li v-if="boldMatches && orderedSkills(core)">
 					<div>
 						<span :style="{ fontSize: `var(${fontSize})` }" class="core">
-							{{ Translate[core as keyof SkillsOrdered][language] }}:
+							{{ Translate[core][language] }}:
 						</span>
 
 						<span :style="{ fontSize: `var(${fontSize})` }">
@@ -61,7 +48,7 @@ function orderedSkills(core: SkillsList) {
 			<li v-for="(_, core) in skillsProxy" :key="core">
 				<div>
 					<span :style="{ fontSize: `var(${fontSize})` }" class="core">
-						{{ Translate[core as keyof SkillsOrdered][language] }}:
+						{{ Translate[core][language] }}:
 					</span>
 					<span :style="{ fontSize: `var(${fontSize})` }">
 						<AppInput

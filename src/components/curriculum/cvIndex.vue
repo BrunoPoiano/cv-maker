@@ -10,40 +10,40 @@ import CvPageIndex from './components/cvPage/cvPageIndex.vue'
 
 const { curriculum } = inject(ProviderKey)!
 
-const skillsProxy = computed({
-	get() {
-		const source = curriculum.value.CoreSkills.skills
-		const result: Record<string, string> = {}
-
-		for (const item of skillList) {
-			const key = item.toLowerCase() as SkillsList
-			result[key] = source[key]?.join(', ') ?? ''
-		}
-
-		return result
-	},
-	set(value) {
-		console.log('aqiu')
-		const target = curriculum.value.CoreSkills.skills
-
-		for (const key in value) {
-			const v = value[key]
-
-			if (!v) {
-				delete target[key as SkillsList]
-				continue
-			}
-
-			target[key as SkillsList] = v
-				.split(',')
-				.map((s) => s.trim())
-				.filter(Boolean)
-		}
+const skillsProxy = computed(() => {
+	const source = curriculum.value.CoreSkills.skills
+	const result: Record<SkillsList, string> = {
+		other: '',
+		languages: '',
+		frontend: '',
+		backend: '',
+		databases: '',
+		apis: '',
+		containers_devops: '',
+		practices: '',
+		http_integrations: ''
 	}
+
+	for (const item of skillList) {
+		const key = item.toLowerCase() as SkillsList
+		result[key] = source[key]?.join(', ') ?? ''
+	}
+
+	return result
 })
 
+function onInput(core: SkillsList, value?: string) {
+	curriculum.value.CoreSkills.skills[core] = value
+		? value
+				.split(',')
+				.map((item) => item.trim())
+				.filter((item) => item !== '')
+		: []
+}
+
 provide(ProviderSkillKey, {
-	skillsProxy
+	skillsProxy,
+	onInput
 })
 </script>
 
