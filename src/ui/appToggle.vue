@@ -6,11 +6,12 @@ type Props = {
 	labelStart?: string | Element
 	labelEnd?: string | Element
 	style?: CSSProperties
-	change?: () => void
+	afterChange?: () => void
 	colorCheck?: true
 }
 const modelValue = defineModel<boolean>()
-const { labelStart, style, labelEnd, change, colorCheck } = defineProps<Props>()
+const { labelStart, style, labelEnd, afterChange, colorCheck } =
+	defineProps<Props>()
 const key = generateKey(5)
 
 defineOptions({
@@ -19,8 +20,8 @@ defineOptions({
 
 function changeCheckBox() {
 	modelValue.value = !modelValue.value
-	if (change) {
-		change()
+	if (afterChange) {
+		afterChange()
 	}
 }
 </script>
