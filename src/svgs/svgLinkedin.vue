@@ -16,7 +16,7 @@
 <style scoped>
 svg:hover {
 	path {
-		fill: var(--app-color) !important;
+		fill: var(--primary) !important;
 	}
 }
 </style>

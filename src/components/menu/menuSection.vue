@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, inject } from 'vue'
+import { defineAsyncComponent, inject } from 'vue'
 
 import { CurriculumConst } from '@/constants/curriculum'
 import { deepClone } from '@/helpers/clone'
@@ -14,8 +14,7 @@ import type { Curriculum } from '@/types'
 import Button from '@/ui/appButton.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppMenuModalItems from '@/ui/appMenuModalItems.vue'
-import Select from '@/ui/appSelect.vue'
-import AppToggle from '@/ui/appToggle.vue'
+import appToggleText from '@/ui/appToggleText.vue'
 
 import { menuItems } from './menuItems'
 const ModalBackup = defineAsyncComponent(
@@ -30,20 +29,6 @@ const curriculumIndex = defineModel<number>('curriculum-index', {
 const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
 	required: true
 })
-
-const cvSelect = computed(() =>
-	curriculumList.value.map((curriculum, index) => ({
-		label: `${curriculum.Settings.language} - ${curriculum.Header.Role.value}`,
-		value: index
-	}))
-)
-
-function saveCurriculumIndex() {
-	saveDataToLocalStorage({
-		key: 'curriculumIndex',
-		initialValue: curriculumIndex.value
-	})
-}
 
 function saveData() {
 	saveDataToLocalStorage({
@@ -101,59 +86,72 @@ function deleteCv() {
 
 <template>
 	<nav class="menu">
-		<div>
-			<Select
-				:items="cvSelect"
-				v-model="curriculumIndex"
-				@vue:updated="saveCurriculumIndex"
-			/>
-			<AppMenuModalItems :menu-items="menuItems" />
-			<AppButton modal id="modalMenuImportExport"> Import/Export </AppButton>
-			<ModalBackup
-				id="modalMenuImportExport"
-				v-model:curriculum-list="curriculumList"
-				v-model:curriculum-index="curriculumIndex"
-			/>
-			<AppToggle
-				v-model="readonly"
-				label-start="Readonly"
-				:afterChange="updateIsEditable"
-			/>
-		</div>
-		<div>
-			<Button
-				@click="deleteCv"
-				:disabled="curriculumIndex === 0"
-				hover-background="var(--red)"
-			>
-				<SvgTrash />
-				delete
-			</Button>
-			<Button @click="copyCv" hover-background="var(--blue)">
-				<SvgCopy />
-				Copy
-			</Button>
-			<Button @click="newCv" hover-background="var(--green)">
-				<SvgNewDocument />
-				New
-			</Button>
-			<Button @click="saveData" hover-background="var(--green)">
-				<SvgSave />
-				Save
-			</Button>
-		</div>
+		<AppMenuModalItems :menu-items="menuItems" />
+		<AppButton modal id="modalMenuImportExport"> Import/Export </AppButton>
+		<ModalBackup
+			id="modalMenuImportExport"
+			v-model:curriculum-list="curriculumList"
+			v-model:curriculum-index="curriculumIndex"
+		/>
+	</nav>
+	<nav class="curriculumMenu">
+		<appToggleText
+			v-model="readonly"
+			label-start="Preview"
+			label-end="Editor"
+			:afterChange="updateIsEditable"
+		/>
+
+		<Button icon-button @click="copyCv" hover-background="var(--blue)">
+			<SvgCopy />
+		</Button>
+		<Button icon-button @click="newCv" hover-background="var(--green)">
+			<SvgNewDocument />
+		</Button>
+		<Button icon-button @click="saveData" hover-background="var(--green)">
+			<SvgSave />
+		</Button>
+		<Button
+			icon-button
+			@click="deleteCv"
+			:disabled="curriculumIndex === 0"
+			hover-background="var(--red)"
+		>
+			<SvgTrash />
+		</Button>
 	</nav>
 </template>
 
 <style scoped>
 .menu {
+	grid-area: submenu;
 	display: flex;
-	gap: 0.8rem;
-	justify-content: space-between;
+	gap: 1rem;
 
-	div {
-		display: flex;
-		gap: 0.8rem;
+	padding-inline-start: 2rem;
+	padding-block: 1rem;
+
+	&:deep(.toggle-text) {
+		margin-left: auto;
+	}
+}
+
+.curriculumMenu {
+	grid-area: curriculumMenu;
+	position: sticky;
+	top: 1rem;
+	height: fit-content;
+
+	padding-block-start: 1rem;
+	padding-inline: 0.5rem;
+
+	display: grid;
+	align-content: flex-start;
+	place-items: center;
+	gap: 1.5rem;
+
+	button:last-child {
+		margin-top: 1rem;
 	}
 }
 </style>

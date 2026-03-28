@@ -129,4 +129,5 @@ export type MenuModalItem = {
 	id: string
 	icon?: Component
 	label: string
+	backgroundColor?: string
 }

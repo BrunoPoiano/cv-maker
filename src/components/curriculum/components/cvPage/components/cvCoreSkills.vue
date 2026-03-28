@@ -32,7 +32,7 @@ const { boldMatches } = defineProps<{
 				/>
 			</div>
 			<template #button>
-				<AppButton modal id="modalCvCoreSkills">
+				<AppButton icon-button modal id="modalCvCoreSkills">
 					<SvgPen />
 				</AppButton>
 			</template>

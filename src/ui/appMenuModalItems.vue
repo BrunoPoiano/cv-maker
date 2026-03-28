@@ -5,13 +5,19 @@ import AppButton from './appButton.vue'
 
 type Props = {
 	menuItems: MenuModalItem[]
+	menuButton?: true
 }
 
-const { menuItems } = defineProps<Props>()
+const props = defineProps<Props>()
 </script>
 <template>
-	<template v-for="item in menuItems" :key="item.id">
-		<AppButton modal :id="item.id">
+	<template v-for="item in props.menuItems" :key="item.id">
+		<AppButton
+			modal
+			:id="item.id"
+			:menu-button="menuButton"
+			:style="{ '--bg': item.backgroundColor }"
+		>
 			<component v-if="item.icon" :is="item.icon" /> {{ item.label }}
 		</AppButton>
 		<component :is="item.modal" :id="item.id" />

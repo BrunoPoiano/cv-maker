@@ -14,20 +14,19 @@ import ColorScheme from './colorScheme.vue'
 
 <style scoped>
 footer {
-	margin-top: 3rem;
-
+	grid-area: footer;
+	padding: 1rem;
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(2, 1fr);
 	align-items: end;
 
 	span {
-		grid-area: 1/2;
-		place-self: center;
+		place-self: start;
+		align-self: center;
 		font-size: var(--font-size-base);
 	}
 
 	button {
-		grid-area: 1/3;
 		place-self: end;
 	}
 }

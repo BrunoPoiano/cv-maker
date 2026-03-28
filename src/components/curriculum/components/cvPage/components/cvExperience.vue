@@ -108,7 +108,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 						<span
 							:style="{
 								fontSize: `var(${curriculum.Experience.size.description})`,
-								color: `var(--light-text-color)`
+								color: `var(--on-surface-variant)`
 							}"
 						>
 							<ExDescription
@@ -141,7 +141,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 				</div>
 			</div>
 			<template #button>
-				<AppButton modal id="modalCvExperience">
+				<AppButton icon-button modal id="modalCvExperience">
 					<SvgPen />
 				</AppButton>
 			</template>
@@ -181,7 +181,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 		}
 
 		.sub-title {
-			color: var(--light-text-color);
+			color: var(--on-surface-variant);
 			display: flex;
 			align-items: center;
 			gap: 0.5ch;

@@ -32,39 +32,46 @@ const gap = computed(() => curriculum.value.Settings.gap)
 </script>
 
 <template>
-	<section
-		class="a4-page page"
-		id="curriculumPage"
-		:style="{ padding: `${margin}cm`, '--_a4-gap': `${gap}rem` }"
-	>
-		<CvHeader />
-		<CvContact />
-		<CvSummary :boldMatches="boldMatches" />
-		<CvCoreSkills :boldMatches="boldMatches" />
-		<CvExperience :boldMatches="boldMatches" />
+	<section>
+		<div
+			class="a4-page page"
+			id="curriculumPage"
+			:style="{ padding: `${margin}cm`, '--_a4-gap': `${gap}rem` }"
+		>
+			<CvHeader />
+			<CvContact />
+			<CvSummary :boldMatches="boldMatches" />
+			<CvCoreSkills :boldMatches="boldMatches" />
+			<CvExperience :boldMatches="boldMatches" />
+		</div>
 	</section>
 </template>
 
 <style scoped>
-.a4-page {
-	--_a4-gap: 1.3rem;
+section {
+	background-color: var(--surface);
 
-	width: 230mm;
-	min-height: 297mm;
-	box-sizing: border-box;
+	.a4-page {
+		grid-area: curriculum;
+		--_a4-gap: 1.3rem;
 
-	display: grid;
-	align-content: baseline;
-	gap: var(--_a4-gap);
+		width: 230mm;
+		min-height: 297mm;
+		box-sizing: border-box;
 
-	padding: 1cm;
-	margin-inline: auto;
-	margin-top: 2rem;
+		display: grid;
+		align-content: baseline;
+		gap: var(--_a4-gap);
 
-	box-sizing: border-box;
-	background-color: var(--background);
+		padding: 1cm;
+		margin-inline: auto;
+		margin-block: 2rem;
 
-	border: 1px light-dark(#d3d3d3, hsla(0, 0%, 16.9%)) solid;
-	border-radius: calc(var(--border-radius) * 0.5);
+		box-sizing: border-box;
+		background-color: light-dark(white, black);
+
+		border: 1px var(--outline-variant) solid;
+		border-radius: calc(var(--border-radius) * 0.5);
+	}
 }
 </style>

@@ -57,7 +57,7 @@ function changeCheckBox() {
 	--_swith-height: 24px;
 
 	span[data-check='true'] {
-		color: var(--app-color);
+		color: var(--primary);
 	}
 
 	.switch {
@@ -84,7 +84,7 @@ function changeCheckBox() {
 				position: absolute;
 				content: '';
 				height: calc(var(--_swith-height) - 10px);
-				background-color: var(--app-color);
+				background-color: var(--primary);
 				aspect-ratio: 1;
 				left: 4px;
 				bottom: 5px;
@@ -94,11 +94,11 @@ function changeCheckBox() {
 		}
 
 		input:checked + .slider {
-			background-color: var(--app-color);
+			background-color: var(--primary);
 		}
 
 		input:focus + .slider {
-			box-shadow: 0 0 1px var(--app-color);
+			box-shadow: 0 0 1px var(--primary);
 		}
 
 		input:checked + .slider:before {

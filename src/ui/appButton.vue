@@ -8,6 +8,8 @@ type Props =
 			hoverBackground?: string
 			modal?: false
 			id?: string
+			menuButton?: true
+			iconButton?: true
 	  }
 	| {
 			modal: true
@@ -15,6 +17,8 @@ type Props =
 			type?: ButtonHTMLAttributes['type']
 			background?: string
 			hoverBackground?: string
+			menuButton?: true
+			iconButton?: true
 	  }
 
 const props = defineProps<Props>()
@@ -25,6 +29,8 @@ defineOptions({
 
 <template>
 	<button
+		:data-icon-button="props.iconButton"
+		:data-menu-button="props.menuButton"
 		:command="modal ? 'show-modal' : ''"
 		:commandfor="id"
 		:style="{
@@ -42,8 +48,8 @@ defineOptions({
 <style scoped>
 button {
 	--var-calc: light-dark(10, 50);
-	--bg: light-dark(#fff, #000);
-	--_padding-block: 0.4rem;
+	--bg: var(--surface-bright);
+	--_padding-block: 0.5rem;
 	--_padding-inline: calc(var(--_padding-block) * 2);
 
 	display: flex;
@@ -60,7 +66,7 @@ button {
 	padding-inline: var(--_padding-inline);
 	padding-block: var(--_padding-block);
 
-	border: 1px solid var(--input-border);
+	border: 1px solid var(--outline-variant);
 	border-radius: var(--border-radius);
 	corner-shape: squircle;
 	min-width: 5ch;
@@ -72,10 +78,10 @@ button {
 		background 500ms,
 		color 500ms,
 		transform 200ms ease-out;
-
-	& > :deep(svg) {
+	/* 
+	&> :deep(svg) {
 		margin-left: calc(var(--_padding-inline) * -0.5);
-	}
+	} */
 
 	&:hover:not(:disabled) {
 		color: lch(
@@ -101,6 +107,27 @@ button {
 
 	&:active:not(:disabled) {
 		transform: scale(0.98);
+	}
+
+	&[data-menu-button='true'] {
+		border: none;
+		padding-block: 0.625rem;
+		padding-inline: 0.75rem;
+		text-transform: uppercase;
+	}
+
+	&[data-icon-button='true'] {
+		box-shadow: var(--shadow-ambient);
+		padding: 0.5rem;
+		min-width: 0ch;
+
+		> :deep(svg) {
+			width: 32px !important;
+		}
+
+		&:hover {
+			transform: scale(1.15);
+		}
 	}
 }
 </style>

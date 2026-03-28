@@ -75,7 +75,7 @@ ul {
 		text-box-edge: cap alphabetic;
 		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight);
-		color: var(--light-text-color);
+		color: var(--on-surface-variant);
 
 		div {
 			display: grid;

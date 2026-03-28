@@ -34,7 +34,7 @@ const { curriculum, readonly } = inject(ProviderKey)!
 			</div>
 		</div>
 		<template #button>
-			<AppButton modal id="modalCvContact">
+			<AppButton icon-button modal id="modalCvContact">
 				<SvgPen />
 			</AppButton>
 		</template>
@@ -52,7 +52,7 @@ const { curriculum, readonly } = inject(ProviderKey)!
 
 	div,
 	div:deep(input) {
-		color: var(--light-text-color);
+		color: var(--on-surface-variant);
 		font-size: var(--font_size, var(--font-size-sm));
 		font-weight: var(--font-weight);
 		text-box-trim: trim-both;

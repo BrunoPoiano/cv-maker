@@ -9,6 +9,7 @@ type Props = {
 	items: SelectItem
 	id?: string
 	label?: string
+	backgroundColor?: string
 }
 const props = defineProps<Props>()
 const key = generateKey(5)
@@ -18,7 +19,12 @@ const model = defineModel()
 <template>
 	<div class="content">
 		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
-		<select v-bind="$attrs" :id="id ?? key" v-model="model">
+		<select
+			v-bind="$attrs"
+			:id="id ?? key"
+			v-model="model"
+			:style="{ '--bg': props.backgroundColor }"
+		>
 			<option v-for="item in items" :value="item.value" :key="item.value">
 				{{ item.label }}
 			</option>
@@ -36,17 +42,20 @@ const model = defineModel()
 	}
 
 	select {
-		--bg: light-dark(#fff, #000);
+		--bg: var(--surface-bright);
+		--_padding-block: 0.5rem;
+		--_padding-inline: calc(var(--_padding-block) * 2);
 
 		cursor: pointer;
 		font-size: var(--font-size-base);
 		font-weight: 500;
-		border: 1px solid var(--input-border);
+		border: 1px solid var(--outline-variant);
 		border-radius: var(--border-radius);
 		corner-shape: squircle;
-		padding: 0.4rem 0.8rem;
 		background: var(--bg);
 		max-width: 20ch;
+		padding-inline: var(--_padding-inline);
+		padding-block: var(--_padding-block);
 
 		transition:
 			background 500ms,
@@ -71,7 +80,7 @@ const model = defineModel()
 		}
 
 		&:focus-visible {
-			outline-color: var(--input-border) !important;
+			outline-color: var(--focus-outline) !important;
 		}
 	}
 }

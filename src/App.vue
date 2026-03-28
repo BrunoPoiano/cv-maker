@@ -68,11 +68,31 @@ provide(ProviderKey, {
 </script>
 
 <template>
-	<Header :curriculum="currentCurriculum" :readonly="readonly" />
-	<Menu
-		v-model:curriculum-index="curriculumIndex"
-		v-model:curriculum-list="curriculumList"
-	/>
-	<CurriculumModel :key="curriculumIndex" />
-	<AppFooter />
+	<section>
+		<Header
+			:curriculum="currentCurriculum"
+			:readonly="readonly"
+			v-model:curriculum-index="curriculumIndex"
+			v-model:curriculum-list="curriculumList"
+		/>
+		<Menu
+			v-model:curriculum-index="curriculumIndex"
+			v-model:curriculum-list="curriculumList"
+		/>
+		<CurriculumModel :key="curriculumIndex" />
+		<AppFooter />
+	</section>
 </template>
+
+<style scoped>
+section {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+
+	grid-template-areas:
+		'header header header'
+		'menu submenu curriculumMenu'
+		'menu curriculum curriculumMenu'
+		'menu footer footer';
+}
+</style>

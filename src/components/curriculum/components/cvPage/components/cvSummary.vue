@@ -65,7 +65,7 @@ const rows = computed(() =>
 					<span
 						:style="{
 							fontSize: `var(${curriculum.Summary.size})`,
-							color: `var(--light-text-color)`
+							color: `var(--on-surface-variant)`
 						}"
 					>
 						<ExDescription
@@ -78,7 +78,7 @@ const rows = computed(() =>
 				</template>
 			</div>
 			<template #button>
-				<AppButton modal id="modalCvSummary">
+				<AppButton icon-button modal id="modalCvSummary">
 					<SvgPen />
 				</AppButton>
 			</template>

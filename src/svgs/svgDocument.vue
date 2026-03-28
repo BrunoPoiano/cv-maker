@@ -79,7 +79,7 @@
 <style scoped>
 .t {
 	fill: none;
-	stroke: var(--app-color);
+	stroke: var(--primary);
 	stroke-linecap: round;
 	stroke-linejoin: round;
 }
