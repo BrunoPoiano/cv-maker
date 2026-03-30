@@ -20,7 +20,7 @@ const { id } = defineProps<Props>()
 		:id="id"
 		buttonLabel="Section"
 		closeLabel="close"
-		minWidth="40rem"
+		minWidth="30rem"
 		v-if="curriculum"
 	>
 		<template #header>
@@ -50,5 +50,6 @@ const { id } = defineProps<Props>()
 form {
 	display: grid;
 	gap: 1rem;
+	grid-template-columns: 1fr 1fr;
 }
 </style>

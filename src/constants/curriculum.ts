@@ -12,11 +12,11 @@ export function CurriculumConst(): Curriculum {
 		},
 		Header: {
 			UserName: {
-				value: '',
+				value: 'Full Name',
 				size: '--font-size-xl'
 			},
 			Role: {
-				value: '',
+				value: 'Role',
 				size: '--font-size-lg'
 			}
 		},
@@ -24,9 +24,18 @@ export function CurriculumConst(): Curriculum {
 			size: '--font-size-sm',
 			sideBySide: false,
 			value: {
-				email: 'email@email',
-				linkedin: 'linkedin.com/in/',
-				github: 'github.com/'
+				email: {
+					bolder: true,
+					value: 'email@email'
+				},
+				linkedin: {
+					bolder: false,
+					value: 'linkedin.com/in/'
+				},
+				github: {
+					bolder: false,
+					value: 'github.com/}'
+				}
 			}
 		},
 		Summary: {

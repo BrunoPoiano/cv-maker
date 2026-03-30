@@ -64,22 +64,40 @@ export function parseCurriculum(value: unknown): Curriculum {
 	}
 
 	if (isObject(value.Contact) && isObject(value.Contact.value)) {
-		cv.Contact = {
-			size: isOneOforDefault(value.Contact.size, fontSize, '--font-size-sm'),
-			sideBySide: isBooleanOrDefault(value.Contact.sideBySide, false),
-			value: {
-				email: isExtendedStringOrDefault(
-					value.Contact.value.email,
+		cv.Contact.size = isOneOforDefault(
+			value.Contact.size,
+			fontSize,
+			'--font-size-sm'
+		)
+		cv.Contact.sideBySide = isBooleanOrDefault(value.Contact.sideBySide, false)
+
+		if (isObject(value.Contact.value.email)) {
+			cv.Contact.value.email = {
+				value: isExtendedStringOrDefault(
+					value.Contact.value.email.value,
 					'email@email'
 				),
-				linkedin: isExtendedStringOrDefault(
-					value.Contact.value.linkedin,
+				bolder: isBooleanOrDefault(value.Contact.value.email.bolder)
+			}
+		}
+
+		if (isObject(value.Contact.value.linkedin)) {
+			cv.Contact.value.linkedin = {
+				value: isExtendedStringOrDefault(
+					value.Contact.value.linkedin.value,
 					'linkedin.com/in/'
 				),
-				github: isExtendedStringOrDefault(
-					value.Contact.value.github,
-					'github.com/'
-				)
+				bolder: isBooleanOrDefault(value.Contact.value.linkedin.bolder)
+			}
+		}
+
+		if (isObject(value.Contact.value.github)) {
+			cv.Contact.value.github = {
+				value: isExtendedStringOrDefault(
+					value.Contact.value.github.value,
+					'github.com/in/'
+				),
+				bolder: isBooleanOrDefault(value.Contact.value.github.bolder)
 			}
 		}
 	}

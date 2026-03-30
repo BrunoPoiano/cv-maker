@@ -85,4 +85,11 @@ const { curriculum, readonly } = inject(ProviderKey)!
 		text-box-edge: cap alphabetic;
 	}
 }
+
+@supports not (text-box-edge: cap alphabetic) {
+	h1 {
+		margin-bottom: 0px !important;
+		line-height: 0.9 !important;
+	}
+}
 </style>

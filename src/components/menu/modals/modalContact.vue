@@ -39,27 +39,39 @@ const { id } = defineProps<Props>()
 					label="email"
 					type="email"
 					placeholder="email"
-					v-model="curriculum.Contact.value.email"
+					v-model="curriculum.Contact.value.email.value"
 				/>
-				<!-- <Input type="checkbox" label="bolder" v-model="curriculum.Contact.sideBySide" /> -->
+				<Input
+					type="checkbox"
+					label="bolder"
+					v-model="curriculum.Contact.value.email.bolder"
+				/>
 			</div>
 			<div>
 				<Input
 					type="text"
 					label="linkedin"
 					placeholder="linkedin"
-					v-model="curriculum.Contact.value.linkedin"
+					v-model="curriculum.Contact.value.linkedin.value"
 				/>
-				<!-- <Input type="checkbox" label="bolder" v-model="curriculum.Contact.sideBySide" /> -->
+				<Input
+					type="checkbox"
+					label="bolder"
+					v-model="curriculum.Contact.value.linkedin.bolder"
+				/>
 			</div>
 			<div>
 				<Input
 					type="text"
 					label="github"
 					placeholder="github"
-					v-model="curriculum.Contact.value.github"
+					v-model="curriculum.Contact.value.github.value"
 				/>
-				<!-- <Input type="checkbox" label="bolder" v-model="curriculum.Contact.sideBySide" /> -->
+				<Input
+					type="checkbox"
+					label="bolder"
+					v-model="curriculum.Contact.value.github.bolder"
+				/>
 			</div>
 		</form>
 	</Modal>
