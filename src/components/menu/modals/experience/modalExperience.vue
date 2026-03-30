@@ -65,6 +65,10 @@ function deleteExperience(id: string) {
 				<Button icon-button @click="newExperience" title="New Experience">
 					<SvgNewDocument />
 				</Button>
+			</div>
+		</template>
+		<form>
+			<div class="align">
 				<AppInput
 					divStyle="align-self: center"
 					type="checkbox"
@@ -78,8 +82,6 @@ function deleteExperience(id: string) {
 					labelStart="Text"
 				/>
 			</div>
-		</template>
-		<form>
 			<div class="size">
 				<Select
 					label="Title"
@@ -165,19 +167,24 @@ function deleteExperience(id: string) {
 	align-items: center;
 	gap: 0.8rem;
 
+	h3 {
+		display: grid;
+	}
+
 	button {
 		place-self: end;
 		align-self: start;
-	}
-
-	&:deep(.toggle) {
-		grid-area: 2/2;
 	}
 }
 
 form {
 	display: grid;
 	gap: 1rem;
+
+	.align {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
 
 	.size {
 		display: grid;

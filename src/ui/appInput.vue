@@ -113,9 +113,11 @@ input[data-cvInput] {
 		> label {
 			grid-area: 1/2;
 			font-size: inherit;
+			cursor: pointer;
 		}
 
 		> input[type='checkbox'] {
+			cursor: pointer;
 			grid-area: 1;
 			-webkit-appearance: none;
 			appearance: none;

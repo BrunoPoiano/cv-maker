@@ -49,8 +49,19 @@ const props = defineProps({
 </template>
 
 <style scoped>
+.header,
+.footer {
+	margin: calc(var(--_padding) * -1);
+	padding: var(--_padding);
+	background: var(--surface-container-low);
+}
+
 .header {
 	margin-bottom: 1rem;
+
+	&:deep(h3) {
+		margin-bottom: 0 !important;
+	}
 }
 
 .footer {

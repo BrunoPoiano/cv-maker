@@ -16,10 +16,7 @@ const { fontSize } = defineProps<Props>()
 
 <style scoped>
 p {
-	max-width: var(--max-width);
-
 	margin: 0;
-
 	color: var(--on-surface-variant);
 	font-size: var(--font_size, var(--font-size-sm));
 	font-weight: var(--font-weight);
