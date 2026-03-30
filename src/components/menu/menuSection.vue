@@ -192,7 +192,7 @@ aside {
 
 	> div {
 		position: sticky;
-		top: 1rem;
+		top: 2rem;
 		height: fit-content;
 		display: grid;
 		align-content: baseline;

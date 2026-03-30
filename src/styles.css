@@ -195,7 +195,7 @@ dialog {
 	min-width: min(20rem, 100%);
 	border: none;
 	padding: var(--_padding);
-	border-radius: calc(var(--border-radius) + var(--_padding) * 0.5);
+	border-radius: calc(var(--border-radius) + var(--_padding) * 0.3);
 
 	box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.44);
 

@@ -214,4 +214,10 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 		}
 	}
 }
+
+@supports not (text-box-edge: cap alphabetic) {
+	.experience .job-title .title {
+		margin-bottom: 0px !important;
+	}
+}
 </style>
