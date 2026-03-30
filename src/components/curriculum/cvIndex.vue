@@ -1,53 +1,73 @@
 <script setup lang="ts">
-import { computed, inject, provide } from 'vue'
+import { computed, h, inject } from 'vue'
 
-import { skillList } from '@/constants/skillList'
-import { ProviderKey, ProviderSkillKey } from '@/keys'
-import type { SkillsList } from '@/types'
+import { ProviderKey } from '@/keys'
 
-import CvMenuIndex from './components/cvMenu/cvMenuIndex.vue'
-import CvPageIndex from './components/cvPage/cvPageIndex.vue'
+import CvContact from './components/cvContact.vue'
+import CvCoreSkills from './components/cvCoreSkills.vue'
+import CvExperience from './components/cvExperience.vue'
+import CvHeader from './components/cvHeader.vue'
+import CvSummary from './components/cvSummary.vue'
 
-const { curriculum } = inject(ProviderKey)!
+const { bolder, curriculum } = inject(ProviderKey)!
 
-const skillsProxy = computed(() => {
-	const source = curriculum.value.CoreSkills.skills
-	const result: Record<SkillsList, string> = {
-		other: '',
-		languages: '',
-		frontend: '',
-		backend: '',
-		databases: '',
-		apis: '',
-		containers_devops: '',
-		practices: '',
-		http_integrations: ''
-	}
+function boldMatches(value: string) {
+	if (!bolder.length) return value
 
-	for (const item of skillList) {
-		const key = item.toLowerCase() as SkillsList
-		result[key] = source[key]?.join(', ') ?? ''
-	}
+	const escaped = bolder.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
 
-	return result
-})
+	const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi')
 
-function onInput(core: SkillsList, value?: string) {
-	curriculum.value.CoreSkills.skills[core] = value
-		? value
-				.split(',')
-				.map((item) => item.trim())
-				.filter((item) => item !== '')
-		: []
+	const parts = value.split(regex)
+
+	return parts.map((part) =>
+		bolder.some((b) => b.toLowerCase() === part.toLowerCase())
+			? h('b', part)
+			: part
+	)
 }
 
-provide(ProviderSkillKey, {
-	skillsProxy,
-	onInput
-})
+const margin = computed(() => curriculum.value.Settings.margin)
+const gap = computed(() => curriculum.value.Settings.gap)
 </script>
 
 <template>
-	<CvMenuIndex />
-	<CvPageIndex />
+	<section>
+		<div class="a4-page page" id="curriculumPage" :style="{ padding: `${margin}cm`, '--_a4-gap': `${gap}rem` }">
+			<CvHeader />
+			<CvContact />
+			<CvSummary :boldMatches="boldMatches" />
+			<CvCoreSkills :boldMatches="boldMatches" />
+			<CvExperience :boldMatches="boldMatches" />
+		</div>
+	</section>
 </template>
+
+<style scoped>
+section {
+	background-color: var(--surface);
+
+	.a4-page {
+		grid-area: curriculum;
+		--_a4-gap: 1.3rem;
+
+		width: 230mm;
+		min-height: 297mm;
+		box-sizing: border-box;
+
+		display: grid;
+		align-content: baseline;
+		gap: var(--_a4-gap);
+
+		padding: 1cm;
+		margin-inline: auto;
+		margin-block: 2rem;
+
+		box-sizing: border-box;
+		background-color: light-dark(white, black);
+
+		border: 1px var(--outline-variant) solid;
+		border-radius: calc(var(--border-radius) * 0.5);
+	}
+}
+</style>

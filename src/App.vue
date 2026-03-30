@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, provide, reactive, ref } from 'vue'
 
-import { ProviderKey } from '@/keys'
+import { ProviderKey, ProviderSkillKey } from '@/keys'
 
 import AppFooter from './components/appFooter.vue'
 import CurriculumModel from './components/curriculum/cvIndex.vue'
@@ -13,6 +13,8 @@ import { getDataFromLocalStorage } from './helpers/localstorage'
 import { parseBolder } from './parsers/bolder'
 import { parseCurriculum, parseCurriculumList } from './parsers/curriculum'
 import { isBooleanOrDefault, isNumberOrDefault } from './parsers/typeValidation'
+import { skillList } from './constants/skillList'
+import type { SkillsList } from './types'
 
 const curriculumList = ref(
 	getDataFromLocalStorage({
@@ -60,6 +62,43 @@ const bolder = reactive(
 	})
 )
 
+
+const skillsProxy = computed(() => {
+	const source = currentCurriculum.value.CoreSkills.skills
+	const result: Record<SkillsList, string> = {
+		other: '',
+		languages: '',
+		frontend: '',
+		backend: '',
+		databases: '',
+		apis: '',
+		containers_devops: '',
+		practices: '',
+		http_integrations: ''
+	}
+
+	for (const item of skillList) {
+		const key = item.toLowerCase() as SkillsList
+		result[key] = source[key]?.join(', ') ?? ''
+	}
+
+	return result
+})
+
+function onInput(core: SkillsList, value?: string) {
+	currentCurriculum.value.CoreSkills.skills[core] = value
+		? value
+			.split(',')
+			.map((item) => item.trim())
+			.filter((item) => item !== '')
+		: []
+}
+
+provide(ProviderSkillKey, {
+	skillsProxy,
+	onInput
+})
+
 provide(ProviderKey, {
 	curriculum: currentCurriculum,
 	readonly,
@@ -69,16 +108,9 @@ provide(ProviderKey, {
 
 <template>
 	<section>
-		<Header
-			:curriculum="currentCurriculum"
-			:readonly="readonly"
-			v-model:curriculum-index="curriculumIndex"
-			v-model:curriculum-list="curriculumList"
-		/>
-		<Menu
-			v-model:curriculum-index="curriculumIndex"
-			v-model:curriculum-list="curriculumList"
-		/>
+		<Header :curriculum="currentCurriculum" :readonly="readonly" v-model:curriculum-index="curriculumIndex"
+			v-model:curriculum-list="curriculumList" />
+		<Menu v-model:curriculum-index="curriculumIndex" v-model:curriculum-list="curriculumList" />
 		<CurriculumModel :key="curriculumIndex" />
 		<AppFooter />
 	</section>

@@ -12,7 +12,7 @@ import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
 import AppTextarea from '@/ui/appTextarea.vue'
 
-import ExDescription from '../../cvMenu/modals/experience/components/exDescription.vue'
+import ExDescription from '@/components/menu/modals/experience/components/exDescription.vue'
 import Title from './cvTitle.vue'
 
 const { curriculum, readonly } = inject(ProviderKey)!
@@ -31,49 +31,32 @@ const rows = computed(() =>
 <template>
 	<div v-if="curriculum.Summary.show">
 		<AppAnchor>
-			<Title :fontsize="curriculum.Settings.section.size"
-				>{{ Translate['summary'][curriculum.Settings.language] }}
+			<Title :fontsize="curriculum.Settings.section.size">{{ Translate['summary'][curriculum.Settings.language] }}
 			</Title>
 			<div class="summary">
 				<template v-if="readonly">
-					<Paragraph
-						v-if="curriculum.Summary.smallText !== ''"
-						:fontSize="curriculum.Summary.size"
-					>
+					<Paragraph v-if="curriculum.Summary.smallText !== ''" :fontSize="curriculum.Summary.size">
 						{{ curriculum.Summary.smallText }}
 					</Paragraph>
-					<List
-						v-if="Array.isArray(curriculum.Summary.value)"
-						:fontSize="curriculum.Summary.size"
-						:genericList="curriculum.Summary.value"
-						:boldMatches="boldMatches"
-						:language="curriculum.Settings.language"
-					/>
+					<List v-if="Array.isArray(curriculum.Summary.value)" :fontSize="curriculum.Summary.size"
+						:genericList="curriculum.Summary.value" :boldMatches="boldMatches"
+						:language="curriculum.Settings.language" />
 					<Paragraph v-else :fontSize="curriculum.Summary.size">
 						<AppBoldMatch :value="boldMatches(curriculum.Summary.value)" />
 					</Paragraph>
 				</template>
 				<template v-else>
 					<Paragraph :fontSize="curriculum.Summary.size">
-						<AppTextarea
-							cvTextArea
-							v-model="curriculum.Summary.smallText"
-							:rows="curriculum.Summary.smallText.split('\n').length"
-						/>
+						<AppTextarea cvTextArea v-model="curriculum.Summary.smallText"
+							:rows="curriculum.Summary.smallText.split('\n').length" />
 					</Paragraph>
 
-					<span
-						:style="{
-							fontSize: `var(${curriculum.Summary.size})`,
-							color: `var(--on-surface-variant)`
-						}"
-					>
-						<ExDescription
-							cvTextArea
-							:rows="rows"
-							:list="Array.isArray(curriculum.Summary.value)"
-							v-model="curriculum.Summary.value"
-						/>
+					<span :style="{
+						fontSize: `var(${curriculum.Summary.size})`,
+						color: `var(--on-surface-variant)`
+					}">
+						<ExDescription cvTextArea :rows="rows" :list="Array.isArray(curriculum.Summary.value)"
+							v-model="curriculum.Summary.value" />
 					</span>
 				</template>
 			</div>

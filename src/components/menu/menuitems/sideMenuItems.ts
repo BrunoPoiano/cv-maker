@@ -3,25 +3,25 @@ import { defineAsyncComponent } from 'vue'
 import type { MenuModalItem } from '@/types'
 
 const ModalExperience = defineAsyncComponent(
-	() => import('./modals/experience/modalExperience.vue')
+	() => import('../modals/experience/modalExperience.vue')
 )
 const ModalContact = defineAsyncComponent(
-	() => import('./modals/modalContact.vue')
+	() => import('../modals/modalContact.vue')
 )
 const ModalCoreSkills = defineAsyncComponent(
-	() => import('./modals/modalCoreSkills.vue')
+	() => import('../modals/modalCoreSkills.vue')
 )
 const ModalHeader = defineAsyncComponent(
-	() => import('./modals/modalHeader.vue')
+	() => import('../modals/modalHeader.vue')
 )
 const ModalSummary = defineAsyncComponent(
-	() => import('./modals/modalSummary.vue')
+	() => import('../modals/modalSummary.vue')
 )
 const ModalSettings = defineAsyncComponent(
-	() => import('./modals/modalSettings.vue')
+	() => import('../modals/modalSettings.vue')
 )
 
-export const menuItems: MenuModalItem[] = [
+export const sideMenuItems: MenuModalItem[] = [
 	{
 		modal: ModalSettings,
 		id: 'modalCvSettings',
