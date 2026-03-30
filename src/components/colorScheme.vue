@@ -5,6 +5,8 @@ import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
+import SvgMoon from '@/svgs/svgMoon.vue'
+import SvgSun from '@/svgs/svgSun.vue'
 import Button from '@/ui/appButton.vue'
 
 const colorScheme = ref(
@@ -28,6 +30,8 @@ onBeforeMount(() => {
 
 <template>
 	<Button @click="changeColorTheme">
+		<SvgSun v-if="colorScheme === 'dark'" />
+		<SvgMoon v-else />
 		{{ colorScheme === 'dark' ? 'Light Mode' : 'Dark Mode' }}
 	</Button>
 </template>

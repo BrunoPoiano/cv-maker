@@ -51,18 +51,18 @@ function saveSummary(list: boolean) {
 	>
 		<template #header>
 			<div class="header">
-				<h4>
+				<h3>
 					<AppInput
 						type="checkbox"
 						label="Summary"
 						v-model="curriculum.Summary.show"
 					/>
-				</h4>
+					<AppSmall>{{
+						list ? 'Items will be separeted by line breaks' : ''
+					}}</AppSmall>
+				</h3>
 				<Toggle v-model="list" labelEnd="List" labelStart="Text" />
 			</div>
-			<AppSmall>{{
-				list ? 'Items will be separeted by line breaks' : ''
-			}}</AppSmall>
 		</template>
 		<form>
 			<Select

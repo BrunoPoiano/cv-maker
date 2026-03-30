@@ -61,20 +61,22 @@ input[data-cvInput] {
 }
 
 .content {
-	--_gap: 0.5rem;
+	--_gap: 0.3rem;
 	display: grid;
 	gap: var(--_gap);
 
 	label {
 		text-transform: capitalize;
+		font-size: inherit;
+		letter-spacing: inherit;
 	}
 
 	input {
 		font-size: var(--font-size-base);
-		border: 1px solid var(--input-border);
+		border: 1px solid var(--outline-variant);
 		border-radius: var(--border-radius);
 		corner-shape: squircle;
-		background: var(--input-background);
+		background: var(--surface-bright);
 		padding: 0.4rem 0.8rem;
 	}
 
@@ -92,7 +94,7 @@ input[data-cvInput] {
 
 			padding: 0.4rem 0.8rem;
 
-			border: 1px solid var(--input-border);
+			border: 1px solid var(--outline-variant);
 			border-radius: calc(var(--border-radius) * 0.8);
 			min-width: 5ch;
 
@@ -110,10 +112,12 @@ input[data-cvInput] {
 
 		> label {
 			grid-area: 1/2;
-			font-size: initial;
+			font-size: inherit;
+			cursor: pointer;
 		}
 
 		> input[type='checkbox'] {
+			cursor: pointer;
 			grid-area: 1;
 			-webkit-appearance: none;
 			appearance: none;
@@ -123,7 +127,7 @@ input[data-cvInput] {
 			margin: 0;
 			width: var(--_size);
 			height: var(--_size);
-			border: 0.15em solid var(--input-border);
+			border: 0.15em solid var(--outline-variant);
 			border-radius: 0.15em;
 
 			padding: 0.4rem;
@@ -143,11 +147,11 @@ input[data-cvInput] {
 			}
 
 			&:checked {
-				border-color: var(--app-color);
+				border-color: var(--primary);
 
 				&::before {
 					transform: scale(1);
-					background-color: var(--app-color);
+					background-color: var(--primary);
 				}
 			}
 		}

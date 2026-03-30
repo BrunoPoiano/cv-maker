@@ -13,26 +13,43 @@ const { curriculum, readonly } = inject(ProviderKey)!
 <template>
 	<AppAnchor>
 		<div class="header">
-			<h1 :style="{ '--font_size': `var(${curriculum.Header.UserName.size})` }">
-				<AppInput
-					cv-input
-					v-model="curriculum.Header.UserName.value"
-					:readonly="readonly"
-				/>
-			</h1>
-			<span
-				:style="{ '--font_size': `var(${curriculum.Header.Role.size})` }"
-				class="label"
-			>
-				<AppInput
-					cv-input
-					v-model="curriculum.Header.Role.value"
-					:readonly="readonly"
-				/>
-			</span>
+			<template v-if="readonly">
+				<h1
+					:style="{ '--font_size': `var(${curriculum.Header.UserName.size})` }"
+				>
+					{{ curriculum.Header.UserName.value }}
+				</h1>
+				<span
+					:style="{ '--font_size': `var(${curriculum.Header.Role.size})` }"
+					class="label"
+				>
+					{{ curriculum.Header.Role.value }}
+				</span>
+			</template>
+			<template v-else>
+				<h1
+					:style="{ '--font_size': `var(${curriculum.Header.UserName.size})` }"
+				>
+					<AppInput
+						cv-input
+						v-model="curriculum.Header.UserName.value"
+						:readonly="readonly"
+					/>
+				</h1>
+				<span
+					:style="{ '--font_size': `var(${curriculum.Header.Role.size})` }"
+					class="label"
+				>
+					<AppInput
+						cv-input
+						v-model="curriculum.Header.Role.value"
+						:readonly="readonly"
+					/>
+				</span>
+			</template>
 		</div>
 		<template #button>
-			<AppButton modal id="modalCvHeader">
+			<AppButton icon-button modal id="modalCvHeader">
 				<SvgPen />
 			</AppButton>
 		</template>
@@ -57,7 +74,7 @@ const { curriculum, readonly } = inject(ProviderKey)!
 	.label:deep(input) {
 		display: block;
 
-		color: var(--light-text-color);
+		color: var(--on-surface-variant);
 
 		font-size: var(--font_size, var(--font-size-lg));
 		font-weight: var(--font-weight);
@@ -66,6 +83,13 @@ const { curriculum, readonly } = inject(ProviderKey)!
 		text-transform: uppercase;
 		text-box-trim: trim-both;
 		text-box-edge: cap alphabetic;
+	}
+}
+
+@supports not (text-box-edge: cap alphabetic) {
+	h1 {
+		margin-bottom: 0px !important;
+		line-height: 0.9 !important;
 	}
 }
 </style>

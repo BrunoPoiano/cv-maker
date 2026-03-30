@@ -66,12 +66,12 @@ textarea[data-cvTextArea] {
 	}
 
 	textarea {
-		border: 1px solid var(--input-border);
+		border: 1px solid var(--outline-variant);
 		border-radius: var(--border-radius);
 		corner-shape: squircle;
 		padding: 0.8rem;
 		min-height: 241px;
-		background: var(--input-background);
+		background: var(--surface-bright);
 		font-size: var(--font-size-base);
 	}
 }

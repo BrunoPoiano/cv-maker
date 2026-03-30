@@ -5,6 +5,8 @@ import { fontSizeSelect } from '@/constants/font-size'
 import { monthOptionsSelect } from '@/constants/monthOptions'
 import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
+import SvgNewDocument from '@/svgs/svgNewDocument.vue'
+import SvgTrash from '@/svgs/svgTrash.vue'
 import Button from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
@@ -38,39 +40,49 @@ function newExperience() {
 		Remote: false
 	})
 }
+
+function deleteExperience(id: string) {
+	curriculum.value.Experience.value = curriculum.value.Experience.value.filter(
+		(item) => item.id !== id
+	)
+}
 </script>
 
 <template>
-	<Modal :id="id" buttonLabel="Experience" closeLabel="close" minWidth="40rem">
+	<Modal :id="id" buttonLabel="Experience" closeLabel="close" minWidth="50rem">
 		<template #header>
 			<div class="modalHeader">
-				<h4>
+				<h3>
 					<AppInput
 						type="checkbox"
 						label="Experience"
 						v-model="curriculum.Experience.show"
 					/>
-				</h4>
-				<AppToggle
-					style="place-self: end"
-					v-model="list"
-					labelEnd="List"
-					labelStart="Text"
-				/>
-				<AppSmall>{{
-					list ? 'Items will be separeted by line breaks' : ''
-				}}</AppSmall>
-				<Button @click="newExperience">New</Button>
+					<AppSmall>{{
+						list ? 'Items will be separeted by line breaks' : ''
+					}}</AppSmall>
+				</h3>
+				<Button icon-button @click="newExperience" title="New Experience">
+					<SvgNewDocument />
+				</Button>
 			</div>
 		</template>
 		<form>
-			<div class="size">
+			<div class="align">
 				<AppInput
 					divStyle="align-self: center"
 					type="checkbox"
 					label="Side by Side"
 					v-model="curriculum.Experience.sideBySide"
 				/>
+				<AppToggle
+					style="place-self: end"
+					v-model="list"
+					labelEnd="List"
+					labelStart="Text"
+				/>
+			</div>
+			<div class="size">
 				<Select
 					label="Title"
 					:items="fontSizeSelect"
@@ -95,6 +107,17 @@ function newExperience() {
 			</div>
 
 			<div v-for="job in curriculum.Experience.value" class="job" :key="job.id">
+				<div>
+					<AppInput type="checkbox" label="Remote" v-model="job.Remote" />
+					<Button
+						icon-button
+						@click="deleteExperience(job.id)"
+						hover-background="var(--red)"
+						title="Delete Experience"
+					>
+						<SvgTrash />
+					</Button>
+				</div>
 				<div>
 					<AppInput
 						type="text"
@@ -132,9 +155,6 @@ function newExperience() {
 						v-model="job.Description"
 					/>
 				</div>
-				<div>
-					<AppInput type="checkbox" label="Remote" v-model="job.Remote" />
-				</div>
 			</div>
 		</form>
 	</Modal>
@@ -144,11 +164,16 @@ function newExperience() {
 .modalHeader {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+	align-items: center;
 	gap: 0.8rem;
 
+	h3 {
+		display: grid;
+	}
+
 	button {
-		grid-area: 2 / 2;
 		place-self: end;
+		align-self: start;
 	}
 }
 
@@ -156,19 +181,26 @@ form {
 	display: grid;
 	gap: 1rem;
 
+	.align {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+
 	.size {
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
 		gap: 0.8rem;
 	}
 
 	.job {
 		display: grid;
 		gap: 0.8rem;
-		background: var(--background);
+		background: var(--surface-container-low);
 
-		padding: 0.5rem;
+		padding: 0.8rem;
 		border-radius: var(--border-radius);
+
+		transition: background 500ms ease;
 
 		> div:not(.desc) {
 			display: grid;
@@ -176,8 +208,16 @@ form {
 			gap: 0.8rem;
 		}
 
+		> div:has(button) button {
+			justify-self: end;
+		}
+
 		.desc {
 			grid-column: 1 / -1;
+		}
+
+		&:hover {
+			background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
 		}
 	}
 }

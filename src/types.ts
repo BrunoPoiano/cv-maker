@@ -57,9 +57,18 @@ type Contact = {
 	size: FontSize
 	sideBySide: boolean
 	value: {
-		email: Email
-		linkedin: Linkedin
-		github: GitHub
+		email: {
+			value: Email
+			bolder: boolean
+		}
+		linkedin: {
+			value: Linkedin
+			bolder: boolean
+		}
+		github: {
+			value: GitHub
+			bolder: boolean
+		}
 	}
 }
 
@@ -129,4 +138,5 @@ export type MenuModalItem = {
 	id: string
 	icon?: Component
 	label: string
+	backgroundColor?: string
 }

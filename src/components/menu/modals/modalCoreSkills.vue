@@ -22,14 +22,14 @@ const { curriculum } = inject(ProviderKey)!
 	<Modal :id="id" closeLabel="close" minWidth="40rem" v-if="curriculum">
 		<template #header>
 			<div class="header">
-				<h4>
+				<h3>
 					<AppInput
 						type="checkbox"
 						label="Core Skills"
 						v-model="curriculum.CoreSkills.show"
 					/>
-				</h4>
-				<AppSmall>Items will be separeted by commas (,)</AppSmall>
+					<AppSmall>Items will be separeted by commas (,)</AppSmall>
+				</h3>
 			</div>
 		</template>
 		<form>

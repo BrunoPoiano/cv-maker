@@ -17,7 +17,7 @@ const { id } = defineProps<Props>()
 <template>
 	<Modal :id="id" closeLabel="close" minWidth="30rem" v-if="curriculum">
 		<template #header>
-			<h4>Header</h4>
+			<h3>Header</h3>
 		</template>
 
 		<form>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 
+import ExDescription from '@/components/menu/modals/experience/components/exDescription.vue'
 import { Translate } from '@/constants/translations'
 import { ProviderKey } from '@/keys'
 import SvgPen from '@/svgs/SvgPen.vue'
@@ -12,7 +13,6 @@ import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
 import AppTextarea from '@/ui/appTextarea.vue'
 
-import ExDescription from '../../cvMenu/modals/experience/components/exDescription.vue'
 import Title from './cvTitle.vue'
 
 const { curriculum, readonly } = inject(ProviderKey)!
@@ -65,7 +65,7 @@ const rows = computed(() =>
 					<span
 						:style="{
 							fontSize: `var(${curriculum.Summary.size})`,
-							color: `var(--light-text-color)`
+							color: `var(--on-surface-variant)`
 						}"
 					>
 						<ExDescription
@@ -78,7 +78,7 @@ const rows = computed(() =>
 				</template>
 			</div>
 			<template #button>
-				<AppButton modal id="modalCvSummary">
+				<AppButton icon-button modal id="modalCvSummary">
 					<SvgPen />
 				</AppButton>
 			</template>

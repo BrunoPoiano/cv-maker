@@ -19,22 +19,26 @@ const { curriculum, readonly } = inject(ProviderKey)!
 				:style="{ '--font_size': `var(${curriculum.Contact.size})` }"
 			>
 				<span class="type"> {{ type }}: </span>
-				<span :data-type="type">
+				<span
+					:style="{
+						fontWeight: curriculum.Contact.value[type].bolder ? 'bolder' : ''
+					}"
+				>
 					<template v-if="readonly">
-						{{ curriculum.Contact.value[type] }}
+						{{ curriculum.Contact.value[type].value }}
 					</template>
 					<AppInput
 						v-else
 						cv-input
 						:data-type="type"
-						:size="Math.max(curriculum.Contact.value[type].length, 1)"
-						v-model="curriculum.Contact.value[type]"
+						:size="Math.max(curriculum.Contact.value[type].value.length, 1)"
+						v-model="curriculum.Contact.value[type].value"
 					/>
 				</span>
 			</div>
 		</div>
 		<template #button>
-			<AppButton modal id="modalCvContact">
+			<AppButton icon-button modal id="modalCvContact">
 				<SvgPen />
 			</AppButton>
 		</template>
@@ -52,7 +56,7 @@ const { curriculum, readonly } = inject(ProviderKey)!
 
 	div,
 	div:deep(input) {
-		color: var(--light-text-color);
+		color: var(--on-surface-variant);
 		font-size: var(--font_size, var(--font-size-sm));
 		font-weight: var(--font-weight);
 		text-box-trim: trim-both;
@@ -75,11 +79,6 @@ const { curriculum, readonly } = inject(ProviderKey)!
 		justify-content: flex-start;
 		flex-wrap: wrap;
 		margin-top: calc(var(--_a4-gap) * -0.4);
-
-		:deep(input)[data-type='email'],
-		[data-type='email'] {
-			font-weight: bolder !important;
-		}
 
 		.type {
 			display: none;

@@ -82,7 +82,7 @@ function importFile(e: Event) {
 		"
 	>
 		<template #header>
-			<h4>Import/Export</h4>
+			<h3>Import/Export</h3>
 		</template>
 		<form>
 			<AppInput

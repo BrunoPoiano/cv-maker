@@ -41,14 +41,14 @@ function copyPrompt() {
 <template>
 	<Modal :id="id" closeLabel="close" minWidth="40rem" maxWidth="40ch">
 		<template #header>
-			<h4>Generate Prompt</h4>
+			<h3>Generate Prompt</h3>
 		</template>
 		<div class="content">
 			<Textarea placeholder="Job Description" v-model="jobDescription" />
 			<div class="prompt-preview">
 				<pre ref="prompt">
-					{{ prompt }}
-				</pre
+			{{ prompt }}
+		</pre
 				>
 			</div>
 			<Button @click="copyPrompt">Copy Prompt</Button>

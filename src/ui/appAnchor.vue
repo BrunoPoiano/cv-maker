@@ -28,9 +28,6 @@ const anchor = `--${generateKey(5, 'string')}`
 			bottom: anchor(top);
 			right: anchor(right);
 			margin-bottom: -2rem;
-			margin-right: calc(var(--_padding-inline) * -0.5);
-			padding-right: 7px !important;
-			min-width: 2ch !important;
 		}
 	}
 }

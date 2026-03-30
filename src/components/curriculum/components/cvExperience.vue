@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { inject } from 'vue'
 
+import ExDateInput from '@/components/menu/modals/experience/components/exDateInput.vue'
+import ExDescription from '@/components/menu/modals/experience/components/exDescription.vue'
 import { Translate } from '@/constants/translations'
 import { generateDate, generateTitle } from '@/helpers/cvFormatters'
 import { ProviderKey } from '@/keys'
@@ -13,8 +15,6 @@ import AppInput from '@/ui/appInput.vue'
 import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
 
-import ExDateInput from '../../cvMenu/modals/experience/components/exDateInput.vue'
-import ExDescription from '../../cvMenu/modals/experience/components/exDescription.vue'
 import Title from './cvTitle.vue'
 
 const { boldMatches } = defineProps<{
@@ -108,7 +108,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 						<span
 							:style="{
 								fontSize: `var(${curriculum.Experience.size.description})`,
-								color: `var(--light-text-color)`
+								color: `var(--on-surface-variant)`
 							}"
 						>
 							<ExDescription
@@ -141,7 +141,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 				</div>
 			</div>
 			<template #button>
-				<AppButton modal id="modalCvExperience">
+				<AppButton icon-button modal id="modalCvExperience">
 					<SvgPen />
 				</AppButton>
 			</template>
@@ -181,7 +181,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 		}
 
 		.sub-title {
-			color: var(--light-text-color);
+			color: var(--on-surface-variant);
 			display: flex;
 			align-items: center;
 			gap: 0.5ch;
@@ -212,6 +212,12 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 				flex-direction: row-reverse;
 			}
 		}
+	}
+}
+
+@supports not (text-box-edge: cap alphabetic) {
+	.experience .job-title .title {
+		margin-bottom: 0px !important;
 	}
 }
 </style>

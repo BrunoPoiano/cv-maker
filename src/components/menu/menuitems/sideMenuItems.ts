@@ -1,63 +1,62 @@
 import { defineAsyncComponent } from 'vue'
 
-import SvgPen from '@/svgs/SvgPen.vue'
 import type { MenuModalItem } from '@/types'
 
 const ModalExperience = defineAsyncComponent(
-	() => import('./modals/experience/modalExperience.vue')
+	() => import('../modals/experience/modalExperience.vue')
 )
 const ModalContact = defineAsyncComponent(
-	() => import('./modals/modalContact.vue')
+	() => import('../modals/modalContact.vue')
 )
 const ModalCoreSkills = defineAsyncComponent(
-	() => import('./modals/modalCoreSkills.vue')
+	() => import('../modals/modalCoreSkills.vue')
 )
 const ModalHeader = defineAsyncComponent(
-	() => import('./modals/modalHeader.vue')
+	() => import('../modals/modalHeader.vue')
 )
 const ModalSummary = defineAsyncComponent(
-	() => import('./modals/modalSummary.vue')
+	() => import('../modals/modalSummary.vue')
 )
 const ModalSettings = defineAsyncComponent(
-	() => import('./modals/modalSettings.vue')
+	() => import('../modals/modalSettings.vue')
 )
 
-export const menuItems: MenuModalItem[] = [
+export const sideMenuItems: MenuModalItem[] = [
 	{
 		modal: ModalSettings,
 		id: 'modalCvSettings',
-		icon: SvgPen,
+		backgroundColor: 'var(--surface-container-low)',
 		label: 'Settings'
 	},
 	{
 		modal: ModalHeader,
 		id: 'modalCvHeader',
-		icon: SvgPen,
+		backgroundColor: 'var(--surface-container-low)',
 		label: 'Header'
 	},
 	{
 		modal: ModalContact,
 		id: 'modalCvContact',
-		icon: SvgPen,
+		backgroundColor: 'var(--surface-container-low)',
 		label: 'Contact'
 	},
 	{
 		modal: ModalSummary,
 		id: 'modalCvSummary',
-		icon: SvgPen,
+		backgroundColor: 'var(--surface-container-low)',
 		label: 'Summary'
 	},
 
 	{
 		modal: ModalCoreSkills,
 		id: 'modalCvCoreSkills',
-		icon: SvgPen,
+		backgroundColor: 'var(--surface-container-low)',
 		label: 'Core Skills'
 	},
 	{
 		modal: ModalExperience,
 		id: 'modalCvExperience',
-		icon: SvgPen,
+		backgroundColor: 'var(--surface-container-low)',
 		label: 'Experience'
 	}
 ]

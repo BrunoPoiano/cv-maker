@@ -18,7 +18,7 @@ svg {
 	fill: light-dark(#000, #fff) !important;
 
 	&:hover {
-		fill: var(--app-color) !important;
+		fill: var(--primary) !important;
 	}
 }
 </style>

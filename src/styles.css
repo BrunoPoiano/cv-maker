@@ -16,14 +16,46 @@
 	--font-size-xxxl: clamp(1.5552rem, 1.0678rem + 2.1661vw, 2.7466rem);
 	--font-size-xxxxl: clamp(1.8662rem, 1.2252rem + 2.8491vw, 3.4332rem);
 
-	--app-color: oklch(51.4% 0.222 16.935);
-	--light-text-color: light-dark(#65615f, #bebcbc);
-	--font-weight: 400;
-	--background: light-dark(hsl(0, 0%, 99%), hsl(344.17deg 10.1% 4.29%));
-	--input-background: light-dark(#f3f3f3, #1a1a1a);
-	--input-border: light-dark(hsla(0, 0%, 50%, 0.205), hsla(0, 0%, 50%, 0.5));
+	--primary: light-dark(hsl(219, 16%, 39%), hsl(218, 18%, 61%));
+	--primary-dim: light-dark(hsl(220, 14%, 49%), hsl(219, 13%, 51%));
+	--on-primary: light-dark(hsl(0, 0%, 100%), hsl(203, 21%, 7%));
 
-	--red: hsl(0, 90%, 61%);
+	/* Surfaces (nested depth) */
+	--background: light-dark(hsl(210, 33%, 98%), hsl(203, 21%, 7%));
+	--surface: light-dark(hsl(0, 0%, 100%), hsl(204, 19%, 10%));
+	--surface-container-low: light-dark(hsl(206, 30%, 95%), hsl(203, 20%, 13%));
+	--surface-container-highest: light-dark(#d9e4ea, #243039);
+	--surface-container-lowest: light-dark(#ffffff, #12181c);
+	--surface-bright: light-dark(hsla(0, 0%, 100%, 0.8), rgba(30, 38, 44, 0.8));
+
+	/* Text */
+	--on-surface: light-dark(#2a3439, #e6edf2);
+	--on-surface-variant: light-dark(#5f6b73, #a7b3bb);
+
+	/* Secondary / accents */
+	--secondary: light-dark(#5c6f7a, #9fb1bb);
+	--secondary-container: light-dark(#e3edf2, #2a3942);
+	--on-secondary-container: light-dark(#2a3439, #dce6eb);
+
+	/* Outline (ghost border) */
+	--outline-variant: light-dark(
+		rgba(42, 52, 57, 0.15),
+		rgba(230, 237, 242, 0.15)
+	);
+
+	--shadow-ambient: 0 12px 32px
+		light-dark(rgba(42, 52, 57, 0.16), rgba(0, 0, 0, 0.35));
+
+	/* Interaction */
+	--hover-surface-shift: light-dark(#f0f4f7, #1a2227);
+	--focus-outline: light-dark(
+		rgba(84, 95, 115, 0.2),
+		rgba(138, 151, 173, 0.25)
+	);
+
+	--font-weight: 400;
+
+	--red: #9e422c;
 	--blue: hsl(210, 90%, 85%);
 	--orange: hsl(28.9, 90%, 64.1%);
 	--yellow: hsl(55, 90%, 85%);
@@ -31,7 +63,7 @@
 
 	--max-width: 105ch;
 
-	--border-radius: 0.5rem;
+	--border-radius: 0.25rem;
 	--cv-border-radius: 3px;
 }
 
@@ -42,21 +74,21 @@ html {
 
 body {
 	--body-padding: 1rem;
-
 	font-size: 1.125rem;
-	padding: var(--body-padding);
 	display: grid;
 	place-items: center;
 	background-color: var(--background);
+	margin: 0;
 
 	font-family: 'EBGaramondPDF', serif;
 	line-height: 1.35;
-	accent-color: var(--app-color);
-	caret-color: var(--app-color);
+	accent-color: var(--on-surface);
+	caret-color: var(--on-surface);
+	color: var(--on-surface);
 }
 
 #app {
-	max-width: 1350px;
+	/* max-width: 1350px; */
 	width: 100%;
 }
 
@@ -73,10 +105,9 @@ h3,
 h4,
 h5,
 h6 {
-	color: light-dark(#000, #fff);
+	color: var(--on-surface);
 	text-wrap: balance;
 	margin: 0px;
-
 	text-box-trim: trim-both;
 	text-box-edge: cap alphabetic;
 }
@@ -105,7 +136,6 @@ h3 {
 	font-size: var(--_font-size);
 	font-weight: 400;
 	line-height: calc(var(--_font-size) * 1.1);
-	letter-spacing: -2px;
 	margin-bottom: 0.5em;
 }
 
@@ -127,7 +157,7 @@ a {
 	cursor: pointer;
 
 	&:visited {
-		color: var(--app-color);
+		color: var(--primary);
 	}
 }
 
@@ -144,7 +174,7 @@ textarea {
 
 input:focus-visible,
 textarea:focus-visible {
-	outline: 1px solid var(--app-color);
+	outline: 1px solid var(--focus-outline);
 }
 
 input[readonly]:focus-visible,
@@ -160,14 +190,16 @@ img {
 }
 
 dialog {
-	--_padding: 1.2rem;
+	--_padding: 1.5rem;
 	margin: auto;
 	min-width: min(20rem, 100%);
 	border: none;
 	padding: var(--_padding);
-	border-radius: calc(var(--border-radius) + var(--_padding) * 0.5);
+	border-radius: calc(var(--border-radius) + var(--_padding) * 0.3);
 
 	box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.44);
+
+	background: var(--background);
 
 	&::backdrop {
 		background: #00000078;
