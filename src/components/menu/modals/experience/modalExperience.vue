@@ -200,6 +200,8 @@ form {
 		padding: 0.8rem;
 		border-radius: var(--border-radius);
 
+		transition: background 500ms ease;
+
 		> div:not(.desc) {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
@@ -212,6 +214,10 @@ form {
 
 		.desc {
 			grid-column: 1 / -1;
+		}
+
+		&:hover {
+			background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
 		}
 	}
 }
