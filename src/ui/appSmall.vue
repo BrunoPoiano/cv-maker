@@ -20,6 +20,7 @@ defineOptions({
 small {
 	font-weight: bolder;
 	display: inline-block;
+	letter-spacing: initial;
 	height: 2ch;
 
 	&[data-type='attention'] {

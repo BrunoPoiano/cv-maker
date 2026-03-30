@@ -42,46 +42,24 @@ function saveSummary(list: boolean) {
 </script>
 
 <template>
-	<Modal
-		:id="id"
-		buttonLabel="Summary"
-		closeLabel="close"
-		minWidth="40rem"
-		v-if="curriculum"
-	>
+	<Modal :id="id" buttonLabel="Summary" closeLabel="close" minWidth="40rem" v-if="curriculum">
 		<template #header>
 			<div class="header">
-				<h4>
-					<AppInput
-						type="checkbox"
-						label="Summary"
-						v-model="curriculum.Summary.show"
-					/>
-				</h4>
+				<h3>
+					<AppInput type="checkbox" label="Summary" v-model="curriculum.Summary.show" />
+					<AppSmall>{{
+						list ? 'Items will be separeted by line breaks' : ''
+					}}</AppSmall>
+				</h3>
 				<Toggle v-model="list" labelEnd="List" labelStart="Text" />
 			</div>
-			<AppSmall>{{
-				list ? 'Items will be separeted by line breaks' : ''
-			}}</AppSmall>
 		</template>
 		<form>
-			<Select
-				label="Font Size"
-				:items="fontSizeSelect"
-				v-model="curriculum.Summary.size"
-			/>
+			<Select label="Font Size" :items="fontSizeSelect" v-model="curriculum.Summary.size" />
 
-			<Textarea
-				rows="6"
-				placeholder="Small Text"
-				v-model="curriculum.Summary.smallText"
-			/>
+			<Textarea rows="6" placeholder="Small Text" v-model="curriculum.Summary.smallText" />
 
-			<Textarea
-				placeholder="Summary"
-				v-model="summary"
-				@keyup="saveSummary(list)"
-			/>
+			<Textarea placeholder="Summary" v-model="summary" @keyup="saveSummary(list)" />
 		</form>
 	</Modal>
 </template>

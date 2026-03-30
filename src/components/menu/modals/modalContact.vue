@@ -16,39 +16,28 @@ const { id } = defineProps<Props>()
 </script>
 
 <template>
-	<Modal :id="id" closeLabel="close" minWidth="40rem" v-if="curriculum">
+	<Modal :id="id" closeLabel="close" minWidth="35rem" v-if="curriculum">
 		<template #header>
-			<h4>Contact</h4>
+			<h3>Contact</h3>
 		</template>
 		<form>
-			<Select
-				label="Font Size"
-				:items="fontSizeSelect"
-				v-model="curriculum.Contact.size"
-			/>
-			<Input
-				type="checkbox"
-				label="Side by Side"
-				v-model="curriculum.Contact.sideBySide"
-			/>
-			<Input
-				label="email"
-				type="email"
-				placeholder="email"
-				v-model="curriculum.Contact.value.email"
-			/>
-			<Input
-				type="text"
-				label="linkedin"
-				placeholder="linkedin"
-				v-model="curriculum.Contact.value.linkedin"
-			/>
-			<Input
-				type="text"
-				label="github"
-				placeholder="github"
-				v-model="curriculum.Contact.value.github"
-			/>
+			<div class="settings">
+				<Input type="checkbox" label="Side by Side" v-model="curriculum.Contact.sideBySide" />
+				<Select fullWidth label="Font Size" :items="fontSizeSelect" v-model="curriculum.Contact.size" />
+			</div>
+			<div>
+				<Input label="email" type="email" placeholder="email" v-model="curriculum.Contact.value.email" />
+				<!-- <Input type="checkbox" label="bolder" v-model="curriculum.Contact.sideBySide" /> -->
+			</div>
+			<div>
+				<Input type="text" label="linkedin" placeholder="linkedin"
+					v-model="curriculum.Contact.value.linkedin" />
+				<!-- <Input type="checkbox" label="bolder" v-model="curriculum.Contact.sideBySide" /> -->
+			</div>
+			<div>
+				<Input type="text" label="github" placeholder="github" v-model="curriculum.Contact.value.github" />
+				<!-- <Input type="checkbox" label="bolder" v-model="curriculum.Contact.sideBySide" /> -->
+			</div>
 		</form>
 	</Modal>
 </template>
@@ -57,5 +46,10 @@ const { id } = defineProps<Props>()
 form {
 	display: grid;
 	gap: 1rem;
+
+	>.settings {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
 }
 </style>

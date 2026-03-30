@@ -17,35 +17,17 @@ const { id } = defineProps<Props>()
 <template>
 	<Modal :id="id" closeLabel="close" minWidth="30rem" v-if="curriculum">
 		<template #header>
-			<h4>Header</h4>
+			<h3>Header</h3>
 		</template>
 
 		<form>
 			<div>
-				<Select
-					label="Font Size"
-					:items="fontSizeSelect"
-					v-model="curriculum.Header.UserName.size"
-				/>
-				<Input
-					type="text"
-					label="Name"
-					placeholder="User Name"
-					v-model="curriculum.Header.UserName.value"
-				/>
+				<Select label="Font Size" :items="fontSizeSelect" v-model="curriculum.Header.UserName.size" />
+				<Input type="text" label="Name" placeholder="User Name" v-model="curriculum.Header.UserName.value" />
 			</div>
 			<div>
-				<Select
-					label="Font Size"
-					:items="fontSizeSelect"
-					v-model="curriculum.Header.Role.size"
-				/>
-				<Input
-					type="text"
-					label="Role"
-					placeholder="Role"
-					v-model="curriculum.Header.Role.value"
-				/>
+				<Select label="Font Size" :items="fontSizeSelect" v-model="curriculum.Header.Role.size" />
+				<Input type="text" label="Role" placeholder="Role" v-model="curriculum.Header.Role.value" />
 			</div>
 		</form>
 	</Modal>
@@ -56,7 +38,7 @@ form {
 	display: grid;
 	gap: 2rem;
 
-	> div {
+	>div {
 		display: grid;
 		gap: 1rem;
 	}

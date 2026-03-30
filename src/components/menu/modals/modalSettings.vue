@@ -16,32 +16,14 @@ const { id } = defineProps<Props>()
 </script>
 
 <template>
-	<Modal
-		:id="id"
-		buttonLabel="Section"
-		closeLabel="close"
-		minWidth="40rem"
-		v-if="curriculum"
-	>
+	<Modal :id="id" buttonLabel="Section" closeLabel="close" minWidth="40rem" v-if="curriculum">
 		<template #header>
-			<h4>Settings</h4>
+			<h3>Settings</h3>
 		</template>
 		<form>
-			<Select
-				label="Curriculum Margin"
-				:items="marginListSelect"
-				v-model="curriculum.Settings.margin"
-			/>
-			<Select
-				label="Curriculum Gap"
-				:items="a4gapSelect"
-				v-model="curriculum.Settings.gap"
-			/>
-			<Select
-				label="Section Header"
-				:items="fontSizeSelect"
-				v-model="curriculum.Settings.section.size"
-			/>
+			<Select label="Curriculum Margin" :items="marginListSelect" v-model="curriculum.Settings.margin" />
+			<Select label="Curriculum Gap" :items="a4gapSelect" v-model="curriculum.Settings.gap" />
+			<Select label="Section Header" :items="fontSizeSelect" v-model="curriculum.Settings.section.size" />
 		</form>
 	</Modal>
 </template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { generateKey } from '@/helpers/generateKey'
 import type { SelectItem } from '@/types'
+import type { CSSProperties } from 'vue'
 
 defineOptions({
 	inheritAttrs: false
@@ -10,21 +11,46 @@ type Props = {
 	id?: string
 	label?: string
 	backgroundColor?: string
+	small?: true
+	fitContent?: true
+	fullWidth?: true
 }
 const props = defineProps<Props>()
 const key = generateKey(5)
 const model = defineModel()
+
+function selectWidth(): CSSProperties {
+
+	if (props.fullWidth) {
+		return {
+			width: "100%",
+			maxWidth: "100%",
+		}
+	}
+
+	if (props.fitContent) {
+		return {
+			maxWidth: "fit-content",
+		}
+	}
+
+	if (props.small) {
+		return {
+			maxWidth: "10ch"
+		}
+	}
+
+	return {}
+
+}
+
 </script>
 
 <template>
 	<div class="content">
 		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
-		<select
-			v-bind="$attrs"
-			:id="id ?? key"
-			v-model="model"
-			:style="{ '--bg': props.backgroundColor }"
-		>
+		<select v-bind="$attrs" :id="id ?? key" v-model="model"
+			:style="{ '--bg': props.backgroundColor, ...selectWidth() }">
 			<option v-for="item in items" :value="item.value" :key="item.value">
 				{{ item.label }}
 			</option>
@@ -62,10 +88,8 @@ const model = defineModel()
 			transform 200ms ease-out;
 
 		&:hover:not(:disabled) {
-			--hover-bg-adjusted: light-dark(
-				hsl(from var(--bg) h s calc(l - 10)),
-				hsl(from var(--bg) h s calc(l + 15))
-			);
+			--hover-bg-adjusted: light-dark(hsl(from var(--bg) h s calc(l - 10)),
+					hsl(from var(--bg) h s calc(l + 15)));
 
 			background: var(--hover-bg-adjusted);
 		}

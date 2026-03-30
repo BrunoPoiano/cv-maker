@@ -31,7 +31,7 @@ const bolder = computed<string>({
 <template>
 	<Modal :id="id" closeLabel="close" minWidth="40rem">
 		<template #header>
-			<h4>Bolder Words</h4>
+			<h3>Bolder Words</h3>
 		</template>
 		<form>
 			<Textarea placeholder="User Name" v-model="bolder" />

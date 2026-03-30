@@ -69,37 +69,21 @@ function importFile(e: Event) {
 </script>
 
 <template>
-	<Modal
-		:id="id"
-		closeLabel="close"
-		minWidth="20rem"
-		maxWidth="min(80ch,100%)"
-		:openAction="
-			() => {
-				file = null
-				alert = null
-			}
-		"
-	>
+	<Modal :id="id" closeLabel="close" minWidth="20rem" maxWidth="min(80ch,100%)" :openAction="() => {
+			file = null
+			alert = null
+		}
+		">
 		<template #header>
-			<h4>Import/Export</h4>
+			<h3>Import/Export</h3>
 		</template>
 		<form>
-			<AppInput
-				type="file"
-				label="Import File"
-				v-model="file"
-				@change="importFile"
-				:alert="
-					alert ||
-					'This action will replace the currently saved curriculum list'
-				"
-				accept=".json"
-			/>
+			<AppInput type="file" label="Import File" v-model="file" @change="importFile" :alert="alert ||
+				'This action will replace the currently saved curriculum list'
+				" accept=".json" />
 			<pre>
 		{{ curriculumList }}
-	</pre
-			>
+	</pre>
 		</form>
 		<template #footer>
 			<AppButton @click="exportFile">Export Json</AppButton>

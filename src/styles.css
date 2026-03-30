@@ -38,20 +38,15 @@
 	--on-secondary-container: light-dark(#2a3439, #dce6eb);
 
 	/* Outline (ghost border) */
-	--outline-variant: light-dark(
-		rgba(42, 52, 57, 0.15),
-		rgba(230, 237, 242, 0.15)
-	);
+	--outline-variant: light-dark(rgba(42, 52, 57, 0.15),
+			rgba(230, 237, 242, 0.15));
 
-	--shadow-ambient: 0 12px 32px
-		light-dark(rgba(42, 52, 57, 0.16), rgba(0, 0, 0, 0.35));
+	--shadow-ambient: 0 12px 32px light-dark(rgba(42, 52, 57, 0.16), rgba(0, 0, 0, 0.35));
 
 	/* Interaction */
 	--hover-surface-shift: light-dark(#f0f4f7, #1a2227);
-	--focus-outline: light-dark(
-		rgba(84, 95, 115, 0.2),
-		rgba(138, 151, 173, 0.25)
-	);
+	--focus-outline: light-dark(rgba(84, 95, 115, 0.2),
+			rgba(138, 151, 173, 0.25));
 
 	--font-weight: 400;
 
@@ -92,7 +87,7 @@ body {
 	width: 100%;
 }
 
-body > :is(header, footer),
+body> :is(header, footer),
 section,
 main,
 article {
@@ -137,7 +132,6 @@ h3 {
 	font-size: var(--_font-size);
 	font-weight: 400;
 	line-height: calc(var(--_font-size) * 1.1);
-	letter-spacing: -2px;
 	margin-bottom: 0.5em;
 }
 
@@ -192,7 +186,7 @@ img {
 }
 
 dialog {
-	--_padding: 1.2rem;
+	--_padding: 1.5rem;
 	margin: auto;
 	min-width: min(20rem, 100%);
 	border: none;
