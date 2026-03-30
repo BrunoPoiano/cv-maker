@@ -48,7 +48,8 @@ function copyPrompt() {
 			<div class="prompt-preview">
 				<pre ref="prompt">
 			{{ prompt }}
-		</pre>
+		</pre
+				>
 			</div>
 			<Button @click="copyPrompt">Copy Prompt</Button>
 		</div>

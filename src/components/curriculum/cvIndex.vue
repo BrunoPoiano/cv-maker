@@ -33,7 +33,11 @@ const gap = computed(() => curriculum.value.Settings.gap)
 
 <template>
 	<section>
-		<div class="a4-page page" id="curriculumPage" :style="{ padding: `${margin}cm`, '--_a4-gap': `${gap}rem` }">
+		<div
+			class="a4-page page"
+			id="curriculumPage"
+			:style="{ padding: `${margin}cm`, '--_a4-gap': `${gap}rem` }"
+		>
 			<CvHeader />
 			<CvContact />
 			<CvSummary :boldMatches="boldMatches" />

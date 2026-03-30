@@ -8,12 +8,12 @@ import CurriculumModel from './components/curriculum/cvIndex.vue'
 import Header from './components/headerSection.vue'
 import Menu from './components/menu/menuSection.vue'
 import { CurriculumConst } from './constants/curriculum'
+import { skillList } from './constants/skillList'
 import { deepClone } from './helpers/clone'
 import { getDataFromLocalStorage } from './helpers/localstorage'
 import { parseBolder } from './parsers/bolder'
 import { parseCurriculum, parseCurriculumList } from './parsers/curriculum'
 import { isBooleanOrDefault, isNumberOrDefault } from './parsers/typeValidation'
-import { skillList } from './constants/skillList'
 import type { SkillsList } from './types'
 
 const curriculumList = ref(
@@ -62,7 +62,6 @@ const bolder = reactive(
 	})
 )
 
-
 const skillsProxy = computed(() => {
 	const source = currentCurriculum.value.CoreSkills.skills
 	const result: Record<SkillsList, string> = {
@@ -88,9 +87,9 @@ const skillsProxy = computed(() => {
 function onInput(core: SkillsList, value?: string) {
 	currentCurriculum.value.CoreSkills.skills[core] = value
 		? value
-			.split(',')
-			.map((item) => item.trim())
-			.filter((item) => item !== '')
+				.split(',')
+				.map((item) => item.trim())
+				.filter((item) => item !== '')
 		: []
 }
 
@@ -108,9 +107,16 @@ provide(ProviderKey, {
 
 <template>
 	<section>
-		<Header :curriculum="currentCurriculum" :readonly="readonly" v-model:curriculum-index="curriculumIndex"
-			v-model:curriculum-list="curriculumList" />
-		<Menu v-model:curriculum-index="curriculumIndex" v-model:curriculum-list="curriculumList" />
+		<Header
+			:curriculum="currentCurriculum"
+			:readonly="readonly"
+			v-model:curriculum-index="curriculumIndex"
+			v-model:curriculum-list="curriculumList"
+		/>
+		<Menu
+			v-model:curriculum-index="curriculumIndex"
+			v-model:curriculum-list="curriculumList"
+		/>
 		<CurriculumModel :key="curriculumIndex" />
 		<AppFooter />
 	</section>

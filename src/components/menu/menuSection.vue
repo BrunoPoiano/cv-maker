@@ -2,6 +2,7 @@
 import { defineAsyncComponent, inject } from 'vue'
 
 import { CurriculumConst } from '@/constants/curriculum'
+import { languagesSelect } from '@/constants/language'
 import { deepClone } from '@/helpers/clone'
 import { saveDataToLocalStorage } from '@/helpers/localstorage'
 import { ProviderKey } from '@/keys'
@@ -14,12 +15,11 @@ import type { Curriculum } from '@/types'
 import Button from '@/ui/appButton.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppMenuModalItems from '@/ui/appMenuModalItems.vue'
+import AppSelect from '@/ui/appSelect.vue'
 import appToggleText from '@/ui/appToggleText.vue'
 
-import { topMenuItems } from './menuitems/topMenuItems'
-import { languagesSelect } from '@/constants/language'
 import { sideMenuItems } from './menuitems/sideMenuItems'
-import AppSelect from '@/ui/appSelect.vue'
+import { topMenuItems } from './menuitems/topMenuItems'
 const ModalBackup = defineAsyncComponent(
 	() => import('./modals/modalBackup.vue')
 )
@@ -90,31 +90,63 @@ function deleteCv() {
 <template>
 	<aside>
 		<div>
-			<AppSelect backgroundColor="var(--surface-container-low)" data-menu-select :items="languagesSelect"
-				v-model="curriculum.Settings.language" />
+			<AppSelect
+				backgroundColor="var(--surface-container-low)"
+				data-menu-select
+				:items="languagesSelect"
+				v-model="curriculum.Settings.language"
+			/>
 			<AppMenuModalItems :menu-items="sideMenuItems" menu-button />
 		</div>
 	</aside>
 	<nav class="menu">
 		<AppMenuModalItems :menu-items="topMenuItems" />
 		<AppButton modal id="modalMenuImportExport"> Import/Export </AppButton>
-		<ModalBackup id="modalMenuImportExport" v-model:curriculum-list="curriculumList"
-			v-model:curriculum-index="curriculumIndex" />
+		<ModalBackup
+			id="modalMenuImportExport"
+			v-model:curriculum-list="curriculumList"
+			v-model:curriculum-index="curriculumIndex"
+		/>
 	</nav>
 	<nav class="curriculumMenu">
-		<appToggleText v-model="readonly" label-start="Preview" label-end="Editor" :afterChange="updateIsEditable" />
+		<appToggleText
+			v-model="readonly"
+			label-start="Preview"
+			label-end="Editor"
+			:afterChange="updateIsEditable"
+		/>
 
-		<Button icon-button @click="copyCv" hover-background="var(--blue)" title="Copy">
+		<Button
+			icon-button
+			@click="copyCv"
+			hover-background="var(--blue)"
+			title="Copy"
+		>
 			<SvgCopy />
 		</Button>
-		<Button icon-button @click="newCv" hover-background="var(--green)" title="New Curriculum">
+		<Button
+			icon-button
+			@click="newCv"
+			hover-background="var(--green)"
+			title="New Curriculum"
+		>
 			<SvgNewDocument />
 		</Button>
-		<Button icon-button @click="saveData" hover-background="var(--green)" title="Save">
+		<Button
+			icon-button
+			@click="saveData"
+			hover-background="var(--green)"
+			title="Save"
+		>
 			<SvgSave />
 		</Button>
-		<Button icon-button @click="deleteCv" :disabled="curriculumIndex === 0" hover-background="var(--red)"
-			title="Delete">
+		<Button
+			icon-button
+			@click="deleteCv"
+			:disabled="curriculumIndex === 0"
+			hover-background="var(--red)"
+			title="Delete"
+		>
 			<SvgTrash />
 		</Button>
 	</nav>
@@ -158,7 +190,7 @@ aside {
 	background: var(--surface-container-low);
 	padding: 1rem;
 
-	>div {
+	> div {
 		position: sticky;
 		top: 1rem;
 		height: fit-content;

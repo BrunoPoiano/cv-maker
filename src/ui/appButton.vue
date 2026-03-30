@@ -3,23 +3,23 @@ import type { ButtonHTMLAttributes } from 'vue'
 
 type Props =
 	| {
-		type?: ButtonHTMLAttributes['type']
-		background?: string
-		hoverBackground?: string
-		modal?: false
-		id?: string
-		menuButton?: true
-		iconButton?: true
-	}
+			type?: ButtonHTMLAttributes['type']
+			background?: string
+			hoverBackground?: string
+			modal?: false
+			id?: string
+			menuButton?: true
+			iconButton?: true
+	  }
 	| {
-		modal: true
-		id: string
-		type?: ButtonHTMLAttributes['type']
-		background?: string
-		hoverBackground?: string
-		menuButton?: true
-		iconButton?: true
-	}
+			modal: true
+			id: string
+			type?: ButtonHTMLAttributes['type']
+			background?: string
+			hoverBackground?: string
+			menuButton?: true
+			iconButton?: true
+	  }
 
 const props = defineProps<Props>()
 defineOptions({
@@ -28,11 +28,19 @@ defineOptions({
 </script>
 
 <template>
-	<button :data-icon-button="props.iconButton" :data-menu-button="props.menuButton"
-		:command="modal ? 'show-modal' : ''" :commandfor="id" :style="{
+	<button
+		:data-icon-button="props.iconButton"
+		:data-menu-button="props.menuButton"
+		:command="modal ? 'show-modal' : ''"
+		:commandfor="id"
+		:style="{
 			'--bg': props.background,
 			'--hover-bg': props.hoverBackground
-		}" :data-has-hover-bg="props.hoverBackground != undefined" v-bind="$attrs" :type="props.type ?? 'button'">
+		}"
+		:data-has-hover-bg="props.hoverBackground != undefined"
+		v-bind="$attrs"
+		:type="props.type ?? 'button'"
+	>
 		<slot />
 	</button>
 </template>
@@ -76,10 +84,14 @@ button {
 	} */
 
 	&:hover:not(:disabled) {
-		color: lch(from var(--hover-bg, var(--bg)) calc((49.44 - l) * infinity) 0 0);
+		color: lch(
+			from var(--hover-bg, var(--bg)) calc((49.44 - l) * infinity) 0 0
+		);
 
-		--hover-bg-adjusted: light-dark(hsl(from var(--hover-bg, var(--bg)) h s calc(l - 10)),
-				hsl(from var(--hover-bg, var(--bg)) h s calc(l + 15)));
+		--hover-bg-adjusted: light-dark(
+			hsl(from var(--hover-bg, var(--bg)) h s calc(l - 10)),
+			hsl(from var(--hover-bg, var(--bg)) h s calc(l + 15))
+		);
 
 		background: var(--hover-bg-adjusted);
 	}

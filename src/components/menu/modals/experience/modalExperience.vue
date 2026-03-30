@@ -5,6 +5,8 @@ import { fontSizeSelect } from '@/constants/font-size'
 import { monthOptionsSelect } from '@/constants/monthOptions'
 import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
+import SvgNewDocument from '@/svgs/svgNewDocument.vue'
+import SvgTrash from '@/svgs/svgTrash.vue'
 import Button from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
@@ -14,8 +16,6 @@ import AppToggle from '@/ui/appToggle.vue'
 
 import DateInput from './components/exDateInput.vue'
 import Description from './components/exDescription.vue'
-import SvgNewDocument from '@/svgs/svgNewDocument.vue'
-import SvgTrash from '@/svgs/svgTrash.vue'
 
 type Props = {
 	id: string
@@ -42,7 +42,9 @@ function newExperience() {
 }
 
 function deleteExperience(id: string) {
-	curriculum.value.Experience.value = curriculum.value.Experience.value.filter((item) => item.id !== id)
+	curriculum.value.Experience.value = curriculum.value.Experience.value.filter(
+		(item) => item.id !== id
+	)
 }
 </script>
 
@@ -51,7 +53,11 @@ function deleteExperience(id: string) {
 		<template #header>
 			<div class="modalHeader">
 				<h3>
-					<AppInput type="checkbox" label="Experience" v-model="curriculum.Experience.show" />
+					<AppInput
+						type="checkbox"
+						label="Experience"
+						v-model="curriculum.Experience.show"
+					/>
 					<AppSmall>{{
 						list ? 'Items will be separeted by line breaks' : ''
 					}}</AppSmall>
@@ -59,43 +65,94 @@ function deleteExperience(id: string) {
 				<Button icon-button @click="newExperience" title="New Experience">
 					<SvgNewDocument />
 				</Button>
-				<AppInput divStyle="align-self: center" type="checkbox" label="Side by Side"
-					v-model="curriculum.Experience.sideBySide" />
-				<AppToggle style="place-self: end" v-model="list" labelEnd="List" labelStart="Text" />
-
+				<AppInput
+					divStyle="align-self: center"
+					type="checkbox"
+					label="Side by Side"
+					v-model="curriculum.Experience.sideBySide"
+				/>
+				<AppToggle
+					style="place-self: end"
+					v-model="list"
+					labelEnd="List"
+					labelStart="Text"
+				/>
 			</div>
 		</template>
 		<form>
 			<div class="size">
-
-				<Select label="Title" :items="fontSizeSelect" v-model="curriculum.Experience.size.title" />
-				<Select v-if="!curriculum.Experience.sideBySide" label="Subtitle" :items="fontSizeSelect"
-					v-model="curriculum.Experience.size.subTitle" />
-				<Select label="Description" :items="fontSizeSelect" v-model="curriculum.Experience.size.description" />
-				<Select label="Month" :items="monthOptionsSelect" v-model="curriculum.Experience.dateMonth" />
+				<Select
+					label="Title"
+					:items="fontSizeSelect"
+					v-model="curriculum.Experience.size.title"
+				/>
+				<Select
+					v-if="!curriculum.Experience.sideBySide"
+					label="Subtitle"
+					:items="fontSizeSelect"
+					v-model="curriculum.Experience.size.subTitle"
+				/>
+				<Select
+					label="Description"
+					:items="fontSizeSelect"
+					v-model="curriculum.Experience.size.description"
+				/>
+				<Select
+					label="Month"
+					:items="monthOptionsSelect"
+					v-model="curriculum.Experience.dateMonth"
+				/>
 			</div>
 
 			<div v-for="job in curriculum.Experience.value" class="job" :key="job.id">
 				<div>
 					<AppInput type="checkbox" label="Remote" v-model="job.Remote" />
-					<Button icon-button @click="deleteExperience(job.id)" hover-background="var(--red)"
-						title="Delete Experience">
+					<Button
+						icon-button
+						@click="deleteExperience(job.id)"
+						hover-background="var(--red)"
+						title="Delete Experience"
+					>
 						<SvgTrash />
 					</Button>
 				</div>
 				<div>
-					<AppInput type="text" label="Company Name" placeholder="Company Name" v-model="job.CompanyName" />
-					<AppInput type="text" label="Role" placeholder="Role" v-model="job.Role" />
+					<AppInput
+						type="text"
+						label="Company Name"
+						placeholder="Company Name"
+						v-model="job.CompanyName"
+					/>
+					<AppInput
+						type="text"
+						label="Role"
+						placeholder="Role"
+						v-model="job.Role"
+					/>
 				</div>
 				<div>
-					<DateInput type="date" label="Start Date" placeholder="Start Date" v-model="job.StartDate" />
-					<DateInput type="date" label="End Date" placeholder="EndDate" v-model="job.EndDate" />
+					<DateInput
+						type="date"
+						label="Start Date"
+						placeholder="Start Date"
+						v-model="job.StartDate"
+					/>
+					<DateInput
+						type="date"
+						label="End Date"
+						placeholder="EndDate"
+						v-model="job.EndDate"
+					/>
 				</div>
 
 				<div class="desc">
-					<Description :list="list" label="Description" placeholder="Description" v-model="job.Description" />
+					<Description
+						:list="list"
+						label="Description"
+						placeholder="Description"
+						v-model="job.Description"
+					/>
 				</div>
-
 			</div>
 		</form>
 	</Modal>
@@ -116,7 +173,6 @@ function deleteExperience(id: string) {
 	&:deep(.toggle) {
 		grid-area: 2/2;
 	}
-
 }
 
 form {
@@ -137,13 +193,13 @@ form {
 		padding: 0.8rem;
 		border-radius: var(--border-radius);
 
-		>div:not(.desc) {
+		> div:not(.desc) {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			gap: 0.8rem;
 		}
 
-		>div:has(button) button {
+		> div:has(button) button {
 			justify-self: end;
 		}
 

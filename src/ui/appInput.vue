@@ -23,10 +23,22 @@ defineOptions({
 </script>
 
 <template>
-	<input v-if="props.cvInput" data-cvInput v-bind="$attrs" :style="style" type="text" v-model="model" />
+	<input
+		v-if="props.cvInput"
+		data-cvInput
+		v-bind="$attrs"
+		:style="style"
+		type="text"
+		v-model="model"
+	/>
 	<div v-else class="content" :style="props.divStyle">
 		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
-		<input v-bind="$attrs" :id="id ?? key" :type="props.type ?? 'text'" v-model="model" />
+		<input
+			v-bind="$attrs"
+			:id="id ?? key"
+			:type="props.type ?? 'text'"
+			v-model="model"
+		/>
 		<small v-if="alert">{{ alert }}</small>
 	</div>
 </template>
@@ -98,12 +110,12 @@ input[data-cvInput] {
 		display: grid;
 		align-items: center;
 
-		>label {
+		> label {
 			grid-area: 1/2;
 			font-size: inherit;
 		}
 
-		>input[type='checkbox'] {
+		> input[type='checkbox'] {
 			grid-area: 1;
 			-webkit-appearance: none;
 			appearance: none;

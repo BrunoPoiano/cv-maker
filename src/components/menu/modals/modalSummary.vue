@@ -42,11 +42,21 @@ function saveSummary(list: boolean) {
 </script>
 
 <template>
-	<Modal :id="id" buttonLabel="Summary" closeLabel="close" minWidth="40rem" v-if="curriculum">
+	<Modal
+		:id="id"
+		buttonLabel="Summary"
+		closeLabel="close"
+		minWidth="40rem"
+		v-if="curriculum"
+	>
 		<template #header>
 			<div class="header">
 				<h3>
-					<AppInput type="checkbox" label="Summary" v-model="curriculum.Summary.show" />
+					<AppInput
+						type="checkbox"
+						label="Summary"
+						v-model="curriculum.Summary.show"
+					/>
 					<AppSmall>{{
 						list ? 'Items will be separeted by line breaks' : ''
 					}}</AppSmall>
@@ -55,11 +65,23 @@ function saveSummary(list: boolean) {
 			</div>
 		</template>
 		<form>
-			<Select label="Font Size" :items="fontSizeSelect" v-model="curriculum.Summary.size" />
+			<Select
+				label="Font Size"
+				:items="fontSizeSelect"
+				v-model="curriculum.Summary.size"
+			/>
 
-			<Textarea rows="6" placeholder="Small Text" v-model="curriculum.Summary.smallText" />
+			<Textarea
+				rows="6"
+				placeholder="Small Text"
+				v-model="curriculum.Summary.smallText"
+			/>
 
-			<Textarea placeholder="Summary" v-model="summary" @keyup="saveSummary(list)" />
+			<Textarea
+				placeholder="Summary"
+				v-model="summary"
+				@keyup="saveSummary(list)"
+			/>
 		</form>
 	</Modal>
 </template>

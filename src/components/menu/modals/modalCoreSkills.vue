@@ -23,17 +23,29 @@ const { curriculum } = inject(ProviderKey)!
 		<template #header>
 			<div class="header">
 				<h3>
-					<AppInput type="checkbox" label="Core Skills" v-model="curriculum.CoreSkills.show" />
+					<AppInput
+						type="checkbox"
+						label="Core Skills"
+						v-model="curriculum.CoreSkills.show"
+					/>
 					<AppSmall>Items will be separeted by commas (,)</AppSmall>
 				</h3>
 			</div>
 		</template>
 		<form>
-			<Select label="Font Size" :items="fontSizeSelect" v-model="curriculum.CoreSkills.size" />
+			<Select
+				label="Font Size"
+				:items="fontSizeSelect"
+				v-model="curriculum.CoreSkills.size"
+			/>
 			<div v-for="(_, core) in skillsProxy" class="skills" :key="core">
 				<span>{{ core.replace('_', ' & ') }}</span>
-				<Textarea placeholder="User Name" v-model="skillsProxy[core]" @update:modelValue="onInput(core, $event)"
-					minHeight="100px" />
+				<Textarea
+					placeholder="User Name"
+					v-model="skillsProxy[core]"
+					@update:modelValue="onInput(core, $event)"
+					minHeight="100px"
+				/>
 			</div>
 		</form>
 	</Modal>
