@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, provide, reactive, ref } from 'vue'
+import { computed, onBeforeMount, provide, reactive, ref } from 'vue'
 
 import { ProviderKey, ProviderSkillKey } from '@/keys'
 
@@ -93,6 +93,14 @@ function onInput(core: SkillsList, value?: string) {
 		: []
 }
 
+function setHue() {
+	const hue = getDataFromLocalStorage({
+		initialValue: 219,
+		key: 'hue'
+	})
+	document.documentElement.style.setProperty('--app-hue', hue.toString())
+}
+
 provide(ProviderSkillKey, {
 	skillsProxy,
 	onInput
@@ -102,6 +110,10 @@ provide(ProviderKey, {
 	curriculum: currentCurriculum,
 	readonly,
 	bolder
+})
+
+onBeforeMount(() => {
+	setHue()
 })
 </script>
 

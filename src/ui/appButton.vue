@@ -89,7 +89,7 @@ button {
 		);
 
 		--hover-bg-adjusted: light-dark(
-			hsl(from var(--hover-bg, var(--bg)) h s calc(l - 10)),
+			hsl(from var(--hover-bg, var(--bg)) h 80% calc(l - 7)),
 			hsl(from var(--hover-bg, var(--bg)) h s calc(l + 15))
 		);
 

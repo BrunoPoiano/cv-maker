@@ -86,6 +86,14 @@ input[data-cvInput] {
 		color: var(--red);
 	}
 
+	&:has(input[type='range']) {
+		--_gap: 0px;
+
+		input[type='range'] {
+			padding: 0;
+		}
+	}
+
 	&:has(input[type='file']) {
 		input::file-selector-button {
 			font-size: var(--font-size-base);

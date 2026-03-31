@@ -13,5 +13,6 @@ export const localStorageKeys = [
 	'curriculumIndex',
 	'theme',
 	'bolder',
-	'readonly'
+	'readonly',
+	'hue'
 ] as const

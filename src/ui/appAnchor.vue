@@ -2,6 +2,12 @@
 import { generateKey } from '@/helpers/generateKey'
 
 const anchor = `--${generateKey(5, 'string')}`
+
+const { marginBottom } = defineProps({
+	marginBottom: {
+		default: '-2rem'
+	}
+})
 </script>
 
 <template>
@@ -27,7 +33,7 @@ const anchor = `--${generateKey(5, 'string')}`
 			position-anchor: v-bind(anchor);
 			bottom: anchor(top);
 			right: anchor(right);
-			margin-bottom: -2rem;
+			margin-bottom: v-bind(marginBottom);
 		}
 	}
 }

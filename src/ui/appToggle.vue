@@ -49,6 +49,8 @@ function changeCheckBox() {
 
 <style scoped>
 .toggle {
+	--_bg: var(--primary);
+
 	display: flex;
 	gap: 0.5rem;
 	align-items: Center;
@@ -57,7 +59,7 @@ function changeCheckBox() {
 	--_swith-height: 24px;
 
 	span[data-check='true'] {
-		color: var(--primary);
+		color: var(--_bg);
 	}
 
 	.switch {
@@ -77,28 +79,37 @@ function changeCheckBox() {
 			cursor: pointer;
 			inset: 0;
 			background-color: #ccc;
-			-webkit-transition: 0.4s;
-			transition: 0.4s;
+			-webkit-transition: 400ms ease-in-out;
+			transition: 400ms ease-in-out;
 
 			&:before {
 				position: absolute;
 				content: '';
 				height: calc(var(--_swith-height) - 10px);
-				background-color: var(--primary);
+				background-color: var(--_bg);
 				aspect-ratio: 1;
 				left: 4px;
 				bottom: 5px;
-				-webkit-transition: 0.4s;
-				transition: 0.4s;
+				-webkit-transition: 400ms ease-in-out;
+				transition: 400ms ease-in-out;
 			}
 		}
 
+		&:hover:not(:disabled) input:checked + .slider {
+			--hover-bg-adjusted: light-dark(
+				hsl(from var(--_bg) h 80% calc(l - 8)),
+				hsl(from var(--_bg) h s calc(l + 15))
+			);
+
+			background: var(--hover-bg-adjusted);
+		}
+
 		input:checked + .slider {
-			background-color: var(--primary);
+			background-color: var(--_bg);
 		}
 
 		input:focus + .slider {
-			box-shadow: 0 0 1px var(--primary);
+			box-shadow: 0 0 1px var(--_bg);
 		}
 
 		input:checked + .slider:before {

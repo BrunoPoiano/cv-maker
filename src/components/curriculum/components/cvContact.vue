@@ -11,7 +11,7 @@ const { curriculum, readonly } = inject(ProviderKey)!
 </script>
 
 <template>
-	<AppAnchor>
+	<AppAnchor margin-bottom="-1rem">
 		<div class="contact" :data-side-by-side="curriculum.Contact.sideBySide">
 			<div
 				:key="type"

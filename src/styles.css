@@ -16,48 +16,87 @@
 	--font-size-xxxl: clamp(1.5552rem, 1.0678rem + 2.1661vw, 2.7466rem);
 	--font-size-xxxxl: clamp(1.8662rem, 1.2252rem + 2.8491vw, 3.4332rem);
 
-	--primary: light-dark(hsl(219, 16%, 39%), hsl(218, 18%, 61%));
-	--primary-dim: light-dark(hsl(220, 14%, 49%), hsl(219, 13%, 51%));
-	--on-primary: light-dark(hsl(0, 0%, 100%), hsl(203, 21%, 7%));
+	--app_hue: var(--app-hue, 219);
+
+	/* Primary */
+	--primary: light-dark(
+		oklch(0.62 0.12 var(--app_hue)),
+		oklch(0.72 0.1 var(--app_hue))
+	);
+	--primary-dim: light-dark(
+		oklch(0.68 0.1 var(--app_hue)),
+		oklch(0.66 0.09 var(--app_hue))
+	);
+	--on-primary: light-dark(oklch(0.98 0 0), oklch(0.22 0.02 var(--app_hue)));
 
 	/* Surfaces (nested depth) */
-	--background: light-dark(hsl(210, 33%, 98%), hsl(203, 21%, 7%));
-	--surface: light-dark(hsl(0, 0%, 100%), hsl(204, 19%, 10%));
-	--surface-container-low: light-dark(hsl(206, 30%, 95%), hsl(203, 20%, 13%));
-	--surface-container-highest: light-dark(#d9e4ea, #243039);
-	--surface-container-lowest: light-dark(#ffffff, #12181c);
-	--surface-bright: light-dark(hsla(0, 0%, 100%, 0.8), rgba(30, 38, 44, 0.8));
+	--background: light-dark(
+		oklch(0.98 0.01 var(--app_hue)),
+		oklch(0.18 0.02 var(--app_hue))
+	);
+	--surface: light-dark(
+		oklch(1 0.008 var(--app_hue)),
+		oklch(0.22 0.02 var(--app_hue))
+	);
+	--surface-container-low: light-dark(
+		oklch(0.95 0.015 var(--app_hue)),
+		oklch(0.26 0.025 var(--app_hue))
+	);
+	--surface-container-highest: light-dark(
+		oklch(0.9 0.02 var(--app_hue)),
+		oklch(0.3 0.03 var(--app_hue))
+	);
+	--surface-container-lowest: light-dark(
+		oklch(1 0 0),
+		oklch(0.2 0.02 var(--app_hue))
+	);
+	--surface-bright: light-dark(
+		oklch(1 0.008 var(--app_hue) / 0.8),
+		oklch(0.24 0.03 var(--app_hue) / 0.8)
+	);
 
 	/* Text */
-	--on-surface: light-dark(#2a3439, #e6edf2);
-	--on-surface-variant: light-dark(#5f6b73, #a7b3bb);
+	--on-surface: light-dark(rgb(0, 0, 0), white);
+	--on-surface-variant: light-dark(rgb(87, 87, 87), rgb(172, 172, 172));
 
 	/* Secondary / accents */
-	--secondary: light-dark(#5c6f7a, #9fb1bb);
-	--secondary-container: light-dark(#e3edf2, #2a3942);
-	--on-secondary-container: light-dark(#2a3439, #dce6eb);
+	--secondary: light-dark(
+		oklch(0.65 0.08 var(--app_hue)),
+		oklch(0.7 0.07 var(--app_hue))
+	);
+	--secondary-container: light-dark(
+		oklch(0.92 0.03 var(--app_hue)),
+		oklch(0.28 0.04 var(--app_hue))
+	);
+	--on-secondary-container: light-dark(
+		oklch(0.3 0.03 var(--app_hue)),
+		oklch(0.88 0.02 var(--app_hue))
+	);
 
 	/* Outline (ghost border) */
 	--outline-variant: light-dark(
-		rgba(42, 52, 57, 0.15),
-		rgba(230, 237, 242, 0.15)
+		oklch(0.28 0.03 var(--app_hue) / 0.15),
+		oklch(0.92 0.02 var(--app_hue) / 0.15)
 	);
 
 	--shadow-ambient: 0 12px 32px
-		light-dark(rgba(42, 52, 57, 0.16), rgba(0, 0, 0, 0.35));
+		light-dark(oklch(0.28 0.03 var(--app_hue) / 0.16), oklch(0 0 0 / 0.35));
 
 	/* Interaction */
-	--hover-surface-shift: light-dark(#f0f4f7, #1a2227);
+	--hover-surface-shift: light-dark(
+		oklch(0.96 0.015 var(--app_hue)),
+		oklch(0.24 0.025 var(--app_hue))
+	);
 	--focus-outline: light-dark(
-		rgba(84, 95, 115, 0.2),
-		rgba(138, 151, 173, 0.25)
+		oklch(0.62 0.12 var(--app_hue) / 0.2),
+		oklch(0.72 0.1 var(--app_hue) / 0.25)
 	);
 
 	--font-weight: 400;
 
-	--red: #9e422c;
-	--blue: hsl(210, 90%, 85%);
-	--orange: hsl(28.9, 90%, 64.1%);
+	--red: hwb(12 17% 38%);
+	--blue: hwb(var(--app_hue) 71% 2%);
+	--orange: hwb(29 32% 4%);
 	--yellow: hsl(55, 90%, 85%);
 	--green: hsl(130, 90%, 85%);
 
@@ -82,8 +121,8 @@ body {
 
 	font-family: 'EBGaramondPDF', serif;
 	line-height: 1.35;
-	accent-color: var(--on-surface);
-	caret-color: var(--on-surface);
+	accent-color: var(--primary);
+	caret-color: var(--primary);
 	color: var(--on-surface);
 }
 
@@ -232,6 +271,11 @@ pre {
 }
 
 @media print {
+	:root {
+		--on-surface: rgb(0, 0, 0);
+		--on-surface-variant: rgb(87, 87, 87);
+	}
+
 	body * {
 		visibility: hidden;
 		color-scheme: light;
