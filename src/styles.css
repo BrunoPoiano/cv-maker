@@ -27,7 +27,10 @@
 		oklch(0.68 0.1 var(--app_hue)),
 		oklch(0.66 0.09 var(--app_hue))
 	);
-	--on-primary: light-dark(oklch(0.98 0 0), oklch(0.22 0.02 var(--app_hue)));
+	--on-primary: light-dark(
+		oklch(0.98 0 var(--app_hue)),
+		oklch(0.22 0.02 var(--app_hue))
+	);
 
 	/* Surfaces (nested depth) */
 	--background: light-dark(
@@ -47,7 +50,7 @@
 		oklch(0.3 0.03 var(--app_hue))
 	);
 	--surface-container-lowest: light-dark(
-		oklch(1 0 0),
+		oklch(1 0 var(--app_hue)),
 		oklch(0.2 0.02 var(--app_hue))
 	);
 	--surface-bright: light-dark(
@@ -80,7 +83,10 @@
 	);
 
 	--shadow-ambient: 0 12px 32px
-		light-dark(oklch(0.28 0.03 var(--app_hue) / 0.16), oklch(0 0 0 / 0.35));
+		light-dark(
+			oklch(0.28 0.03 var(--app_hue) / 0.16),
+			oklch(0 0 var(--app_hue) / 0.35)
+		);
 
 	/* Interaction */
 	--hover-surface-shift: light-dark(
