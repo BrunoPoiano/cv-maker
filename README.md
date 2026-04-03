@@ -2,6 +2,9 @@
 
 A small single-page Vue 3 application to create, edit and print one-page resumes (CVs). The app uses Vite + TypeScript and stores user data in localStorage so you can manage multiple CVs, edit sections with modal editors and generate a printable PDF via the browser print dialog.
 
+<img width="1225" height="774" alt="image" src="https://github.com/user-attachments/assets/701ac961-f9fa-49d2-9c07-5a98156b2ce3" />
+
+
 ## Docker Deploy (Recommended)
 
 You can find the Docker image here: [cv-maker](https://hub.docker.com/r/brunopoiano/cv-maker)
