@@ -25,13 +25,7 @@ function handleColorChange() {
 </script>
 
 <template>
-	<Modal
-		:id="id"
-		buttonLabel="Section"
-		closeLabel="close"
-		minWidth="30rem"
-		v-if="curriculum"
-	>
+	<Modal :id="id" closeLabel="close" minWidth="30rem" v-if="curriculum">
 		<template #header>
 			<h3>Settings</h3>
 		</template>
