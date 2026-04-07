@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import { defineAsyncComponent, inject } from 'vue'
 
-import { CurriculumConst } from '@/constants/curriculum'
 import { languagesSelect } from '@/constants/language'
-import { deepClone } from '@/helpers/clone'
-import { saveDataToLocalStorage } from '@/helpers/localstorage'
 import { ProviderKey } from '@/keys'
-import { parseCurriculum } from '@/parsers/curriculum'
+import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
+import { CurriculumStore } from '@/stores/curriculumStore'
+import { ReadonlyStore } from '@/stores/readonlyStore'
 import SvgCopy from '@/svgs/svgCopy.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import SvgSave from '@/svgs/svgSave.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
-import type { Curriculum } from '@/types'
 import Button from '@/ui/appButton.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppMenuModalItems from '@/ui/appMenuModalItems.vue'
@@ -25,66 +23,7 @@ const ModalBackup = defineAsyncComponent(
 )
 
 const { curriculum, readonly } = inject(ProviderKey)!
-
-const curriculumIndex = defineModel<number>('curriculum-index', {
-	required: true
-})
-const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
-	required: true
-})
-
-function saveData() {
-	saveDataToLocalStorage({
-		key: 'curriculumList',
-		initialValue: curriculumList.value
-	})
-}
-
-function updateIsEditable() {
-	saveDataToLocalStorage({
-		key: 'readonly',
-		initialValue: readonly.value
-	})
-}
-
-function newCv() {
-	curriculumList.value.push(
-		deepClone({ obj: CurriculumConst(), parseFunction: parseCurriculum })
-	)
-	curriculumIndex.value = curriculumList.value.length - 1
-}
-
-function copyCv() {
-	curriculumList.value.push(
-		deepClone({
-			obj: {
-				...curriculum.value,
-				Header: {
-					...curriculum.value.Header,
-					UserName: {
-						...curriculum.value.Header.UserName,
-						value: `${curriculum.value.Header.UserName.value} Copy`
-					}
-				}
-			},
-			parseFunction: parseCurriculum
-		})
-	)
-	curriculumIndex.value = curriculumList.value.length - 1
-}
-
-function deleteCv() {
-	if (!curriculumList.value.length) return
-	if (curriculumIndex.value == null) return
-	if (curriculumIndex.value === 0) return
-
-	curriculumList.value.splice(curriculumIndex.value, 1)
-
-	curriculumIndex.value = Math.min(
-		curriculumIndex.value,
-		curriculumList.value.length - 1
-	)
-}
+const curriculumIndex = CurriculumIndexStore.get()
 </script>
 
 <template>
@@ -104,7 +43,6 @@ function deleteCv() {
 		<AppButton modal id="modalMenuImportExport"> Import/Export </AppButton>
 		<ModalBackup
 			id="modalMenuImportExport"
-			v-model:curriculum-list="curriculumList"
 			v-model:curriculum-index="curriculumIndex"
 		/>
 	</nav>
@@ -113,12 +51,12 @@ function deleteCv() {
 			v-model="readonly"
 			label-start="Preview"
 			label-end="Editor"
-			:afterChange="updateIsEditable"
+			:afterChange="ReadonlyStore.save"
 		/>
 
 		<Button
 			icon-button
-			@click="copyCv"
+			@click="CurriculumStore.copy(curriculum)"
 			hover-background="var(--blue)"
 			title="Copy"
 		>
@@ -126,7 +64,7 @@ function deleteCv() {
 		</Button>
 		<Button
 			icon-button
-			@click="newCv"
+			@click="CurriculumStore.new()"
 			hover-background="var(--green)"
 			title="New Curriculum"
 		>
@@ -134,7 +72,7 @@ function deleteCv() {
 		</Button>
 		<Button
 			icon-button
-			@click="saveData"
+			@click="CurriculumStore.save()"
 			hover-background="var(--green)"
 			title="Save"
 		>
@@ -142,7 +80,7 @@ function deleteCv() {
 		</Button>
 		<Button
 			icon-button
-			@click="deleteCv"
+			@click="CurriculumStore.delete(curriculumIndex)"
 			:disabled="curriculumIndex === 0"
 			hover-background="var(--red)"
 			title="Delete"

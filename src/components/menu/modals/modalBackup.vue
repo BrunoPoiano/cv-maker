@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import { saveDataToLocalStorage } from '@/helpers/localstorage'
 import { parseCurriculumList } from '@/parsers/curriculum'
-import type { Curriculum } from '@/types'
+import { CurriculumStore } from '@/stores/curriculumStore'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
@@ -17,15 +16,12 @@ const { id } = defineProps<Props>()
 const curriculumIndex = defineModel<number>('curriculum-index', {
 	required: true
 })
-const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
-	required: true
-})
 
 const file = ref<File | null>(null)
 const alert = ref<string | null>(null)
 
 function exportFile() {
-	const blob = new Blob([JSON.stringify(curriculumList.value, null, 2)], {
+	const blob = new Blob([JSON.stringify(CurriculumStore.get(), null, 2)], {
 		type: 'application/json'
 	})
 
@@ -52,12 +48,7 @@ function importFile(e: Event) {
 			const importedData = JSON.parse(event.target?.result as string)
 			const newCvs = parseCurriculumList(importedData)
 
-			saveDataToLocalStorage({
-				key: 'curriculumList',
-				initialValue: newCvs
-			})
-
-			curriculumList.value.splice(0, curriculumList.value.length, ...newCvs)
+			CurriculumStore.update(newCvs)
 			alert.value = `imported successfully!`
 			curriculumIndex.value = 0
 		} catch (error) {
@@ -97,7 +88,7 @@ function importFile(e: Event) {
 				accept=".json"
 			/>
 			<pre>
-		{{ curriculumList }}
+		{{ CurriculumStore.get() }}
 	</pre
 			>
 		</form>

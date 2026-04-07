@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed } from 'vue'
 
-import { saveDataToLocalStorage } from '@/helpers/localstorage'
-import { ProviderKey } from '@/keys'
+import { bolderStore } from '@/stores/bolderStore'
 import Modal from '@/ui/appModal.vue'
 import Textarea from '@/ui/appTextarea.vue'
 
@@ -12,7 +11,7 @@ type Props = {
 
 const { id } = defineProps<Props>()
 
-const { bolder: bolderValue } = inject(ProviderKey)!
+const bolderValue = bolderStore.get()
 
 const bolder = computed<string>({
 	get() {
@@ -23,7 +22,7 @@ const bolder = computed<string>({
 
 		bolderValue.splice(0, bolderValue.length, ...bolderSplit)
 
-		saveDataToLocalStorage({ key: 'bolder', initialValue: bolderSplit })
+		bolderStore.save(bolderValue)
 	}
 })
 </script>

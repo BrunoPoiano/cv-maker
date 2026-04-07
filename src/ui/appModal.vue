@@ -23,29 +23,31 @@ const props = defineProps({
 </script>
 
 <template>
-	<dialog
-		:closedby="props.closedby || 'any'"
-		:id="props.id"
-		:style="{
-			minWidth: `min(${props.minWidth || '10rem'}, 100%)`,
-			maxWidth: `${props.maxWidth || '100%'}`
-		}"
-		@show="props.openAction?.()"
-	>
-		<div class="header">
-			<slot name="header" />
-		</div>
-		<slot />
-		<div class="footer">
-			<slot name="footer" />
-			<Button
-				:commandfor="props.id"
-				command="close"
-				@click="props.closeAction"
-				>{{ props.closeLabel }}</Button
-			>
-		</div>
-	</dialog>
+	<Teleport to="#app">
+		<dialog
+			:closedby="props.closedby || 'any'"
+			:id="props.id"
+			:style="{
+				minWidth: `min(${props.minWidth || '10rem'}, 100%)`,
+				maxWidth: `${props.maxWidth || '100%'}`
+			}"
+			@show="props.openAction?.()"
+		>
+			<div class="header">
+				<slot name="header" />
+			</div>
+			<slot />
+			<div class="footer">
+				<slot name="footer" />
+				<Button
+					:commandfor="props.id"
+					command="close"
+					@click="props.closeAction"
+					>{{ props.closeLabel }}</Button
+				>
+			</div>
+		</dialog>
+	</Teleport>
 </template>
 
 <style scoped>

@@ -1,35 +1,20 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount } from 'vue'
 
-import {
-	getDataFromLocalStorage,
-	saveDataToLocalStorage
-} from '@/helpers/localstorage'
+import { ColorSchemeStore } from '@/stores/colorSchemeStore'
 import SvgMoon from '@/svgs/svgMoon.vue'
 import SvgSun from '@/svgs/svgSun.vue'
 import Button from '@/ui/appButton.vue'
 
-const colorScheme = ref(
-	getDataFromLocalStorage({ key: 'theme', initialValue: 'light' })
-)
-
-const setColorScheme = () => {
-	saveDataToLocalStorage({ key: 'theme', initialValue: colorScheme.value })
-	document.documentElement.style.setProperty('color-scheme', colorScheme.value)
-}
-
-const changeColorTheme = () => {
-	colorScheme.value = colorScheme.value === 'dark' ? 'light' : 'dark'
-	setColorScheme()
-}
+const colorScheme = ColorSchemeStore.get()
 
 onBeforeMount(() => {
-	setColorScheme()
+	ColorSchemeStore.set()
 })
 </script>
 
 <template>
-	<Button @click="changeColorTheme">
+	<Button @click="ColorSchemeStore.change()">
 		<SvgSun v-if="colorScheme === 'dark'" />
 		<SvgMoon v-else />
 		{{ colorScheme === 'dark' ? 'Light Mode' : 'Dark Mode' }}

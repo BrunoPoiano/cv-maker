@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, provide, reactive, ref } from 'vue'
+import { computed, onBeforeMount, provide } from 'vue'
 
 import { ProviderKey, ProviderSkillKey } from '@/keys'
 
@@ -10,37 +10,16 @@ import Menu from './components/menu/menuSection.vue'
 import { CurriculumConst } from './constants/curriculum'
 import { skillList } from './constants/skillList'
 import { deepClone } from './helpers/clone'
-import { getDataFromLocalStorage } from './helpers/localstorage'
-import { parseBolder } from './parsers/bolder'
-import { parseCurriculum, parseCurriculumList } from './parsers/curriculum'
-import { isBooleanOrDefault, isNumberOrDefault } from './parsers/typeValidation'
+import { parseCurriculum } from './parsers/curriculum'
+import { CurriculumIndexStore } from './stores/curriculumIndexStore'
+import { CurriculumStore } from './stores/curriculumStore'
+import { HueStore } from './stores/hueStore'
+import { ReadonlyStore } from './stores/readonlyStore'
 import type { SkillsList } from './types'
 
-const curriculumList = ref(
-	getDataFromLocalStorage({
-		key: 'curriculumList',
-		parseFunction: parseCurriculumList,
-		initialValue: [
-			deepClone({ obj: CurriculumConst(), parseFunction: parseCurriculum })
-		]
-	})
-)
-
-const curriculumIndex = ref(
-	getDataFromLocalStorage({
-		key: 'curriculumIndex',
-		parseFunction: (value: unknown) => isNumberOrDefault(value, 0),
-		initialValue: 0
-	})
-)
-
-const readonly = ref(
-	getDataFromLocalStorage({
-		key: 'readonly',
-		parseFunction: (value: unknown) => isBooleanOrDefault(value, false),
-		initialValue: true
-	})
-)
+const curriculumList = CurriculumStore.get()
+const curriculumIndex = CurriculumIndexStore.get()
+const readonly = ReadonlyStore.get()
 
 const currentCurriculum = computed({
 	get() {
@@ -54,18 +33,9 @@ const currentCurriculum = computed({
 	}
 })
 
-const bolder = reactive(
-	getDataFromLocalStorage({
-		key: 'bolder',
-		parseFunction: parseBolder,
-		initialValue: []
-	})
-)
-
 const skillsProxy = computed(() => {
 	const source = currentCurriculum.value.CoreSkills.skills
 	const result: Record<SkillsList, string> = {
-		other: '',
 		languages: '',
 		frontend: '',
 		backend: '',
@@ -73,7 +43,8 @@ const skillsProxy = computed(() => {
 		apis: '',
 		containers_devops: '',
 		practices: '',
-		http_integrations: ''
+		http_integrations: '',
+		other: ''
 	}
 
 	for (const item of skillList) {
@@ -93,14 +64,6 @@ function onInput(core: SkillsList, value?: string) {
 		: []
 }
 
-function setHue() {
-	const hue = getDataFromLocalStorage({
-		initialValue: 219,
-		key: 'hue'
-	})
-	document.documentElement.style.setProperty('--app-hue', hue.toString())
-}
-
 provide(ProviderSkillKey, {
 	skillsProxy,
 	onInput
@@ -108,27 +71,18 @@ provide(ProviderSkillKey, {
 
 provide(ProviderKey, {
 	curriculum: currentCurriculum,
-	readonly,
-	bolder
+	readonly
 })
 
 onBeforeMount(() => {
-	setHue()
+	HueStore.set()
 })
 </script>
 
 <template>
 	<section>
-		<Header
-			:curriculum="currentCurriculum"
-			:readonly="readonly"
-			v-model:curriculum-index="curriculumIndex"
-			v-model:curriculum-list="curriculumList"
-		/>
-		<Menu
-			v-model:curriculum-index="curriculumIndex"
-			v-model:curriculum-list="curriculumList"
-		/>
+		<Header />
+		<Menu />
 		<CurriculumModel :key="curriculumIndex" />
 		<AppFooter />
 	</section>
