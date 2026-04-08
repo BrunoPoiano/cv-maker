@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineAsyncComponent, inject } from 'vue'
+import { inject } from 'vue'
 
 import { languagesSelect } from '@/constants/language'
 import { ProviderKey } from '@/keys'
@@ -11,16 +11,12 @@ import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import SvgSave from '@/svgs/svgSave.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
 import Button from '@/ui/appButton.vue'
-import AppButton from '@/ui/appButton.vue'
 import AppMenuModalItems from '@/ui/appMenuModalItems.vue'
 import AppSelect from '@/ui/appSelect.vue'
 import appToggleText from '@/ui/appToggleText.vue'
 
 import { sideMenuItems } from './menuitems/sideMenuItems'
 import { topMenuItems } from './menuitems/topMenuItems'
-const ModalBackup = defineAsyncComponent(
-	() => import('./modals/modalBackup.vue')
-)
 
 const { curriculum, readonly } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
@@ -40,11 +36,6 @@ const curriculumIndex = CurriculumIndexStore.get()
 	</aside>
 	<nav class="menu">
 		<AppMenuModalItems :menu-items="topMenuItems" />
-		<AppButton modal id="modalMenuImportExport"> Import/Export </AppButton>
-		<ModalBackup
-			id="modalMenuImportExport"
-			v-model:curriculum-index="curriculumIndex"
-		/>
 	</nav>
 	<nav class="curriculumMenu">
 		<appToggleText

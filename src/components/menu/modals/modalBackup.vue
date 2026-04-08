@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 import { parseCurriculumList } from '@/parsers/curriculum'
+import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { CurriculumStore } from '@/stores/curriculumStore'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
@@ -13,15 +14,13 @@ type Props = {
 
 const { id } = defineProps<Props>()
 
-const curriculumIndex = defineModel<number>('curriculum-index', {
-	required: true
-})
-
+const curriculumIndex = CurriculumIndexStore.get()
+const curriculum = CurriculumStore.get()
 const file = ref<File | null>(null)
 const alert = ref<string | null>(null)
 
 function exportFile() {
-	const blob = new Blob([JSON.stringify(CurriculumStore.get(), null, 2)], {
+	const blob = new Blob([JSON.stringify(curriculum, null, 2)], {
 		type: 'application/json'
 	})
 
@@ -88,7 +87,7 @@ function importFile(e: Event) {
 				accept=".json"
 			/>
 			<pre>
-		{{ CurriculumStore.get() }}
+		{{ curriculum }}
 	</pre
 			>
 		</form>
