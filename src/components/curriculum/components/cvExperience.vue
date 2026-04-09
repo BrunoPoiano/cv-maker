@@ -6,8 +6,9 @@ import ExDescription from '@/components/menu/modals/experience/components/exDesc
 import { Translate } from '@/constants/translations'
 import { generateDate, generateTitle } from '@/helpers/cvFormatters'
 import { ProviderKey } from '@/keys'
+import { bolderStore } from '@/stores/bolderStore'
 import SvgPen from '@/svgs/SvgPen.vue'
-import type { BoldMatchReturn, Curriculum } from '@/types'
+import type { Curriculum } from '@/types'
 import AppAnchor from '@/ui/appAnchor.vue'
 import AppBoldMatch from '@/ui/appBoldMatch.vue'
 import AppButton from '@/ui/appButton.vue'
@@ -16,10 +17,6 @@ import List from '@/ui/appList.vue'
 import Paragraph from '@/ui/appParagraph.vue'
 
 import Title from './cvTitle.vue'
-
-const { boldMatches } = defineProps<{
-	boldMatches: (value: string) => BoldMatchReturn
-}>()
 
 const { curriculum, readonly } = inject(ProviderKey)!
 
@@ -127,7 +124,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 						<List
 							:genericList="job.Description"
 							v-if="Array.isArray(job.Description)"
-							:boldMatches="boldMatches"
+							:boldMatches="bolderStore.matches"
 							:fontSize="curriculum.Experience.size.description"
 							:language="curriculum.Settings.language"
 						/>
@@ -135,7 +132,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 							v-else
 							:fontSize="curriculum.Experience.size.description"
 						>
-							<AppBoldMatch :value="boldMatches(job.Description)" />
+							<AppBoldMatch :value="bolderStore.matches(job.Description)" />
 						</Paragraph>
 					</template>
 				</div>

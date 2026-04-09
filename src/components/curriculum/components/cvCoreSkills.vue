@@ -3,8 +3,8 @@ import { inject } from 'vue'
 
 import { Translate } from '@/constants/translations'
 import { ProviderKey } from '@/keys'
+import { bolderStore } from '@/stores/bolderStore'
 import SvgPen from '@/svgs/SvgPen.vue'
-import type { BoldMatchReturn } from '@/types'
 import AppAnchor from '@/ui/appAnchor.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppListCoreSkills from '@/ui/appListCoreSkills.vue'
@@ -12,9 +12,6 @@ import AppListCoreSkills from '@/ui/appListCoreSkills.vue'
 import Title from './cvTitle.vue'
 
 const { curriculum, readonly } = inject(ProviderKey)!
-const { boldMatches } = defineProps<{
-	boldMatches: (value: string) => BoldMatchReturn
-}>()
 </script>
 
 <template>
@@ -27,7 +24,7 @@ const { boldMatches } = defineProps<{
 				<AppListCoreSkills
 					:readonly="readonly"
 					:fontSize="curriculum.CoreSkills.size"
-					:boldMatches="boldMatches"
+					:boldMatches="bolderStore.matches"
 					:language="curriculum.Settings.language"
 				/>
 			</div>

@@ -4,8 +4,8 @@ import { computed, inject } from 'vue'
 import ExDescription from '@/components/menu/modals/experience/components/exDescription.vue'
 import { Translate } from '@/constants/translations'
 import { ProviderKey } from '@/keys'
+import { bolderStore } from '@/stores/bolderStore'
 import SvgPen from '@/svgs/SvgPen.vue'
-import type { BoldMatchReturn } from '@/types'
 import AppAnchor from '@/ui/appAnchor.vue'
 import AppBoldMatch from '@/ui/appBoldMatch.vue'
 import AppButton from '@/ui/appButton.vue'
@@ -16,10 +16,6 @@ import AppTextarea from '@/ui/appTextarea.vue'
 import Title from './cvTitle.vue'
 
 const { curriculum, readonly } = inject(ProviderKey)!
-
-const { boldMatches } = defineProps<{
-	boldMatches: (value: string) => BoldMatchReturn
-}>()
 
 const rows = computed(() =>
 	Array.isArray(curriculum.value.Summary.value)
@@ -46,11 +42,13 @@ const rows = computed(() =>
 						v-if="Array.isArray(curriculum.Summary.value)"
 						:fontSize="curriculum.Summary.size"
 						:genericList="curriculum.Summary.value"
-						:boldMatches="boldMatches"
+						:boldMatches="bolderStore.matches"
 						:language="curriculum.Settings.language"
 					/>
 					<Paragraph v-else :fontSize="curriculum.Summary.size">
-						<AppBoldMatch :value="boldMatches(curriculum.Summary.value)" />
+						<AppBoldMatch
+							:value="bolderStore.matches(curriculum.Summary.value)"
+						/>
 					</Paragraph>
 				</template>
 				<template v-else>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h, inject } from 'vue'
+import { computed, inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
 
@@ -9,24 +9,7 @@ import CvExperience from './components/cvExperience.vue'
 import CvHeader from './components/cvHeader.vue'
 import CvSummary from './components/cvSummary.vue'
 
-const { bolder, curriculum } = inject(ProviderKey)!
-
-function boldMatches(value: string) {
-	if (!bolder.length) return value
-
-	const escaped = bolder.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-
-	const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi')
-
-	const parts = value.split(regex)
-
-	return parts.map((part) =>
-		bolder.some((b) => b.toLowerCase() === part.toLowerCase())
-			? h('b', part)
-			: part
-	)
-}
-
+const { curriculum } = inject(ProviderKey)!
 const margin = computed(() => curriculum.value.Settings.margin)
 const gap = computed(() => curriculum.value.Settings.gap)
 </script>
@@ -40,9 +23,9 @@ const gap = computed(() => curriculum.value.Settings.gap)
 		>
 			<CvHeader />
 			<CvContact />
-			<CvSummary :boldMatches="boldMatches" />
-			<CvCoreSkills :boldMatches="boldMatches" />
-			<CvExperience :boldMatches="boldMatches" />
+			<CvSummary />
+			<CvCoreSkills />
+			<CvExperience />
 		</div>
 	</section>
 </template>

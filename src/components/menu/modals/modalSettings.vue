@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
 import { a4gapSelect, marginListSelect } from '@/constants/spacings'
-import {
-	getDataFromLocalStorage,
-	saveDataToLocalStorage
-} from '@/helpers/localstorage'
 import { ProviderKey } from '@/keys'
+import { HueStore } from '@/stores/hueStore'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
@@ -19,33 +16,16 @@ type Props = {
 
 const { id } = defineProps<Props>()
 
-const colorRange = ref(
-	getDataFromLocalStorage({
-		initialValue: 219,
-		key: 'hue'
-	})
-)
+const colorRange = HueStore.get()
 
 function handleColorChange() {
-	document.documentElement.style.setProperty(
-		'--app-hue',
-		colorRange.value.toString()
-	)
-	saveDataToLocalStorage({
-		initialValue: colorRange.value,
-		key: 'hue'
-	})
+	HueStore.set()
+	HueStore.save()
 }
 </script>
 
 <template>
-	<Modal
-		:id="id"
-		buttonLabel="Section"
-		closeLabel="close"
-		minWidth="30rem"
-		v-if="curriculum"
-	>
+	<Modal :id="id" closeLabel="close" minWidth="30rem" v-if="curriculum">
 		<template #header>
 			<h3>Settings</h3>
 		</template>

@@ -49,7 +49,7 @@ function deleteExperience(id: string) {
 </script>
 
 <template>
-	<Modal :id="id" buttonLabel="Experience" closeLabel="close" minWidth="50rem">
+	<Modal :id="id" closeLabel="close" minWidth="50rem">
 		<template #header>
 			<div class="modalHeader">
 				<h3>

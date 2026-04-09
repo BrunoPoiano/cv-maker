@@ -42,13 +42,7 @@ function saveSummary(list: boolean) {
 </script>
 
 <template>
-	<Modal
-		:id="id"
-		buttonLabel="Summary"
-		closeLabel="close"
-		minWidth="40rem"
-		v-if="curriculum"
-	>
+	<Modal :id="id" closeLabel="close" minWidth="40rem" v-if="curriculum">
 		<template #header>
 			<div class="header">
 				<h3>

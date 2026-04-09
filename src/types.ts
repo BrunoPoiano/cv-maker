@@ -36,7 +36,6 @@ type GitHub = `github.com/${string}`
 
 export type Provider = {
 	curriculum: WritableComputedRef<Curriculum>
-	bolder: string[]
 	readonly: Ref<boolean, boolean>
 }
 

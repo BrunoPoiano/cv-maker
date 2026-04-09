@@ -1,27 +1,20 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 
-import { saveDataToLocalStorage } from '@/helpers/localstorage'
+import { ProviderKey } from '@/keys'
+import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
+import { CurriculumStore } from '@/stores/curriculumStore'
+import { ReadonlyStore } from '@/stores/readonlyStore'
 import SvgDocument from '@/svgs/svgDocument.vue'
-import type { Curriculum } from '@/types'
 import Button from '@/ui/appButton.vue'
 import AppSelect from '@/ui/appSelect.vue'
 
-type Props = {
-	curriculum: Curriculum
-	readonly: boolean
-}
-
-const { curriculum, readonly } = defineProps<Props>()
-const curriculumIndex = defineModel<number>('curriculum-index', {
-	required: true
-})
-const curriculumList = defineModel<Curriculum[]>('curriculum-list', {
-	required: true
-})
+const { curriculum } = inject(ProviderKey)!
+const curriculumIndex = CurriculumIndexStore.get()
+const readonly = ReadonlyStore.get()
 
 const cvSelect = computed(() =>
-	curriculumList.value.map((curriculum, index) => ({
+	CurriculumStore.get().value.map((curriculum, index) => ({
 		label: `${curriculum.Settings.language} - ${curriculum.Header.Role.value}`,
 		value: index
 	}))
@@ -31,7 +24,7 @@ function savePDF() {
 	const originalTitle = document.title
 
 	document.title =
-		`${curriculum.Header.UserName.value}_${curriculum.Header.Role.value}`
+		`${curriculum.value.Header.UserName.value}_${curriculum.value.Header.Role.value}`
 			.toLowerCase()
 			.replace(/[^\w\s-]/g, '')
 			.replace(/\s+/g, '_')
@@ -41,13 +34,6 @@ function savePDF() {
 	window.print()
 
 	document.title = originalTitle
-}
-
-function saveCurriculumIndex() {
-	saveDataToLocalStorage({
-		key: 'curriculumIndex',
-		initialValue: curriculumIndex.value
-	})
 }
 </script>
 
@@ -61,7 +47,7 @@ function saveCurriculumIndex() {
 			<AppSelect
 				:items="cvSelect"
 				v-model="curriculumIndex"
-				@vue:updated="saveCurriculumIndex"
+				@vue:updated="CurriculumIndexStore.save()"
 			/>
 			<Button :disabled="!readonly" @click="savePDF" background="var(--primary)"
 				>Generate PDF
