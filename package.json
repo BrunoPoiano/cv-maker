@@ -1,6 +1,6 @@
 {
   "name": "cv-maker",
-  "version": "0.9.5",
+  "version": "0.10.5",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,7 +13,7 @@
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/",
-    "all": "run-s format & run-s lint & run-s type-check & run-s build"
+    "all": "run-s format lint type-check build"
   },
   "dependencies": {
     "vue": "^3.5.29"

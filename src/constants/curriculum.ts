@@ -34,7 +34,7 @@ export function CurriculumConst(): Curriculum {
 				},
 				github: {
 					bolder: false,
-					value: 'github.com/}'
+					value: 'github.com/'
 				}
 			}
 		},

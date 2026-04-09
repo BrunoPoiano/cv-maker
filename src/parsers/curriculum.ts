@@ -2,8 +2,9 @@ import { CurriculumConst } from '@/constants/curriculum'
 import { fontSize } from '@/constants/font-size'
 import { languages } from '@/constants/language'
 import { monthOptions } from '@/constants/monthOptions'
+import { skillList } from '@/constants/skillList'
 import { generateKey } from '@/helpers/generateKey'
-import type { Curriculum, Experience } from '@/types'
+import type { Curriculum, Experience, SkillsList } from '@/types'
 
 import {
 	isBooleanOrDefault,
@@ -111,84 +112,13 @@ export function parseCurriculum(value: unknown): Curriculum {
 		cv.CoreSkills.show = isBooleanOrDefault(value.CoreSkills.show, true)
 
 		if (isObject(value.CoreSkills.skills)) {
-			if (Array.isArray(value.CoreSkills.skills.languages)) {
-				cv.CoreSkills.skills.languages =
-					value.CoreSkills.skills.languages.reduce((acc, item) => {
-						acc.push(isStringOrDefault(item, undefined))
-						return acc
-					}, [])
-			}
-
-			if (Array.isArray(value.CoreSkills.skills.apis)) {
-				cv.CoreSkills.skills.apis = value.CoreSkills.skills.apis.reduce(
-					(acc, item) => {
-						acc.push(isStringOrDefault(item, undefined))
-						return acc
-					},
-					[]
-				)
-			}
-
-			if (Array.isArray(value.CoreSkills.skills.databases)) {
-				cv.CoreSkills.skills.databases =
-					value.CoreSkills.skills.databases.reduce((acc, item) => {
-						acc.push(isStringOrDefault(item, undefined))
-						return acc
-					}, [])
-			}
-
-			if (Array.isArray(value.CoreSkills.skills.frontend)) {
-				cv.CoreSkills.skills.frontend = value.CoreSkills.skills.frontend.reduce(
-					(acc, item) => {
-						acc.push(isStringOrDefault(item, undefined))
-						return acc
-					},
-					[]
-				)
-			}
-
-			if (Array.isArray(value.CoreSkills.skills.backend)) {
-				cv.CoreSkills.skills.backend = value.CoreSkills.skills.backend.reduce(
-					(acc, item) => {
-						acc.push(isStringOrDefault(item, undefined))
-						return acc
-					},
-					[]
-				)
-			}
-
-			if (Array.isArray(value.CoreSkills.skills.other)) {
-				cv.CoreSkills.skills.other = value.CoreSkills.skills.other.reduce(
-					(acc, item) => {
-						acc.push(isStringOrDefault(item, undefined))
-						return acc
-					},
-					[]
-				)
-			}
-
-			if (Array.isArray(value.CoreSkills.skills.http_integrations)) {
-				cv.CoreSkills.skills.http_integrations =
-					value.CoreSkills.skills.http_integrations.reduce((acc, item) => {
-						acc.push(isStringOrDefault(item, undefined))
-						return acc
-					}, [])
-			}
-
-			if (Array.isArray(value.CoreSkills.skills.containers_devops)) {
-				cv.CoreSkills.skills.containers_devops =
-					value.CoreSkills.skills.containers_devops.reduce((acc, item) => {
-						acc.push(isStringOrDefault(item, undefined))
-						return acc
-					}, [])
-			}
-
-			if (Array.isArray(value.CoreSkills.skills.practices)) {
-				cv.CoreSkills.skills.practices =
-					value.CoreSkills.skills.practices.reduce((acc, item) => {
-						acc.push(isStringOrDefault(item, undefined))
-						return acc
-					}, [])
+			for (const key of skillList) {
+				const k = key.toLowerCase() as SkillsList
+				if (Array.isArray(value.CoreSkills.skills[k])) {
+					cv.CoreSkills.skills[k] = value.CoreSkills.skills[k]
+						.map((item) => isStringOrDefault(item, undefined))
+						.filter(Boolean)
+				}
 			}
 		}
 	}
@@ -284,10 +214,12 @@ export function parseCurriculumList(value: unknown): Array<Curriculum> {
 		return [CurriculumConst()]
 	}
 
-	const cvList = value.reduce<Array<Curriculum>>((acc, item) => {
-		acc.push(parseCurriculum(item))
-		return acc
-	}, [])
+	const cvList = value
+		.reduce<Array<Curriculum>>((acc, item) => {
+			acc.push(parseCurriculum(item))
+			return acc
+		}, [])
+		.sort((cv1) => (cv1.Settings.language === 'en-us' ? 0 : 1))
 
-	return cvList.sort((item) => (item.Settings.language === 'en-us' ? 0 : 1))
+	return cvList
 }
