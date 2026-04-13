@@ -2,9 +2,8 @@ import { CurriculumConst } from '@/constants/curriculum'
 import { fontSize } from '@/constants/font-size'
 import { languages } from '@/constants/language'
 import { monthOptions } from '@/constants/monthOptions'
-import { skillList } from '@/constants/skillList'
 import { generateKey } from '@/helpers/generateKey'
-import type { Curriculum, Experience, SkillsList } from '@/types'
+import type { Curriculum, Experience } from '@/types'
 
 import {
 	isBooleanOrDefault,
@@ -112,8 +111,8 @@ export function parseCurriculum(value: unknown): Curriculum {
 		cv.CoreSkills.show = isBooleanOrDefault(value.CoreSkills.show, true)
 
 		if (isObject(value.CoreSkills.skills)) {
-			for (const key of skillList) {
-				const k = key.toLowerCase() as SkillsList
+			for (const key of Object.keys(value.CoreSkills.skills)) {
+				const k = key.toLowerCase()
 				if (Array.isArray(value.CoreSkills.skills[k])) {
 					cv.CoreSkills.skills[k] = value.CoreSkills.skills[k]
 						.map((item) => isStringOrDefault(item, undefined))

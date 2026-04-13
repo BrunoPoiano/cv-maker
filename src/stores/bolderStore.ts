@@ -4,12 +4,12 @@ import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
-import { parseBolder } from '@/parsers/bolder'
+import { parseStringArray } from '@/parsers/stringArray'
 
 const bolder = reactive(
 	getDataFromLocalStorage({
 		key: 'bolder',
-		parseFunction: parseBolder,
+		parseFunction: parseStringArray,
 		initialValue: []
 	})
 )

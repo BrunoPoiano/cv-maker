@@ -61,5 +61,25 @@ export const CurriculumStore = {
 	},
 	update(curriculumList: Curriculum[]) {
 		curriculums.value.splice(0, curriculums.value.length, ...curriculumList)
+	},
+	newCoreSkill(curriculumIndex: number, core: string) {
+		if (!curriculums.value[curriculumIndex]) {
+			return
+		}
+
+		const newCore = core.replace(/\s/g, '_').toLowerCase()
+
+		curriculums.value[curriculumIndex].CoreSkills.skills[newCore] = []
+		console.log(curriculums.value[curriculumIndex].CoreSkills.skills)
+	},
+	removeCoreSkill(curriculumIndex: number, core: string) {
+		if (
+			!curriculums.value[curriculumIndex] ||
+			!curriculums.value[curriculumIndex].CoreSkills.skills[core]
+		) {
+			return
+		}
+
+		delete curriculums.value[curriculumIndex].CoreSkills.skills[core]
 	}
 }

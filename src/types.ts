@@ -11,16 +11,12 @@ import type { localStorageKeys } from '@/keys'
 
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
-import type { skillList } from './constants/skillList'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
 export type Languages = (typeof languages)[number]
 export type FontSize = (typeof fontSize)[number]
-export type SkillsList = Lowercase<(typeof skillList)[number]>
-export type Skills = Partial<Record<SkillsList, Array<string>>>
-export type SkillsOrdered = Partial<Record<SkillsList, string>>
 export type SelectItem = Array<{ value: string | number; label: string }>
-export type Translation = Record<string | SkillsList, Each<Languages>>
+export type Translation = Record<string, Each<Languages>>
 export type MonthOptions = Extract<
 	Intl.DateTimeFormatOptions['month'],
 	'2-digit' | 'short' | 'long'
@@ -37,6 +33,7 @@ type GitHub = `github.com/${string}`
 export type Provider = {
 	curriculum: WritableComputedRef<Curriculum>
 	readonly: Ref<boolean, boolean>
+	curriculumIndex: number
 }
 
 export type BoldMatchReturn =
@@ -99,8 +96,8 @@ type Summary = {
 	show: boolean
 }
 
-type CoreSkills = {
-	skills: Skills
+export type CoreSkills = {
+	skills: Record<string, Array<string>>
 	size: FontSize
 	show: boolean
 }

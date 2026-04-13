@@ -9,7 +9,7 @@ const ModalContact = defineAsyncComponent(
 	() => import('../modals/modalContact.vue')
 )
 const ModalCoreSkills = defineAsyncComponent(
-	() => import('../modals/modalCoreSkills.vue')
+	() => import('../modals/coreSkills/modalCoreSkills.vue')
 )
 const ModalHeader = defineAsyncComponent(
 	() => import('../modals/modalHeader.vue')

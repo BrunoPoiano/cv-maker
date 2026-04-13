@@ -17,6 +17,10 @@ export const Translate = {
 		'en-us': 'CORE SKILLS',
 		'pt-br': 'HABILIDADES TÉCNICAS'
 	},
+	'new core skill': {
+		'en-us': 'New Core Skill',
+		'pt-br': 'Nova Habilidade Técnica'
+	},
 	remote: {
 		'en-us': 'Remote',
 		'pt-br': 'Remoto'

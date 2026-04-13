@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey, ProviderSkillKey } from '@/keys'
+import { CurriculumStore } from '@/stores/curriculumStore'
+import SvgTrash from '@/svgs/svgTrash.vue'
+import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
 import AppSmall from '@/ui/appSmall.vue'
 import Textarea from '@/ui/appTextarea.vue'
+
+import ModalCoreSkillName from './components/ModalCoreSkillName.vue'
 
 type Props = {
 	id: string
@@ -15,7 +20,9 @@ type Props = {
 
 const { id } = defineProps<Props>()
 const { skillsProxy, onInput } = inject(ProviderSkillKey)!
-const { curriculum } = inject(ProviderKey)!
+const { curriculum, curriculumIndex } = inject(ProviderKey)!
+
+const ModalCoreSkillNameID = ref('modal-core-skill-name')
 </script>
 
 <template>
@@ -30,6 +37,7 @@ const { curriculum } = inject(ProviderKey)!
 					/>
 					<AppSmall>Items will be separeted by commas (,)</AppSmall>
 				</h3>
+				<AppButton modal :id="ModalCoreSkillNameID"> New Core Skill </AppButton>
 			</div>
 		</template>
 		<form>
@@ -39,15 +47,26 @@ const { curriculum } = inject(ProviderKey)!
 				v-model="curriculum.CoreSkills.size"
 			/>
 			<div v-for="(_, core) in skillsProxy" class="skills" :key="core">
-				<span>{{ core.replace('_', ' & ') }}</span>
+				<div class="header">
+					<span>
+						{{ core.replace('_', ' & ') }}
+					</span>
+					<AppButton
+						iconButton
+						@click="CurriculumStore.removeCoreSkill(curriculumIndex, core)"
+					>
+						<SvgTrash />
+					</AppButton>
+				</div>
 				<Textarea
-					placeholder="User Name"
+					:placeholder="core"
 					v-model="skillsProxy[core]"
 					@update:modelValue="onInput(core, $event)"
 					minHeight="100px"
 				/>
 			</div>
 		</form>
+		<ModalCoreSkillName :id="ModalCoreSkillNameID" />
 	</Modal>
 </template>
 
@@ -64,5 +83,11 @@ const { curriculum } = inject(ProviderKey)!
 form {
 	display: grid;
 	gap: 1rem;
+}
+
+.header {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
 }
 </style>

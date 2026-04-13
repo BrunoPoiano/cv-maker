@@ -8,14 +8,12 @@ import CurriculumModel from './components/curriculum/cvIndex.vue'
 import Header from './components/headerSection.vue'
 import Menu from './components/menu/menuSection.vue'
 import { CurriculumConst } from './constants/curriculum'
-import { skillList } from './constants/skillList'
 import { deepClone } from './helpers/clone'
 import { parseCurriculum } from './parsers/curriculum'
 import { CurriculumIndexStore } from './stores/curriculumIndexStore'
 import { CurriculumStore } from './stores/curriculumStore'
 import { HueStore } from './stores/hueStore'
 import { ReadonlyStore } from './stores/readonlyStore'
-import type { SkillsList } from './types'
 
 const curriculumList = CurriculumStore.get()
 const curriculumIndex = CurriculumIndexStore.get()
@@ -35,33 +33,27 @@ const currentCurriculum = computed({
 
 const skillsProxy = computed(() => {
 	const source = currentCurriculum.value.CoreSkills.skills
-	const result: Record<SkillsList, string> = {
-		languages: '',
-		frontend: '',
-		backend: '',
-		databases: '',
-		apis: '',
-		containers_devops: '',
-		practices: '',
-		http_integrations: '',
-		other: ''
-	}
 
-	for (const item of skillList) {
-		const key = item.toLowerCase() as SkillsList
-		result[key] = source[key]?.join(', ') ?? ''
-	}
+	const result = Object.entries(source).reduce(
+		(acc, value) => {
+			acc[value[0]] = value[1].length > 0 ? value[1].join(', ') : ''
+			return acc
+		},
+		{} as Record<string, string>
+	)
 
 	return result
 })
 
-function onInput(core: SkillsList, value?: string) {
-	currentCurriculum.value.CoreSkills.skills[core] = value
+function onInput(core: string, value?: string) {
+	const newValue = value
 		? value
 				.split(',')
 				.map((item) => item.trim())
 				.filter((item) => item !== '')
 		: []
+
+	currentCurriculum.value.CoreSkills.skills[core] = newValue
 }
 
 provide(ProviderSkillKey, {
@@ -71,7 +63,8 @@ provide(ProviderSkillKey, {
 
 provide(ProviderKey, {
 	curriculum: currentCurriculum,
-	readonly
+	readonly,
+	curriculumIndex: curriculumIndex.value
 })
 
 onBeforeMount(() => {
