@@ -111,14 +111,18 @@ export function parseCurriculum(value: unknown): Curriculum {
 		cv.CoreSkills.show = isBooleanOrDefault(value.CoreSkills.show, true)
 
 		if (isObject(value.CoreSkills.skills)) {
+			const coreSkills: Curriculum['CoreSkills']['skills'] = {}
+
 			for (const key of Object.keys(value.CoreSkills.skills)) {
 				const k = key.toLowerCase()
 				if (Array.isArray(value.CoreSkills.skills[k])) {
-					cv.CoreSkills.skills[k] = value.CoreSkills.skills[k]
+					coreSkills[k] = value.CoreSkills.skills[k]
 						.map((item) => isStringOrDefault(item, undefined))
 						.filter(Boolean)
 				}
 			}
+
+			cv.CoreSkills.skills = coreSkills
 		}
 	}
 

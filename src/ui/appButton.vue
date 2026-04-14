@@ -126,7 +126,7 @@ button {
 			width: 32px !important;
 		}
 
-		&:hover {
+		&:hover:not(:disabled) {
 			transform: scale(1.15);
 		}
 	}

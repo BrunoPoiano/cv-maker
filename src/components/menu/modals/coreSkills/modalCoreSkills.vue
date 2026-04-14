@@ -4,6 +4,7 @@ import { inject, ref } from 'vue'
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey, ProviderSkillKey } from '@/keys'
 import { CurriculumStore } from '@/stores/curriculumStore'
+import SvgArrow from '@/svgs/svgArrow.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
@@ -46,13 +47,34 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 				:items="fontSizeSelect"
 				v-model="curriculum.CoreSkills.size"
 			/>
-			<div v-for="(_, core) in skillsProxy" class="skills" :key="core">
-				<div class="header">
-					<span>
-						{{ core.replace('_', ' & ') }}
-					</span>
+			<div v-for="(_, core, index) in skillsProxy" class="skills" :key="core">
+				<div class="header-items">
+					<div>
+						<span>
+							{{ core.replace('_', ' & ') }}
+						</span>
+						<AppButton
+							iconButton
+							@click="
+								CurriculumStore.moveCoreSkill(curriculumIndex, core, index - 1)
+							"
+							:disabled="index === 0"
+						>
+							<SvgArrow direction="up" />
+						</AppButton>
+						<AppButton
+							iconButton
+							@click="
+								CurriculumStore.moveCoreSkill(curriculumIndex, core, index + 1)
+							"
+							:disabled="index === Object.keys(skillsProxy).length - 1"
+						>
+							<SvgArrow direction="down" />
+						</AppButton>
+					</div>
 					<AppButton
 						iconButton
+						hover-background="var(--red)"
 						@click="CurriculumStore.removeCoreSkill(curriculumIndex, core)"
 					>
 						<SvgTrash />
@@ -89,5 +111,17 @@ form {
 	display: grid;
 	grid-template-columns: 1fr auto;
 	align-items: center;
+}
+
+.header-items {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+
+	> div {
+		display: flex;
+		align-items: center;
+		gap: 0.5ch;
+	}
 }
 </style>
