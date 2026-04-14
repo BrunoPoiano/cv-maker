@@ -61,5 +61,48 @@ export const CurriculumStore = {
 	},
 	update(curriculumList: Curriculum[]) {
 		curriculums.value.splice(0, curriculums.value.length, ...curriculumList)
+	},
+	newCoreSkill(curriculumIndex: number, core: string) {
+		if (!curriculums.value[curriculumIndex]) {
+			return
+		}
+
+		const newCore = core.replace(/\s/g, '_').toLowerCase()
+
+		curriculums.value[curriculumIndex].CoreSkills.skills[newCore] = []
+	},
+	removeCoreSkill(curriculumIndex: number, core: string) {
+		if (
+			!curriculums.value[curriculumIndex] ||
+			!curriculums.value[curriculumIndex].CoreSkills.skills[core]
+		) {
+			return
+		}
+
+		delete curriculums.value[curriculumIndex].CoreSkills.skills[core]
+	},
+	moveCoreSkill(curriculumIndex: number, core: string, newIndex: number) {
+		if (
+			!curriculums.value[curriculumIndex] ||
+			!curriculums.value[curriculumIndex].CoreSkills.skills[core] ||
+			newIndex === -1
+		) {
+			return
+		}
+
+		const entries = Object.entries(
+			curriculums.value[curriculumIndex].CoreSkills.skills
+		)
+		const currentIndex = entries.findIndex(([k]) => k === core)
+
+		if (currentIndex === -1) return
+
+		const [item] = entries.splice(currentIndex, 1)
+		if (item) {
+			entries.splice(newIndex, 0, item)
+		}
+
+		curriculums.value[curriculumIndex].CoreSkills.skills =
+			Object.fromEntries(entries)
 	}
 }
