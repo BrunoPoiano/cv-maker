@@ -2,6 +2,8 @@ import { defineAsyncComponent } from 'vue'
 
 import type { MenuModalItem } from '@/types'
 
+import ModalAddCurriculum from '../modals/modalAddCurriculum.vue'
+
 const GeneratePrompt = defineAsyncComponent(
 	() => import('../modals/modalGeneratePrompt.vue')
 )
@@ -10,6 +12,11 @@ const ModalBackup = defineAsyncComponent(
 	() => import('../modals/modalBackup.vue')
 )
 export const topMenuItems: MenuModalItem[] = [
+	{
+		modal: ModalBackup,
+		label: 'Import/Export',
+		id: 'modalMenuImportExport'
+	},
 	{
 		modal: Bolder,
 		id: 'modalMenuBolder',
@@ -21,8 +28,8 @@ export const topMenuItems: MenuModalItem[] = [
 		id: 'modalGeneratePrompt'
 	},
 	{
-		modal: ModalBackup,
-		label: 'Import/Export',
-		id: 'modalMenuImportExport'
+		modal: ModalAddCurriculum,
+		label: 'Add JSON Curriculum',
+		id: 'modalMenuNewCurriculum'
 	}
 ]

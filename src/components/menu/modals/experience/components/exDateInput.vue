@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 import Input from '@/ui/appInput.vue'
 
-const model = defineModel<Date | null>()
+const model = defineModel<Date | string | null>()
 
 defineOptions({
 	inheritAttrs: false
@@ -11,15 +11,27 @@ defineOptions({
 
 const date = ref(fixDate(model.value))
 
-function fixDate(date?: Date | null) {
+function generateDateString(date: Date) {
+	return (
+		date.getFullYear() +
+		'-' +
+		String(date.getMonth() + 1).padStart(2, '0') +
+		'-' +
+		String(date.getDate()).padStart(2, '0')
+	)
+}
+
+function fixDate(date?: Date | string | null) {
+	if (typeof date === 'string') {
+		const parsedDate = new Date(date)
+		if (!isNaN(parsedDate.getTime())) {
+			return generateDateString(parsedDate)
+		}
+		return null
+	}
+
 	if (date instanceof Date) {
-		return (
-			date.getFullYear() +
-			'-' +
-			String(date.getMonth() + 1).padStart(2, '0') +
-			'-' +
-			String(date.getDate()).padStart(2, '0')
-		)
+		return generateDateString(date)
 	}
 	return null
 }

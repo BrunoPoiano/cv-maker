@@ -62,6 +62,10 @@ export const CurriculumStore = {
 	update(curriculumList: Curriculum[]) {
 		curriculums.value.splice(0, curriculums.value.length, ...curriculumList)
 	},
+	add(curriculum: Curriculum) {
+		curriculums.value.push(curriculum)
+		CurriculumIndexStore.changeValue(curriculums.value.length - 1)
+	},
 	newCoreSkill(curriculumIndex: number, core: string) {
 		if (!curriculums.value[curriculumIndex]) {
 			return
