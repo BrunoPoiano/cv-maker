@@ -2,12 +2,13 @@ import { defineAsyncComponent } from 'vue'
 
 import type { MenuModalItem } from '@/types'
 
-import ModalAddCurriculum from '../modals/modalAddCurriculum.vue'
-
+const Bolder = defineAsyncComponent(() => import('../modals/modalBolder.vue'))
+const ModalAddCurriculum = defineAsyncComponent(
+	() => import('../modals/modalAddCurriculum.vue')
+)
 const GeneratePrompt = defineAsyncComponent(
 	() => import('../modals/modalGeneratePrompt.vue')
 )
-const Bolder = defineAsyncComponent(() => import('../modals/modalBolder.vue'))
 const ModalBackup = defineAsyncComponent(
 	() => import('../modals/modalBackup.vue')
 )
