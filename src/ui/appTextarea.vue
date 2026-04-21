@@ -1,13 +1,23 @@
 <script setup lang="ts">
 import { generateKey } from '@/helpers/generateKey'
 
-type Props = {
+type BaseProps = {
 	label?: string
 	minHeight?: string
 	id?: string
 	rows?: string | number
 	cvTextArea?: true
 }
+
+type Props =
+	| (BaseProps & {
+			error?: false
+			errorMessage?: string
+	  })
+	| (BaseProps & {
+			error: true
+			errorMessage: string
+	  })
 
 const props = defineProps<Props>()
 const key = generateKey(5)
@@ -37,15 +47,23 @@ function defineHeight() {
 	<div class="content" v-else>
 		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
 		<textarea
+			:data-error="props.error"
 			:style="{ minHeight: `${defineHeight()}` }"
 			v-bind="$attrs"
 			:id="id ?? key"
 			v-model="model"
 		/>
+		<small style="color: var(--red)" v-if="props.error">
+			{{ props.errorMessage }}
+		</small>
 	</div>
 </template>
 
 <style scoped>
+textarea[data-error='true'] {
+	outline: 1px solid var(--red) !important;
+}
+
 textarea[data-cvTextArea] {
 	font-family: inherit !important;
 	width: 100% !important;

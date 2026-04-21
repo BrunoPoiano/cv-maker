@@ -27,6 +27,15 @@ function addCv() {
 		return
 	}
 }
+
+function isJsonString() {
+	try {
+		JSON.parse(newCv.value)
+	} catch {
+		return false
+	}
+	return true
+}
 </script>
 
 <template>
@@ -35,7 +44,11 @@ function addCv() {
 			<h3>JSON Curriculum</h3>
 		</template>
 		<form>
-			<AppTextarea v-model="newCv" />
+			<AppTextarea
+				v-model="newCv"
+				:error="!isJsonString()"
+				errorMessage="Invalid Json"
+			/>
 		</form>
 		<div class="actions">
 			<AppButton @click="addCv">Create</AppButton>
