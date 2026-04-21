@@ -19,7 +19,15 @@ export const bolderStore = {
 		return bolder
 	},
 	save(values: string[]) {
-		saveDataToLocalStorage({ key: 'bolder', initialValue: values })
+		const parsed = values.reduce<Array<string>>((acc, item) => {
+			if (item !== '') {
+				acc.push(item.trim())
+			}
+			return acc
+		}, [])
+
+		bolder.splice(0, bolder.length, ...parsed)
+		saveDataToLocalStorage({ key: 'bolder', initialValue: parsed })
 	},
 	matches(value: string) {
 		if (!bolder.length) return value

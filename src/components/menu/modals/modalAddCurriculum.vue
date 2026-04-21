@@ -37,10 +37,10 @@ function addCv() {
 		<form>
 			<AppTextarea v-model="newCv" />
 		</form>
-		<template #footer>
+		<div class="actions">
 			<AppButton @click="addCv">Create</AppButton>
 			<AppButton @click="newCv = basicCurriculum">Reset</AppButton>
-		</template>
+		</div>
 	</Modal>
 </template>
 
@@ -50,9 +50,11 @@ form {
 	gap: 1rem;
 }
 
-pre {
-	overflow-y: auto;
-	max-height: 60ch;
-	white-space: normal;
+.actions {
+	margin-top: 1rem;
+
+	display: flex;
+	justify-content: flex-end;
+	gap: 1rem;
 }
 </style>

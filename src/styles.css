@@ -282,9 +282,13 @@ pre {
 		--on-surface-variant: rgb(87, 87, 87);
 	}
 
-	body * {
-		visibility: hidden;
-		color-scheme: light;
+	body {
+		background: #fff !important;
+
+		* {
+			visibility: hidden;
+			color-scheme: light;
+		}
 	}
 
 	#curriculumPage,

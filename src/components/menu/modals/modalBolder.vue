@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 import { bolderStore } from '@/stores/bolderStore'
 import Modal from '@/ui/appModal.vue'
@@ -10,6 +10,7 @@ type Props = {
 }
 
 const { id } = defineProps<Props>()
+const debouncedSave = ref<undefined | number>()
 
 const bolderValue = bolderStore.get()
 
@@ -18,11 +19,10 @@ const bolder = computed<string>({
 		return bolderValue.join(', ')
 	},
 	set(value: string) {
-		const bolderSplit = value.split(',').map((item) => item.trim())
-
-		bolderValue.splice(0, bolderValue.length, ...bolderSplit)
-
-		bolderStore.save(bolderValue)
+		clearTimeout(debouncedSave.value)
+		debouncedSave.value = setTimeout(() => {
+			bolderStore.save(value.split(','))
+		}, 500)
 	}
 })
 </script>

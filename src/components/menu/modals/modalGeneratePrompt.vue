@@ -7,10 +7,9 @@ import Modal from '@/ui/appModal.vue'
 import AppSelect from '@/ui/appSelect.vue'
 import Textarea from '@/ui/appTextarea.vue'
 
-type Props = {
+const { id } = defineProps<{
 	id: string
-}
-const { id } = defineProps<Props>()
+}>()
 
 const jobDescription = ref('')
 const curriculumSelected = ref(0)
@@ -24,28 +23,71 @@ const cvSelect = computed(() =>
 
 const prompt = computed(
 	() =>
-		`Fix Resume
-resume: [
-${JSON.stringify(CurriculumStore.get().value[curriculumSelected.value])}
-]
+		`
+System Instruction: You are an ATS optimization engine specialized in resume rewriting. Your task is to transform an existing resume into a version that maximizes keyword alignment, semantic relevance, and parsing success for Applicant Tracking Systems (ATS), strictly based on a provided job description.
 
-job description:[
-${jobDescription.value.replace(/^\s*[\r\n]/gm, '')}
-]
+TASK: Rewrite and optimize a resume to match a target job description with maximum ATS compatibility.
 
-Rewrite resume to perfectly match job description:
+INPUTS:
+1. RESUME (source of truth — do not fabricate experience):
+[${JSON.stringify(CurriculumStore.get().value[curriculumSelected.value])}]
 
-> use the resume as template
-> rephrase existing content to match job description and remove irrelevant info
-> Incorporate exact keywords/phrases from job description
-> Quantify achievements where possible
-> Keep under 1 page, bullet format
-> Highlight top 3–5 matches in a summary
-> bullet point should be concise and impactful and incorporate exact keywords/phrases
-> Add skills if necessary to match job description
-> Match language of job description
+2. JOB DESCRIPTION (target for optimization):
+[${jobDescription.value.replace(/^\s*[\r\n]/gm, '')}]
 
-Output: Full revised resume JSON + list of changes made.`
+CONSTRAINTS:
+- Do NOT invent roles, companies, dates, or achievements.
+- You MAY rephrase, reorder, and emphasize existing experience.
+- You MAY add missing skills ONLY if they are strongly implied by the resume.
+- Maintain factual consistency with the original resume.
+
+OPTIMIZATION RULES:
+1. KEYWORD EXTRACTION
+   - Extract and rank keywords from the job description:
+     a. Hard skills (languages, frameworks, tools)
+     b. Soft skills
+     c. Domain-specific terms
+   - Prioritize exact phrase matching over synonyms.
+
+2. CONTENT ALIGNMENT
+   - Rewrite bullet points to directly reflect job description responsibilities.
+   - Replace generic phrasing with role-specific, keyword-rich language.
+   - Remove irrelevant or low-signal content.
+
+3. ACHIEVEMENT REWRITING
+   - Convert responsibilities into measurable achievements where possible.
+   - Use metrics (%, $, time, scale) if present or inferable without fabrication.
+
+4. STRUCTURE
+   - Keep resume within 1 page.
+   - Use concise bullet points (max 1–2 lines each).
+   - Maintain JSON structure consistency.
+   - Ensure standard ATS-readable sections - use RESUME as template:
+     ["Header", "Contact", "Summary", "CoreSkills", "Experience"]
+
+5. SUMMARY SECTION
+   - Create a 4–7 bullet summary highlighting strongest matches to the job.
+   - Each bullet must include at least one exact keyword/phrase from the job description.
+
+6. SKILLS SECTION
+   - Reorder skills to prioritize job-relevant ones.
+   - Inject missing high-priority keywords if justified by experience.
+   - Add skills headers if necessary to match job description, but only if they are strongly implied by the resume content.
+
+7. LANGUAGE MATCHING
+   - Mirror idiom, language, tone and terminology of the job description.
+
+ATS-SPECIFIC RULES:
+- Avoid tables, icons, or non-standard formatting.
+- Use standard section headers.
+- Avoid abbreviations unless also written in full at least once.
+- Ensure keyword density without keyword stuffing.
+
+OUTPUT:
+  revised resume JSON 
+  changes made: Bullet describing each significant change,Keyword additions,Removed content,Rewritten achievements
+  keyword coverage: matched - list of matched keywords, missing - important keywords not represented
+`
 )
 
 function copyPrompt() {

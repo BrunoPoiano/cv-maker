@@ -8,6 +8,7 @@ import { CurriculumStore } from '@/stores/curriculumStore'
 import { ReadonlyStore } from '@/stores/readonlyStore'
 import SvgCopy from '@/svgs/svgCopy.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
+import SvgPin from '@/svgs/svgPin.vue'
 import SvgSave from '@/svgs/svgSave.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
 import Button from '@/ui/appButton.vue'
@@ -47,9 +48,18 @@ const curriculumIndex = CurriculumIndexStore.get()
 
 		<Button
 			icon-button
+			@click="CurriculumStore.save()"
+			hover-background="var(--green)"
+			title="Save Curriculums"
+		>
+			<SvgSave />
+		</Button>
+
+		<Button
+			icon-button
 			@click="CurriculumStore.copy(curriculum)"
 			hover-background="var(--blue)"
-			title="Copy"
+			title="Copy Curriculum"
 		>
 			<SvgCopy />
 		</Button>
@@ -61,20 +71,22 @@ const curriculumIndex = CurriculumIndexStore.get()
 		>
 			<SvgNewDocument />
 		</Button>
+
 		<Button
 			icon-button
-			@click="CurriculumStore.save()"
+			@click="CurriculumStore.setAsDefault(curriculumIndex)"
 			hover-background="var(--green)"
-			title="Save"
+			title="Set Curriculum as default"
+			:disabled="curriculumIndex === 0"
 		>
-			<SvgSave />
+			<SvgPin />
 		</Button>
 		<Button
 			icon-button
 			@click="CurriculumStore.delete(curriculumIndex)"
 			:disabled="curriculumIndex === 0"
 			hover-background="var(--red)"
-			title="Delete"
+			title="Delete Curriculum"
 		>
 			<SvgTrash />
 		</Button>

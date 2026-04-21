@@ -20,7 +20,7 @@ const file = ref<File | null>(null)
 const alert = ref<string | null>(null)
 
 function exportFile() {
-	const blob = new Blob([JSON.stringify(curriculum, null, 2)], {
+	const blob = new Blob([JSON.stringify(curriculum.value, null, 2)], {
 		type: 'application/json'
 	})
 
@@ -91,9 +91,9 @@ function importFile(e: Event) {
 	</pre
 			>
 		</form>
-		<template #footer>
+		<div class="actions">
 			<AppButton @click="exportFile">Export Json</AppButton>
-		</template>
+		</div>
 	</Modal>
 </template>
 
@@ -107,5 +107,11 @@ pre {
 	overflow-y: auto;
 	max-height: 60ch;
 	white-space: normal;
+}
+
+.actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 1rem;
 }
 </style>

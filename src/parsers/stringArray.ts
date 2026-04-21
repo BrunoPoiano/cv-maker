@@ -4,9 +4,10 @@ export function parseStringArray(value: unknown): string[] {
 	if (!Array.isArray(value)) return []
 
 	return value.reduce((acc, item) => {
-		if (item === '') return acc
-
-		acc.push(isStringOrDefault(item, undefined))
+		const parsed = isStringOrDefault(item, undefined)
+		if (parsed) {
+			acc.push(parsed.trim())
+		}
 		return acc
 	}, [])
 }
