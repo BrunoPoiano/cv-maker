@@ -4,10 +4,10 @@ export function CurriculumConst(): Curriculum {
 	return {
 		Settings: {
 			language: 'en-us',
-			margin: 1,
+			margin: 0.8,
 			gap: 1.3,
 			section: {
-				size: '--font-size-lg'
+				size: '--font-size-md'
 			}
 		},
 		Header: {
@@ -24,6 +24,10 @@ export function CurriculumConst(): Curriculum {
 			size: '--font-size-sm',
 			sideBySide: false,
 			value: {
+				location: {
+					bolder: false,
+					value: ''
+				},
 				email: {
 					bolder: true,
 					value: 'email@email'
@@ -41,7 +45,7 @@ export function CurriculumConst(): Curriculum {
 		Summary: {
 			smallText: '',
 			value: [],
-			size: '--font-size-md',
+			size: '--font-size-sm',
 			show: true
 		},
 		CoreSkills: {
@@ -57,16 +61,16 @@ export function CurriculumConst(): Curriculum {
 				http_integrations: [],
 				other: []
 			},
-			size: '--font-size-md'
+			size: '--font-size-sm'
 		},
 		Experience: {
 			dateMonth: '2-digit',
 			show: true,
 			sideBySide: false,
 			size: {
-				title: '--font-size-lg',
-				subTitle: '--font-size-md',
-				description: '--font-size-md'
+				title: '--font-size-base',
+				subTitle: '--font-size-sm',
+				description: '--font-size-sm'
 			},
 			value: []
 		}

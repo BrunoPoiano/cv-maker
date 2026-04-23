@@ -32,47 +32,24 @@ const { id } = defineProps<Props>()
 					label="Font Size"
 					:items="fontSizeSelect"
 					v-model="curriculum.Contact.size"
+					fitContent
 				/>
 			</div>
-			<div>
-				<Input
-					label="email"
-					type="email"
-					placeholder="email"
-					v-model="curriculum.Contact.value.email.value"
-				/>
-				<Input
-					type="checkbox"
-					label="bolder"
-					v-model="curriculum.Contact.value.email.bolder"
-				/>
-			</div>
-			<div>
-				<Input
-					type="text"
-					label="linkedin"
-					placeholder="linkedin"
-					v-model="curriculum.Contact.value.linkedin.value"
-				/>
-				<Input
-					type="checkbox"
-					label="bolder"
-					v-model="curriculum.Contact.value.linkedin.bolder"
-				/>
-			</div>
-			<div>
-				<Input
-					type="text"
-					label="github"
-					placeholder="github"
-					v-model="curriculum.Contact.value.github.value"
-				/>
-				<Input
-					type="checkbox"
-					label="bolder"
-					v-model="curriculum.Contact.value.github.bolder"
-				/>
-			</div>
+			<template v-for="(_, type) in curriculum.Contact.value" :key="type">
+				<div>
+					<Input
+						type="text"
+						:label="type"
+						:placeholder="type"
+						v-model="curriculum.Contact.value[type].value"
+					/>
+					<Input
+						type="checkbox"
+						label="bolder"
+						v-model="curriculum.Contact.value[type].bolder"
+					/>
+				</div>
+			</template>
 		</form>
 	</Modal>
 </template>
@@ -84,7 +61,7 @@ form {
 
 	> .settings {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr 15ch;
 	}
 }
 </style>

@@ -13,29 +13,30 @@ const { curriculum, readonly } = inject(ProviderKey)!
 <template>
 	<AppAnchor margin-bottom="-1rem">
 		<div class="contact" :data-side-by-side="curriculum.Contact.sideBySide">
-			<div
-				:key="type"
-				v-for="(_, type) in curriculum.Contact.value"
-				:style="{ '--font_size': `var(${curriculum.Contact.size})` }"
-			>
-				<span class="type"> {{ type }}: </span>
-				<span
-					:style="{
-						fontWeight: curriculum.Contact.value[type].bolder ? 'bolder' : ''
-					}"
+			<template v-for="(_, type) in curriculum.Contact.value" :key="type">
+				<div
+					:style="{ '--font_size': `var(${curriculum.Contact.size})` }"
+					v-if="curriculum.Contact.value[type].value"
 				>
-					<template v-if="readonly">
-						{{ curriculum.Contact.value[type].value }}
-					</template>
-					<AppInput
-						v-else
-						cv-input
-						:data-type="type"
-						:size="Math.max(curriculum.Contact.value[type].value.length, 1)"
-						v-model="curriculum.Contact.value[type].value"
-					/>
-				</span>
-			</div>
+					<span class="type"> {{ type }}: </span>
+					<span
+						:style="{
+							fontWeight: curriculum.Contact.value[type].bolder ? 'bolder' : ''
+						}"
+					>
+						<template v-if="readonly">
+							{{ curriculum.Contact.value[type].value }}
+						</template>
+						<AppInput
+							v-else
+							cv-input
+							:data-type="type"
+							:size="Math.max(curriculum.Contact.value[type].value.length, 1)"
+							v-model="curriculum.Contact.value[type].value"
+						/>
+					</span>
+				</div>
+			</template>
 		</div>
 		<template #button>
 			<AppButton icon-button modal id="modalCvContact">
@@ -73,8 +74,7 @@ const { curriculum, readonly } = inject(ProviderKey)!
 	}
 
 	&[data-side-by-side='true'] {
-		display: grid;
-		grid-template-columns: auto auto auto;
+		display: flex;
 		gap: 1ch;
 		justify-content: flex-start;
 		flex-wrap: wrap;

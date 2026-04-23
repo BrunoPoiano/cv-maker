@@ -65,6 +65,10 @@ type Contact = {
 			value: GitHub
 			bolder: boolean
 		}
+		location: {
+			value: string
+			bolder: boolean
+		}
 	}
 }
 

@@ -9,6 +9,10 @@ export const basicCurriculum = `{
     },
     "Contact": {
         "value": {
+            "location": {
+			    "bolder": false,
+				"value": ""
+			},
             "email": {
                 "value": "user@email.com",
                 "bolder": true

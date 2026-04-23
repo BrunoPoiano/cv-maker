@@ -56,7 +56,7 @@ export function parseCurriculum(value: unknown): Curriculum {
 					size: isOneOforDefault(
 						value.Header.Role.size,
 						fontSize,
-						'--font-size-xl'
+						'--font-size-lg'
 					)
 				}
 			}
@@ -69,7 +69,7 @@ export function parseCurriculum(value: unknown): Curriculum {
 			fontSize,
 			'--font-size-sm'
 		)
-		cv.Contact.sideBySide = isBooleanOrDefault(value.Contact.sideBySide, false)
+		cv.Contact.sideBySide = isBooleanOrDefault(value.Contact.sideBySide, true)
 
 		if (isObject(value.Contact.value.email)) {
 			cv.Contact.value.email = {
@@ -78,6 +78,16 @@ export function parseCurriculum(value: unknown): Curriculum {
 					'email@email'
 				),
 				bolder: isBooleanOrDefault(value.Contact.value.email.bolder)
+			}
+		}
+
+		if (isObject(value.Contact.value.location)) {
+			cv.Contact.value.location = {
+				value: isExtendedStringOrDefault(
+					value.Contact.value.location.value,
+					''
+				),
+				bolder: isBooleanOrDefault(value.Contact.value.location.bolder)
 			}
 		}
 
@@ -106,7 +116,7 @@ export function parseCurriculum(value: unknown): Curriculum {
 		cv.CoreSkills.size = isOneOforDefault(
 			value.CoreSkills.size,
 			fontSize,
-			'--font-size-md'
+			'--font-size-sm'
 		)
 		cv.CoreSkills.show = isBooleanOrDefault(value.CoreSkills.show, true)
 
@@ -130,7 +140,7 @@ export function parseCurriculum(value: unknown): Curriculum {
 		cv.Summary.size = isOneOforDefault(
 			value.Summary.size,
 			fontSize,
-			'--font-size-md'
+			'--font-size-sm'
 		)
 		cv.Summary.show = isBooleanOrDefault(value.Summary.show, true)
 		cv.Summary.smallText = isStringOrDefault(value.Summary.smallText, '')
@@ -162,17 +172,17 @@ export function parseCurriculum(value: unknown): Curriculum {
 				title: isOneOforDefault(
 					value.Experience.size.title,
 					fontSize,
-					'--font-size-lg'
+					'--font-size-base'
 				),
 				subTitle: isOneOforDefault(
 					value.Experience.size.subTitle,
 					fontSize,
-					'--font-size-lg'
+					'--font-size-sm'
 				),
 				description: isOneOforDefault(
 					value.Experience.size.description,
 					fontSize,
-					'--font-size-md'
+					'--font-size-sm'
 				)
 			}
 		}
