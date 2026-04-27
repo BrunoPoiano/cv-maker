@@ -5,6 +5,7 @@ import { generateKey } from '@/helpers/generateKey'
 
 type Props = {
 	label?: string
+	labelClick?: () => void
 	type?: InputTypeHTMLAttribute
 	alert?: string
 	id?: string
@@ -32,7 +33,9 @@ defineOptions({
 		v-model="model"
 	/>
 	<div v-else class="content" :style="props.divStyle">
-		<label :for="id ?? key" v-if="props.label">{{ props.label }}</label>
+		<label :for="id ?? key" @click="props.labelClick" v-if="props.label">{{
+			props.label
+		}}</label>
 		<input
 			v-bind="$attrs"
 			:id="id ?? key"

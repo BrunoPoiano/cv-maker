@@ -121,6 +121,7 @@ button {
 		padding: 0.5rem;
 		min-width: 0ch;
 		width: fit-content;
+		height: fit-content;
 
 		> :deep(svg) {
 			width: 32px !important;

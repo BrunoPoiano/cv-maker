@@ -5,6 +5,8 @@ import { fontSizeSelect } from '@/constants/font-size'
 import { monthOptionsSelect } from '@/constants/monthOptions'
 import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
+import { CurriculumStore } from '@/stores/curriculumStore'
+import SvgDefault from '@/svgs/SvgDefault.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
 import Button from '@/ui/appButton.vue'
@@ -23,7 +25,7 @@ type Props = {
 
 const { id } = defineProps<Props>()
 
-const { curriculum } = inject(ProviderKey)!
+const { curriculum, curriculumIndex } = inject(ProviderKey)!
 
 const list = ref(
 	Array.isArray(curriculum.value.Experience.value[0]?.Description)
@@ -76,11 +78,18 @@ function deleteExperience(id: string) {
 					v-model="curriculum.Experience.sideBySide"
 				/>
 				<AppToggle
-					style="place-self: end"
+					style="place-self: center"
 					v-model="list"
 					labelEnd="List"
 					labelStart="Text"
 				/>
+				<Button
+					title="Set Company Name, Remote, Start and End Date to default values"
+					icon-button
+					@click="CurriculumStore.setExperienceDefaultValue(curriculumIndex)"
+				>
+					<SvgDefault />
+				</Button>
 			</div>
 			<div class="size">
 				<Select
@@ -183,7 +192,9 @@ form {
 
 	.align {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		gap: 0.5rem;
+		align-items: center;
+		grid-template-columns: 1fr auto auto;
 	}
 
 	.size {

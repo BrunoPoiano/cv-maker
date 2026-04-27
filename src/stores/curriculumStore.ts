@@ -77,6 +77,38 @@ export const CurriculumStore = {
 		curriculums.value.unshift(cv)
 		CurriculumIndexStore.changeValue(0)
 	},
+	setExperienceDefaultValue(curriculumIndex: number) {
+		if (!curriculums.value[0] || !curriculums.value[curriculumIndex]) {
+			return
+		}
+
+		const defaultCv = curriculums.value[0].Experience.value
+
+		curriculums.value[curriculumIndex].Experience.value = curriculums.value[
+			curriculumIndex
+		].Experience.value.map((exp, index) => {
+			if (!defaultCv[index]) {
+				return exp
+			}
+
+			exp.CompanyName = defaultCv[index].CompanyName
+			exp.StartDate = defaultCv[index].StartDate
+			exp.EndDate = defaultCv[index].EndDate
+			exp.Remote = defaultCv[index].Remote
+
+			console.log({ exp })
+
+			return exp
+		})
+	},
+	setContactDefaultValue(curriculumIndex: number) {
+		if (!curriculums.value[0] || !curriculums.value[curriculumIndex]) {
+			return
+		}
+
+		curriculums.value[curriculumIndex].Contact.value =
+			curriculums.value[0].Contact.value
+	},
 	newCoreSkill(curriculumIndex: number, core: string) {
 		if (!curriculums.value[curriculumIndex]) {
 			return

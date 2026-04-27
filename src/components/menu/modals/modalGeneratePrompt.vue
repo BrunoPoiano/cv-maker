@@ -61,7 +61,7 @@ OPTIMIZATION RULES:
 4. STRUCTURE
    - Keep resume within 1 page.
    - Use concise bullet points (max 1–2 lines each).
-   - Maintain JSON structure consistency.
+   - Maintain RESUME JSON structure consistency.
    - Ensure standard ATS-readable sections - use RESUME as template:
      ["Header", "Contact", "Summary", "CoreSkills", "Experience"]
 
