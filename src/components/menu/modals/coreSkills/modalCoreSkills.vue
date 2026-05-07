@@ -41,12 +41,19 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 				<AppButton modal :id="ModalCoreSkillNameID"> New Core Skill </AppButton>
 			</div>
 		</template>
-		<form>
+		<div class="settings">
+			<AppInput
+				type="checkbox"
+				label="Side by Side"
+				v-model="curriculum.CoreSkills.sideBySide"
+			/>
 			<Select
 				label="Font Size"
 				:items="fontSizeSelect"
 				v-model="curriculum.CoreSkills.size"
 			/>
+		</div>
+		<form>
 			<div v-for="(_, core, index) in skillsProxy" class="skills" :key="core">
 				<div class="header-items">
 					<div>
@@ -100,6 +107,14 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 	span {
 		text-transform: capitalize;
 	}
+}
+
+.settings {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	gap: 1rem;
+	margin-bottom: 1rem;
 }
 
 form {

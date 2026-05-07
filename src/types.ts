@@ -102,6 +102,7 @@ type Summary = {
 
 export type CoreSkills = {
 	skills: Record<string, Array<string>>
+	sideBySide: boolean
 	size: FontSize
 	show: boolean
 }

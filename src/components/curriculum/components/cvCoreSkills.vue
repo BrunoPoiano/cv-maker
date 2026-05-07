@@ -22,6 +22,7 @@ const { curriculum, readonly } = inject(ProviderKey)!
 			}}</Title>
 			<div class="coreSkills">
 				<AppListCoreSkills
+					:side-by-side="curriculum.CoreSkills.sideBySide"
 					:readonly="readonly"
 					:fontSize="curriculum.CoreSkills.size"
 					:boldMatches="bolderStore.matches"

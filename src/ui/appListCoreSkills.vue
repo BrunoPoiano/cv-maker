@@ -10,6 +10,7 @@ import AppInput from './appInput.vue'
 
 type Props = {
 	language: Languages
+	sideBySide?: boolean
 	boldMatches?: (v: string) => BoldMatchReturn
 	fontSize?: FontSize
 	readonly?: boolean
@@ -35,8 +36,8 @@ function translateCore(core: string) {
 </script>
 
 <template>
-	<ul>
-		<template v-if="readonly">
+	<template v-if="readonly">
+		<ul v-if="!sideBySide">
 			<template v-for="(_, core) in skillsProxy" :key="core">
 				<li v-if="boldMatches && orderedSkills(core)">
 					<div>
@@ -53,8 +54,25 @@ function translateCore(core: string) {
 					</div>
 				</li>
 			</template>
-		</template>
+		</ul>
 		<template v-else>
+			<template v-for="(_, core) in skillsProxy" :key="core">
+				<template v-if="boldMatches && orderedSkills(core)">
+					<span
+						:style="{
+							fontSize: `var(${fontSize})`,
+							color: 'var(--on-surface-variant)'
+						}"
+						v-if="skillsProxy[core]"
+					>
+						<AppBoldMatch :value="boldMatches(skillsProxy[core])" />,
+					</span>
+				</template>
+			</template>
+		</template>
+	</template>
+	<template v-else>
+		<ul>
 			<li v-for="(_, core) in skillsProxy" :key="core">
 				<div>
 					<span :style="{ fontSize: `var(${fontSize})` }" class="core">
@@ -69,8 +87,8 @@ function translateCore(core: string) {
 					</span>
 				</div>
 			</li>
-		</template>
-	</ul>
+		</ul>
+	</template>
 </template>
 
 <style scoped>

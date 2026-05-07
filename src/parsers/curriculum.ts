@@ -119,6 +119,10 @@ export function parseCurriculum(value: unknown): Curriculum {
 			'--font-size-sm'
 		)
 		cv.CoreSkills.show = isBooleanOrDefault(value.CoreSkills.show, true)
+		cv.CoreSkills.sideBySide = isBooleanOrDefault(
+			value.CoreSkills.sideBySide,
+			false
+		)
 
 		if (isObject(value.CoreSkills.skills)) {
 			const coreSkills: Curriculum['CoreSkills']['skills'] = {}
@@ -206,7 +210,7 @@ export function parseCurriculum(value: unknown): Curriculum {
 				}
 
 				acc.push({
-					id: isStringOrDefault(item.id, generateKey()),
+					id: isStringOrDefault(item.id, generateKey(5, 'number')),
 					Role: isStringOrDefault(item.Role),
 					CompanyName: isStringOrDefault(item.CompanyName),
 					StartDate: new Date(item.StartDate as string),
