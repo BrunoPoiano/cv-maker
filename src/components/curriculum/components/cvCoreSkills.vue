@@ -20,14 +20,13 @@ const { curriculum, readonly } = inject(ProviderKey)!
 			<Title :fontsize="curriculum.Settings.section.size">{{
 				Translate['core skills'][curriculum.Settings.language]
 			}}</Title>
-			<div class="coreSkills">
-				<AppListCoreSkills
-					:readonly="readonly"
-					:fontSize="curriculum.CoreSkills.size"
-					:boldMatches="bolderStore.matches"
-					:language="curriculum.Settings.language"
-				/>
-			</div>
+			<AppListCoreSkills
+				:side-by-side="curriculum.CoreSkills.sideBySide"
+				:readonly="readonly"
+				:fontSize="curriculum.CoreSkills.size"
+				:boldMatches="bolderStore.matches"
+				:language="curriculum.Settings.language"
+			/>
 			<template #button>
 				<AppButton icon-button modal id="modalCvCoreSkills">
 					<SvgPen />

@@ -2,6 +2,7 @@ import { CurriculumConst } from '@/constants/curriculum'
 import { fontSize } from '@/constants/font-size'
 import { languages } from '@/constants/language'
 import { monthOptions } from '@/constants/monthOptions'
+import { textAlign } from '@/constants/text-align'
 import { generateKey } from '@/helpers/generateKey'
 import type { Curriculum, Experience } from '@/types'
 
@@ -48,7 +49,8 @@ export function parseCurriculum(value: unknown): Curriculum {
 					value.Header.UserName.size,
 					fontSize,
 					'--font-size-xl'
-				)
+				),
+				align: isOneOforDefault(value.Header.UserName.align, textAlign, 'start')
 			}
 			if (isObject(value.Header.Role)) {
 				cv.Header.Role = {
@@ -57,19 +59,21 @@ export function parseCurriculum(value: unknown): Curriculum {
 						value.Header.Role.size,
 						fontSize,
 						'--font-size-lg'
-					)
+					),
+					align: isOneOforDefault(value.Header.Role.align, textAlign, 'start')
 				}
 			}
 		}
 	}
 
 	if (isObject(value.Contact) && isObject(value.Contact.value)) {
+		cv.Contact.sideBySide = isBooleanOrDefault(value.Contact.sideBySide, true)
 		cv.Contact.size = isOneOforDefault(
 			value.Contact.size,
 			fontSize,
 			'--font-size-sm'
 		)
-		cv.Contact.sideBySide = isBooleanOrDefault(value.Contact.sideBySide, true)
+		cv.Contact.align = isOneOforDefault(value.Contact.align, textAlign, 'start')
 
 		if (isObject(value.Contact.value.email)) {
 			cv.Contact.value.email = {
@@ -119,6 +123,10 @@ export function parseCurriculum(value: unknown): Curriculum {
 			'--font-size-sm'
 		)
 		cv.CoreSkills.show = isBooleanOrDefault(value.CoreSkills.show, true)
+		cv.CoreSkills.sideBySide = isBooleanOrDefault(
+			value.CoreSkills.sideBySide,
+			false
+		)
 
 		if (isObject(value.CoreSkills.skills)) {
 			const coreSkills: Curriculum['CoreSkills']['skills'] = {}
@@ -206,13 +214,51 @@ export function parseCurriculum(value: unknown): Curriculum {
 				}
 
 				acc.push({
-					id: isStringOrDefault(item.id, generateKey()),
+					id: isStringOrDefault(item.id, generateKey(5, 'number')),
 					Role: isStringOrDefault(item.Role),
 					CompanyName: isStringOrDefault(item.CompanyName),
 					StartDate: new Date(item.StartDate as string),
 					EndDate: item.EndDate ? new Date(item.EndDate as string) : null,
 					Description: desc,
 					Remote: isBooleanOrDefault(item.Remote, false)
+				})
+				return acc
+			}, [])
+		}
+	}
+
+	if (isObject(value.AcademicBackground)) {
+		cv.AcademicBackground.show = isBooleanOrDefault(
+			value.AcademicBackground.show,
+			true
+		)
+
+		cv.AcademicBackground.dateMonth = isOneOforDefault(
+			value.AcademicBackground.dateMonth,
+			monthOptions,
+			'2-digit'
+		)
+		cv.AcademicBackground.size = isOneOforDefault(
+			value.AcademicBackground.size,
+			fontSize,
+			'--font-size-sm'
+		)
+
+		if (Array.isArray(value.AcademicBackground.value)) {
+			cv.AcademicBackground.value = value.AcademicBackground.value.reduce<
+				Curriculum['AcademicBackground']['value']
+			>((acc, item) => {
+				if (!isObject(item)) {
+					return acc
+				}
+
+				acc.push({
+					id: isStringOrDefault(item.id, generateKey(5, 'number')),
+					Course: isStringOrDefault(item.Course),
+					Diploma: isStringOrDefault(item.Diploma),
+					Institution: isStringOrDefault(item.Institution),
+					StartDate: item.StartDate ? new Date(item.StartDate as string) : null,
+					EndDate: item.EndDate ? new Date(item.EndDate as string) : null
 				})
 				return acc
 			}, [])

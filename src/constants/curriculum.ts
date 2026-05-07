@@ -13,16 +13,19 @@ export function CurriculumConst(): Curriculum {
 		Header: {
 			UserName: {
 				value: 'Full Name',
-				size: '--font-size-xl'
+				size: '--font-size-xl',
+				align: 'start'
 			},
 			Role: {
 				value: 'Role',
-				size: '--font-size-lg'
+				size: '--font-size-lg',
+				align: 'start'
 			}
 		},
 		Contact: {
 			size: '--font-size-sm',
 			sideBySide: false,
+			align: 'start',
 			value: {
 				location: {
 					bolder: false,
@@ -50,6 +53,7 @@ export function CurriculumConst(): Curriculum {
 		},
 		CoreSkills: {
 			show: true,
+			sideBySide: false,
 			skills: {
 				languages: [],
 				apis: [],
@@ -72,6 +76,12 @@ export function CurriculumConst(): Curriculum {
 				subTitle: '--font-size-sm',
 				description: '--font-size-sm'
 			},
+			value: []
+		},
+		AcademicBackground: {
+			dateMonth: '2-digit',
+			show: true,
+			size: '--font-size-base',
 			value: []
 		}
 	}

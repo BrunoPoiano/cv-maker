@@ -41,18 +41,22 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 				<AppButton modal :id="ModalCoreSkillNameID"> New Core Skill </AppButton>
 			</div>
 		</template>
-		<form>
+		<div class="settings">
+			<AppInput
+				type="checkbox"
+				label="Side by Side"
+				v-model="curriculum.CoreSkills.sideBySide"
+			/>
 			<Select
 				label="Font Size"
 				:items="fontSizeSelect"
 				v-model="curriculum.CoreSkills.size"
 			/>
+		</div>
+		<form>
 			<div v-for="(_, core, index) in skillsProxy" class="skills" :key="core">
 				<div class="header-items">
 					<div>
-						<span>
-							{{ core.replace('_', ' & ') }}
-						</span>
 						<AppButton
 							iconButton
 							@click="
@@ -71,6 +75,9 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 						>
 							<SvgArrow direction="down" />
 						</AppButton>
+						<span>
+							{{ core.replace('_', ' & ') }}
+						</span>
 					</div>
 					<AppButton
 						iconButton
@@ -102,9 +109,29 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 	}
 }
 
+.settings {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: center;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
 form {
 	display: grid;
 	gap: 1rem;
+
+	> div {
+		background: var(--surface-container-low);
+		padding: 0.8rem;
+		border-radius: var(--border-radius);
+
+		transition: background 500ms ease;
+
+		&:hover {
+			background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+		}
+	}
 }
 
 .header {

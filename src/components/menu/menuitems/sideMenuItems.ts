@@ -5,6 +5,9 @@ import type { MenuModalItem } from '@/types'
 const ModalExperience = defineAsyncComponent(
 	() => import('../modals/experience/modalExperience.vue')
 )
+const ModalAcademic = defineAsyncComponent(
+	() => import('../modals/modalAcademic.vue')
+)
 const ModalContact = defineAsyncComponent(
 	() => import('../modals/modalContact.vue')
 )
@@ -58,5 +61,11 @@ export const sideMenuItems: MenuModalItem[] = [
 		id: 'modalCvExperience',
 		backgroundColor: 'var(--surface-container-low)',
 		label: 'Experience'
+	},
+	{
+		modal: ModalAcademic,
+		id: 'ModalCvAcademic',
+		backgroundColor: 'var(--surface-container-low)',
+		label: 'Academic Background'
 	}
 ]

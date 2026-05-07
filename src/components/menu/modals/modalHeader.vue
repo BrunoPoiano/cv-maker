@@ -2,6 +2,7 @@
 import { inject } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
+import { textAlignSelect } from '@/constants/text-align'
 import { ProviderKey } from '@/keys'
 import Input from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
@@ -27,6 +28,11 @@ const { id } = defineProps<Props>()
 					:items="fontSizeSelect"
 					v-model="curriculum.Header.UserName.size"
 				/>
+				<Select
+					label="Text Align"
+					:items="textAlignSelect"
+					v-model="curriculum.Header.UserName.align"
+				/>
 				<Input
 					type="text"
 					label="Name"
@@ -39,6 +45,11 @@ const { id } = defineProps<Props>()
 					label="Font Size"
 					:items="fontSizeSelect"
 					v-model="curriculum.Header.Role.size"
+				/>
+				<Select
+					label="Text Align"
+					:items="textAlignSelect"
+					v-model="curriculum.Header.Role.align"
 				/>
 				<Input
 					type="text"
@@ -58,7 +69,21 @@ form {
 
 	> div {
 		display: grid;
+		grid-template-columns: 1fr 1fr;
 		gap: 1rem;
+		background: var(--surface-container-low);
+		padding: 0.8rem;
+		border-radius: var(--border-radius);
+
+		transition: background 500ms ease;
+
+		&:hover {
+			background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+		}
+
+		> div:has(input) {
+			grid-area: 2 / span 2;
+		}
 	}
 }
 </style>

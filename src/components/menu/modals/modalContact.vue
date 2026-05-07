@@ -2,6 +2,7 @@
 import { inject } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
+import { textAlignSelect } from '@/constants/text-align'
 import { ProviderKey } from '@/keys'
 import { CurriculumStore } from '@/stores/curriculumStore'
 import SvgDefault from '@/svgs/SvgDefault.vue'
@@ -32,6 +33,12 @@ const { id } = defineProps<Props>()
 		</template>
 		<form>
 			<div class="settings">
+				<Select
+					label="Text Align"
+					:items="textAlignSelect"
+					v-model="curriculum.Contact.align"
+				/>
+
 				<Select
 					fullWidth
 					label="Font Size"
@@ -81,9 +88,24 @@ form {
 	> .settings {
 		display: grid;
 		gap: 1rem;
-		grid-template-columns: 15ch auto;
+		grid-template-columns: 10ch 10ch 1fr;
 		align-items: end;
-		justify-content: end;
+
+		button {
+			justify-self: end;
+		}
+	}
+
+	> div:not(.settings) {
+		background: var(--surface-container-low);
+		padding: 0.8rem;
+		border-radius: var(--border-radius);
+
+		transition: background 500ms ease;
+
+		&:hover {
+			background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+		}
 	}
 }
 </style>

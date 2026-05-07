@@ -11,10 +11,12 @@ import type { localStorageKeys } from '@/keys'
 
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
+import type { textAlign } from './constants/text-align'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
 export type Languages = (typeof languages)[number]
 export type FontSize = (typeof fontSize)[number]
+export type TextAlign = (typeof textAlign)[number]
 export type SelectItem = Array<{ value: string | number; label: string }>
 export type Translation = Record<string, Each<Languages>>
 export type MonthOptions = Extract<
@@ -52,6 +54,7 @@ export type BoldMatchReturn =
 type Contact = {
 	size: FontSize
 	sideBySide: boolean
+	align: TextAlign
 	value: {
 		email: {
 			value: Email
@@ -82,14 +85,25 @@ export type Experience = {
 	Remote: boolean
 }
 
+export type Course = {
+	id: string
+	Course: string
+	Diploma: string
+	Institution: string
+	StartDate: Date | null
+	EndDate: Date | null
+}
+
 type Header = {
 	UserName: {
 		value: string
 		size: FontSize
+		align: TextAlign
 	}
 	Role: {
 		value: string
 		size: FontSize
+		align: TextAlign
 	}
 }
 
@@ -102,6 +116,7 @@ type Summary = {
 
 export type CoreSkills = {
 	skills: Record<string, Array<string>>
+	sideBySide: boolean
 	size: FontSize
 	show: boolean
 }
@@ -130,6 +145,12 @@ export type Curriculum = {
 			description: FontSize
 		}
 		value: Array<Experience>
+	}
+	AcademicBackground: {
+		show: boolean
+		dateMonth: MonthOptions
+		size: FontSize
+		value: Array<Course>
 	}
 }
 

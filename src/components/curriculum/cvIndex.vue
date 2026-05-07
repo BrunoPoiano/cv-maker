@@ -3,6 +3,7 @@ import { computed, inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
 
+import CvAcademicBackground from './components/cvAcademicBackground.vue'
 import CvContact from './components/cvContact.vue'
 import CvCoreSkills from './components/cvCoreSkills.vue'
 import CvExperience from './components/cvExperience.vue'
@@ -26,6 +27,7 @@ const gap = computed(() => curriculum.value.Settings.gap)
 			<CvSummary />
 			<CvCoreSkills />
 			<CvExperience />
+			<CvAcademicBackground />
 		</div>
 	</section>
 </template>

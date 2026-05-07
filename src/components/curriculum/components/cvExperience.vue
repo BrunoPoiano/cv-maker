@@ -4,7 +4,7 @@ import { inject } from 'vue'
 import ExDateInput from '@/components/menu/modals/experience/components/exDateInput.vue'
 import ExDescription from '@/components/menu/modals/experience/components/exDescription.vue'
 import { Translate } from '@/constants/translations'
-import { generateDate, generateTitle } from '@/helpers/cvFormatters'
+import { generateDate, generateJobTitle } from '@/helpers/cvFormatters'
 import { ProviderKey } from '@/keys'
 import { bolderStore } from '@/stores/bolderStore'
 import SvgPen from '@/svgs/SvgPen.vue'
@@ -28,7 +28,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 </script>
 
 <template>
-	<div v-if="curriculum.Experience.show">
+	<div v-if="curriculum.Experience.show && curriculum.Experience.value.length">
 		<AppAnchor>
 			<Title :fontsize="curriculum.Settings.section.size">{{
 				Translate['professional experience'][curriculum.Settings.language]
@@ -44,7 +44,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 							:style="{ fontSize: `var(${curriculum.Experience.size.title})` }"
 						>
 							<template v-if="readonly">
-								{{ generateTitle(job) }}
+								{{ generateJobTitle(job) }}
 							</template>
 							<div class="inputs" v-else>
 								<AppInput v-model="job.Role" cv-input placeholder="Role" />

@@ -33,7 +33,7 @@ const list = ref(
 
 function newExperience() {
 	curriculum.value.Experience.value.unshift({
-		id: generateKey(),
+		id: generateKey(5, 'number'),
 		CompanyName: '',
 		Role: '',
 		StartDate: new Date(),

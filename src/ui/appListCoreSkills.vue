@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 
 import { Translate } from '@/constants/translations'
 import { ProviderSkillKey } from '@/keys'
@@ -10,6 +10,7 @@ import AppInput from './appInput.vue'
 
 type Props = {
 	language: Languages
+	sideBySide?: boolean
 	boldMatches?: (v: string) => BoldMatchReturn
 	fontSize?: FontSize
 	readonly?: boolean
@@ -32,11 +33,13 @@ function translateCore(core: string) {
 	}
 	return core
 }
+
+const skillsList = computed(() => Object.values(skillsProxy.value).join(', '))
 </script>
 
 <template>
-	<ul>
-		<template v-if="readonly">
+	<template v-if="readonly">
+		<ul v-if="!sideBySide">
 			<template v-for="(_, core) in skillsProxy" :key="core">
 				<li v-if="boldMatches && orderedSkills(core)">
 					<div>
@@ -53,8 +56,22 @@ function translateCore(core: string) {
 					</div>
 				</li>
 			</template>
-		</template>
-		<template v-else>
+		</ul>
+		<div :style="{ marginTop: '-0.5rem' }" v-else>
+			<template v-if="boldMatches">
+				<span
+					:style="{
+						fontSize: `var(${fontSize})`,
+						color: 'var(--on-surface-variant)'
+					}"
+				>
+					<AppBoldMatch :value="boldMatches(skillsList)" />
+				</span>
+			</template>
+		</div>
+	</template>
+	<template v-else>
+		<ul>
 			<li v-for="(_, core) in skillsProxy" :key="core">
 				<div>
 					<span :style="{ fontSize: `var(${fontSize})` }" class="core">
@@ -69,8 +86,8 @@ function translateCore(core: string) {
 					</span>
 				</div>
 			</li>
-		</template>
-	</ul>
+		</ul>
+	</template>
 </template>
 
 <style scoped>
