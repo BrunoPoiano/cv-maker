@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 
 import { Translate } from '@/constants/translations'
 import { ProviderSkillKey } from '@/keys'
@@ -33,6 +33,8 @@ function translateCore(core: string) {
 	}
 	return core
 }
+
+const skillsList = computed(() => Object.values(skillsProxy.value).join(', '))
 </script>
 
 <template>
@@ -55,21 +57,18 @@ function translateCore(core: string) {
 				</li>
 			</template>
 		</ul>
-		<template v-else>
-			<template v-for="(_, core) in skillsProxy" :key="core">
-				<template v-if="boldMatches && orderedSkills(core)">
-					<span
-						:style="{
-							fontSize: `var(${fontSize})`,
-							color: 'var(--on-surface-variant)'
-						}"
-						v-if="skillsProxy[core]"
-					>
-						<AppBoldMatch :value="boldMatches(skillsProxy[core])" />,
-					</span>
-				</template>
+		<div :style="{ marginTop: '-0.5rem' }" v-else>
+			<template v-if="boldMatches">
+				<span
+					:style="{
+						fontSize: `var(${fontSize})`,
+						color: 'var(--on-surface-variant)'
+					}"
+				>
+					<AppBoldMatch :value="boldMatches(skillsList)" />
+				</span>
 			</template>
-		</template>
+		</div>
 	</template>
 	<template v-else>
 		<ul>

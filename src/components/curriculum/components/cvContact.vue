@@ -76,7 +76,7 @@ const { curriculum, readonly } = inject(ProviderKey)!
 	&[data-side-by-side='true'] {
 		display: flex;
 		gap: 1ch;
-		justify-content: flex-start;
+		justify-content: v-bind('curriculum.Contact.align');
 		flex-wrap: wrap;
 		margin-top: calc(var(--_a4-gap) * -0.4);
 

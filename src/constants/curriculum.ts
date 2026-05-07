@@ -13,16 +13,19 @@ export function CurriculumConst(): Curriculum {
 		Header: {
 			UserName: {
 				value: 'Full Name',
-				size: '--font-size-xl'
+				size: '--font-size-xl',
+				align: 'start'
 			},
 			Role: {
 				value: 'Role',
-				size: '--font-size-lg'
+				size: '--font-size-lg',
+				align: 'start'
 			}
 		},
 		Contact: {
 			size: '--font-size-sm',
 			sideBySide: false,
+			align: 'start',
 			value: {
 				location: {
 					bolder: false,

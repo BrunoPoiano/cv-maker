@@ -11,10 +11,12 @@ import type { localStorageKeys } from '@/keys'
 
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
+import type { textAlign } from './constants/text-align'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
 export type Languages = (typeof languages)[number]
 export type FontSize = (typeof fontSize)[number]
+export type TextAlign = (typeof textAlign)[number]
 export type SelectItem = Array<{ value: string | number; label: string }>
 export type Translation = Record<string, Each<Languages>>
 export type MonthOptions = Extract<
@@ -52,6 +54,7 @@ export type BoldMatchReturn =
 type Contact = {
 	size: FontSize
 	sideBySide: boolean
+	align: TextAlign
 	value: {
 		email: {
 			value: Email
@@ -95,10 +98,12 @@ type Header = {
 	UserName: {
 		value: string
 		size: FontSize
+		align: TextAlign
 	}
 	Role: {
 		value: string
 		size: FontSize
+		align: TextAlign
 	}
 }
 

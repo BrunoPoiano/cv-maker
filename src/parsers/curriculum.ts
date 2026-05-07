@@ -2,6 +2,7 @@ import { CurriculumConst } from '@/constants/curriculum'
 import { fontSize } from '@/constants/font-size'
 import { languages } from '@/constants/language'
 import { monthOptions } from '@/constants/monthOptions'
+import { textAlign } from '@/constants/text-align'
 import { generateKey } from '@/helpers/generateKey'
 import type { Curriculum, Experience } from '@/types'
 
@@ -48,7 +49,8 @@ export function parseCurriculum(value: unknown): Curriculum {
 					value.Header.UserName.size,
 					fontSize,
 					'--font-size-xl'
-				)
+				),
+				align: isOneOforDefault(value.Header.UserName.align, textAlign, 'start')
 			}
 			if (isObject(value.Header.Role)) {
 				cv.Header.Role = {
@@ -57,19 +59,21 @@ export function parseCurriculum(value: unknown): Curriculum {
 						value.Header.Role.size,
 						fontSize,
 						'--font-size-lg'
-					)
+					),
+					align: isOneOforDefault(value.Header.Role.align, textAlign, 'start')
 				}
 			}
 		}
 	}
 
 	if (isObject(value.Contact) && isObject(value.Contact.value)) {
+		cv.Contact.sideBySide = isBooleanOrDefault(value.Contact.sideBySide, true)
 		cv.Contact.size = isOneOforDefault(
 			value.Contact.size,
 			fontSize,
 			'--font-size-sm'
 		)
-		cv.Contact.sideBySide = isBooleanOrDefault(value.Contact.sideBySide, true)
+		cv.Contact.align = isOneOforDefault(value.Contact.align, textAlign, 'start')
 
 		if (isObject(value.Contact.value.email)) {
 			cv.Contact.value.email = {

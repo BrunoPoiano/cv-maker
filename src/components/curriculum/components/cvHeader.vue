@@ -15,12 +15,18 @@ const { curriculum, readonly } = inject(ProviderKey)!
 		<div class="header">
 			<template v-if="readonly">
 				<h1
-					:style="{ '--font_size': `var(${curriculum.Header.UserName.size})` }"
+					:style="{
+						'--font_size': `var(${curriculum.Header.UserName.size})`,
+						textAlign: curriculum.Header.UserName.align
+					}"
 				>
 					{{ curriculum.Header.UserName.value }}
 				</h1>
 				<span
-					:style="{ '--font_size': `var(${curriculum.Header.Role.size})` }"
+					:style="{
+						'--font_size': `var(${curriculum.Header.Role.size})`,
+						textAlign: curriculum.Header.Role.align
+					}"
 					class="label"
 				>
 					{{ curriculum.Header.Role.value }}

@@ -8,7 +8,7 @@ export function generateJobTitle(
 	const role = job.Role.toLocaleLowerCase()
 	const company = job.CompanyName.toLocaleLowerCase()
 
-	return `${role} ${company ? ' - ' + company : ''} `
+	return `${role}${company ? ' - ' + company : ''}`.trim()
 }
 
 export function generateAcademicTitle(
@@ -18,7 +18,7 @@ export function generateAcademicTitle(
 	const institution = job.Institution.toLocaleLowerCase()
 	const diploma = job.Diploma.toLocaleLowerCase()
 
-	return `${institution} ${diploma ? ' - ' + diploma : ''}${course ? ', ' + course : ''} `
+	return `${institution}${diploma ? ' - ' + diploma : ''}${course ? ', ' + course : ''}`.trim()
 }
 
 export function generateDate(
@@ -36,7 +36,7 @@ export function generateDate(
 			? Translate['present'][language]
 			: ''
 
-	return `${startDate} ${endDate ? ' - ' + endDate : ''}`
+	return `${startDate}${endDate ? ' - ' + endDate : ''}`.trim()
 }
 
 export function fixDate(

@@ -57,9 +57,6 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 			<div v-for="(_, core, index) in skillsProxy" class="skills" :key="core">
 				<div class="header-items">
 					<div>
-						<span>
-							{{ core.replace('_', ' & ') }}
-						</span>
 						<AppButton
 							iconButton
 							@click="
@@ -78,6 +75,9 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 						>
 							<SvgArrow direction="down" />
 						</AppButton>
+						<span>
+							{{ core.replace('_', ' & ') }}
+						</span>
 					</div>
 					<AppButton
 						iconButton
@@ -120,6 +120,18 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 form {
 	display: grid;
 	gap: 1rem;
+
+	> div {
+		background: var(--surface-container-low);
+		padding: 0.8rem;
+		border-radius: var(--border-radius);
+
+		transition: background 500ms ease;
+
+		&:hover {
+			background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+		}
+	}
 }
 
 .header {
