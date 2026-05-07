@@ -47,5 +47,8 @@ export const basicCurriculum = `{
                 "Remote": false
             }
         ]
-    }
+    },
+    "AcademicBackground": {
+			"value": []
+		}
 }`

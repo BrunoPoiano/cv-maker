@@ -82,6 +82,15 @@ export type Experience = {
 	Remote: boolean
 }
 
+export type Course = {
+	id: string
+	Course: string
+	Diploma: string
+	Institution: string
+	StartDate: Date | null
+	EndDate: Date | null
+}
+
 type Header = {
 	UserName: {
 		value: string
@@ -131,6 +140,12 @@ export type Curriculum = {
 			description: FontSize
 		}
 		value: Array<Experience>
+	}
+	AcademicBackground: {
+		show: boolean
+		dateMonth: MonthOptions
+		size: FontSize
+		value: Array<Course>
 	}
 }
 

@@ -9,6 +9,10 @@ export const Translate = {
 		'en-us': 'PROFESSIONAL EXPERIENCE',
 		'pt-br': 'EXPERIÊNCIA PROFISSIONAL'
 	},
+	'academic background': {
+		'en-us': 'Academic Background',
+		'pt-br': 'FORMAÇÃO ACADÊMICA'
+	},
 	summary: {
 		'en-us': 'SUMMARY',
 		'pt-br': 'RESUMO'

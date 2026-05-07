@@ -74,6 +74,12 @@ export function CurriculumConst(): Curriculum {
 				description: '--font-size-sm'
 			},
 			value: []
+		},
+		AcademicBackground: {
+			dateMonth: '2-digit',
+			show: true,
+			size: '--font-size-base',
+			value: []
 		}
 	}
 }

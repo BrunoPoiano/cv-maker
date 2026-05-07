@@ -223,6 +223,44 @@ export function parseCurriculum(value: unknown): Curriculum {
 		}
 	}
 
+	if (isObject(value.AcademicBackground)) {
+		cv.AcademicBackground.show = isBooleanOrDefault(
+			value.AcademicBackground.show,
+			true
+		)
+
+		cv.AcademicBackground.dateMonth = isOneOforDefault(
+			value.AcademicBackground.dateMonth,
+			monthOptions,
+			'2-digit'
+		)
+		cv.AcademicBackground.size = isOneOforDefault(
+			value.AcademicBackground.size,
+			fontSize,
+			'--font-size-sm'
+		)
+
+		if (Array.isArray(value.AcademicBackground.value)) {
+			cv.AcademicBackground.value = value.AcademicBackground.value.reduce<
+				Curriculum['AcademicBackground']['value']
+			>((acc, item) => {
+				if (!isObject(item)) {
+					return acc
+				}
+
+				acc.push({
+					id: isStringOrDefault(item.id, generateKey(5, 'number')),
+					Course: isStringOrDefault(item.Course),
+					Diploma: isStringOrDefault(item.Diploma),
+					Institution: isStringOrDefault(item.Institution),
+					StartDate: item.StartDate ? new Date(item.StartDate as string) : null,
+					EndDate: item.EndDate ? new Date(item.EndDate as string) : null
+				})
+				return acc
+			}, [])
+		}
+	}
+
 	return cv
 }
 

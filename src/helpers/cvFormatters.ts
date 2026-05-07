@@ -2,7 +2,7 @@ import { Translate } from '@/constants/translations'
 import { isValidDateOrNull } from '@/parsers/typeValidation'
 import type { Curriculum, Languages, MonthOptions } from '@/types'
 
-export function generateTitle(
+export function generateJobTitle(
 	job: Curriculum['Experience']['value'][number]
 ): string {
 	const role = job.Role.toLocaleLowerCase()
@@ -11,17 +11,32 @@ export function generateTitle(
 	return `${role} ${company ? ' - ' + company : ''} `
 }
 
-export function generateDate(
-	job: Curriculum['Experience']['value'][number],
-	language: Languages,
-	dateFormat: MonthOptions
+export function generateAcademicTitle(
+	job: Curriculum['AcademicBackground']['value'][number]
 ): string {
-	const startDate = fixDate(job.StartDate, language, dateFormat)
-	const endDate = job.EndDate
-		? fixDate(job.EndDate, language, dateFormat)
-		: Translate['present'][language]
+	const course = job.Course.toLocaleLowerCase()
+	const institution = job.Institution.toLocaleLowerCase()
+	const diploma = job.Diploma.toLocaleLowerCase()
 
-	return `${startDate} - ${endDate}`
+	return `${institution} ${diploma ? ' - ' + diploma : ''}${course ? ', ' + course : ''} `
+}
+
+export function generateDate(
+	source:
+		| Curriculum['Experience']['value'][number]
+		| Curriculum['AcademicBackground']['value'][number],
+	language: Languages,
+	dateFormat: MonthOptions,
+	showPresent = true
+): string {
+	const startDate = fixDate(source.StartDate, language, dateFormat)
+	const endDate = source.EndDate
+		? fixDate(source.EndDate, language, dateFormat)
+		: showPresent
+			? Translate['present'][language]
+			: ''
+
+	return `${startDate} ${endDate ? ' - ' + endDate : ''}`
 }
 
 export function fixDate(
