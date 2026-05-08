@@ -80,11 +80,12 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 
 							<span v-else>
 								{{
-									generateDate(
-										job,
-										curriculum.Settings.language,
-										curriculum.Experience.dateMonth
-									)
+									generateDate({
+										source: job,
+										language: curriculum.Settings.language,
+										dateFormat: curriculum.Experience.dateMonth,
+										showPresent: true
+									})
 								}}
 							</span>
 							<template v-if="!readonly">

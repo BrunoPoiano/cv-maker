@@ -80,6 +80,7 @@ export function CurriculumConst(): Curriculum {
 		},
 		AcademicBackground: {
 			dateMonth: '2-digit',
+			dateStyle: 'date',
 			show: true,
 			size: '--font-size-base',
 			value: []

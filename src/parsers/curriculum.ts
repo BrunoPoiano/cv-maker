@@ -1,7 +1,7 @@
 import { CurriculumConst } from '@/constants/curriculum'
 import { fontSize } from '@/constants/font-size'
 import { languages } from '@/constants/language'
-import { monthOptions } from '@/constants/monthOptions'
+import { dateStyle, monthOptions } from '@/constants/monthOptions'
 import { textAlign } from '@/constants/text-align'
 import { generateKey } from '@/helpers/generateKey'
 import type { Curriculum, Experience } from '@/types'
@@ -237,6 +237,11 @@ export function parseCurriculum(value: unknown): Curriculum {
 			value.AcademicBackground.dateMonth,
 			monthOptions,
 			'2-digit'
+		)
+		cv.AcademicBackground.dateStyle = isOneOforDefault(
+			value.AcademicBackground.dateStyle,
+			dateStyle,
+			'date'
 		)
 		cv.AcademicBackground.size = isOneOforDefault(
 			value.AcademicBackground.size,

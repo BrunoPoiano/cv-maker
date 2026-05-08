@@ -11,12 +11,14 @@ import type { localStorageKeys } from '@/keys'
 
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
+import type { dateStyle } from './constants/monthOptions'
 import type { textAlign } from './constants/text-align'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
 export type Languages = (typeof languages)[number]
 export type FontSize = (typeof fontSize)[number]
 export type TextAlign = (typeof textAlign)[number]
+export type DateStyle = (typeof dateStyle)[number]
 export type SelectItem = Array<{ value: string | number; label: string }>
 export type Translation = Record<string, Each<Languages>>
 export type MonthOptions = Extract<
@@ -149,6 +151,7 @@ export type Curriculum = {
 	AcademicBackground: {
 		show: boolean
 		dateMonth: MonthOptions
+		dateStyle: DateStyle
 		size: FontSize
 		value: Array<Course>
 	}
