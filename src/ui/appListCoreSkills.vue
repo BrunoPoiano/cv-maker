@@ -34,7 +34,11 @@ function translateCore(core: string) {
 	return core
 }
 
-const skillsList = computed(() => Object.values(skillsProxy.value).join(', '))
+const skillsList = computed(() =>
+	Object.values(skillsProxy.value)
+		.filter((item) => item !== '')
+		.join(', ')
+)
 </script>
 
 <template>

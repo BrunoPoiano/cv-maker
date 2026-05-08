@@ -178,6 +178,29 @@ export const CurriculumStore = {
 			academic
 		)
 	},
+	moveSettingsOrder(
+		curriculumIndex: number,
+		fromIndex: number,
+		toIndex: number
+	) {
+		if (!curriculums.value[curriculumIndex] || toIndex === -1) {
+			return
+		}
+
+		const component =
+			curriculums.value[curriculumIndex].Settings.order[fromIndex]
+
+		if (!component) {
+			return
+		}
+
+		curriculums.value[curriculumIndex].Settings.order.splice(fromIndex, 1)
+		curriculums.value[curriculumIndex].Settings.order.splice(
+			toIndex,
+			0,
+			component
+		)
+	},
 	setAcademicDefaultValue(curriculumIndex: number) {
 		if (!curriculums.value[0] || !curriculums.value[curriculumIndex]) {
 			return

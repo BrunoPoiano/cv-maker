@@ -43,15 +43,15 @@ export type Provider = {
 export type BoldMatchReturn =
 	| string
 	| (
-		| string
-		| VNode<
-			RendererNode,
-			RendererElement,
-			{
-				[key: string]: unknown
-			}
-		>
-	)[]
+			| string
+			| VNode<
+					RendererNode,
+					RendererElement,
+					{
+						[key: string]: unknown
+					}
+			  >
+	  )[]
 
 type Contact = {
 	size: FontSize
@@ -124,6 +124,7 @@ export type CoreSkills = {
 }
 type Settings = {
 	language: Languages
+	order: Array<keyof Omit<Curriculum, 'Settings'>>
 	margin: number
 	gap: number
 	section: {
@@ -157,6 +158,11 @@ export type Curriculum = {
 		value: Array<Course>
 	}
 }
+
+export type CurriculumOrder = Record<
+	keyof Omit<Curriculum, 'Settings'>,
+	Component
+>
 
 export type MenuModalItem = {
 	modal: Component

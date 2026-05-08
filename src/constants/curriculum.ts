@@ -4,6 +4,14 @@ export function CurriculumConst(): Curriculum {
 	return {
 		Settings: {
 			language: 'en-us',
+			order: [
+				'Header',
+				'Contact',
+				'Summary',
+				'CoreSkills',
+				'AcademicBackground',
+				'Experience'
+			],
 			margin: 0.8,
 			gap: 1.3,
 			section: {
@@ -69,7 +77,7 @@ export function CurriculumConst(): Curriculum {
 		},
 		Experience: {
 			dateMonth: '2-digit',
-			dateStyle: "date",
+			dateStyle: 'date',
 			show: true,
 			sideBySide: false,
 			size: {

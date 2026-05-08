@@ -1,14 +1,8 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 
+import { curriculumOrder } from '@/constants/curriculumOrder'
 import { ProviderKey } from '@/keys'
-
-import CvAcademicBackground from './components/cvAcademicBackground.vue'
-import CvContact from './components/cvContact.vue'
-import CvCoreSkills from './components/cvCoreSkills.vue'
-import CvExperience from './components/cvExperience.vue'
-import CvHeader from './components/cvHeader.vue'
-import CvSummary from './components/cvSummary.vue'
 
 const { curriculum } = inject(ProviderKey)!
 const margin = computed(() => curriculum.value.Settings.margin)
@@ -22,12 +16,9 @@ const gap = computed(() => curriculum.value.Settings.gap)
 			id="curriculumPage"
 			:style="{ padding: `${margin}cm`, '--_a4-gap': `${gap}rem` }"
 		>
-			<CvHeader />
-			<CvContact />
-			<CvSummary />
-			<CvCoreSkills />
-			<CvExperience />
-			<CvAcademicBackground />
+			<template v-for="order in curriculum.Settings.order" :key="order">
+				<component :is="curriculumOrder[order]" />
+			</template>
 		</div>
 	</section>
 </template>

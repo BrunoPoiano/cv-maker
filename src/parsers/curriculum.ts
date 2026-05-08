@@ -1,4 +1,5 @@
 import { CurriculumConst } from '@/constants/curriculum'
+import { curriculumOrderArray } from '@/constants/curriculumOrder'
 import { fontSize } from '@/constants/font-size'
 import { languages } from '@/constants/language'
 import { dateStyle, monthOptions } from '@/constants/monthOptions'
@@ -11,6 +12,7 @@ import {
 	isExtendedStringOrDefault,
 	isNumberOrDefault,
 	isObject,
+	isOneOf,
 	isOneOforDefault,
 	isStringOrDefault
 } from './typeValidation'
@@ -31,6 +33,17 @@ export function parseCurriculum(value: unknown): Curriculum {
 
 		cv.Settings.margin = isNumberOrDefault(value.Settings.margin, 1)
 		cv.Settings.gap = isNumberOrDefault(value.Settings.gap, 1.3)
+
+		if (Array.isArray(value.Settings.order)) {
+			cv.Settings.order = value.Settings.order.reduce<
+				Array<keyof Omit<Curriculum, 'Settings'>>
+			>((acc, item) => {
+				if (isOneOf(item, curriculumOrderArray)) {
+					acc.push(item)
+				}
+				return acc
+			}, [])
+		}
 
 		if (isObject(value.Settings.section)) {
 			cv.Settings.section.size = isOneOforDefault(
