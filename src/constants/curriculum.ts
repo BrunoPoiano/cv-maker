@@ -69,6 +69,7 @@ export function CurriculumConst(): Curriculum {
 		},
 		Experience: {
 			dateMonth: '2-digit',
+			dateStyle: "date",
 			show: true,
 			sideBySide: false,
 			size: {

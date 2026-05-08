@@ -175,6 +175,12 @@ export function parseCurriculum(value: unknown): Curriculum {
 			'2-digit'
 		)
 
+		cv.Experience.dateStyle = isOneOforDefault(
+			value.Experience.dateStyle,
+			dateStyle,
+			'date'
+		)
+
 		if (isObject(value.Experience.size)) {
 			cv.Experience.size = {
 				title: isOneOforDefault(

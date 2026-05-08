@@ -43,15 +43,15 @@ export type Provider = {
 export type BoldMatchReturn =
 	| string
 	| (
-			| string
-			| VNode<
-					RendererNode,
-					RendererElement,
-					{
-						[key: string]: unknown
-					}
-			  >
-	  )[]
+		| string
+		| VNode<
+			RendererNode,
+			RendererElement,
+			{
+				[key: string]: unknown
+			}
+		>
+	)[]
 
 type Contact = {
 	size: FontSize
@@ -139,6 +139,7 @@ export type Curriculum = {
 	CoreSkills: CoreSkills
 	Experience: {
 		show: boolean
+		dateStyle: DateStyle
 		dateMonth: MonthOptions
 		sideBySide: boolean
 		size: {
