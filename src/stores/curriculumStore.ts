@@ -7,7 +7,7 @@ import {
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
 import { parseCurriculum, parseCurriculumList } from '@/parsers/curriculum'
-import type { Curriculum } from '@/types'
+import type { Curriculum, Languages } from '@/types'
 
 import { CurriculumIndexStore } from './curriculumIndexStore'
 
@@ -65,6 +65,13 @@ export const CurriculumStore = {
 	add(curriculum: Curriculum) {
 		curriculums.value.push(curriculum)
 		CurriculumIndexStore.changeValue(curriculums.value.length - 1)
+	},
+	setLanguage(curriculumIndex: number, language: Languages) {
+		if (!curriculums.value[curriculumIndex]) {
+			return
+		}
+
+		curriculums.value[curriculumIndex].Settings.language = language
 	},
 	setAsDefault(curriculumIndex: number) {
 		if (!curriculums.value[curriculumIndex]) {

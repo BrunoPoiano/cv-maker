@@ -1,4 +1,5 @@
 import type { ComputedRef, InjectionKey, WritableComputedRef } from 'vue'
+
 import type { Curriculum } from './types'
 
 export const ProviderKey: InjectionKey<{

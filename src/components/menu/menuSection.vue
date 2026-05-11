@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { inject } from 'vue'
 
 import { languagesSelect } from '@/constants/language'
 import { ProviderKey } from '@/keys'
@@ -11,6 +11,7 @@ import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import SvgPin from '@/svgs/svgPin.vue'
 import SvgSave from '@/svgs/svgSave.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
+import type { Languages } from '@/types'
 import Button from '@/ui/appButton.vue'
 import AppMenuModalItems from '@/ui/appMenuModalItems.vue'
 import AppSelect from '@/ui/appSelect.vue'
@@ -23,12 +24,9 @@ const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
 const readonly = ReadonlyStore.get()
 
-const language = computed({
-	get: () => curriculum.value.Settings.language,
-	set: (val) => {
-		curriculum.value.Settings.language = val
-	}
-})
+function updateLanguage(val: Languages) {
+	CurriculumStore.setLanguage(curriculumIndex.value, val)
+}
 </script>
 
 <template>
@@ -38,7 +36,8 @@ const language = computed({
 				backgroundColor="var(--surface-container-low)"
 				data-menu-select
 				:items="languagesSelect"
-				v-model="language"
+				:modelValue="curriculum.Settings.language"
+				@update:modelValue="updateLanguage"
 			/>
 			<AppMenuModalItems :menu-items="sideMenuItems" menu-button />
 		</div>
