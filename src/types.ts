@@ -1,10 +1,8 @@
 import type {
 	Component,
-	Ref,
 	RendererElement,
 	RendererNode,
 	VNode,
-	WritableComputedRef
 } from 'vue'
 
 import type { localStorageKeys } from '@/keys'
@@ -34,24 +32,20 @@ type Email = `${string}@${string}`
 type Linkedin = `linkedin.com/in/${string}`
 type GitHub = `github.com/${string}`
 
-export type Provider = {
-	curriculum: WritableComputedRef<Curriculum>
-	readonly: Ref<boolean, boolean>
-	curriculumIndex: number
-}
+
 
 export type BoldMatchReturn =
 	| string
 	| (
-			| string
-			| VNode<
-					RendererNode,
-					RendererElement,
-					{
-						[key: string]: unknown
-					}
-			  >
-	  )[]
+		| string
+		| VNode<
+			RendererNode,
+			RendererElement,
+			{
+				[key: string]: unknown
+			}
+		>
+	)[]
 
 type Contact = {
 	size: FontSize

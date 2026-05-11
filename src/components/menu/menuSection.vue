@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 
 import { languagesSelect } from '@/constants/language'
 import { ProviderKey } from '@/keys'
@@ -19,8 +19,16 @@ import appToggleText from '@/ui/appToggleText.vue'
 import { sideMenuItems } from './menuitems/sideMenuItems'
 import { topMenuItems } from './menuitems/topMenuItems'
 
-const { curriculum, readonly } = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
+const readonly = ReadonlyStore.get()
+
+const language = computed({
+	get: () => curriculum.value.Settings.language,
+	set: (val) => {
+		curriculum.value.Settings.language = val
+	}
+})
 </script>
 
 <template>
@@ -30,7 +38,7 @@ const curriculumIndex = CurriculumIndexStore.get()
 				backgroundColor="var(--surface-container-low)"
 				data-menu-select
 				:items="languagesSelect"
-				v-model="curriculum.Settings.language"
+				v-model="language"
 			/>
 			<AppMenuModalItems :menu-items="sideMenuItems" menu-button />
 		</div>

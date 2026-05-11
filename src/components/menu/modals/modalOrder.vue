@@ -2,17 +2,19 @@
 import { inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
+import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { CurriculumStore } from '@/stores/curriculumStore'
 import SvgArrow from '@/svgs/svgArrow.vue'
 import AppButton from '@/ui/appButton.vue'
 import Modal from '@/ui/appModal.vue'
-const { curriculum, curriculumIndex } = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
 
 type Props = {
 	id: string
 }
 
 const { id } = defineProps<Props>()
+const curriculumIndex = CurriculumIndexStore.get()
 </script>
 
 <template>

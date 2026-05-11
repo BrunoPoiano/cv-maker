@@ -2,12 +2,15 @@
 import { inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
+import { ReadonlyStore } from '@/stores/readonlyStore'
 import SvgPen from '@/svgs/SvgPen.vue'
 import AppAnchor from '@/ui/appAnchor.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 
-const { curriculum, readonly } = inject(ProviderKey)!
+const readonly = ReadonlyStore.get()
+
+const { curriculum } = inject(ProviderKey)!
 </script>
 
 <template>

@@ -7,6 +7,7 @@ import { Translate } from '@/constants/translations'
 import { generateDate, generateJobTitle } from '@/helpers/cvFormatters'
 import { ProviderKey } from '@/keys'
 import { bolderStore } from '@/stores/bolderStore'
+import { ReadonlyStore } from '@/stores/readonlyStore'
 import SvgPen from '@/svgs/SvgPen.vue'
 import type { Curriculum } from '@/types'
 import AppAnchor from '@/ui/appAnchor.vue'
@@ -18,7 +19,8 @@ import Paragraph from '@/ui/appParagraph.vue'
 
 import Title from './cvTitle.vue'
 
-const { curriculum, readonly } = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
+const readonly = ReadonlyStore.get()
 
 function isRemote(job: Curriculum['Experience']['value'][number]) {
 	if (!job.Remote) return ''

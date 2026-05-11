@@ -200,6 +200,11 @@ export const CurriculumStore = {
 			0,
 			component
 		)
+
+		console.log(
+			curriculumIndex,
+			curriculums.value[curriculumIndex].Settings.order
+		)
 	},
 	setAcademicDefaultValue(curriculumIndex: number) {
 		if (!curriculums.value[0] || !curriculums.value[curriculumIndex]) {

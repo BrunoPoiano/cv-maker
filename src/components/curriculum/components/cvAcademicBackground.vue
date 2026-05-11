@@ -5,6 +5,7 @@ import ExDateInput from '@/components/menu/modals/experience/components/exDateIn
 import { Translate } from '@/constants/translations'
 import { generateAcademicTitle, generateDate } from '@/helpers/cvFormatters'
 import { ProviderKey } from '@/keys'
+import { ReadonlyStore } from '@/stores/readonlyStore'
 import SvgPen from '@/svgs/SvgPen.vue'
 import AppAnchor from '@/ui/appAnchor.vue'
 import AppButton from '@/ui/appButton.vue'
@@ -12,7 +13,8 @@ import AppInput from '@/ui/appInput.vue'
 
 import Title from './cvTitle.vue'
 
-const { curriculum, readonly } = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
+const readonly = ReadonlyStore.get()
 </script>
 
 <template>

@@ -5,6 +5,7 @@ import { fontSizeSelect } from '@/constants/font-size'
 import { dateStyleSelect, monthOptionsSelect } from '@/constants/monthOptions'
 import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
+import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { CurriculumStore } from '@/stores/curriculumStore'
 import SvgArrow from '@/svgs/svgArrow.vue'
 import SvgDefault from '@/svgs/SvgDefault.vue'
@@ -23,7 +24,8 @@ type Props = {
 
 const { id } = defineProps<Props>()
 
-const { curriculum, curriculumIndex } = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
+const curriculumIndex = CurriculumIndexStore.get()
 
 function newCourse() {
 	curriculum.value.AcademicBackground.value.unshift({

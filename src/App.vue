@@ -13,11 +13,9 @@ import { parseCurriculum } from './parsers/curriculum'
 import { CurriculumIndexStore } from './stores/curriculumIndexStore'
 import { CurriculumStore } from './stores/curriculumStore'
 import { HueStore } from './stores/hueStore'
-import { ReadonlyStore } from './stores/readonlyStore'
 
 const curriculumList = CurriculumStore.get()
 const curriculumIndex = CurriculumIndexStore.get()
-const readonly = ReadonlyStore.get()
 
 const currentCurriculum = computed({
 	get() {
@@ -48,9 +46,9 @@ const skillsProxy = computed(() => {
 function onInput(core: string, value?: string) {
 	const newValue = value
 		? value
-				.split(',')
-				.map((item) => item.trim())
-				.filter((item) => item !== '')
+			.split(',')
+			.map((item) => item.trim())
+			.filter((item) => item !== '')
 		: []
 
 	currentCurriculum.value.CoreSkills.skills[core] = newValue
@@ -62,9 +60,7 @@ provide(ProviderSkillKey, {
 })
 
 provide(ProviderKey, {
-	curriculum: currentCurriculum,
-	readonly,
-	curriculumIndex: curriculumIndex.value
+	curriculum: currentCurriculum
 })
 
 onBeforeMount(() => {

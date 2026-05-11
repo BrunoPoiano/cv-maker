@@ -3,6 +3,7 @@ import { inject, ref } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey, ProviderSkillKey } from '@/keys'
+import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { CurriculumStore } from '@/stores/curriculumStore'
 import SvgArrow from '@/svgs/svgArrow.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
@@ -21,8 +22,8 @@ type Props = {
 
 const { id } = defineProps<Props>()
 const { skillsProxy, onInput } = inject(ProviderSkillKey)!
-const { curriculum, curriculumIndex } = inject(ProviderKey)!
-
+const { curriculum } = inject(ProviderKey)!
+const curriculumIndex = CurriculumIndexStore.get()
 const ModalCoreSkillNameID = ref('modal-core-skill-name')
 </script>
 
