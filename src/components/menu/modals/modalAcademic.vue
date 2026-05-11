@@ -2,9 +2,13 @@
 import { inject } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
-import { monthOptionsSelect } from '@/constants/monthOptions'
+import { dateStyleSelect, monthOptionsSelect } from '@/constants/monthOptions'
 import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
+import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
+import { CurriculumStore } from '@/stores/curriculumStore'
+import SvgArrow from '@/svgs/svgArrow.vue'
+import SvgDefault from '@/svgs/SvgDefault.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
 import Button from '@/ui/appButton.vue'
@@ -21,6 +25,7 @@ type Props = {
 const { id } = defineProps<Props>()
 
 const { curriculum } = inject(ProviderKey)!
+const curriculumIndex = CurriculumIndexStore.get()
 
 function newCourse() {
 	curriculum.value.AcademicBackground.value.unshift({
@@ -56,12 +61,15 @@ function deleteCourse(id: string) {
 			</div>
 		</template>
 		<form>
-			<!-- <div class="align">
-				<Button title="Set Company Name, Remote, Start and End Date to default values" icon-button
-					@click="CurriculumStore.setExperienceDefaultValue(curriculumIndex)">
+			<div class="align">
+				<Button
+					title="Set Company Name, Remote, Start and End Date to default values"
+					icon-button
+					@click="CurriculumStore.setAcademicDefaultValue(curriculumIndex)"
+				>
 					<SvgDefault />
 				</Button>
-			</div> -->
+			</div>
 			<div class="size">
 				<Select
 					label="Size"
@@ -69,6 +77,12 @@ function deleteCourse(id: string) {
 					v-model="curriculum.AcademicBackground.size"
 				/>
 				<Select
+					label="Date Style"
+					:items="dateStyleSelect"
+					v-model="curriculum.AcademicBackground.dateStyle"
+				/>
+				<Select
+					v-if="curriculum.AcademicBackground.dateStyle === 'date'"
 					label="Month"
 					:items="monthOptionsSelect"
 					v-model="curriculum.AcademicBackground.dateMonth"
@@ -76,10 +90,38 @@ function deleteCourse(id: string) {
 			</div>
 
 			<div
-				v-for="ab in curriculum.AcademicBackground.value"
+				v-for="(ab, index) in curriculum.AcademicBackground.value"
 				class="academic"
 				:key="ab.id"
 			>
+				<div class="directions">
+					<Button
+						iconButton
+						@click="
+							CurriculumStore.moveAcademicSkill(
+								curriculumIndex,
+								index,
+								index - 1
+							)
+						"
+						:disabled="index === 0"
+					>
+						<SvgArrow direction="up" />
+					</Button>
+					<Button
+						iconButton
+						@click="
+							CurriculumStore.moveAcademicSkill(
+								curriculumIndex,
+								index,
+								index + 1
+							)
+						"
+						:disabled="index === curriculum.AcademicBackground.value.length - 1"
+					>
+						<SvgArrow direction="down" />
+					</Button>
+				</div>
 				<Button
 					icon-button
 					@click="deleteCourse(ab.id)"
@@ -170,8 +212,14 @@ form {
 
 		transition: background 500ms ease;
 
+		.directions {
+			grid-area: 1 / 1;
+			display: flex;
+			gap: 0.25rem;
+		}
+
 		button {
-			grid-area: 1 / span 2;
+			grid-area: 1 / 2;
 			justify-self: end;
 		}
 

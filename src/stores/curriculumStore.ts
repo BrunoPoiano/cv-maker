@@ -7,7 +7,7 @@ import {
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
 import { parseCurriculum, parseCurriculumList } from '@/parsers/curriculum'
-import type { Curriculum } from '@/types'
+import type { Curriculum, Languages } from '@/types'
 
 import { CurriculumIndexStore } from './curriculumIndexStore'
 
@@ -65,6 +65,13 @@ export const CurriculumStore = {
 	add(curriculum: Curriculum) {
 		curriculums.value.push(curriculum)
 		CurriculumIndexStore.changeValue(curriculums.value.length - 1)
+	},
+	setLanguage(curriculumIndex: number, language: Languages) {
+		if (!curriculums.value[curriculumIndex]) {
+			return
+		}
+
+		curriculums.value[curriculumIndex].Settings.language = language
 	},
 	setAsDefault(curriculumIndex: number) {
 		if (!curriculums.value[curriculumIndex]) {
@@ -151,5 +158,67 @@ export const CurriculumStore = {
 
 		curriculums.value[curriculumIndex].CoreSkills.skills =
 			Object.fromEntries(entries)
+	},
+	moveAcademicSkill(
+		curriculumIndex: number,
+		fromIndex: number,
+		toIndex: number
+	) {
+		if (!curriculums.value[curriculumIndex] || toIndex === -1) {
+			return
+		}
+
+		const academic =
+			curriculums.value[curriculumIndex].AcademicBackground.value[fromIndex]
+
+		if (!academic) {
+			return
+		}
+
+		curriculums.value[curriculumIndex].AcademicBackground.value.splice(
+			fromIndex,
+			1
+		)
+		curriculums.value[curriculumIndex].AcademicBackground.value.splice(
+			toIndex,
+			0,
+			academic
+		)
+	},
+	moveSettingsOrder(
+		curriculumIndex: number,
+		fromIndex: number,
+		toIndex: number
+	) {
+		if (!curriculums.value[curriculumIndex] || toIndex === -1) {
+			return
+		}
+
+		const component =
+			curriculums.value[curriculumIndex].Settings.order[fromIndex]
+
+		if (!component) {
+			return
+		}
+
+		curriculums.value[curriculumIndex].Settings.order.splice(fromIndex, 1)
+		curriculums.value[curriculumIndex].Settings.order.splice(
+			toIndex,
+			0,
+			component
+		)
+
+		console.log(
+			curriculumIndex,
+			curriculums.value[curriculumIndex].Settings.order
+		)
+	},
+	setAcademicDefaultValue(curriculumIndex: number) {
+		if (!curriculums.value[0] || !curriculums.value[curriculumIndex]) {
+			return
+		}
+
+		curriculums.value[curriculumIndex].AcademicBackground =
+			curriculums.value[0].AcademicBackground
 	}
 }

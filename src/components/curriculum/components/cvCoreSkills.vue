@@ -4,6 +4,7 @@ import { inject } from 'vue'
 import { Translate } from '@/constants/translations'
 import { ProviderKey } from '@/keys'
 import { bolderStore } from '@/stores/bolderStore'
+import { ReadonlyStore } from '@/stores/readonlyStore'
 import SvgPen from '@/svgs/SvgPen.vue'
 import AppAnchor from '@/ui/appAnchor.vue'
 import AppButton from '@/ui/appButton.vue'
@@ -11,7 +12,8 @@ import AppListCoreSkills from '@/ui/appListCoreSkills.vue'
 
 import Title from './cvTitle.vue'
 
-const { curriculum, readonly } = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
+const readonly = ReadonlyStore.get()
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { ref } from 'vue'
 
-import { ProviderKey } from '@/keys'
+import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { CurriculumStore } from '@/stores/curriculumStore'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import AppButton from '@/ui/appButton.vue'
@@ -13,8 +13,7 @@ type Props = {
 }
 
 const { id } = defineProps<Props>()
-const { curriculumIndex } = inject(ProviderKey)!
-
+const curriculumIndex = CurriculumIndexStore.get()
 const name = ref('')
 
 function AddCoreSkill() {
@@ -22,7 +21,7 @@ function AddCoreSkill() {
 		return
 	}
 
-	CurriculumStore.newCoreSkill(curriculumIndex, name.value)
+	CurriculumStore.newCoreSkill(curriculumIndex.value, name.value)
 	name.value = ''
 }
 </script>

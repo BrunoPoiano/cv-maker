@@ -13,11 +13,9 @@ import { parseCurriculum } from './parsers/curriculum'
 import { CurriculumIndexStore } from './stores/curriculumIndexStore'
 import { CurriculumStore } from './stores/curriculumStore'
 import { HueStore } from './stores/hueStore'
-import { ReadonlyStore } from './stores/readonlyStore'
 
 const curriculumList = CurriculumStore.get()
 const curriculumIndex = CurriculumIndexStore.get()
-const readonly = ReadonlyStore.get()
 
 const currentCurriculum = computed({
 	get() {
@@ -31,18 +29,28 @@ const currentCurriculum = computed({
 	}
 })
 
-const skillsProxy = computed(() => {
-	const source = currentCurriculum.value.CoreSkills.skills
+const skillsProxy = computed({
+	get() {
+		const source = currentCurriculum.value.CoreSkills.skills
 
-	const result = Object.entries(source).reduce(
-		(acc, value) => {
-			acc[value[0]] = value[1].length > 0 ? value[1].join(', ') : ''
-			return acc
-		},
-		{} as Record<string, string>
-	)
+		const result = Object.entries(source).reduce(
+			(acc, value) => {
+				acc[value[0]] = value[1].length > 0 ? value[1].join(', ') : ''
+				return acc
+			},
+			{} as Record<string, string>
+		)
 
-	return result
+		return result
+	},
+	set(newSkills) {
+		Object.entries(newSkills).forEach(([key, value]) => {
+			currentCurriculum.value.CoreSkills.skills[key] = value
+				.split(',')
+				.map((item) => item.trim())
+				.filter((item) => item !== '')
+		})
+	}
 })
 
 function onInput(core: string, value?: string) {
@@ -62,9 +70,7 @@ provide(ProviderSkillKey, {
 })
 
 provide(ProviderKey, {
-	curriculum: currentCurriculum,
-	readonly,
-	curriculumIndex: curriculumIndex.value
+	curriculum: currentCurriculum
 })
 
 onBeforeMount(() => {

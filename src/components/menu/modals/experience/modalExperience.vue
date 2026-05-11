@@ -2,9 +2,10 @@
 import { inject, ref } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
-import { monthOptionsSelect } from '@/constants/monthOptions'
+import { dateStyleSelect, monthOptionsSelect } from '@/constants/monthOptions'
 import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
+import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { CurriculumStore } from '@/stores/curriculumStore'
 import SvgDefault from '@/svgs/SvgDefault.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
@@ -25,8 +26,8 @@ type Props = {
 
 const { id } = defineProps<Props>()
 
-const { curriculum, curriculumIndex } = inject(ProviderKey)!
-
+const { curriculum } = inject(ProviderKey)!
+const curriculumIndex = CurriculumIndexStore.get()
 const list = ref(
 	Array.isArray(curriculum.value.Experience.value[0]?.Description)
 )
@@ -109,6 +110,12 @@ function deleteExperience(id: string) {
 					v-model="curriculum.Experience.size.description"
 				/>
 				<Select
+					label="Date Style"
+					:items="dateStyleSelect"
+					v-model="curriculum.Experience.dateStyle"
+				/>
+				<Select
+					v-if="curriculum.Experience.dateStyle === 'date'"
 					label="Month"
 					:items="monthOptionsSelect"
 					v-model="curriculum.Experience.dateMonth"

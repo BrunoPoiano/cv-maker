@@ -1,22 +1,17 @@
-import type {
-	Component,
-	Ref,
-	RendererElement,
-	RendererNode,
-	VNode,
-	WritableComputedRef
-} from 'vue'
+import type { Component, RendererElement, RendererNode, VNode } from 'vue'
 
 import type { localStorageKeys } from '@/keys'
 
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
+import type { dateStyle } from './constants/monthOptions'
 import type { textAlign } from './constants/text-align'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
 export type Languages = (typeof languages)[number]
 export type FontSize = (typeof fontSize)[number]
 export type TextAlign = (typeof textAlign)[number]
+export type DateStyle = (typeof dateStyle)[number]
 export type SelectItem = Array<{ value: string | number; label: string }>
 export type Translation = Record<string, Each<Languages>>
 export type MonthOptions = Extract<
@@ -31,12 +26,6 @@ type Each<T extends string> = {
 type Email = `${string}@${string}`
 type Linkedin = `linkedin.com/in/${string}`
 type GitHub = `github.com/${string}`
-
-export type Provider = {
-	curriculum: WritableComputedRef<Curriculum>
-	readonly: Ref<boolean, boolean>
-	curriculumIndex: number
-}
 
 export type BoldMatchReturn =
 	| string
@@ -122,6 +111,7 @@ export type CoreSkills = {
 }
 type Settings = {
 	language: Languages
+	order: Array<keyof Omit<Curriculum, 'Settings'>>
 	margin: number
 	gap: number
 	section: {
@@ -137,6 +127,7 @@ export type Curriculum = {
 	CoreSkills: CoreSkills
 	Experience: {
 		show: boolean
+		dateStyle: DateStyle
 		dateMonth: MonthOptions
 		sideBySide: boolean
 		size: {
@@ -149,10 +140,16 @@ export type Curriculum = {
 	AcademicBackground: {
 		show: boolean
 		dateMonth: MonthOptions
+		dateStyle: DateStyle
 		size: FontSize
 		value: Array<Course>
 	}
 }
+
+export type CurriculumOrder = Record<
+	keyof Omit<Curriculum, 'Settings'>,
+	Component
+>
 
 export type MenuModalItem = {
 	modal: Component

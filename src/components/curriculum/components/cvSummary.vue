@@ -5,6 +5,7 @@ import ExDescription from '@/components/menu/modals/experience/components/exDesc
 import { Translate } from '@/constants/translations'
 import { ProviderKey } from '@/keys'
 import { bolderStore } from '@/stores/bolderStore'
+import { ReadonlyStore } from '@/stores/readonlyStore'
 import SvgPen from '@/svgs/SvgPen.vue'
 import AppAnchor from '@/ui/appAnchor.vue'
 import AppBoldMatch from '@/ui/appBoldMatch.vue'
@@ -15,7 +16,8 @@ import AppTextarea from '@/ui/appTextarea.vue'
 
 import Title from './cvTitle.vue'
 
-const { curriculum, readonly } = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
+const readonly = ReadonlyStore.get()
 
 const rows = computed(() =>
 	Array.isArray(curriculum.value.Summary.value)

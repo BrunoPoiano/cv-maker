@@ -11,6 +11,7 @@ import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import SvgPin from '@/svgs/svgPin.vue'
 import SvgSave from '@/svgs/svgSave.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
+import type { Languages } from '@/types'
 import Button from '@/ui/appButton.vue'
 import AppMenuModalItems from '@/ui/appMenuModalItems.vue'
 import AppSelect from '@/ui/appSelect.vue'
@@ -19,8 +20,13 @@ import appToggleText from '@/ui/appToggleText.vue'
 import { sideMenuItems } from './menuitems/sideMenuItems'
 import { topMenuItems } from './menuitems/topMenuItems'
 
-const { curriculum, readonly } = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
+const readonly = ReadonlyStore.get()
+
+function updateLanguage(val: Languages) {
+	CurriculumStore.setLanguage(curriculumIndex.value, val)
+}
 </script>
 
 <template>
@@ -30,7 +36,8 @@ const curriculumIndex = CurriculumIndexStore.get()
 				backgroundColor="var(--surface-container-low)"
 				data-menu-select
 				:items="languagesSelect"
-				v-model="curriculum.Settings.language"
+				:modelValue="curriculum.Settings.language"
+				@update:modelValue="updateLanguage"
 			/>
 			<AppMenuModalItems :menu-items="sideMenuItems" menu-button />
 		</div>

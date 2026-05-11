@@ -64,5 +64,21 @@ export const Translate = {
 	other: {
 		'en-us': 'Other',
 		'pt-br': 'Outros'
+	},
+	years: {
+		'en-us': 'years',
+		'pt-br': 'anos'
+	},
+	year: {
+		'en-us': 'year',
+		'pt-br': 'ano'
+	},
+	months: {
+		'en-us': 'months',
+		'pt-br': 'meses'
+	},
+	month: {
+		'en-us': 'month',
+		'pt-br': 'mês'
 	}
 } as const satisfies Translation

@@ -7,6 +7,7 @@ import type { SelectItem } from '@/types'
 defineOptions({
 	inheritAttrs: false
 })
+
 type Props = {
 	items: SelectItem
 	id?: string

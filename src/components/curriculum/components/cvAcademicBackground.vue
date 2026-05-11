@@ -5,6 +5,7 @@ import ExDateInput from '@/components/menu/modals/experience/components/exDateIn
 import { Translate } from '@/constants/translations'
 import { generateAcademicTitle, generateDate } from '@/helpers/cvFormatters'
 import { ProviderKey } from '@/keys'
+import { ReadonlyStore } from '@/stores/readonlyStore'
 import SvgPen from '@/svgs/SvgPen.vue'
 import AppAnchor from '@/ui/appAnchor.vue'
 import AppButton from '@/ui/appButton.vue'
@@ -12,7 +13,8 @@ import AppInput from '@/ui/appInput.vue'
 
 import Title from './cvTitle.vue'
 
-const { curriculum, readonly } = inject(ProviderKey)!
+const { curriculum } = inject(ProviderKey)!
+const readonly = ReadonlyStore.get()
 </script>
 
 <template>
@@ -26,12 +28,12 @@ const { curriculum, readonly } = inject(ProviderKey)!
 			<Title :fontsize="curriculum.Settings.section.size">{{
 				Translate['academic background'][curriculum.Settings.language]
 			}}</Title>
-			<div class="experience">
+			<div class="academic">
 				<div
 					v-for="acBack in curriculum.AcademicBackground.value"
 					:key="acBack.id"
 				>
-					<div class="job-title">
+					<div class="aca-title">
 						<span
 							class="title"
 							:style="{
@@ -84,12 +86,13 @@ const { curriculum, readonly } = inject(ProviderKey)!
 
 							<span v-else>
 								{{
-									generateDate(
-										acBack,
-										curriculum.Settings.language,
-										curriculum.AcademicBackground.dateMonth,
-										false
-									)
+									generateDate({
+										source: acBack,
+										language: curriculum.Settings.language,
+										dateFormat: curriculum.AcademicBackground.dateMonth,
+										showPresent: false,
+										range: curriculum.AcademicBackground.dateStyle === 'range'
+									})
 								}}
 							</span>
 						</span>
@@ -106,17 +109,16 @@ const { curriculum, readonly } = inject(ProviderKey)!
 </template>
 
 <style scoped>
-.experience {
+.academic {
 	display: grid;
-	gap: calc((var(--_a4-gap) * 0.8));
+	gap: calc((var(--_a4-gap) * 0.4));
 
-	.job-title {
+	.aca-title {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		flex-wrap: wrap;
 
-		margin-bottom: calc((var(--_a4-gap) * 0.4));
 		letter-spacing: 0.06em;
 
 		.title,
@@ -162,7 +164,7 @@ const { curriculum, readonly } = inject(ProviderKey)!
 }
 
 @supports not (text-box-edge: cap alphabetic) {
-	.experience .job-title .title {
+	.academic .aca-title .title {
 		margin-bottom: 0px !important;
 	}
 }
