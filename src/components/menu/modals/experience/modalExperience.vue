@@ -49,10 +49,24 @@ function deleteExperience(id: string) {
 		(item) => item.id !== id
 	)
 }
+
+function closeModal() {
+	curriculum.value.Experience.value.sort((cv1, cv2) => {
+		const date1 = new Date(cv1.StartDate).getTime()
+		const date2 = new Date(cv2.StartDate).getTime()
+
+		return date2 - date1
+	})
+}
 </script>
 
 <template>
-	<Modal :id="id" closeLabel="close" minWidth="50rem">
+	<Modal
+		:id="id"
+		closeLabel="close"
+		:close-action="closeModal"
+		minWidth="50rem"
+	>
 		<template #header>
 			<div class="modalHeader">
 				<h3>
