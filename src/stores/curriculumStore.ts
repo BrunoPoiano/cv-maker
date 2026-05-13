@@ -123,29 +123,29 @@ export const CurriculumStore = {
 
 		const newCore = core.replace(/\s/g, '_').toLowerCase()
 
-		curriculums.value[curriculumIndex].CoreSkills.skills[newCore] = []
+		curriculums.value[curriculumIndex].CoreSkills.value[newCore] = []
 	},
 	removeCoreSkill(curriculumIndex: number, core: string) {
 		if (
 			!curriculums.value[curriculumIndex] ||
-			!curriculums.value[curriculumIndex].CoreSkills.skills[core]
+			!curriculums.value[curriculumIndex].CoreSkills.value[core]
 		) {
 			return
 		}
 
-		delete curriculums.value[curriculumIndex].CoreSkills.skills[core]
+		delete curriculums.value[curriculumIndex].CoreSkills.value[core]
 	},
 	moveCoreSkill(curriculumIndex: number, core: string, newIndex: number) {
 		if (
 			!curriculums.value[curriculumIndex] ||
-			!curriculums.value[curriculumIndex].CoreSkills.skills[core] ||
+			!curriculums.value[curriculumIndex].CoreSkills.value[core] ||
 			newIndex === -1
 		) {
 			return
 		}
 
 		const entries = Object.entries(
-			curriculums.value[curriculumIndex].CoreSkills.skills
+			curriculums.value[curriculumIndex].CoreSkills.value
 		)
 		const currentIndex = entries.findIndex(([k]) => k === core)
 
@@ -156,7 +156,7 @@ export const CurriculumStore = {
 			entries.splice(newIndex, 0, item)
 		}
 
-		curriculums.value[curriculumIndex].CoreSkills.skills =
+		curriculums.value[curriculumIndex].CoreSkills.value =
 			Object.fromEntries(entries)
 	},
 	moveAcademicSkill(

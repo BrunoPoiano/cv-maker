@@ -62,7 +62,7 @@ export function CurriculumConst(): Curriculum {
 		CoreSkills: {
 			show: true,
 			sideBySide: false,
-			skills: {
+			value: {
 				languages: [],
 				apis: [],
 				databases: [],

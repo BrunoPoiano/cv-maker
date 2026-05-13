@@ -64,16 +64,6 @@ type Contact = {
 	}
 }
 
-export type Experience = {
-	id: string
-	Role: string
-	CompanyName: string
-	StartDate: Date
-	EndDate: Date | null
-	Description: Array<string> | string
-	Remote: boolean
-}
-
 export type Course = {
 	id: string
 	Course: string
@@ -104,11 +94,12 @@ type Summary = {
 }
 
 export type CoreSkills = {
-	skills: Record<string, Array<string>>
+	value: Record<string, Array<string>>
 	sideBySide: boolean
 	size: FontSize
 	show: boolean
 }
+
 type Settings = {
 	language: Languages
 	order: Array<keyof Omit<Curriculum, 'Settings'>>
@@ -119,31 +110,43 @@ type Settings = {
 	}
 }
 
+export type Experience = {
+	show: boolean
+	dateStyle: DateStyle
+	dateMonth: MonthOptions
+	sideBySide: boolean
+	size: {
+		title: FontSize
+		subTitle: FontSize
+		description: FontSize
+	}
+	value: Array<{
+		id: string
+		Role: string
+		CompanyName: string
+		StartDate: Date
+		EndDate: Date | null
+		Description: Array<string> | string
+		Remote: boolean
+	}>
+}
+
+type AcademicBackground = {
+	show: boolean
+	dateMonth: MonthOptions
+	dateStyle: DateStyle
+	size: FontSize
+	value: Array<Course>
+}
+
 export type Curriculum = {
 	Settings: Settings
 	Header: Header
 	Contact: Contact
 	Summary: Summary
 	CoreSkills: CoreSkills
-	Experience: {
-		show: boolean
-		dateStyle: DateStyle
-		dateMonth: MonthOptions
-		sideBySide: boolean
-		size: {
-			title: FontSize
-			subTitle: FontSize
-			description: FontSize
-		}
-		value: Array<Experience>
-	}
-	AcademicBackground: {
-		show: boolean
-		dateMonth: MonthOptions
-		dateStyle: DateStyle
-		size: FontSize
-		value: Array<Course>
-	}
+	Experience: Experience
+	AcademicBackground: AcademicBackground
 }
 
 export type CurriculumOrder = Record<

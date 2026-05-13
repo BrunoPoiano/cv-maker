@@ -31,7 +31,7 @@ const currentCurriculum = computed({
 
 const skillsProxy = computed({
 	get() {
-		const source = currentCurriculum.value.CoreSkills.skills
+		const source = currentCurriculum.value.CoreSkills.value
 
 		const result = Object.entries(source).reduce(
 			(acc, value) => {
@@ -45,7 +45,7 @@ const skillsProxy = computed({
 	},
 	set(newSkills) {
 		Object.entries(newSkills).forEach(([key, value]) => {
-			currentCurriculum.value.CoreSkills.skills[key] = value
+			currentCurriculum.value.CoreSkills.value[key] = value
 				.split(',')
 				.map((item) => item.trim())
 				.filter((item) => item !== '')
@@ -61,7 +61,7 @@ function onInput(core: string, value?: string) {
 				.filter((item) => item !== '')
 		: []
 
-	currentCurriculum.value.CoreSkills.skills[core] = newValue
+	currentCurriculum.value.CoreSkills.value[core] = newValue
 }
 
 provide(ProviderSkillKey, {

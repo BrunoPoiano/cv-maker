@@ -102,3 +102,35 @@ function getYearsBetween(
 
 	return returnString.join(' ')
 }
+
+export function curriculumOnlyValue(cv: Curriculum) {
+	return {
+		Header: {
+			UserName: {
+				value: cv.Header.UserName.value
+			},
+			Role: {
+				value: cv.Header.Role.value
+			}
+		},
+		Summary: {
+			smallText: cv.Summary.smallText,
+			value: cv.Summary.value
+		},
+		CoreSkills: {
+			value: cv.CoreSkills.value
+		},
+		Experience: {
+			value: cv.Experience.value.map((exp) => ({ ...exp, id: undefined }))
+		},
+		Contact: {
+			value: cv.Contact.value
+		},
+		AcademicBackground: {
+			value: cv.AcademicBackground.value.map((course) => ({
+				...course,
+				id: undefined
+			}))
+		}
+	}
+}

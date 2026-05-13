@@ -141,19 +141,19 @@ export function parseCurriculum(value: unknown): Curriculum {
 			false
 		)
 
-		if (isObject(value.CoreSkills.skills)) {
-			const coreSkills: Curriculum['CoreSkills']['skills'] = {}
+		if (isObject(value.CoreSkills.value)) {
+			const coreSkills: Curriculum['CoreSkills']['value'] = {}
 
-			for (const key of Object.keys(value.CoreSkills.skills)) {
+			for (const key of Object.keys(value.CoreSkills.value)) {
 				const k = key.toLowerCase()
-				if (Array.isArray(value.CoreSkills.skills[k])) {
-					coreSkills[k] = value.CoreSkills.skills[k]
+				if (Array.isArray(value.CoreSkills.value[k])) {
+					coreSkills[k] = value.CoreSkills.value[k]
 						.map((item) => isStringOrDefault(item, undefined))
 						.filter(Boolean)
 				}
 			}
 
-			cv.CoreSkills.skills = coreSkills
+			cv.CoreSkills.value = coreSkills
 		}
 	}
 
@@ -221,7 +221,7 @@ export function parseCurriculum(value: unknown): Curriculum {
 					return acc
 				}
 
-				let desc: Experience['Description'] = []
+				let desc: Experience['value'][number]['Description'] = []
 
 				if (Array.isArray(item.Description)) {
 					desc = item.Description.reduce<Array<string>>((accc, item) => {
