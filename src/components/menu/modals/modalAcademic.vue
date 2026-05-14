@@ -42,10 +42,27 @@ function deleteCourse(id: string) {
 	curriculum.value.AcademicBackground.value =
 		curriculum.value.AcademicBackground.value.filter((item) => item.id !== id)
 }
+
+function closeModal() {
+	curriculum.value.AcademicBackground.value.sort((cv1, cv2) => {
+		if (cv1.StartDate && cv2.StartDate) {
+			const date1 = new Date(cv1.StartDate).getTime()
+			const date2 = new Date(cv2.StartDate).getTime()
+
+			return date2 - date1
+		}
+		return 1
+	})
+}
 </script>
 
 <template>
-	<Modal :id="id" closeLabel="close" minWidth="50rem">
+	<Modal
+		:id="id"
+		closeLabel="close"
+		minWidth="50rem"
+		:close-action="closeModal"
+	>
 		<template #header>
 			<div class="modalHeader">
 				<h3>

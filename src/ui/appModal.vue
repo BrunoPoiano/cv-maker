@@ -25,6 +25,7 @@ const props = defineProps({
 <template>
 	<Teleport to="#app">
 		<dialog
+			v-bind="$attrs"
 			:closedby="props.closedby || 'any'"
 			:id="props.id"
 			:style="{
@@ -32,6 +33,7 @@ const props = defineProps({
 				maxWidth: `${props.maxWidth || '100%'}`
 			}"
 			@show="props.openAction?.()"
+			@close="props.closeAction?.()"
 		>
 			<div class="header">
 				<slot name="header" />
@@ -39,12 +41,9 @@ const props = defineProps({
 			<slot />
 			<div class="footer">
 				<slot name="footer" />
-				<Button
-					:commandfor="props.id"
-					command="close"
-					@click="props.closeAction"
-					>{{ props.closeLabel }}</Button
-				>
+				<Button :commandfor="props.id" command="close">{{
+					props.closeLabel
+				}}</Button>
 			</div>
 		</dialog>
 	</Teleport>

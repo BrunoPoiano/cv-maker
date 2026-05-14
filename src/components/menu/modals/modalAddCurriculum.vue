@@ -2,8 +2,9 @@
 import { ref } from 'vue'
 
 import { basicCurriculum } from '@/constants/basicCurriculum'
-import { parseCurriculum } from '@/parsers/curriculum'
+import { parseCurriculumList } from '@/parsers/curriculum'
 import { CurriculumStore } from '@/stores/curriculumStore'
+import type { Curriculum } from '@/types'
 import AppButton from '@/ui/appButton.vue'
 import Modal from '@/ui/appModal.vue'
 import AppTextarea from '@/ui/appTextarea.vue'
@@ -19,8 +20,18 @@ const newCv = ref(basicCurriculum)
 function addCv() {
 	try {
 		const curriculumParsed = JSON.parse(newCv.value)
-		const curriculum = parseCurriculum(curriculumParsed)
-		CurriculumStore.add(curriculum)
+		let curriculumList: Array<Curriculum> = []
+
+		if (Array.isArray(curriculumParsed)) {
+			curriculumList = parseCurriculumList(curriculumParsed)
+		} else {
+			curriculumList = parseCurriculumList([curriculumParsed])
+		}
+
+		curriculumList.forEach((curriculum) => {
+			CurriculumStore.add(curriculum)
+		})
+
 		newCv.value = basicCurriculum
 	} catch (e) {
 		console.error('Invalid JSON', e)
