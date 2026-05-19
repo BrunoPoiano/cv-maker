@@ -88,43 +88,17 @@ export function parseCurriculum(value: unknown): Curriculum {
 		)
 		cv.Contact.align = isOneOforDefault(value.Contact.align, textAlign, 'start')
 
-		if (isObject(value.Contact.value.email)) {
-			cv.Contact.value.email = {
-				value: isExtendedStringOrDefault(
-					value.Contact.value.email.value,
-					'email@email'
-				),
-				bolder: isBooleanOrDefault(value.Contact.value.email.bolder)
-			}
-		}
+		type ContactValue = keyof Curriculum['Contact']['value']
 
-		if (isObject(value.Contact.value.location)) {
-			cv.Contact.value.location = {
-				value: isExtendedStringOrDefault(
-					value.Contact.value.location.value,
-					''
-				),
-				bolder: isBooleanOrDefault(value.Contact.value.location.bolder)
-			}
-		}
-
-		if (isObject(value.Contact.value.linkedin)) {
-			cv.Contact.value.linkedin = {
-				value: isExtendedStringOrDefault(
-					value.Contact.value.linkedin.value,
-					'linkedin.com/in/'
-				),
-				bolder: isBooleanOrDefault(value.Contact.value.linkedin.bolder)
-			}
-		}
-
-		if (isObject(value.Contact.value.github)) {
-			cv.Contact.value.github = {
-				value: isExtendedStringOrDefault(
-					value.Contact.value.github.value,
-					'github.com/in/'
-				),
-				bolder: isBooleanOrDefault(value.Contact.value.github.bolder)
+		for (const key of Object.keys(value.Contact.value)) {
+			if (isObject(value.Contact.value[key])) {
+				cv.Contact.value[key as ContactValue] = {
+					value: isExtendedStringOrDefault(
+						value.Contact.value[key].value,
+						cv.Contact.value[key as ContactValue]?.value || ''
+					),
+					bolder: isBooleanOrDefault(value.Contact.value[key].bolder)
+				}
 			}
 		}
 	}

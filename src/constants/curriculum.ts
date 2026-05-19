@@ -36,16 +36,24 @@ export function CurriculumConst(): Curriculum {
 			align: 'start',
 			value: {
 				location: {
-					bolder: false,
+					bolder: true,
 					value: ''
 				},
 				email: {
 					bolder: true,
 					value: 'email@email'
 				},
+				telephone: {
+					bolder: false,
+					value: ''
+				},
 				linkedin: {
 					bolder: false,
 					value: 'linkedin.com/in/'
+				},
+				website: {
+					bolder: false,
+					value: ''
 				},
 				github: {
 					bolder: false,

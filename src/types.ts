@@ -23,10 +23,6 @@ type Each<T extends string> = {
 	[K in T]: string
 }
 
-type Email = `${string}@${string}`
-type Linkedin = `linkedin.com/in/${string}`
-type GitHub = `github.com/${string}`
-
 export type BoldMatchReturn =
 	| string
 	| (
@@ -46,18 +42,26 @@ type Contact = {
 	align: TextAlign
 	value: {
 		email: {
-			value: Email
+			value: string
 			bolder: boolean
 		}
 		linkedin: {
-			value: Linkedin
+			value: string
 			bolder: boolean
 		}
 		github: {
-			value: GitHub
+			value: string
 			bolder: boolean
 		}
 		location: {
+			value: string
+			bolder: boolean
+		}
+		website: {
+			value: string
+			bolder: boolean
+		}
+		telephone: {
 			value: string
 			bolder: boolean
 		}
@@ -148,6 +152,13 @@ export type Curriculum = {
 	Experience: Experience
 	AcademicBackground: AcademicBackground
 }
+
+export type HasShow = keyof Pick<
+	Curriculum,
+	{
+		[K in keyof Curriculum]: Curriculum[K] extends { show: boolean } ? K : never
+	}[keyof Curriculum]
+>
 
 export type CurriculumOrder = Record<
 	keyof Omit<Curriculum, 'Settings'>,
