@@ -1,3 +1,5 @@
+import type { Temporal } from '@js-temporal/polyfill'
+
 import { Translate } from '@/constants/translations'
 import { isValidDateOrNull } from '@/parsers/typeValidation'
 import type { Curriculum, Languages, MonthOptions } from '@/types'
@@ -73,12 +75,12 @@ export function fixDate(
 }
 
 function getYearsBetween(
-	startDate: Date,
-	endDate: Date,
+	startDate: Temporal.PlainDate,
+	endDate: Temporal.PlainDate,
 	language: Languages
 ): string {
-	let years = endDate.getFullYear() - startDate.getFullYear()
-	let months = endDate.getMonth() - startDate.getMonth()
+	let years = endDate.year - startDate.year
+	let months = endDate.month - startDate.month
 
 	if (months < 0) {
 		years--

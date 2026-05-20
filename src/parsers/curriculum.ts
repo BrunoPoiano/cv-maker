@@ -14,7 +14,8 @@ import {
 	isObject,
 	isOneOf,
 	isOneOforDefault,
-	isStringOrDefault
+	isStringOrDefault,
+	isValidDateOrNull
 } from './typeValidation'
 
 export function parseCurriculum(value: unknown): Curriculum {
@@ -205,13 +206,12 @@ export function parseCurriculum(value: unknown): Curriculum {
 				} else {
 					desc = isStringOrDefault(item.Description, '')
 				}
-
 				acc.push({
 					id: isStringOrDefault(item.id, generateKey(5, 'number')),
 					Role: isStringOrDefault(item.Role),
 					CompanyName: isStringOrDefault(item.CompanyName),
-					StartDate: new Date(item.StartDate as string),
-					EndDate: item.EndDate ? new Date(item.EndDate as string) : null,
+					StartDate: isValidDateOrNull(item.StartDate),
+					EndDate: isValidDateOrNull(item.EndDate),
 					Description: desc,
 					Remote: isBooleanOrDefault(item.Remote, false)
 				})
@@ -255,8 +255,8 @@ export function parseCurriculum(value: unknown): Curriculum {
 					Course: isStringOrDefault(item.Course),
 					Diploma: isStringOrDefault(item.Diploma),
 					Institution: isStringOrDefault(item.Institution),
-					StartDate: item.StartDate ? new Date(item.StartDate as string) : null,
-					EndDate: item.EndDate ? new Date(item.EndDate as string) : null
+					StartDate: isValidDateOrNull(item.StartDate),
+					EndDate: isValidDateOrNull(item.EndDate)
 				})
 				return acc
 			}, [])
@@ -279,4 +279,35 @@ export function parseCurriculumList(value: unknown): Array<Curriculum> {
 		.sort((cv1) => (cv1.Settings.language === 'en-us' ? 0 : 1))
 
 	return cvList
+}
+
+export function parseCurriculumToSave(value: Array<Curriculum>) {
+	const newVcs = value.map((item) => {
+		return {
+			...item,
+			AcademicBackground: {
+				...item.AcademicBackground,
+				value: item.AcademicBackground.value.map((ab) => {
+					return {
+						...ab,
+						StartDate: ab.StartDate?.toJSON(),
+						EndDate: ab.EndDate?.toJSON()
+					}
+				})
+			},
+			Experience: {
+				...item.Experience,
+				value: item.Experience.value.map((ab) => {
+					return {
+						...ab,
+						StartDate: ab.StartDate?.toJSON(),
+						EndDate: ab.EndDate?.toJSON()
+					}
+				})
+			}
+		}
+	})
+
+	console.log({ newVcs })
+	return newVcs
 }

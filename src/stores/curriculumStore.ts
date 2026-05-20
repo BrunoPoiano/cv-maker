@@ -6,7 +6,11 @@ import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
-import { parseCurriculum, parseCurriculumList } from '@/parsers/curriculum'
+import {
+	parseCurriculum,
+	parseCurriculumList,
+	parseCurriculumToSave
+} from '@/parsers/curriculum'
 import type { Curriculum, Languages } from '@/types'
 
 import { CurriculumIndexStore } from './curriculumIndexStore'
@@ -28,7 +32,7 @@ export const CurriculumStore = {
 	save() {
 		saveDataToLocalStorage({
 			key: 'curriculumList',
-			initialValue: curriculums.value
+			initialValue: parseCurriculumToSave(curriculums.value)
 		})
 	},
 	delete(curriculumIndex: number) {
@@ -102,8 +106,6 @@ export const CurriculumStore = {
 			exp.StartDate = defaultCv[index].StartDate
 			exp.EndDate = defaultCv[index].EndDate
 			exp.Remote = defaultCv[index].Remote
-
-			console.log({ exp })
 
 			return exp
 		})
@@ -206,11 +208,6 @@ export const CurriculumStore = {
 			toIndex,
 			0,
 			component
-		)
-
-		console.log(
-			curriculumIndex,
-			curriculums.value[curriculumIndex].Settings.order
 		)
 	},
 	setAcademicDefaultValue(curriculumIndex: number) {

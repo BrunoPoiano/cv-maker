@@ -16,6 +16,7 @@
     "all": "run-s format lint type-check build"
   },
   "dependencies": {
+    "@js-temporal/polyfill": "^0.5.1",
     "vue": "^3.5.29"
   },
   "devDependencies": {

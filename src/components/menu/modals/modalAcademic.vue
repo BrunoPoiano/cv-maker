@@ -46,10 +46,7 @@ function deleteCourse(id: string) {
 function closeModal() {
 	curriculum.value.AcademicBackground.value.sort((cv1, cv2) => {
 		if (cv1.StartDate && cv2.StartDate) {
-			const date1 = new Date(cv1.StartDate).getTime()
-			const date2 = new Date(cv2.StartDate).getTime()
-
-			return date2 - date1
+			return cv2.StartDate.year - cv1.StartDate.year
 		}
 		return 1
 	})

@@ -1,3 +1,5 @@
+import { Temporal } from '@js-temporal/polyfill'
+
 export type GenericObject = Record<string, unknown>
 
 function isString(value: unknown): value is string {
@@ -78,15 +80,18 @@ export function isObject(data: unknown): data is GenericObject {
 	return data !== null && typeof data === 'object'
 }
 
-export function isValidDateOrNull(value: unknown): Date | null {
-	if (value instanceof Date) {
+export function isValidDateOrNull(value: unknown): Temporal.PlainDate | null {
+	if (value instanceof Temporal.PlainDate) {
 		return value
 	}
+
 	if (typeof value === 'string') {
-		const date = new Date(value)
-		if (!isNaN(date.getTime())) {
-			return date
+		if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+			return Temporal.PlainDate.from(value)
 		}
+
+		const instant = Temporal.Instant.from(value)
+		return instant.toZonedDateTimeISO('UTC').toPlainDate()
 	}
 
 	return null

@@ -1,3 +1,4 @@
+import type { Temporal } from '@js-temporal/polyfill'
 import type { Component, RendererElement, RendererNode, VNode } from 'vue'
 
 import type { localStorageKeys } from '@/keys'
@@ -73,8 +74,8 @@ export type Course = {
 	Course: string
 	Diploma: string
 	Institution: string
-	StartDate: Date | null
-	EndDate: Date | null
+	StartDate: Temporal.PlainDate | null
+	EndDate: Temporal.PlainDate | null
 }
 
 type Header = {
@@ -128,8 +129,8 @@ export type Experience = {
 		id: string
 		Role: string
 		CompanyName: string
-		StartDate: Date
-		EndDate: Date | null
+		StartDate: Temporal.PlainDate | null
+		EndDate: Temporal.PlainDate | null
 		Description: Array<string> | string
 		Remote: boolean
 	}>
