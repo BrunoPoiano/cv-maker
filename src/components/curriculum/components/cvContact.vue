@@ -50,49 +50,51 @@ const { curriculum } = inject(ProviderKey)!
 </template>
 
 <style scoped>
-.contact {
-	display: grid;
-	gap: calc((var(--_a4-gap) * 0.5));
-
-	.type {
-		text-transform: capitalize;
-	}
-
-	div,
-	div:deep(input) {
-		color: var(--on-surface-variant);
-		font-size: var(--font_size, var(--font-size-sm));
-		font-weight: var(--font-weight);
-		text-box-trim: trim-both;
-		text-box-edge: cap alphabetic;
-
+@layer utilities {
+	.contact {
 		display: grid;
-		grid-template-columns: auto 1fr;
-		gap: 0.5ch;
-		align-items: center;
-
-		> span {
-			font-size: inherit;
-		}
-	}
-
-	&[data-side-by-side='true'] {
-		display: flex;
-		gap: 1ch;
-		justify-content: v-bind('curriculum.Contact.align');
-		flex-wrap: wrap;
-		margin-top: calc(var(--_a4-gap) * -0.4);
+		gap: calc((var(--_a4-gap) * 0.5));
 
 		.type {
-			display: none;
+			text-transform: capitalize;
 		}
 
-		span {
-			width: 100%;
+		div,
+		div:deep(input) {
+			color: var(--on-surface-variant);
+			font-size: var(--font_size, var(--font-size-sm));
+			font-weight: var(--font-weight);
+			text-box-trim: trim-both;
+			text-box-edge: cap alphabetic;
+
+			display: grid;
+			grid-template-columns: auto 1fr;
+			gap: 0.5ch;
+			align-items: center;
+
+			> span {
+				font-size: inherit;
+			}
 		}
 
-		span:not(:last-child) {
-			position: relative;
+		&[data-side-by-side='true'] {
+			display: flex;
+			gap: 1ch;
+			justify-content: v-bind('curriculum.Contact.align');
+			flex-wrap: wrap;
+			margin-top: calc(var(--_a4-gap) * -0.4);
+
+			.type {
+				display: none;
+			}
+
+			span {
+				width: 100%;
+			}
+
+			span:not(:last-child) {
+				position: relative;
+			}
 		}
 	}
 }

@@ -81,14 +81,16 @@ function saveSummary(list: boolean) {
 </template>
 
 <style scoped>
-.header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
+@layer utilities {
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
 
-form {
-	display: grid;
-	gap: 1rem;
+	form {
+		display: grid;
+		gap: 1rem;
+	}
 }
 </style>

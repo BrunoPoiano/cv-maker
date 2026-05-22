@@ -43,9 +43,11 @@ function AddCoreSkill() {
 </template>
 
 <style scoped>
-form {
-	display: flex;
-	gap: 1rem;
-	align-items: center;
+@layer utilities {
+	form {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+	}
 }
 </style>

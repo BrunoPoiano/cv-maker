@@ -109,63 +109,59 @@ const readonly = ReadonlyStore.get()
 </template>
 
 <style scoped>
-.academic {
-	display: grid;
-	gap: calc((var(--_a4-gap) * 0.4));
+@layer utilities {
+	.academic {
+		display: grid;
+		gap: calc((var(--_a4-gap) * 0.4));
 
-	.aca-title {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		flex-wrap: wrap;
-
-		letter-spacing: 0.06em;
-
-		.title,
-		.sub-title {
-			color: light-dark(#000, #fff);
-			display: block;
-			text-transform: capitalize;
-			font-size: var(--font-size-base);
-			font-weight: var(--font-weight);
-
-			text-box-trim: trim-end;
-			text-box-edge: cap alphabetic;
-		}
-
-		.title {
-			margin-bottom: 0;
-
-			.inputs {
-				display: grid;
-				grid-template-columns: auto 1fr;
-				gap: 1ch;
-			}
-		}
-
-		.sub-title {
-			color: var(--on-surface-variant);
+		.aca-title {
 			display: flex;
 			align-items: center;
-			gap: 0.5ch;
+			justify-content: space-between;
+			flex-wrap: wrap;
 
-			> span {
-				text-box-trim: trim-both;
+			letter-spacing: 0.06em;
+
+			.title,
+			.sub-title {
+				color: light-dark(#000, #fff);
+				display: block;
+				text-transform: capitalize;
+				font-size: var(--font-size-base);
+				font-weight: var(--font-weight);
+
+				text-box-trim: trim-end;
 				text-box-edge: cap alphabetic;
 			}
 
-			.date {
-				display: grid;
-				grid-template-columns: auto 1fr;
-				gap: 1ch;
+			.title {
+				margin-bottom: 0px;
+
+				.inputs {
+					display: grid;
+					grid-template-columns: auto 1fr;
+					gap: 1ch;
+				}
+			}
+
+			.sub-title {
+				color: var(--on-surface-variant);
+				display: flex;
+				align-items: center;
+				gap: 0.5ch;
+
+				> span {
+					text-box-trim: trim-both;
+					text-box-edge: cap alphabetic;
+				}
+
+				.date {
+					display: grid;
+					grid-template-columns: auto 1fr;
+					gap: 1ch;
+				}
 			}
 		}
-	}
-}
-
-@supports not (text-box-edge: cap alphabetic) {
-	.academic .aca-title .title {
-		margin-bottom: 0px !important;
 	}
 }
 </style>

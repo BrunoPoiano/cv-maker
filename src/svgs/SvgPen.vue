@@ -24,7 +24,9 @@
 	</svg>
 </template>
 <style scoped>
-svg path {
-	stroke: currentColor;
+@layer utilities {
+	svg path {
+		stroke: currentColor;
+	}
 }
 </style>

@@ -58,9 +58,11 @@ function handleColorChange() {
 </template>
 
 <style scoped>
-form {
-	display: grid;
-	gap: 1rem;
-	grid-template-columns: 1fr 1fr;
+@layer utilities {
+	form {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: 1fr 1fr;
+	}
 }
 </style>

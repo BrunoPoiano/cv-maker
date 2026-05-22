@@ -71,9 +71,11 @@ const curriculumIndex = CurriculumIndexStore.get()
 </template>
 
 <style scoped>
-li {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
+@layer utilities {
+	li {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
 }
 </style>

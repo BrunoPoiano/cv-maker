@@ -1,6 +1,6 @@
-@layer base, components, utilities, print;
+@layer reset, base, components, utilities, print;
 
-@layer base {
+@layer reset {
 	*,
 	*::after,
 	*::before {
@@ -146,7 +146,9 @@
 	article {
 		container-type: inline-size;
 	}
+}
 
+@layer base {
 	h1,
 	h2,
 	h3,

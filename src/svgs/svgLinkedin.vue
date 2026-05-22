@@ -14,9 +14,11 @@
 </template>
 
 <style scoped>
-svg:hover {
-	path {
-		fill: var(--primary) !important;
+@layer utilities {
+	svg:hover {
+		path {
+			fill: var(--primary);
+		}
 	}
 }
 </style>

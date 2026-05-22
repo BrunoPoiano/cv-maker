@@ -13,21 +13,23 @@ import ColorScheme from './colorScheme.vue'
 </template>
 
 <style scoped>
-footer {
-	grid-area: footer;
-	padding: 1rem;
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	align-items: end;
+@layer utilities {
+	footer {
+		grid-area: footer;
+		padding: 1rem;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		align-items: end;
 
-	span {
-		place-self: start;
-		align-self: center;
-		font-size: var(--font-size-base);
-	}
+		span {
+			place-self: start;
+			align-self: center;
+			font-size: var(--font-size-base);
+		}
 
-	button {
-		place-self: end;
+		button {
+			place-self: end;
+		}
 	}
 }
 </style>

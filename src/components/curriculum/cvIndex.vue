@@ -24,30 +24,32 @@ const gap = computed(() => curriculum.value.Settings.gap)
 </template>
 
 <style scoped>
-section {
-	background-color: var(--surface);
+@layer utilities {
+	section {
+		background-color: var(--surface);
 
-	.a4-page {
-		grid-area: curriculum;
-		--_a4-gap: 1.3rem;
+		.a4-page {
+			grid-area: curriculum;
+			--_a4-gap: 1.3rem;
 
-		width: 230mm;
-		min-height: 297mm;
-		box-sizing: border-box;
+			width: 230mm;
+			min-height: 297mm;
+			box-sizing: border-box;
 
-		display: grid;
-		align-content: baseline;
-		gap: var(--_a4-gap);
+			display: grid;
+			align-content: baseline;
+			gap: var(--_a4-gap);
 
-		padding: 1cm;
-		margin-inline: auto;
-		margin-block: 2rem;
+			padding: 1cm;
+			margin-inline: auto;
+			margin-block: 2rem;
 
-		box-sizing: border-box;
-		background-color: light-dark(white, black);
+			box-sizing: border-box;
+			background-color: light-dark(white, black);
 
-		border: 1px var(--outline-variant) solid;
-		border-radius: calc(var(--border-radius) * 0.5);
+			border: 1px var(--outline-variant) solid;
+			border-radius: calc(var(--border-radius) * 0.5);
+		}
 	}
 }
 </style>

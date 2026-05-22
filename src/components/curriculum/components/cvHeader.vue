@@ -66,39 +66,41 @@ const { curriculum } = inject(ProviderKey)!
 </template>
 
 <style scoped>
-.header {
-	h1,
-	h1:deep(input) {
-		padding: 0px;
-		margin: 0px;
-		margin-bottom: calc(var(--_a4-gap) * 0.5);
-		font-size: var(--font_size, var(--font-size-xxxl));
-		text-transform: uppercase;
-		letter-spacing: 0.03em;
-		font-weight: var(--font-weight);
-		line-height: 1.3;
+@layer utilities {
+	.header {
+		h1,
+		h1:deep(input) {
+			padding: 0px;
+			margin: 0px;
+			margin-bottom: calc(var(--_a4-gap) * 0.5);
+			font-size: var(--font_size, var(--font-size-xxxl));
+			text-transform: uppercase;
+			letter-spacing: 0.03em;
+			font-weight: var(--font-weight);
+			line-height: 1.3;
+		}
+
+		.label,
+		.label:deep(input) {
+			display: block;
+
+			color: var(--on-surface-variant);
+
+			font-size: var(--font_size, var(--font-size-lg));
+			font-weight: var(--font-weight);
+			letter-spacing: 0.099em;
+			line-height: 1.2;
+			text-transform: uppercase;
+			text-box-trim: trim-both;
+			text-box-edge: cap alphabetic;
+		}
 	}
 
-	.label,
-	.label:deep(input) {
-		display: block;
-
-		color: var(--on-surface-variant);
-
-		font-size: var(--font_size, var(--font-size-lg));
-		font-weight: var(--font-weight);
-		letter-spacing: 0.099em;
-		line-height: 1.2;
-		text-transform: uppercase;
-		text-box-trim: trim-both;
-		text-box-edge: cap alphabetic;
-	}
-}
-
-@supports not (text-box-edge: cap alphabetic) {
-	h1 {
-		margin-bottom: 0px !important;
-		line-height: 0.9 !important;
+	@supports not (text-box-edge: cap alphabetic) {
+		.header h1 {
+			margin-bottom: 0px;
+			line-height: 0.9;
+		}
 	}
 }
 </style>

@@ -14,11 +14,13 @@
 </template>
 
 <style scoped>
-svg {
-	fill: light-dark(#000, #fff) !important;
+@layer utilities {
+	svg {
+		fill: light-dark(#000, #fff);
 
-	&:hover {
-		fill: var(--primary) !important;
+		&:hover {
+			fill: var(--primary);
+		}
 	}
 }
 </style>

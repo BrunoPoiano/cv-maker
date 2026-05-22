@@ -101,55 +101,57 @@ function updateLanguage(val: Languages) {
 </template>
 
 <style scoped>
-.menu {
-	grid-area: submenu;
-	display: flex;
-	gap: 1rem;
+@layer utilities {
+	.menu {
+		grid-area: submenu;
+		display: flex;
+		gap: 1rem;
 
-	padding-inline-start: 2rem;
-	padding-block: 1rem;
+		padding-inline-start: 2rem;
+		padding-block: 1rem;
 
-	&:deep(.toggle-text) {
-		margin-left: auto;
+		&:deep(.toggle-text) {
+			margin-left: auto;
+		}
 	}
-}
 
-.curriculumMenu {
-	grid-area: curriculumMenu;
-	position: sticky;
-	top: 1rem;
-	height: fit-content;
-
-	padding-block-start: 1rem;
-	padding-inline: 0.5rem;
-
-	display: grid;
-	align-content: flex-start;
-	place-items: center;
-	gap: 1.5rem;
-
-	button:last-child {
-		margin-top: 1rem;
-	}
-}
-
-aside {
-	grid-area: menu;
-	background: var(--surface-container-low);
-	padding: 1rem;
-
-	> div {
+	.curriculumMenu {
+		grid-area: curriculumMenu;
 		position: sticky;
-		top: 2rem;
+		top: 1rem;
 		height: fit-content;
-		display: grid;
-		align-content: baseline;
-		gap: 0.25rem;
 
-		&:deep(button[data-menu-button='true']),
-		&:deep(select[data-menu-select]) {
-			min-width: 14rem;
-			border-radius: 0px;
+		padding-block-start: 1rem;
+		padding-inline: 0.5rem;
+
+		display: grid;
+		align-content: flex-start;
+		place-items: center;
+		gap: 1.5rem;
+
+		button:last-child {
+			margin-top: 1rem;
+		}
+	}
+
+	aside {
+		grid-area: menu;
+		background: var(--surface-container-low);
+		padding: 1rem;
+
+		> div {
+			position: sticky;
+			top: 2rem;
+			height: fit-content;
+			display: grid;
+			align-content: baseline;
+			gap: 0.25rem;
+
+			&:deep(button[data-menu-button='true']),
+			&:deep(select[data-menu-select]) {
+				min-width: 14rem;
+				border-radius: 0px;
+			}
 		}
 	}
 }

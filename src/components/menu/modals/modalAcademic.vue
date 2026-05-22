@@ -182,63 +182,65 @@ function closeModal() {
 </template>
 
 <style scoped>
-.modalHeader {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	align-items: center;
-	gap: 0.8rem;
-
-	h3 {
-		display: grid;
-	}
-
-	button {
-		place-self: end;
-		align-self: start;
-	}
-}
-
-form {
-	display: grid;
-	gap: 1rem;
-
-	.align {
-		display: grid;
-		gap: 0.5rem;
-		align-items: center;
-		grid-template-columns: 1fr auto auto;
-	}
-
-	.size {
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr 1fr;
-		gap: 0.8rem;
-	}
-
-	.academic {
+@layer utilities {
+	.modalHeader {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
+		align-items: center;
 		gap: 0.8rem;
-		background: var(--surface-container-low);
 
-		padding: 0.8rem;
-		border-radius: var(--border-radius);
-
-		transition: background 500ms ease;
-
-		.directions {
-			grid-area: 1 / 1;
-			display: flex;
-			gap: 0.25rem;
+		h3 {
+			display: grid;
 		}
 
 		button {
-			grid-area: 1 / 2;
-			justify-self: end;
+			place-self: end;
+			align-self: start;
+		}
+	}
+
+	form {
+		display: grid;
+		gap: 1rem;
+
+		.align {
+			display: grid;
+			gap: 0.5rem;
+			align-items: center;
+			grid-template-columns: 1fr auto auto;
 		}
 
-		&:hover {
-			background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+		.size {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr;
+			gap: 0.8rem;
+		}
+
+		.academic {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 0.8rem;
+			background: var(--surface-container-low);
+
+			padding: 0.8rem;
+			border-radius: var(--border-radius);
+
+			transition: background 500ms ease;
+
+			.directions {
+				grid-area: 1 / 1;
+				display: flex;
+				gap: 0.25rem;
+			}
+
+			button {
+				grid-area: 1 / 2;
+				justify-self: end;
+			}
+
+			&:hover {
+				background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+			}
 		}
 	}
 }

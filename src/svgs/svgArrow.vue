@@ -37,21 +37,23 @@ const props = defineProps<Props>()
 </script>
 
 <style scoped>
-svg {
-	&[data-direction='down'] {
-		transform: rotate(180deg);
-	}
+@layer utilities {
+	svg {
+		&[data-direction='down'] {
+			transform: rotate(180deg);
+		}
 
-	&[data-direction='left'] {
-		transform: rotate(270deg);
-	}
+		&[data-direction='left'] {
+			transform: rotate(270deg);
+		}
 
-	&[data-direction='right'] {
-		transform: rotate(90deg);
-	}
+		&[data-direction='right'] {
+			transform: rotate(90deg);
+		}
 
-	path {
-		stroke: currentColor;
+		path {
+			stroke: currentColor;
+		}
 	}
 }
 </style>
