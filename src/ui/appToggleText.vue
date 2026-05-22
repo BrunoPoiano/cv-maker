@@ -46,71 +46,73 @@ function changeCheckBox() {
 </template>
 
 <style scoped>
-.toggle-text {
-	--_padding: 0.4rem;
-	--_bg: var(--surface-container-highest);
+@layer components {
+	.toggle-text {
+		--_padding: 0.4rem;
+		--_bg: var(--surface-container-highest);
 
-	align-items: Center;
-	width: fit-content;
-	background: var(--_bg);
-	border-radius: var(--border-radius);
-	padding: var(--_padding);
+		align-items: Center;
+		width: fit-content;
+		background: var(--_bg);
+		border-radius: var(--border-radius);
+		padding: var(--_padding);
 
-	&:hover {
-		--hover-bg-adjusted: light-dark(
-			hsl(from var(--_bg) h 80% calc(l - 2)),
-			hsl(from var(--_bg) h s calc(l + 15))
-		);
+		&:hover {
+			--hover-bg-adjusted: light-dark(
+				hsl(from var(--_bg) h 80% calc(l - 2)),
+				hsl(from var(--_bg) h s calc(l + 15))
+			);
 
-		background: var(--hover-bg-adjusted);
-	}
-
-	.switch {
-		display: flex;
-
-		input {
-			opacity: 0;
-			width: 0;
-			height: 0;
-			margin: 0;
+			background: var(--hover-bg-adjusted);
 		}
 
-		span {
-			position: relative;
-			font-size: var(--font-size-sm);
-			cursor: pointer;
-			padding: 0.2rem 0.4rem;
-			text-transform: uppercase;
-			border-radius: calc(var(--border-radius) - var(--_padding));
-			overflow: hidden;
+		.switch {
+			display: flex;
 
-			> span {
-				padding: 0;
+			input {
+				opacity: 0;
+				width: 0;
+				height: 0;
+				margin: 0;
 			}
 
-			&[data-check]::before {
-				transition: transform 400ms ease-in-out;
-				content: '';
-				position: absolute;
-				inset: 0;
-				border-radius: inherit;
-				background: var(--background);
-				transform: scaleX(0);
-			}
+			span {
+				position: relative;
+				font-size: var(--font-size-sm);
+				cursor: pointer;
+				padding: 0.2rem 0.4rem;
+				text-transform: uppercase;
+				border-radius: calc(var(--border-radius) - var(--_padding));
+				overflow: hidden;
 
-			&[data-check='true']::before {
-				transform: scaleX(1);
-			}
+				> span {
+					padding: 0;
+				}
 
-			&[data-left]::before {
-				transform-origin: right;
-			}
+				&[data-check]::before {
+					transition: transform 400ms ease-in-out;
+					content: '';
+					position: absolute;
+					inset: 0;
+					border-radius: inherit;
+					background: var(--background);
+					transform: scaleX(0);
+				}
 
-			&[data-right] {
-				margin-left: -1px;
+				&[data-check='true']::before {
+					transform: scaleX(1);
+				}
 
-				&::before {
-					transform-origin: left;
+				&[data-left]::before {
+					transform-origin: right;
+				}
+
+				&[data-right] {
+					margin-left: -1px;
+
+					&::before {
+						transform-origin: left;
+					}
 				}
 			}
 		}

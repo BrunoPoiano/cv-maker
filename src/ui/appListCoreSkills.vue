@@ -95,27 +95,29 @@ const skillsList = computed(() =>
 </template>
 
 <style scoped>
-ul {
-	margin: 0;
-	padding-left: 1rem;
-	display: grid;
-	gap: calc((var(--_a4-gap) * 0.3));
+@layer components {
+	ul {
+		margin: 0;
+		padding-left: 1rem;
+		display: grid;
+		gap: calc((var(--_a4-gap) * 0.3));
 
-	li {
-		text-box-trim: trim-end;
-		text-box-edge: cap alphabetic;
-		font-size: var(--font-size-sm);
-		font-weight: var(--font-weight);
-		color: var(--on-surface-variant);
+		li {
+			text-box-trim: trim-end;
+			text-box-edge: cap alphabetic;
+			font-size: var(--font-size-sm);
+			font-weight: var(--font-weight);
+			color: var(--on-surface-variant);
 
-		div {
-			display: grid;
-			grid-template-columns: auto 1fr;
-			gap: 0.5ch;
-		}
+			div {
+				display: grid;
+				grid-template-columns: auto 1fr;
+				gap: 0.5ch;
+			}
 
-		.core {
-			text-transform: capitalize;
+			.core {
+				text-transform: capitalize;
+			}
 		}
 	}
 }

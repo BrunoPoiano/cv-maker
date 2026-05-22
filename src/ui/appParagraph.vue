@@ -15,13 +15,15 @@ const { fontSize } = defineProps<Props>()
 </template>
 
 <style scoped>
-p {
-	margin: 0;
-	color: var(--on-surface-variant);
-	font-size: var(--font_size, var(--font-size-sm));
-	font-weight: var(--font-weight);
-	letter-spacing: 0em;
+@layer components {
+	p {
+		margin: 0;
+		color: var(--on-surface-variant);
+		font-size: var(--font_size, var(--font-size-sm));
+		font-weight: var(--font-weight);
+		letter-spacing: 0em;
 
-	text-align: justify;
+		text-align: justify;
+	}
 }
 </style>

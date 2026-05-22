@@ -62,11 +62,20 @@ function closeModal() {
 </script>
 
 <template>
-	<Modal :id="id" closeLabel="close" :close-action="closeModal" minWidth="50rem">
+	<Modal
+		:id="id"
+		closeLabel="close"
+		:close-action="closeModal"
+		minWidth="50rem"
+	>
 		<template #header>
 			<div class="modalHeader">
 				<h3>
-					<AppInput type="checkbox" label="Experience" v-model="curriculum.Experience.show" />
+					<AppInput
+						type="checkbox"
+						label="Experience"
+						v-model="curriculum.Experience.show"
+					/>
 					<AppSmall>{{
 						list ? 'Items will be separeted by line breaks' : ''
 					}}</AppSmall>
@@ -78,43 +87,104 @@ function closeModal() {
 		</template>
 		<form>
 			<div class="align">
-				<AppInput divStyle="align-self: center" type="checkbox" label="Side by Side"
-					v-model="curriculum.Experience.sideBySide" />
-				<AppToggle style="place-self: center" v-model="list" labelEnd="List" labelStart="Text" />
-				<Button title="Set Company Name, Remote, Start and End Date to default values" icon-button
-					@click="CurriculumStore.setExperienceDefaultValue(curriculumIndex)">
+				<AppInput
+					divStyle="align-self: center"
+					type="checkbox"
+					label="Side by Side"
+					v-model="curriculum.Experience.sideBySide"
+				/>
+				<AppToggle
+					style="place-self: center"
+					v-model="list"
+					labelEnd="List"
+					labelStart="Text"
+				/>
+				<Button
+					title="Set Company Name, Remote, Start and End Date to default values"
+					icon-button
+					@click="CurriculumStore.setExperienceDefaultValue(curriculumIndex)"
+				>
 					<SvgDefault />
 				</Button>
 			</div>
 			<div class="size">
-				<Select label="Title" :items="fontSizeSelect" v-model="curriculum.Experience.size.title" />
-				<Select v-if="!curriculum.Experience.sideBySide" label="Subtitle" :items="fontSizeSelect"
-					v-model="curriculum.Experience.size.subTitle" />
-				<Select label="Description" :items="fontSizeSelect" v-model="curriculum.Experience.size.description" />
-				<Select label="Date Style" :items="dateStyleSelect" v-model="curriculum.Experience.dateStyle" />
-				<Select v-if="curriculum.Experience.dateStyle === 'date'" label="Month" :items="monthOptionsSelect"
-					v-model="curriculum.Experience.dateMonth" />
+				<Select
+					label="Title"
+					:items="fontSizeSelect"
+					v-model="curriculum.Experience.size.title"
+				/>
+				<Select
+					v-if="!curriculum.Experience.sideBySide"
+					label="Subtitle"
+					:items="fontSizeSelect"
+					v-model="curriculum.Experience.size.subTitle"
+				/>
+				<Select
+					label="Description"
+					:items="fontSizeSelect"
+					v-model="curriculum.Experience.size.description"
+				/>
+				<Select
+					label="Date Style"
+					:items="dateStyleSelect"
+					v-model="curriculum.Experience.dateStyle"
+				/>
+				<Select
+					v-if="curriculum.Experience.dateStyle === 'date'"
+					label="Month"
+					:items="monthOptionsSelect"
+					v-model="curriculum.Experience.dateMonth"
+				/>
 			</div>
 
 			<div v-for="job in curriculum.Experience.value" class="job" :key="job.id">
 				<div>
 					<AppInput type="checkbox" label="Remote" v-model="job.Remote" />
-					<Button icon-button @click="deleteExperience(job.id)" hover-background="var(--red)"
-						title="Delete Experience">
+					<Button
+						icon-button
+						@click="deleteExperience(job.id)"
+						hover-background="var(--red)"
+						title="Delete Experience"
+					>
 						<SvgTrash />
 					</Button>
 				</div>
 				<div>
-					<AppInput type="text" label="Company Name" placeholder="Company Name" v-model="job.CompanyName" />
-					<AppInput type="text" label="Role" placeholder="Role" v-model="job.Role" />
+					<AppInput
+						type="text"
+						label="Company Name"
+						placeholder="Company Name"
+						v-model="job.CompanyName"
+					/>
+					<AppInput
+						type="text"
+						label="Role"
+						placeholder="Role"
+						v-model="job.Role"
+					/>
 				</div>
 				<div>
-					<DateInput type="date" label="Start Date" placeholder="Start Date" v-model="job.StartDate" />
-					<DateInput type="date" label="End Date" placeholder="EndDate" v-model="job.EndDate" />
+					<DateInput
+						type="date"
+						label="Start Date"
+						placeholder="Start Date"
+						v-model="job.StartDate"
+					/>
+					<DateInput
+						type="date"
+						label="End Date"
+						placeholder="EndDate"
+						v-model="job.EndDate"
+					/>
 				</div>
 
 				<div class="desc">
-					<Description :list="list" label="Description" placeholder="Description" v-model="job.Description" />
+					<Description
+						:list="list"
+						label="Description"
+						placeholder="Description"
+						v-model="job.Description"
+					/>
 				</div>
 			</div>
 		</form>
@@ -165,13 +235,13 @@ form {
 
 		transition: background 500ms ease;
 
-		>div:not(.desc) {
+		> div:not(.desc) {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			gap: 0.8rem;
 		}
 
-		>div:has(button) button {
+		> div:has(button) button {
 			justify-self: end;
 		}
 

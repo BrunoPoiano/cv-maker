@@ -1,312 +1,318 @@
-*,
-*::after,
-*::before {
-	box-sizing: border-box;
-}
+@layer base, components, utilities, print;
 
-:root {
-	interpolate-size: allow-keywords;
+@layer base {
+	*,
+	*::after,
+	*::before {
+		box-sizing: border-box;
+	}
 
-	--font-size-sm: clamp(0.5208rem, 0.4394rem + 0.3621vw, 0.72rem);
-	--font-size-base: clamp(0.625rem, 0.5125rem + 0.5vw, 0.9rem);
-	--font-size-md: clamp(0.75rem, 0.5966rem + 0.6818vw, 1.125rem);
-	--font-size-lg: clamp(0.9rem, 0.6929rem + 0.9205vw, 1.4063rem);
-	--font-size-xl: clamp(1.08rem, 0.8027rem + 1.2324vw, 1.7578rem);
-	--font-size-xxl: clamp(1.296rem, 0.9273rem + 1.6387vw, 2.1973rem);
-	--font-size-xxxl: clamp(1.5552rem, 1.0678rem + 2.1661vw, 2.7466rem);
-	--font-size-xxxxl: clamp(1.8662rem, 1.2252rem + 2.8491vw, 3.4332rem);
+	:root {
+		interpolate-size: allow-keywords;
 
-	--app_hue: var(--app-hue, 219);
+		--font-size-sm: clamp(0.5208rem, 0.4394rem + 0.3621vw, 0.72rem);
+		--font-size-base: clamp(0.625rem, 0.5125rem + 0.5vw, 0.9rem);
+		--font-size-md: clamp(0.75rem, 0.5966rem + 0.6818vw, 1.125rem);
+		--font-size-lg: clamp(0.9rem, 0.6929rem + 0.9205vw, 1.4063rem);
+		--font-size-xl: clamp(1.08rem, 0.8027rem + 1.2324vw, 1.7578rem);
+		--font-size-xxl: clamp(1.296rem, 0.9273rem + 1.6387vw, 2.1973rem);
+		--font-size-xxxl: clamp(1.5552rem, 1.0678rem + 2.1661vw, 2.7466rem);
+		--font-size-xxxxl: clamp(1.8662rem, 1.2252rem + 2.8491vw, 3.4332rem);
 
-	/* Primary */
-	--primary: light-dark(
-		oklch(0.62 0.12 var(--app_hue)),
-		oklch(0.72 0.1 var(--app_hue))
-	);
-	--primary-dim: light-dark(
-		oklch(0.68 0.1 var(--app_hue)),
-		oklch(0.66 0.09 var(--app_hue))
-	);
-	--on-primary: light-dark(
-		oklch(0.98 0 var(--app_hue)),
-		oklch(0.22 0.02 var(--app_hue))
-	);
+		--app_hue: var(--app-hue, 219);
 
-	/* Surfaces (nested depth) */
-	--background: light-dark(
-		oklch(0.98 0.01 var(--app_hue)),
-		oklch(0.18 0.02 var(--app_hue))
-	);
-	--surface: light-dark(
-		oklch(1 0.008 var(--app_hue)),
-		oklch(0.22 0.02 var(--app_hue))
-	);
-	--surface-container-low: light-dark(
-		oklch(0.95 0.015 var(--app_hue)),
-		oklch(0.26 0.025 var(--app_hue))
-	);
-	--surface-container-highest: light-dark(
-		oklch(0.9 0.02 var(--app_hue)),
-		oklch(0.3 0.03 var(--app_hue))
-	);
-	--surface-container-lowest: light-dark(
-		oklch(1 0 var(--app_hue)),
-		oklch(0.2 0.02 var(--app_hue))
-	);
-	--surface-bright: light-dark(
-		oklch(1 0.008 var(--app_hue) / 0.8),
-		oklch(0.24 0.03 var(--app_hue) / 0.8)
-	);
-
-	/* Text */
-	--on-surface: light-dark(rgb(0, 0, 0), white);
-	--on-surface-variant: light-dark(rgb(87, 87, 87), rgb(172, 172, 172));
-
-	/* Secondary / accents */
-	--secondary: light-dark(
-		oklch(0.65 0.08 var(--app_hue)),
-		oklch(0.7 0.07 var(--app_hue))
-	);
-	--secondary-container: light-dark(
-		oklch(0.92 0.03 var(--app_hue)),
-		oklch(0.28 0.04 var(--app_hue))
-	);
-	--on-secondary-container: light-dark(
-		oklch(0.3 0.03 var(--app_hue)),
-		oklch(0.88 0.02 var(--app_hue))
-	);
-
-	/* Outline (ghost border) */
-	--outline-variant: light-dark(
-		oklch(0.28 0.03 var(--app_hue) / 0.15),
-		oklch(0.92 0.02 var(--app_hue) / 0.15)
-	);
-
-	--shadow-ambient: 0 12px 32px
-		light-dark(
-			oklch(0.28 0.03 var(--app_hue) / 0.16),
-			oklch(0 0 var(--app_hue) / 0.35)
+		/* Primary */
+		--primary: light-dark(
+			oklch(0.62 0.12 var(--app_hue)),
+			oklch(0.72 0.1 var(--app_hue))
+		);
+		--primary-dim: light-dark(
+			oklch(0.68 0.1 var(--app_hue)),
+			oklch(0.66 0.09 var(--app_hue))
+		);
+		--on-primary: light-dark(
+			oklch(0.98 0 var(--app_hue)),
+			oklch(0.22 0.02 var(--app_hue))
 		);
 
-	/* Interaction */
-	--hover-surface-shift: light-dark(
-		oklch(0.96 0.015 var(--app_hue)),
-		oklch(0.24 0.025 var(--app_hue))
-	);
-	--focus-outline: light-dark(
-		oklch(0.62 0.12 var(--app_hue) / 0.2),
-		oklch(0.72 0.1 var(--app_hue) / 0.25)
-	);
+		/* Surfaces (nested depth) */
+		--background: light-dark(
+			oklch(0.98 0.01 var(--app_hue)),
+			oklch(0.18 0.02 var(--app_hue))
+		);
+		--surface: light-dark(
+			oklch(1 0.008 var(--app_hue)),
+			oklch(0.22 0.02 var(--app_hue))
+		);
+		--surface-container-low: light-dark(
+			oklch(0.95 0.015 var(--app_hue)),
+			oklch(0.26 0.025 var(--app_hue))
+		);
+		--surface-container-highest: light-dark(
+			oklch(0.9 0.02 var(--app_hue)),
+			oklch(0.3 0.03 var(--app_hue))
+		);
+		--surface-container-lowest: light-dark(
+			oklch(1 0 var(--app_hue)),
+			oklch(0.2 0.02 var(--app_hue))
+		);
+		--surface-bright: light-dark(
+			oklch(1 0.008 var(--app_hue) / 0.8),
+			oklch(0.24 0.03 var(--app_hue) / 0.8)
+		);
 
-	--font-weight: 400;
+		/* Text */
+		--on-surface: light-dark(rgb(0, 0, 0), white);
+		--on-surface-variant: light-dark(rgb(87, 87, 87), rgb(172, 172, 172));
 
-	--red: hwb(12 17% 38%);
-	--blue: hwb(var(--app_hue) 71% 2%);
-	--orange: hwb(29 32% 4%);
-	--yellow: hsl(55, 90%, 85%);
-	--green: hsl(130, 90%, 85%);
+		/* Secondary / accents */
+		--secondary: light-dark(
+			oklch(0.65 0.08 var(--app_hue)),
+			oklch(0.7 0.07 var(--app_hue))
+		);
+		--secondary-container: light-dark(
+			oklch(0.92 0.03 var(--app_hue)),
+			oklch(0.28 0.04 var(--app_hue))
+		);
+		--on-secondary-container: light-dark(
+			oklch(0.3 0.03 var(--app_hue)),
+			oklch(0.88 0.02 var(--app_hue))
+		);
 
-	--max-width: 105ch;
+		/* Outline (ghost border) */
+		--outline-variant: light-dark(
+			oklch(0.28 0.03 var(--app_hue) / 0.15),
+			oklch(0.92 0.02 var(--app_hue) / 0.15)
+		);
 
-	--border-radius: 0.25rem;
-	--cv-border-radius: 3px;
-}
+		--shadow-ambient: 0 12px 32px
+			light-dark(
+				oklch(0.28 0.03 var(--app_hue) / 0.16),
+				oklch(0 0 var(--app_hue) / 0.35)
+			);
 
-html {
-	hanging-punctuation: first last;
-	color-scheme: light dark;
-}
+		/* Interaction */
+		--hover-surface-shift: light-dark(
+			oklch(0.96 0.015 var(--app_hue)),
+			oklch(0.24 0.025 var(--app_hue))
+		);
+		--focus-outline: light-dark(
+			oklch(0.62 0.12 var(--app_hue) / 0.2),
+			oklch(0.72 0.1 var(--app_hue) / 0.25)
+		);
 
-body {
-	--body-padding: 1rem;
-	font-size: 1.125rem;
-	display: grid;
-	place-items: center;
-	background-color: var(--background);
-	margin: 0;
+		--font-weight: 400;
 
-	font-family: 'EBGaramondPDF', serif;
-	line-height: 1.35;
-	accent-color: var(--primary);
-	caret-color: var(--primary);
-	color: var(--on-surface);
-}
+		--red: hwb(12 17% 38%);
+		--blue: hwb(var(--app_hue) 71% 2%);
+		--orange: hwb(29 32% 4%);
+		--yellow: hsl(55, 90%, 85%);
+		--green: hsl(130, 90%, 85%);
 
-#app {
-	/* max-width: 1350px; */
-	width: 100%;
-}
+		--max-width: 105ch;
 
-body > :is(header, footer),
-section,
-main,
-article {
-	container-type: inline-size;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	color: var(--on-surface);
-	text-wrap: balance;
-	margin: 0px;
-	text-box-trim: trim-both;
-	text-box-edge: cap alphabetic;
-}
-
-h1 {
-	--_font-size: var(--font-size-xxl);
-	margin-bottom: 0.5em;
-	font-size: var(--_font-size);
-	font-weight: 900;
-	line-height: calc(var(--_font-size) * 1.1);
-	letter-spacing: -2px;
-}
-
-h2 {
-	--_font-size: var(--font-size-xl);
-	place-self: start;
-	font-size: var(--_font-size);
-	font-weight: 600;
-	line-height: calc(var(--_font-size) * 1.1);
-	letter-spacing: -2px;
-	margin-bottom: 0.5em;
-}
-
-h3 {
-	--_font-size: var(--font-size-lg);
-	font-size: var(--_font-size);
-	font-weight: 400;
-	line-height: calc(var(--_font-size) * 1.1);
-	margin-bottom: 0.5em;
-}
-
-p,
-li,
-figcaption {
-	text-wrap: stable;
-	text-wrap: pretty;
-}
-
-p {
-	font-size: var(--font-size-base);
-	line-height: 20px;
-	margin-bottom: 0.5em;
-}
-
-a {
-	text-decoration: none;
-	cursor: pointer;
-
-	&:visited {
-		color: var(--primary);
+		--border-radius: 0.25rem;
+		--cv-border-radius: 3px;
 	}
-}
 
-small {
-	font-size: var(--font-size-sm);
-}
-
-button,
-select,
-input,
-textarea {
-	font-size: inherit;
-}
-
-input:focus-visible,
-textarea:focus-visible {
-	outline: 1px solid var(--focus-outline);
-}
-
-input[readonly]:focus-visible,
-textarea[readonly]:focus-visible {
-	outline: 0px;
-}
-
-img {
-	max-width: 100%;
-	height: auto;
-	display: block;
-	object-fit: contain;
-}
-
-dialog {
-	--_padding: 1.5rem;
-	margin: auto;
-	min-width: min(20rem, 100%);
-	border: none;
-	padding: var(--_padding);
-	border-radius: calc(var(--border-radius) + var(--_padding) * 0.3);
-
-	box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.44);
-
-	background: var(--background);
-
-	&::backdrop {
-		background: #00000078;
-		filter: blur(1.5rem);
-	}
-}
-
-pre {
-	font-size: var(--font-size-base);
-	display: block;
-	unicode-bidi: embed;
-	font-family: monospace;
-	white-space: pre;
-	overflow: auto;
-	background: #8080801a;
-	border-radius: var(--border-radius);
-	padding: 1rem;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-	:has(:target) {
-		scroll-behavior: smooth;
-		scroll-padding-top: 4rem;
-	}
-}
-
-@page {
-	size: A4;
-	margin: 0;
-}
-
-@media print {
-	:root {
-		--on-surface: rgb(0, 0, 0);
-		--on-surface-variant: rgb(87, 87, 87);
+	html {
+		hanging-punctuation: first last;
+		color-scheme: light dark;
 	}
 
 	body {
-		background: #fff !important;
+		--body-padding: 1rem;
+		font-size: 1.125rem;
+		display: grid;
+		place-items: center;
+		background-color: var(--background);
+		margin: 0;
 
-		* {
-			visibility: hidden;
-			color-scheme: light;
+		font-family: 'EBGaramondPDF', serif;
+		line-height: 1.35;
+		accent-color: var(--primary);
+		caret-color: var(--primary);
+		color: var(--on-surface);
+	}
+
+	#app {
+		/* max-width: 1350px; */
+		width: 100%;
+	}
+
+	body > :is(header, footer),
+	section,
+	main,
+	article {
+		container-type: inline-size;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: var(--on-surface);
+		text-wrap: balance;
+		margin: 0px;
+		text-box-trim: trim-both;
+		text-box-edge: cap alphabetic;
+	}
+
+	h1 {
+		--_font-size: var(--font-size-xxl);
+		margin-bottom: 0.5em;
+		font-size: var(--_font-size);
+		font-weight: 900;
+		line-height: calc(var(--_font-size) * 1.1);
+		letter-spacing: -2px;
+	}
+
+	h2 {
+		--_font-size: var(--font-size-xl);
+		place-self: start;
+		font-size: var(--_font-size);
+		font-weight: 600;
+		line-height: calc(var(--_font-size) * 1.1);
+		letter-spacing: -2px;
+		margin-bottom: 0.5em;
+	}
+
+	h3 {
+		--_font-size: var(--font-size-lg);
+		font-size: var(--_font-size);
+		font-weight: 400;
+		line-height: calc(var(--_font-size) * 1.1);
+		margin-bottom: 0.5em;
+	}
+
+	p,
+	li,
+	figcaption {
+		text-wrap: stable;
+		text-wrap: pretty;
+	}
+
+	p {
+		font-size: var(--font-size-base);
+		line-height: 20px;
+		margin-bottom: 0.5em;
+	}
+
+	a {
+		text-decoration: none;
+		cursor: pointer;
+
+		&:visited {
+			color: var(--primary);
 		}
 	}
 
-	#curriculumPage,
-	#curriculumPage * {
-		visibility: visible;
+	small {
+		font-size: var(--font-size-sm);
 	}
 
-	#curriculumPage {
-		position: absolute;
-		margin: 0;
-		left: 0;
-		top: 0;
+	button,
+	select,
+	input,
+	textarea {
+		font-size: inherit;
+	}
 
-		width: 210mm;
-		min-height: 297mm;
-		box-shadow: none;
+	input:focus-visible,
+	textarea:focus-visible {
+		outline: 1px solid var(--focus-outline);
+	}
+
+	input[readonly]:focus-visible,
+	textarea[readonly]:focus-visible {
+		outline: 0px;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+		display: block;
+		object-fit: contain;
+	}
+
+	dialog {
+		--_padding: 1.5rem;
+		margin: auto;
+		min-width: min(20rem, 100%);
 		border: none;
-		background: #fff;
-		box-sizing: border-box;
+		padding: var(--_padding);
+		border-radius: calc(var(--border-radius) + var(--_padding) * 0.3);
+
+		box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.44);
+
+		background: var(--background);
+
+		&::backdrop {
+			background: #00000078;
+			filter: blur(1.5rem);
+		}
+	}
+
+	pre {
+		font-size: var(--font-size-base);
+		display: block;
+		unicode-bidi: embed;
+		font-family: monospace;
+		white-space: pre;
+		overflow: auto;
+		background: #8080801a;
+		border-radius: var(--border-radius);
+		padding: 1rem;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		:has(:target) {
+			scroll-behavior: smooth;
+			scroll-padding-top: 4rem;
+		}
+	}
+}
+
+@layer print {
+	@page {
+		size: A4;
+		margin: 0;
+	}
+
+	@media print {
+		:root {
+			--on-surface: rgb(0, 0, 0);
+			--on-surface-variant: rgb(87, 87, 87);
+		}
+
+		body {
+			background: #fff;
+
+			* {
+				visibility: hidden;
+				color-scheme: light;
+			}
+		}
+
+		#curriculumPage,
+		#curriculumPage * {
+			visibility: visible;
+		}
+
+		#curriculumPage {
+			position: absolute;
+			margin: 0;
+			left: 0;
+			top: 0;
+
+			width: 210mm;
+			min-height: 297mm;
+			box-shadow: none;
+			border: none;
+			background: #fff;
+			box-sizing: border-box;
+		}
 	}
 }

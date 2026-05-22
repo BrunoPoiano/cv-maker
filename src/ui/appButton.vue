@@ -46,89 +46,87 @@ defineOptions({
 </template>
 
 <style scoped>
-button {
-	--var-calc: light-dark(10, 50);
-	--bg: var(--surface-bright);
-	--_padding-block: 0.5rem;
-	--_padding-inline: calc(var(--_padding-block) * 2);
+@layer components {
+	button {
+		--var-calc: light-dark(10, 50);
+		--bg: var(--surface-bright);
+		--_padding-block: 0.5rem;
+		--_padding-inline: calc(var(--_padding-block) * 2);
 
-	display: flex;
-	gap: 0.5ch;
-	align-items: center;
+		display: flex;
+		gap: 0.5ch;
+		align-items: center;
 
-	font-size: var(--font-size-base);
-	font-weight: 500;
-	text-transform: capitalize;
-	text-box-trim: trim-both;
-	text-box-edge: cap alphabetic;
-	cursor: pointer;
+		font-size: var(--font-size-base);
+		font-weight: 500;
+		text-transform: capitalize;
+		text-box-trim: trim-both;
+		text-box-edge: cap alphabetic;
+		cursor: pointer;
 
-	padding-inline: var(--_padding-inline);
-	padding-block: var(--_padding-block);
+		padding-inline: var(--_padding-inline);
+		padding-block: var(--_padding-block);
 
-	border: 1px solid var(--outline-variant);
-	border-radius: var(--border-radius);
-	corner-shape: squircle;
-	min-width: 5ch;
+		border: 1px solid var(--outline-variant);
+		border-radius: var(--border-radius);
+		corner-shape: squircle;
+		min-width: 5ch;
 
-	background: var(--bg);
-	color: lch(from var(--bg) calc((49.44 - l) * infinity) 0 0);
+		background: var(--bg);
+		color: lch(from var(--bg) calc((49.44 - l) * infinity) 0 0);
 
-	transition:
-		background 500ms,
-		color 500ms,
-		transform 200ms ease-out;
-	/* 
+		transition:
+			background 500ms,
+			color 500ms,
+			transform 200ms ease-out;
+		/* 
 	&> :deep(svg) {
 		margin-left: calc(var(--_padding-inline) * -0.5);
 	} */
 
-	&:hover:not(:disabled) {
-		color: lch(
-			from var(--hover-bg, var(--bg)) calc((49.44 - l) * infinity) 0 0
-		);
+		&:hover:not(:disabled) {
+			color: lch(
+				from var(--hover-bg, var(--bg)) calc((49.44 - l) * infinity) 0 0
+			);
 
-		--hover-bg-adjusted: light-dark(
-			hsl(from var(--hover-bg, var(--bg)) h 80% calc(l - 7)),
-			hsl(from var(--hover-bg, var(--bg)) h s calc(l + 15))
-		);
+			--hover-bg-adjusted: light-dark(
+				hsl(from var(--hover-bg, var(--bg)) h 80% calc(l - 7)),
+				hsl(from var(--hover-bg, var(--bg)) h s calc(l + 15))
+			);
 
-		background: var(--hover-bg-adjusted);
-	}
-
-	&[data-has-hover-bg='true']:hover:not(:disabled) {
-		background: hsl(from var(--hover-bg, var(--bg)) h 90% l);
-	}
-
-	&:disabled {
-		opacity: 60%;
-		cursor: initial;
-	}
-
-	&:active:not(:disabled) {
-		transform: scale(0.98);
-	}
-
-	&[data-menu-button='true'] {
-		border: none;
-		padding-block: 0.625rem;
-		padding-inline: 0.75rem;
-		text-transform: uppercase;
-	}
-
-	&[data-icon-button='true'] {
-		box-shadow: var(--shadow-ambient);
-		padding: 0.5rem;
-		min-width: 0ch;
-		width: fit-content;
-		height: fit-content;
-
-		> :deep(svg) {
-			width: 32px !important;
+			background: var(--hover-bg-adjusted);
 		}
 
-		&:hover:not(:disabled) {
-			transform: scale(1.15);
+		&[data-has-hover-bg='true']:hover:not(:disabled) {
+			background: hsl(from var(--hover-bg, var(--bg)) h 90% l);
+		}
+
+		&:disabled {
+			opacity: 60%;
+			cursor: initial;
+		}
+
+		&:active:not(:disabled) {
+			transform: scale(0.98);
+		}
+
+		&[data-menu-button='true'] {
+			border: none;
+			padding-block: 0.625rem;
+			padding-inline: 0.75rem;
+			text-transform: uppercase;
+		}
+
+		&[data-icon-button='true'] {
+			box-shadow: var(--shadow-ambient);
+			padding: 0.5rem;
+			min-width: 0ch;
+			width: fit-content;
+			height: fit-content;
+
+			&:hover:not(:disabled) {
+				transform: scale(1.15);
+			}
 		}
 	}
 }

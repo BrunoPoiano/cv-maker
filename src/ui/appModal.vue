@@ -50,26 +50,28 @@ const props = defineProps({
 </template>
 
 <style scoped>
-.header,
-.footer {
-	margin: calc(var(--_padding) * -1);
-	padding: var(--_padding);
-	background: var(--surface-container-low);
-}
-
-.header {
-	margin-bottom: 1rem;
-
-	&:deep(h3) {
-		margin-bottom: 0 !important;
+@layer components {
+	.header,
+	.footer {
+		margin: calc(var(--_padding) * -1);
+		padding: var(--_padding);
+		background: var(--surface-container-low);
 	}
-}
 
-.footer {
-	margin-top: 1rem;
-	gap: 0.5rem;
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
+	.header {
+		margin-bottom: 1rem;
+
+		&:deep(h3) {
+			margin-bottom: 0;
+		}
+	}
+
+	.footer {
+		margin-top: 1rem;
+		gap: 0.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+	}
 }
 </style>

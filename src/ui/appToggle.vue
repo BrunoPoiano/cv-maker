@@ -48,85 +48,87 @@ function changeCheckBox() {
 </template>
 
 <style scoped>
-.toggle {
-	--_bg: var(--primary);
+@layer components {
+	.toggle {
+		--_bg: var(--primary);
 
-	display: flex;
-	gap: 0.5rem;
-	align-items: Center;
-	width: fit-content;
+		display: flex;
+		gap: 0.5rem;
+		align-items: Center;
+		width: fit-content;
 
-	--_swith-height: 24px;
+		--_swith-height: 24px;
 
-	span[data-check='true'] {
-		color: var(--_bg);
-	}
-
-	.switch {
-		position: relative;
-		display: inline-block;
-		width: 60px;
-		height: var(--_swith-height);
-
-		input {
-			opacity: 0;
-			width: 0;
-			height: 0;
+		span[data-check='true'] {
+			color: var(--_bg);
 		}
 
-		.slider {
-			position: absolute;
-			cursor: pointer;
-			inset: 0;
-			background-color: #ccc;
-			-webkit-transition: 400ms ease-in-out;
-			transition: 400ms ease-in-out;
+		.switch {
+			position: relative;
+			display: inline-block;
+			width: 60px;
+			height: var(--_swith-height);
 
-			&:before {
+			input {
+				opacity: 0;
+				width: 0;
+				height: 0;
+			}
+
+			.slider {
 				position: absolute;
-				content: '';
-				height: calc(var(--_swith-height) - 10px);
-				background-color: var(--_bg);
-				aspect-ratio: 1;
-				left: 4px;
-				bottom: 5px;
+				cursor: pointer;
+				inset: 0;
+				background-color: #ccc;
 				-webkit-transition: 400ms ease-in-out;
 				transition: 400ms ease-in-out;
+
+				&:before {
+					position: absolute;
+					content: '';
+					height: calc(var(--_swith-height) - 10px);
+					background-color: var(--_bg);
+					aspect-ratio: 1;
+					left: 4px;
+					bottom: 5px;
+					-webkit-transition: 400ms ease-in-out;
+					transition: 400ms ease-in-out;
+				}
 			}
-		}
 
-		&:hover:not(:disabled) input:checked + .slider {
-			--hover-bg-adjusted: light-dark(
-				hsl(from var(--_bg) h 80% calc(l - 8)),
-				hsl(from var(--_bg) h s calc(l + 15))
-			);
+			&:hover:not(:disabled) input:checked + .slider {
+				--hover-bg-adjusted: light-dark(
+					hsl(from var(--_bg) h 80% calc(l - 8)),
+					hsl(from var(--_bg) h s calc(l + 15))
+				);
 
-			background: var(--hover-bg-adjusted);
-		}
+				background: var(--hover-bg-adjusted);
+			}
 
-		input:checked + .slider {
-			background-color: var(--_bg);
-		}
+			input:checked + .slider {
+				background-color: var(--_bg);
+			}
 
-		input:focus + .slider {
-			box-shadow: 0 0 1px var(--_bg);
-		}
+			input:focus + .slider {
+				box-shadow: 0 0 1px var(--_bg);
+			}
 
-		input:checked + .slider:before {
-			--_new-position: calc(var(--_swith-height) + 15px);
-			-webkit-transform: translateX(var(--_new-position));
-			-ms-transform: translateX(var(--_new-position));
-			transform: translateX(var(--_new-position));
+			input:checked + .slider:before {
+				--_new-position: calc(var(--_swith-height) + 15px);
+				-webkit-transform: translateX(var(--_new-position));
+				-ms-transform: translateX(var(--_new-position));
+				transform: translateX(var(--_new-position));
 
-			background-color: white;
-		}
+				background-color: white;
+			}
 
-		.slider.round {
-			border-radius: var(--border-radius);
-		}
+			.slider.round {
+				border-radius: var(--border-radius);
+			}
 
-		.slider.round:before {
-			border-radius: 50%;
+			.slider.round:before {
+				border-radius: 50%;
+			}
 		}
 	}
 }

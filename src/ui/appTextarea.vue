@@ -60,37 +60,39 @@ function defineHeight() {
 </template>
 
 <style scoped>
-textarea[data-error='true'] {
-	outline: 1px solid var(--red) !important;
-}
+@layer components {
+	.content {
+		display: grid;
+		gap: 0.5rem;
 
-textarea[data-cvTextArea] {
-	font-family: inherit !important;
-	width: 100% !important;
-	padding: 0px !important;
-	margin: 0px !important;
-	border: none;
-	color: inherit;
-	border-radius: var(--cv-border-radius) !important;
-	background: var(--background) !important;
-}
+		label {
+			text-transform: capitalize;
+		}
 
-.content {
-	display: grid;
-	gap: 0.5rem;
-
-	label {
-		text-transform: capitalize;
+		textarea {
+			border: 1px solid var(--outline-variant);
+			border-radius: var(--border-radius);
+			corner-shape: squircle;
+			padding: 0.8rem;
+			min-height: 241px;
+			background: var(--surface-bright);
+			font-size: var(--font-size-base);
+		}
 	}
 
-	textarea {
-		border: 1px solid var(--outline-variant);
-		border-radius: var(--border-radius);
-		corner-shape: squircle;
-		padding: 0.8rem;
-		min-height: 241px;
-		background: var(--surface-bright);
-		font-size: var(--font-size-base);
+	textarea[data-error='true'] {
+		outline: 1px solid var(--red);
+	}
+
+	textarea[data-cvTextArea] {
+		font-family: inherit;
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+		border: none;
+		color: inherit;
+		border-radius: var(--cv-border-radius);
+		background: var(--background);
 	}
 }
 </style>

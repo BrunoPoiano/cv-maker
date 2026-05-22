@@ -51,7 +51,7 @@ export function generateDate({
 			? Translate['present'][language]
 			: ''
 
-	return `${startDate}${endDate ? ' - ' + endDate : ''}`.trim()
+	return [startDate, endDate].join(' - ')
 }
 
 export function fixDate(
@@ -68,10 +68,7 @@ export function fixDate(
 			month: dateFormat,
 			year: 'numeric'
 		})
-		.split(' ')
-		.join('/')
-		.replace(/\/de/g, '')
-		.replace('.', '')
+		.replace(' ', '/')
 }
 
 function getYearsBetween(
