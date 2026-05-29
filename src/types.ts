@@ -154,6 +154,15 @@ export type Curriculum = {
 	AcademicBackground: AcademicBackground
 }
 
+export type DefaultConfig = {
+	Header: RemoveValue<Header>
+	Contact: RemoveValue<Contact>
+	Summary: RemoveValue<Summary>
+	CoreSkills: RemoveValue<CoreSkills>
+	Experience: RemoveValue<Experience>
+	AcademicBackground: RemoveValue<AcademicBackground>
+}
+
 export type HasShow = keyof Pick<
 	Curriculum,
 	{
@@ -173,3 +182,15 @@ export type MenuModalItem = {
 	label: string
 	backgroundColor?: string
 }
+
+type RemoveValue<T> = T extends { value: Array<unknown> }
+	? Omit<T, 'value'>
+	: T extends { value: object }
+		? T['value'] extends Record<string, unknown>
+			? Omit<T, 'value'>
+			: Omit<T, 'value'> & { value: RemoveValue<T['value']> }
+		: T extends object
+			? {
+					[K in keyof T as K extends 'value' ? never : K]: RemoveValue<T[K]>
+				}
+			: T

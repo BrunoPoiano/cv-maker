@@ -1,7 +1,7 @@
 import type { LocalStorageKeys } from '@/types'
 
 type LocalStorageProps<T> = {
-	key: LocalStorageKeys
+	key: LocalStorageKeys | (string & {})
 	initialValue: T
 }
 

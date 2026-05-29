@@ -1,11 +1,13 @@
 import { CurriculumConst } from '@/constants/curriculum'
 import { curriculumOrderArray } from '@/constants/curriculumOrder'
+import { DefaultConfigConst } from '@/constants/defaultConfig'
 import { fontSize } from '@/constants/font-size'
 import { languages } from '@/constants/language'
 import { dateStyle, monthOptions } from '@/constants/monthOptions'
 import { textAlign } from '@/constants/text-align'
 import { generateKey } from '@/helpers/generateKey'
-import type { Curriculum, Experience } from '@/types'
+import { defaultConfigStore } from '@/stores/defaultConfig'
+import type { Curriculum, DefaultConfig, Experience } from '@/types'
 
 import {
 	isBooleanOrDefault,
@@ -20,6 +22,7 @@ import {
 
 export function parseCurriculum(value: unknown): Curriculum {
 	const cv = CurriculumConst()
+	const defaultConfig = defaultConfigStore.get()
 
 	if (!isObject(value)) {
 		return cv
@@ -62,9 +65,13 @@ export function parseCurriculum(value: unknown): Curriculum {
 				size: isOneOforDefault(
 					value.Header.UserName.size,
 					fontSize,
-					'--font-size-xl'
+					defaultConfig.value.Header.UserName.size
 				),
-				align: isOneOforDefault(value.Header.UserName.align, textAlign, 'start')
+				align: isOneOforDefault(
+					value.Header.UserName.align,
+					textAlign,
+					defaultConfig.value.Header.UserName.align
+				)
 			}
 			if (isObject(value.Header.Role)) {
 				cv.Header.Role = {
@@ -72,22 +79,33 @@ export function parseCurriculum(value: unknown): Curriculum {
 					size: isOneOforDefault(
 						value.Header.Role.size,
 						fontSize,
-						'--font-size-lg'
+						defaultConfig.value.Header.Role.size
 					),
-					align: isOneOforDefault(value.Header.Role.align, textAlign, 'start')
+					align: isOneOforDefault(
+						value.Header.Role.align,
+						textAlign,
+						defaultConfig.value.Header.Role.align
+					)
 				}
 			}
 		}
 	}
 
 	if (isObject(value.Contact) && isObject(value.Contact.value)) {
-		cv.Contact.sideBySide = isBooleanOrDefault(value.Contact.sideBySide, true)
+		cv.Contact.sideBySide = isBooleanOrDefault(
+			value.Contact.sideBySide,
+			defaultConfig.value.Contact.sideBySide
+		)
 		cv.Contact.size = isOneOforDefault(
 			value.Contact.size,
 			fontSize,
-			'--font-size-sm'
+			defaultConfig.value.Contact.size
 		)
-		cv.Contact.align = isOneOforDefault(value.Contact.align, textAlign, 'start')
+		cv.Contact.align = isOneOforDefault(
+			value.Contact.align,
+			textAlign,
+			defaultConfig.value.Contact.align
+		)
 
 		type ContactValue = keyof Curriculum['Contact']['value']
 
@@ -108,12 +126,15 @@ export function parseCurriculum(value: unknown): Curriculum {
 		cv.CoreSkills.size = isOneOforDefault(
 			value.CoreSkills.size,
 			fontSize,
-			'--font-size-sm'
+			defaultConfig.value.CoreSkills.size
 		)
-		cv.CoreSkills.show = isBooleanOrDefault(value.CoreSkills.show, true)
+		cv.CoreSkills.show = isBooleanOrDefault(
+			value.CoreSkills.show,
+			defaultConfig.value.CoreSkills.show
+		)
 		cv.CoreSkills.sideBySide = isBooleanOrDefault(
 			value.CoreSkills.sideBySide,
-			false
+			defaultConfig.value.CoreSkills.sideBySide
 		)
 
 		if (isObject(value.CoreSkills.value)) {
@@ -136,9 +157,12 @@ export function parseCurriculum(value: unknown): Curriculum {
 		cv.Summary.size = isOneOforDefault(
 			value.Summary.size,
 			fontSize,
-			'--font-size-sm'
+			defaultConfig.value.Summary.size
 		)
-		cv.Summary.show = isBooleanOrDefault(value.Summary.show, true)
+		cv.Summary.show = isBooleanOrDefault(
+			value.Summary.show,
+			defaultConfig.value.Summary.show
+		)
 		cv.Summary.smallText = isStringOrDefault(value.Summary.smallText, '')
 
 		if (Array.isArray(value.Summary.value)) {
@@ -155,18 +179,18 @@ export function parseCurriculum(value: unknown): Curriculum {
 		cv.Experience.show = isBooleanOrDefault(value.Experience.show, true)
 		cv.Experience.sideBySide = isBooleanOrDefault(
 			value.Experience.sideBySide,
-			false
+			defaultConfig.value.Experience.sideBySide
 		)
 		cv.Experience.dateMonth = isOneOforDefault(
 			value.Experience.dateMonth,
 			monthOptions,
-			'2-digit'
+			defaultConfig.value.Experience.dateMonth
 		)
 
 		cv.Experience.dateStyle = isOneOforDefault(
 			value.Experience.dateStyle,
 			dateStyle,
-			'date'
+			defaultConfig.value.Experience.dateStyle
 		)
 
 		if (isObject(value.Experience.size)) {
@@ -174,17 +198,17 @@ export function parseCurriculum(value: unknown): Curriculum {
 				title: isOneOforDefault(
 					value.Experience.size.title,
 					fontSize,
-					'--font-size-base'
+					defaultConfig.value.Experience.size.title
 				),
 				subTitle: isOneOforDefault(
 					value.Experience.size.subTitle,
 					fontSize,
-					'--font-size-sm'
+					defaultConfig.value.Experience.size.subTitle
 				),
 				description: isOneOforDefault(
 					value.Experience.size.description,
 					fontSize,
-					'--font-size-sm'
+					defaultConfig.value.Experience.size.description
 				)
 			}
 		}
@@ -223,23 +247,23 @@ export function parseCurriculum(value: unknown): Curriculum {
 	if (isObject(value.AcademicBackground)) {
 		cv.AcademicBackground.show = isBooleanOrDefault(
 			value.AcademicBackground.show,
-			true
+			defaultConfig.value.AcademicBackground.show
 		)
 
 		cv.AcademicBackground.dateMonth = isOneOforDefault(
 			value.AcademicBackground.dateMonth,
 			monthOptions,
-			'2-digit'
+			defaultConfig.value.AcademicBackground.dateMonth
 		)
 		cv.AcademicBackground.dateStyle = isOneOforDefault(
 			value.AcademicBackground.dateStyle,
 			dateStyle,
-			'date'
+			defaultConfig.value.AcademicBackground.dateStyle
 		)
 		cv.AcademicBackground.size = isOneOforDefault(
 			value.AcademicBackground.size,
 			fontSize,
-			'--font-size-sm'
+			defaultConfig.value.AcademicBackground.size
 		)
 
 		if (Array.isArray(value.AcademicBackground.value)) {
@@ -310,4 +334,132 @@ export function parseCurriculumToSave(value: Array<Curriculum>) {
 
 	console.log({ newVcs })
 	return newVcs
+}
+
+export function parseDefaultConfig(value: unknown): DefaultConfig {
+	const cv = DefaultConfigConst()
+
+	if (!isObject(value)) {
+		return cv
+	}
+
+	if (isObject(value.Header)) {
+		if (isObject(value.Header.UserName)) {
+			cv.Header.UserName = {
+				size: isOneOforDefault(
+					value.Header.UserName.size,
+					fontSize,
+					'--font-size-xl'
+				),
+				align: isOneOforDefault(value.Header.UserName.align, textAlign, 'start')
+			}
+			if (isObject(value.Header.Role)) {
+				cv.Header.Role = {
+					size: isOneOforDefault(
+						value.Header.Role.size,
+						fontSize,
+						'--font-size-lg'
+					),
+					align: isOneOforDefault(value.Header.Role.align, textAlign, 'start')
+				}
+			}
+		}
+	}
+
+	if (isObject(value.Contact) && isObject(value.Contact.value)) {
+		cv.Contact.sideBySide = isBooleanOrDefault(value.Contact.sideBySide, true)
+		cv.Contact.size = isOneOforDefault(
+			value.Contact.size,
+			fontSize,
+			'--font-size-sm'
+		)
+		cv.Contact.align = isOneOforDefault(value.Contact.align, textAlign, 'start')
+	}
+
+	if (isObject(value.CoreSkills)) {
+		cv.CoreSkills.size = isOneOforDefault(
+			value.CoreSkills.size,
+			fontSize,
+			'--font-size-sm'
+		)
+		cv.CoreSkills.show = isBooleanOrDefault(value.CoreSkills.show, true)
+		cv.CoreSkills.sideBySide = isBooleanOrDefault(
+			value.CoreSkills.sideBySide,
+			false
+		)
+	}
+
+	if (isObject(value.Summary)) {
+		cv.Summary.size = isOneOforDefault(
+			value.Summary.size,
+			fontSize,
+			'--font-size-sm'
+		)
+		cv.Summary.show = isBooleanOrDefault(value.Summary.show, true)
+		cv.Summary.smallText = isStringOrDefault(value.Summary.smallText, '')
+	}
+
+	if (isObject(value.Experience)) {
+		cv.Experience.show = isBooleanOrDefault(value.Experience.show, true)
+		cv.Experience.sideBySide = isBooleanOrDefault(
+			value.Experience.sideBySide,
+			false
+		)
+		cv.Experience.dateMonth = isOneOforDefault(
+			value.Experience.dateMonth,
+			monthOptions,
+			'2-digit'
+		)
+
+		cv.Experience.dateStyle = isOneOforDefault(
+			value.Experience.dateStyle,
+			dateStyle,
+			'date'
+		)
+
+		if (isObject(value.Experience.size)) {
+			cv.Experience.size = {
+				title: isOneOforDefault(
+					value.Experience.size.title,
+					fontSize,
+					'--font-size-base'
+				),
+				subTitle: isOneOforDefault(
+					value.Experience.size.subTitle,
+					fontSize,
+					'--font-size-sm'
+				),
+				description: isOneOforDefault(
+					value.Experience.size.description,
+					fontSize,
+					'--font-size-sm'
+				)
+			}
+		}
+	}
+
+	if (isObject(value.AcademicBackground)) {
+		cv.AcademicBackground.show = isBooleanOrDefault(
+			value.AcademicBackground.show,
+			true
+		)
+
+		cv.AcademicBackground.dateMonth = isOneOforDefault(
+			value.AcademicBackground.dateMonth,
+			monthOptions,
+			'2-digit'
+		)
+		cv.AcademicBackground.dateStyle = isOneOforDefault(
+			value.AcademicBackground.dateStyle,
+			dateStyle,
+			'date'
+		)
+		cv.AcademicBackground.size = isOneOforDefault(
+			value.AcademicBackground.size,
+			fontSize,
+			'--font-size-sm'
+		)
+	}
+
+	return cv
 }

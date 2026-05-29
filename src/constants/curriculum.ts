@@ -1,6 +1,9 @@
+import { defaultConfigStore } from '@/stores/defaultConfig'
 import type { Curriculum } from '@/types'
 
 export function CurriculumConst(): Curriculum {
+	const defaultConfig = defaultConfigStore.get()
+
 	return {
 		Settings: {
 			language: 'en-us',
@@ -20,20 +23,16 @@ export function CurriculumConst(): Curriculum {
 		},
 		Header: {
 			UserName: {
-				value: 'Full Name',
-				size: '--font-size-xl',
-				align: 'start'
+				...defaultConfig.value.Header.UserName,
+				value: 'Full Name'
 			},
 			Role: {
-				value: 'Role',
-				size: '--font-size-lg',
-				align: 'start'
+				...defaultConfig.value.Header.Role,
+				value: 'Role'
 			}
 		},
 		Contact: {
-			size: '--font-size-sm',
-			sideBySide: false,
-			align: 'start',
+			...defaultConfig.value.Contact,
 			value: {
 				location: {
 					bolder: true,
@@ -62,14 +61,11 @@ export function CurriculumConst(): Curriculum {
 			}
 		},
 		Summary: {
-			smallText: '',
-			value: [],
-			size: '--font-size-sm',
-			show: true
+			...defaultConfig.value.Summary,
+			value: []
 		},
 		CoreSkills: {
-			show: true,
-			sideBySide: false,
+			...defaultConfig.value.CoreSkills,
 			value: {
 				languages: [],
 				apis: [],
@@ -80,26 +76,14 @@ export function CurriculumConst(): Curriculum {
 				backend: [],
 				http_integrations: [],
 				other: []
-			},
-			size: '--font-size-sm'
+			}
 		},
 		Experience: {
-			dateMonth: '2-digit',
-			dateStyle: 'date',
-			show: true,
-			sideBySide: false,
-			size: {
-				title: '--font-size-base',
-				subTitle: '--font-size-sm',
-				description: '--font-size-sm'
-			},
+			...defaultConfig.value.Experience,
 			value: []
 		},
 		AcademicBackground: {
-			dateMonth: '2-digit',
-			dateStyle: 'date',
-			show: true,
-			size: '--font-size-base',
+			...defaultConfig.value.AcademicBackground,
 			value: []
 		}
 	}
