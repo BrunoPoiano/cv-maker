@@ -75,37 +75,39 @@ const { id } = defineProps<Props>()
 </template>
 
 <style scoped>
-.header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 1rem;
-}
-
-form {
-	display: grid;
-	gap: 1rem;
-
-	> .settings {
-		display: grid;
+@layer utilities {
+	.header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		gap: 1rem;
-		grid-template-columns: 10ch 10ch 1fr;
-		align-items: end;
-
-		button {
-			justify-self: end;
-		}
 	}
 
-	> div:not(.settings) {
-		background: var(--surface-container-low);
-		padding: 0.8rem;
-		border-radius: var(--border-radius);
+	form {
+		display: grid;
+		gap: 1rem;
 
-		transition: background 500ms ease;
+		> .settings {
+			display: grid;
+			gap: 1rem;
+			grid-template-columns: 10ch 10ch 1fr;
+			align-items: end;
 
-		&:hover {
-			background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+			button {
+				justify-self: end;
+			}
+		}
+
+		> div:not(.settings) {
+			background: var(--surface-container-low);
+			padding: 0.8rem;
+			border-radius: var(--border-radius);
+
+			transition: background 500ms ease;
+
+			&:hover {
+				background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+			}
 		}
 	}
 }

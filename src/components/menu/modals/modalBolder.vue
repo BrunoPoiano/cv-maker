@@ -39,8 +39,10 @@ const bolder = computed<string>({
 </template>
 
 <style scoped>
-form {
-	display: grid;
-	gap: 1rem;
+@layer utilities {
+	form {
+		display: grid;
+		gap: 1rem;
+	}
 }
 </style>

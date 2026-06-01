@@ -18,22 +18,24 @@ const { marginBottom } = defineProps({
 </template>
 
 <style scoped>
-[data-anchor] {
-	anchor-name: v-bind(anchor);
+@layer components {
+	[data-anchor] {
+		anchor-name: v-bind(anchor);
 
-	> :slotted(button) {
-		display: none;
-	}
+		> :slotted(button) {
+			display: none;
+		}
 
-	&:hover {
-		:slotted(button) {
-			display: grid;
+		&:hover {
+			:slotted(button) {
+				display: grid;
 
-			position: absolute;
-			position-anchor: v-bind(anchor);
-			bottom: anchor(top);
-			right: anchor(right);
-			margin-bottom: v-bind(marginBottom);
+				position: absolute;
+				position-anchor: v-bind(anchor);
+				bottom: anchor(top);
+				right: anchor(right);
+				margin-bottom: v-bind(marginBottom);
+			}
 		}
 	}
 }

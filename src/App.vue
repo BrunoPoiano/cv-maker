@@ -88,14 +88,16 @@ onBeforeMount(() => {
 </template>
 
 <style scoped>
-section {
-	display: grid;
-	grid-template-columns: auto 1fr auto;
+@layer utilities {
+	section {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
 
-	grid-template-areas:
-		'header header header'
-		'menu submenu curriculumMenu'
-		'menu curriculum curriculumMenu'
-		'menu footer footer';
+		grid-template-areas:
+			'header header header'
+			'menu submenu curriculumMenu'
+			'menu curriculum curriculumMenu'
+			'menu footer footer';
+	}
 }
 </style>

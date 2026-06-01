@@ -57,25 +57,27 @@ function savePDF() {
 </template>
 
 <style scoped>
-.header {
-	grid-area: header;
-	box-shadow: var(--shadow-ambient);
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	align-items: center;
-	padding-inline: 0.5rem;
-
-	h1 {
-		margin: 0;
+@layer utilities {
+	.header {
+		grid-area: header;
+		box-shadow: var(--shadow-ambient);
 		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
 		align-items: center;
-		gap: 0.5rem;
-	}
+		padding-inline: 0.5rem;
 
-	> div {
-		display: inline-flex;
-		gap: 1rem;
+		h1 {
+			margin: 0;
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		> div {
+			display: inline-flex;
+			gap: 1rem;
+		}
 	}
 }
 </style>

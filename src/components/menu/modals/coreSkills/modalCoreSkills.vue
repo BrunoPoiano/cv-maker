@@ -101,55 +101,57 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 </template>
 
 <style scoped>
-.skills {
-	display: grid;
-	gap: 0.8rem;
+@layer utilities {
+	.skills {
+		display: grid;
+		gap: 0.8rem;
 
-	span {
-		text-transform: capitalize;
-	}
-}
-
-.settings {
-	display: grid;
-	grid-template-columns: auto 1fr;
-	align-items: center;
-	gap: 1rem;
-	margin-bottom: 1rem;
-}
-
-form {
-	display: grid;
-	gap: 1rem;
-
-	> div {
-		background: var(--surface-container-low);
-		padding: 0.8rem;
-		border-radius: var(--border-radius);
-
-		transition: background 500ms ease;
-
-		&:hover {
-			background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+		span {
+			text-transform: capitalize;
 		}
 	}
-}
 
-.header {
-	display: grid;
-	grid-template-columns: 1fr auto;
-	align-items: center;
-}
-
-.header-items {
-	display: grid;
-	grid-template-columns: 1fr auto;
-	align-items: center;
-
-	> div {
-		display: flex;
+	.settings {
+		display: grid;
+		grid-template-columns: auto 1fr;
 		align-items: center;
-		gap: 0.5ch;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	form {
+		display: grid;
+		gap: 1rem;
+
+		> div {
+			background: var(--surface-container-low);
+			padding: 0.8rem;
+			border-radius: var(--border-radius);
+
+			transition: background 500ms ease;
+
+			&:hover {
+				background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+			}
+		}
+	}
+
+	.header {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		align-items: center;
+	}
+
+	.header-items {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		align-items: center;
+
+		> div {
+			display: flex;
+			align-items: center;
+			gap: 0.5ch;
+		}
 	}
 }
 </style>

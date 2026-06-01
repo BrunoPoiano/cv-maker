@@ -17,5 +17,6 @@ export const localStorageKeys = [
 	'theme',
 	'bolder',
 	'readonly',
-	'hue'
+	'hue',
+	'defaultConfig'
 ] as const

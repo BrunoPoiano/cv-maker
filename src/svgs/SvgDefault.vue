@@ -36,11 +36,13 @@
 </template>
 
 <style scoped>
-svg g path {
-	fill: light-dark(#000, #fff) !important;
+@layer utilities {
+	svg g path {
+		fill: light-dark(#000, #fff);
 
-	&:hover {
-		fill: var(--primary) !important;
+		&:hover {
+			fill: var(--primary);
+		}
 	}
 }
 </style>

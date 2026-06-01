@@ -17,26 +17,28 @@ defineOptions({
 </template>
 
 <style scoped>
-small {
-	font-weight: bolder;
-	display: inline-block;
-	letter-spacing: initial;
-	height: 2ch;
+@layer components {
+	small {
+		font-weight: bolder;
+		display: inline-block;
+		letter-spacing: initial;
+		height: 2ch;
 
-	&[data-type='attention'] {
-		color: var(--orange);
-	}
+		&[data-type='attention'] {
+			color: var(--orange);
+		}
 
-	&[data-type='danger'] {
-		color: var(--red);
-	}
+		&[data-type='danger'] {
+			color: var(--red);
+		}
 
-	&[data-type='success'] {
-		color: var(--green);
-	}
+		&[data-type='success'] {
+			color: var(--green);
+		}
 
-	&[data-type='primary'] {
-		color: var(--blue);
+		&[data-type='primary'] {
+			color: var(--blue);
+		}
 	}
 }
 </style>

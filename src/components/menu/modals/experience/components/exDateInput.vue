@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { Temporal } from '@js-temporal/polyfill'
 import { ref } from 'vue'
 
 import Input from '@/ui/appInput.vue'
 
-const model = defineModel<Date | string | null>()
+const model = defineModel<Temporal.PlainDate | string | null>()
 
 defineOptions({
 	inheritAttrs: false
@@ -11,33 +12,30 @@ defineOptions({
 
 const date = ref(fixDate(model.value))
 
-function generateDateString(date: Date) {
+function generateDateString(date: Temporal.PlainDate) {
 	return (
-		date.getFullYear() +
+		date.year +
 		'-' +
-		String(date.getMonth() + 1).padStart(2, '0') +
+		String(date.month).padStart(2, '0') +
 		'-' +
-		String(date.getDate()).padStart(2, '0')
+		String(date.day).padStart(2, '0')
 	)
 }
 
-function fixDate(date?: Date | string | null) {
+function fixDate(date?: Temporal.PlainDate | string | null) {
 	if (typeof date === 'string') {
-		const parsedDate = new Date(date)
-		if (!isNaN(parsedDate.getTime())) {
-			return generateDateString(parsedDate)
-		}
-		return null
+		const parsedDate = Temporal.PlainDate.from(date)
+		return generateDateString(parsedDate)
 	}
 
-	if (date instanceof Date) {
+	if (date instanceof Temporal.PlainDate) {
 		return generateDateString(date)
 	}
 	return null
 }
 
 function changeDate() {
-	model.value = date.value ? new Date(date.value) : null
+	model.value = date.value ? Temporal.PlainDate.from(date.value) : null
 }
 </script>
 

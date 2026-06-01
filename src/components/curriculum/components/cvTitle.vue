@@ -15,13 +15,15 @@ const props = defineProps<Props>()
 </template>
 
 <style scoped>
-h3 {
-	font-size: var(--font-size-lg);
-	font-weight: var(--font-weight);
-	letter-spacing: 0.099em;
-	line-height: 1.2;
-	text-transform: uppercase;
-	margin: 0;
-	margin-bottom: calc((var(--_a4-gap) * 0.6));
+@layer utilities {
+	h3 {
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight);
+		letter-spacing: 0.099em;
+		line-height: 1.2;
+		text-transform: uppercase;
+		margin: 0;
+		margin-bottom: calc((var(--_a4-gap) * 0.6));
+	}
 }
 </style>

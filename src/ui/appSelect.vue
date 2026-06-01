@@ -62,54 +62,56 @@ function selectWidth(): CSSProperties {
 </template>
 
 <style scoped>
-.content {
-	display: grid;
-	gap: 0.5rem;
+@layer components {
+	.content {
+		display: grid;
+		gap: 0.5rem;
 
-	label {
-		text-transform: capitalize;
-	}
-
-	select {
-		--bg: var(--surface-bright);
-		--_padding-block: 0.5rem;
-		--_padding-inline: calc(var(--_padding-block) * 2);
-
-		cursor: pointer;
-		font-size: var(--font-size-base);
-		font-weight: 500;
-		border: 1px solid var(--outline-variant);
-		border-radius: var(--border-radius);
-		corner-shape: squircle;
-		background: var(--bg);
-		max-width: 20ch;
-		padding-inline: var(--_padding-inline);
-		padding-block: var(--_padding-block);
-
-		transition:
-			background 500ms,
-			transform 200ms ease-out;
-
-		&:hover:not(:disabled) {
-			--hover-bg-adjusted: light-dark(
-				hsl(from var(--hover-bg, var(--bg)) h 80% calc(l - 7)),
-				hsl(from var(--hover-bg, var(--bg)) h s calc(l + 15))
-			);
-
-			background: var(--hover-bg-adjusted);
+		label {
+			text-transform: capitalize;
 		}
 
-		&:disabled {
-			opacity: 60%;
-			cursor: initial;
-		}
+		select {
+			--bg: var(--surface-bright);
+			--_padding-block: 0.5rem;
+			--_padding-inline: calc(var(--_padding-block) * 2);
 
-		&:active:not(:disabled) {
-			transform: scale(0.98);
-		}
+			cursor: pointer;
+			font-size: var(--font-size-base);
+			font-weight: 500;
+			border: 1px solid var(--outline-variant);
+			border-radius: var(--border-radius);
+			corner-shape: squircle;
+			background: var(--bg);
+			max-width: 20ch;
+			padding-inline: var(--_padding-inline);
+			padding-block: var(--_padding-block);
 
-		&:focus-visible {
-			outline-color: var(--focus-outline) !important;
+			transition:
+				background 500ms,
+				transform 200ms ease-out;
+
+			&:hover:not(:disabled) {
+				--hover-bg-adjusted: light-dark(
+					hsl(from var(--hover-bg, var(--bg)) h 80% calc(l - 7)),
+					hsl(from var(--hover-bg, var(--bg)) h s calc(l + 15))
+				);
+
+				background: var(--hover-bg-adjusted);
+			}
+
+			&:disabled {
+				opacity: 60%;
+				cursor: initial;
+			}
+
+			&:active:not(:disabled) {
+				transform: scale(0.98);
+			}
+
+			&:focus-visible {
+				outline-color: var(--focus-outline);
+			}
 		}
 	}
 }

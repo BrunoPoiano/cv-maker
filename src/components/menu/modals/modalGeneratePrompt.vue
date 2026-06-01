@@ -140,34 +140,36 @@ function copyPrompt() {
 </template>
 
 <style scoped>
-.header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.options {
-	display: flex;
-	gap: 1rem;
-	align-items: center;
-	margin-bottom: 1rem;
-}
-
-.content {
-	display: grid;
-	gap: 1rem;
-
-	.prompt-preview {
-		display: grid;
-
-		pre {
-			margin-bottom: 0;
-			max-height: 30ch;
-		}
+@layer utilities {
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 
-	button {
-		place-self: end;
+	.options {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		margin-bottom: 1rem;
+	}
+
+	.content {
+		display: grid;
+		gap: 1rem;
+
+		.prompt-preview {
+			display: grid;
+
+			pre {
+				margin-bottom: 0;
+				max-height: 30ch;
+			}
+		}
+
+		button {
+			place-self: end;
+		}
 	}
 }
 </style>

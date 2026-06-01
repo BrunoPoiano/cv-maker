@@ -5,7 +5,9 @@ import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { CurriculumStore } from '@/stores/curriculumStore'
 import SvgArrow from '@/svgs/svgArrow.vue'
+import type { HasShow } from '@/types'
 import AppButton from '@/ui/appButton.vue'
+import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 const { curriculum } = inject(ProviderKey)!
 
@@ -25,6 +27,16 @@ const curriculumIndex = CurriculumIndexStore.get()
 		<div>
 			<ul>
 				<li v-for="(value, index) in curriculum.Settings.order" :key="value">
+					<AppInput
+						type="checkbox"
+						:divStyle="{ width: '1rem' }"
+						v-if="
+							Object.prototype.hasOwnProperty.call(curriculum[value], 'show')
+						"
+						v-model="curriculum[value as HasShow].show"
+					/>
+					<span v-else :style="{ width: '1rem' }" />
+
 					<AppButton
 						iconButton
 						@click="
@@ -59,9 +71,11 @@ const curriculumIndex = CurriculumIndexStore.get()
 </template>
 
 <style scoped>
-li {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
+@layer utilities {
+	li {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
 }
 </style>

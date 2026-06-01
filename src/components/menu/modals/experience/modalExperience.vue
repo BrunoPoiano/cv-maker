@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Temporal } from '@js-temporal/polyfill'
 import { inject, ref } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
@@ -37,7 +38,7 @@ function newExperience() {
 		id: generateKey(5, 'number'),
 		CompanyName: '',
 		Role: '',
-		StartDate: new Date(),
+		StartDate: Temporal.Now.plainDateISO(),
 		EndDate: null,
 		Description: '',
 		Remote: false
@@ -52,10 +53,10 @@ function deleteExperience(id: string) {
 
 function closeModal() {
 	curriculum.value.Experience.value.sort((cv1, cv2) => {
-		const date1 = new Date(cv1.StartDate).getTime()
-		const date2 = new Date(cv2.StartDate).getTime()
-
-		return date2 - date1
+		if (cv2.StartDate && cv1.StartDate) {
+			return cv2.StartDate.year - cv1.StartDate.year
+		}
+		return 1
 	})
 }
 </script>
@@ -191,65 +192,67 @@ function closeModal() {
 </template>
 
 <style scoped>
-.modalHeader {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	align-items: center;
-	gap: 0.8rem;
-
-	h3 {
+@layer utilities {
+	.modalHeader {
 		display: grid;
-	}
-
-	button {
-		place-self: end;
-		align-self: start;
-	}
-}
-
-form {
-	display: grid;
-	gap: 1rem;
-
-	.align {
-		display: grid;
-		gap: 0.5rem;
+		grid-template-columns: 1fr 1fr;
 		align-items: center;
-		grid-template-columns: 1fr auto auto;
-	}
-
-	.size {
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr 1fr;
 		gap: 0.8rem;
-	}
 
-	.job {
-		display: grid;
-		gap: 0.8rem;
-		background: var(--surface-container-low);
-
-		padding: 0.8rem;
-		border-radius: var(--border-radius);
-
-		transition: background 500ms ease;
-
-		> div:not(.desc) {
+		h3 {
 			display: grid;
-			grid-template-columns: 1fr 1fr;
+		}
+
+		button {
+			place-self: end;
+			align-self: start;
+		}
+	}
+
+	form {
+		display: grid;
+		gap: 1rem;
+
+		.align {
+			display: grid;
+			gap: 0.5rem;
+			align-items: center;
+			grid-template-columns: 1fr auto auto;
+		}
+
+		.size {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr 1fr;
 			gap: 0.8rem;
 		}
 
-		> div:has(button) button {
-			justify-self: end;
-		}
+		.job {
+			display: grid;
+			gap: 0.8rem;
+			background: var(--surface-container-low);
 
-		.desc {
-			grid-column: 1 / -1;
-		}
+			padding: 0.8rem;
+			border-radius: var(--border-radius);
 
-		&:hover {
-			background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+			transition: background 500ms ease;
+
+			> div:not(.desc) {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 0.8rem;
+			}
+
+			> div:has(button) button {
+				justify-self: end;
+			}
+
+			.desc {
+				grid-column: 1 / -1;
+			}
+
+			&:hover {
+				background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+			}
 		}
 	}
 }

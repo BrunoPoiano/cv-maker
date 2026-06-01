@@ -98,20 +98,22 @@ function importFile(e: Event) {
 </template>
 
 <style scoped>
-form {
-	display: grid;
-	gap: 1rem;
-}
+@layer utilities {
+	form {
+		display: grid;
+		gap: 1rem;
+	}
 
-pre {
-	overflow-y: auto;
-	max-height: 60ch;
-	white-space: normal;
-}
+	pre {
+		overflow-y: auto;
+		max-height: 60ch;
+		white-space: normal;
+	}
 
-.actions {
-	display: flex;
-	justify-content: flex-end;
-	gap: 1rem;
+	.actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: 1rem;
+	}
 }
 </style>

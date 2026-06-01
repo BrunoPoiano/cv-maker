@@ -63,26 +63,28 @@ const { id } = defineProps<Props>()
 </template>
 
 <style scoped>
-form {
-	display: grid;
-	gap: 2rem;
-
-	> div {
+@layer utilities {
+	form {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-		background: var(--surface-container-low);
-		padding: 0.8rem;
-		border-radius: var(--border-radius);
+		gap: 2rem;
 
-		transition: background 500ms ease;
+		> div {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1rem;
+			background: var(--surface-container-low);
+			padding: 0.8rem;
+			border-radius: var(--border-radius);
 
-		&:hover {
-			background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
-		}
+			transition: background 500ms ease;
 
-		> div:has(input) {
-			grid-area: 2 / span 2;
+			&:hover {
+				background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+			}
+
+			> div:has(input) {
+				grid-area: 2 / span 2;
+			}
 		}
 	}
 }

@@ -87,15 +87,17 @@ const rows = computed(() =>
 </template>
 
 <style>
-.summary {
-	display: grid;
-	gap: calc((var(--_a4-gap) * 0.4));
+@layer utilities {
+	.summary {
+		display: grid;
+		gap: calc((var(--_a4-gap) * 0.4));
 
-	p:nth-child(1) {
-		margin-top: calc(((var(--_a4-gap) * 0.2) * -1));
+		p:nth-child(1) {
+			margin-top: calc(((var(--_a4-gap) * 0.2) * -1));
 
-		text-box-trim: trim-end;
-		text-box-edge: cap alphabetic;
+			text-box-trim: trim-end;
+			text-box-edge: cap alphabetic;
+		}
 	}
 }
 </style>

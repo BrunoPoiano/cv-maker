@@ -69,16 +69,18 @@ function isJsonString() {
 </template>
 
 <style scoped>
-form {
-	display: grid;
-	gap: 1rem;
-}
+@layer utilities {
+	form {
+		display: grid;
+		gap: 1rem;
+	}
 
-.actions {
-	margin-top: 1rem;
+	.actions {
+		margin-top: 1rem;
 
-	display: flex;
-	justify-content: flex-end;
-	gap: 1rem;
+		display: flex;
+		justify-content: flex-end;
+		gap: 1rem;
+	}
 }
 </style>

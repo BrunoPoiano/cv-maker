@@ -151,74 +151,76 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 </template>
 
 <style scoped>
-.experience {
-	display: grid;
-	gap: calc((var(--_a4-gap) * 0.8));
+@layer utilities {
+	.experience {
+		display: grid;
+		gap: calc((var(--_a4-gap) * 0.8));
 
-	.job-title {
-		margin-bottom: calc((var(--_a4-gap) * 0.4));
-		letter-spacing: 0.06em;
+		.job-title {
+			margin-bottom: calc((var(--_a4-gap) * 0.4));
+			letter-spacing: 0.06em;
 
-		.title,
-		.sub-title {
-			color: light-dark(#000, #fff);
-			display: block;
-			text-transform: capitalize;
-			font-size: var(--font-size-base);
-			font-weight: var(--font-weight);
+			.title,
+			.sub-title {
+				color: light-dark(#000, #fff);
+				display: block;
+				text-transform: capitalize;
+				font-size: var(--font-size-base);
+				font-weight: var(--font-weight);
 
-			text-box-trim: trim-end;
-			text-box-edge: cap alphabetic;
-		}
-
-		.title {
-			margin-bottom: calc((var(--_a4-gap) * 0.5));
-
-			.inputs {
-				display: grid;
-				grid-template-columns: auto 1fr;
-				gap: 1ch;
-			}
-		}
-
-		.sub-title {
-			color: var(--on-surface-variant);
-			display: flex;
-			align-items: center;
-			gap: 0.5ch;
-
-			> span {
-				text-box-trim: trim-both;
+				text-box-trim: trim-end;
 				text-box-edge: cap alphabetic;
 			}
 
-			.date {
-				display: grid;
-				grid-template-columns: auto 1fr;
-				gap: 1ch;
-			}
-		}
+			.title {
+				margin-bottom: calc((var(--_a4-gap) * 0.5));
 
-		&[data-side-by-side='true'] {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			flex-wrap: wrap;
-
-			> .title {
-				margin-bottom: 0;
+				.inputs {
+					display: grid;
+					grid-template-columns: auto 1fr;
+					gap: 1ch;
+				}
 			}
 
-			> .sub-title {
-				flex-direction: row-reverse;
+			.sub-title {
+				color: var(--on-surface-variant);
+				display: flex;
+				align-items: center;
+				gap: 0.5ch;
+
+				> span {
+					text-box-trim: trim-both;
+					text-box-edge: cap alphabetic;
+				}
+
+				.date {
+					display: grid;
+					grid-template-columns: auto 1fr;
+					gap: 1ch;
+				}
 			}
 		}
 	}
-}
 
-@supports not (text-box-edge: cap alphabetic) {
-	.experience .job-title .title {
-		margin-bottom: 0px !important;
+	[data-side-by-side='true'] {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+
+		> .title {
+			margin-bottom: 0px;
+		}
+
+		> .sub-title {
+			flex-direction: row-reverse;
+		}
+	}
+
+	@supports not (text-box-edge: cap alphabetic) {
+		.experience .job-title .title {
+			margin-bottom: 0px;
+		}
 	}
 }
 </style>

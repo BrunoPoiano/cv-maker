@@ -24,7 +24,9 @@
 	</svg>
 </template>
 <style scoped>
-#SVGRepo_iconCarrier path {
-	stroke: currentColor;
+@layer utilities {
+	#SVGRepo_iconCarrier path {
+		stroke: currentColor;
+	}
 }
 </style>

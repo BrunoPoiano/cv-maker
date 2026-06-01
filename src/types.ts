@@ -1,3 +1,4 @@
+import type { Temporal } from '@js-temporal/polyfill'
 import type { Component, RendererElement, RendererNode, VNode } from 'vue'
 
 import type { localStorageKeys } from '@/keys'
@@ -23,10 +24,6 @@ type Each<T extends string> = {
 	[K in T]: string
 }
 
-type Email = `${string}@${string}`
-type Linkedin = `linkedin.com/in/${string}`
-type GitHub = `github.com/${string}`
-
 export type BoldMatchReturn =
 	| string
 	| (
@@ -46,18 +43,26 @@ type Contact = {
 	align: TextAlign
 	value: {
 		email: {
-			value: Email
+			value: string
 			bolder: boolean
 		}
 		linkedin: {
-			value: Linkedin
+			value: string
 			bolder: boolean
 		}
 		github: {
-			value: GitHub
+			value: string
 			bolder: boolean
 		}
 		location: {
+			value: string
+			bolder: boolean
+		}
+		website: {
+			value: string
+			bolder: boolean
+		}
+		telephone: {
 			value: string
 			bolder: boolean
 		}
@@ -69,8 +74,8 @@ export type Course = {
 	Course: string
 	Diploma: string
 	Institution: string
-	StartDate: Date | null
-	EndDate: Date | null
+	StartDate: Temporal.PlainDate | null
+	EndDate: Temporal.PlainDate | null
 }
 
 type Header = {
@@ -124,8 +129,8 @@ export type Experience = {
 		id: string
 		Role: string
 		CompanyName: string
-		StartDate: Date
-		EndDate: Date | null
+		StartDate: Temporal.PlainDate | null
+		EndDate: Temporal.PlainDate | null
 		Description: Array<string> | string
 		Remote: boolean
 	}>
@@ -149,6 +154,19 @@ export type Curriculum = {
 	AcademicBackground: AcademicBackground
 }
 
+export type DefaultConfig = {
+	[T in keyof Curriculum]: RemoveValue<
+		T extends 'Settings' ? Omit<Curriculum[T], 'language'> : Curriculum[T]
+	>
+}
+
+export type HasShow = keyof Pick<
+	Curriculum,
+	{
+		[K in keyof Curriculum]: Curriculum[K] extends { show: boolean } ? K : never
+	}[keyof Curriculum]
+>
+
 export type CurriculumOrder = Record<
 	keyof Omit<Curriculum, 'Settings'>,
 	Component
@@ -161,3 +179,17 @@ export type MenuModalItem = {
 	label: string
 	backgroundColor?: string
 }
+
+type RemoveValue<T> = T extends readonly unknown[]
+	? T
+	: T extends { value: Array<unknown> }
+		? Omit<T, 'value'>
+		: T extends { value: object }
+			? T['value'] extends Record<string, unknown>
+				? Omit<T, 'value'>
+				: Omit<T, 'value'> & { value: RemoveValue<T['value']> }
+			: T extends object
+				? {
+						[K in keyof T as K extends 'value' ? never : K]: RemoveValue<T[K]>
+					}
+				: T
