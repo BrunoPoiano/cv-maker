@@ -2,6 +2,21 @@ import type { DefaultConfig } from '@/types'
 
 export function DefaultConfigConst(): DefaultConfig {
 	return {
+		Settings: {
+			gap: 1.3,
+			section: {
+				size: '--font-size-base'
+			},
+			margin: 0.8,
+			order: [
+				'Header',
+				'Contact',
+				'Summary',
+				'CoreSkills',
+				'AcademicBackground',
+				'Experience'
+			]
+		},
 		Header: {
 			UserName: {
 				size: '--font-size-lg',

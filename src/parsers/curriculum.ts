@@ -35,8 +35,14 @@ export function parseCurriculum(value: unknown): Curriculum {
 			'en-us'
 		)
 
-		cv.Settings.margin = isNumberOrDefault(value.Settings.margin, 1)
-		cv.Settings.gap = isNumberOrDefault(value.Settings.gap, 1.3)
+		cv.Settings.margin = isNumberOrDefault(
+			value.Settings.margin,
+			defaultConfig.value.Settings.margin
+		)
+		cv.Settings.gap = isNumberOrDefault(
+			value.Settings.gap,
+			defaultConfig.value.Settings.gap
+		)
 
 		if (Array.isArray(value.Settings.order)) {
 			cv.Settings.order = value.Settings.order.reduce<
@@ -53,7 +59,7 @@ export function parseCurriculum(value: unknown): Curriculum {
 			cv.Settings.section.size = isOneOforDefault(
 				value.Settings.section.size,
 				fontSize,
-				'--font-size-md'
+				defaultConfig.value.Settings.section.size
 			)
 		}
 	}
@@ -341,6 +347,30 @@ export function parseDefaultConfig(value: unknown): DefaultConfig {
 
 	if (!isObject(value)) {
 		return cv
+	}
+
+	if (isObject(value.Settings)) {
+		cv.Settings.margin = isNumberOrDefault(value.Settings.margin, 1)
+		cv.Settings.gap = isNumberOrDefault(value.Settings.gap, 1.3)
+
+		if (Array.isArray(value.Settings.order)) {
+			cv.Settings.order = value.Settings.order.reduce<
+				Array<keyof Omit<Curriculum, 'Settings'>>
+			>((acc, item) => {
+				if (isOneOf(item, curriculumOrderArray)) {
+					acc.push(item)
+				}
+				return acc
+			}, [])
+		}
+
+		if (isObject(value.Settings.section)) {
+			cv.Settings.section.size = isOneOforDefault(
+				value.Settings.section.size,
+				fontSize,
+				'--font-size-md'
+			)
+		}
 	}
 
 	if (isObject(value.Header)) {

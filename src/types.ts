@@ -155,12 +155,9 @@ export type Curriculum = {
 }
 
 export type DefaultConfig = {
-	Header: RemoveValue<Header>
-	Contact: RemoveValue<Contact>
-	Summary: RemoveValue<Summary>
-	CoreSkills: RemoveValue<CoreSkills>
-	Experience: RemoveValue<Experience>
-	AcademicBackground: RemoveValue<AcademicBackground>
+	[T in keyof Curriculum]: RemoveValue<
+		T extends 'Settings' ? Omit<Curriculum[T], 'language'> : Curriculum[T]
+	>
 }
 
 export type HasShow = keyof Pick<

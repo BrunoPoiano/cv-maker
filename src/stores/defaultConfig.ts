@@ -39,6 +39,13 @@ export const defaultConfigStore = {
 			key: 'defaultConfig'
 		})
 
+		curriculums.value[curriculumIndex].Settings.gap =
+			defaultConfig.value.Settings.gap
+		curriculums.value[curriculumIndex].Settings.margin =
+			defaultConfig.value.Settings.margin
+		curriculums.value[curriculumIndex].Settings.section.size =
+			defaultConfig.value.Settings.section.size
+
 		curriculums.value[curriculumIndex].Header.UserName.align =
 			defaultConfig.value.Header.UserName.align
 		curriculums.value[curriculumIndex].Header.UserName.size =

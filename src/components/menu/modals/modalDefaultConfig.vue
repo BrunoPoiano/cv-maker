@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { fontSizeSelect } from '@/constants/font-size'
 import { dateStyleSelect, monthOptionsSelect } from '@/constants/monthOptions'
+import { a4gapSelect, marginListSelect } from '@/constants/spacings'
 import { textAlignSelect } from '@/constants/text-align'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { defaultConfigStore } from '@/stores/defaultConfig'
@@ -20,39 +21,67 @@ const curriculumIndex = CurriculumIndexStore.get()
 </script>
 
 <template>
-	<Modal :id="id" closeLabel="close" minWidth="40rem">
+	<Modal :id="id" closeLabel="close">
 		<template #header>
 			<h3>Default Configuration</h3>
 		</template>
 		<form>
 			<div>
-				<div>User Name</div>
+				<div>Settings</div>
 				<Select
-					label="Font Size"
-					:items="fontSizeSelect"
-					v-model="defaultConfig.Header.UserName.size"
+					label="Curriculum Margin"
+					:items="marginListSelect"
+					v-model="defaultConfig.Settings.margin"
 				/>
 				<Select
-					label="Text Align"
-					:items="textAlignSelect"
-					v-model="defaultConfig.Header.UserName.align"
+					label="Curriculum Gap"
+					:items="a4gapSelect"
+					v-model="defaultConfig.Settings.gap"
+				/>
+				<Select
+					label="Section Header"
+					:items="fontSizeSelect"
+					v-model="defaultConfig.Settings.section.size"
 				/>
 			</div>
 			<div>
-				<div>Role</div>
-				<Select
-					label="Font Size"
-					:items="fontSizeSelect"
-					v-model="defaultConfig.Header.Role.size"
-				/>
-				<Select
-					label="Text Align"
-					:items="textAlignSelect"
-					v-model="defaultConfig.Header.Role.align"
-				/>
+				<div>Header</div>
+				<div>
+					<div class="teste">
+						<div>Name</div>
+						<Select
+							label="Font Size"
+							:items="fontSizeSelect"
+							v-model="defaultConfig.Header.UserName.size"
+						/>
+						<Select
+							label="Text Align"
+							:items="textAlignSelect"
+							v-model="defaultConfig.Header.UserName.align"
+						/>
+					</div>
+					<div class="teste">
+						<div>Role</div>
+						<Select
+							label="Font Size"
+							:items="fontSizeSelect"
+							v-model="defaultConfig.Header.Role.size"
+						/>
+						<Select
+							label="Text Align"
+							:items="textAlignSelect"
+							v-model="defaultConfig.Header.Role.align"
+						/>
+					</div>
+				</div>
 			</div>
 			<div>
 				<div>Contact</div>
+				<AppInput
+					type="checkbox"
+					label="Side by Side"
+					v-model="defaultConfig.Contact.sideBySide"
+				/>
 				<Select
 					label="Text Align"
 					:items="textAlignSelect"
@@ -100,7 +129,6 @@ const curriculumIndex = CurriculumIndexStore.get()
 					v-model="defaultConfig.Experience.show"
 				/>
 				<AppInput
-					divStyle="align-self: center"
 					type="checkbox"
 					label="Side by Side"
 					v-model="defaultConfig.Experience.sideBySide"
@@ -176,12 +204,31 @@ const curriculumIndex = CurriculumIndexStore.get()
 		> div {
 			display: grid;
 			gap: 1rem;
-			grid-template-columns: 1fr 1fr 1fr;
 
 			background: var(--surface-container-low);
 
 			padding: 0.8rem;
 			border-radius: var(--border-radius);
+			grid-template-columns: 1fr 1fr 1fr;
+
+			> div:nth-child(1) {
+				grid-area: 1 / span 3;
+			}
+
+			> div:has(.teste) {
+				grid-area: 2 / span 3;
+				display: grid;
+				gap: 1rem;
+
+				padding: 0px;
+				padding-left: 0.8rem;
+			}
+		}
+
+		.teste {
+			display: grid;
+			gap: 1rem;
+			grid-template-columns: 1fr 1fr 1fr;
 
 			> div:nth-child(1) {
 				grid-area: 1 / span 3;
