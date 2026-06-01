@@ -3,13 +3,14 @@ import type { ButtonHTMLAttributes } from 'vue'
 
 type Props =
 	| {
+			modal?: false
+			id?: string
 			type?: ButtonHTMLAttributes['type']
 			background?: string
 			hoverBackground?: string
-			modal?: false
-			id?: string
 			menuButton?: true
 			iconButton?: true
+			fitContent?: true
 	  }
 	| {
 			modal: true
@@ -19,6 +20,7 @@ type Props =
 			hoverBackground?: string
 			menuButton?: true
 			iconButton?: true
+			fitContent?: true
 	  }
 
 const props = defineProps<Props>()
@@ -29,6 +31,7 @@ defineOptions({
 
 <template>
 	<button
+		:data-fit-content="props.fitContent"
 		:data-icon-button="props.iconButton"
 		:data-menu-button="props.menuButton"
 		:command="modal ? 'show-modal' : ''"
@@ -82,6 +85,10 @@ defineOptions({
 	&> :deep(svg) {
 		margin-left: calc(var(--_padding-inline) * -0.5);
 	} */
+
+		&[data-fit-content='true'] {
+			width: fit-content;
+		}
 
 		&:hover:not(:disabled) {
 			color: lch(

@@ -5,6 +5,7 @@ import { a4gapSelect, marginListSelect } from '@/constants/spacings'
 import { textAlignSelect } from '@/constants/text-align'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { defaultConfigStore } from '@/stores/defaultConfig'
+import SvgArrow from '@/svgs/svgArrow.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
@@ -45,9 +46,34 @@ const curriculumIndex = CurriculumIndexStore.get()
 				/>
 			</div>
 			<div>
+				<div>Order</div>
+				<ul>
+					<li
+						v-for="(value, index) in defaultConfig.Settings.order"
+						:key="value"
+					>
+						<AppButton
+							iconButton
+							@click="defaultConfigStore.moveSettingsOrder(index, index - 1)"
+							:disabled="index === 0"
+						>
+							<SvgArrow direction="up" />
+						</AppButton>
+						<AppButton
+							iconButton
+							@click="defaultConfigStore.moveSettingsOrder(index, index + 1)"
+							:disabled="index === defaultConfig.Settings.order.length - 1"
+						>
+							<SvgArrow direction="down" />
+						</AppButton>
+						{{ value }}
+					</li>
+				</ul>
+			</div>
+			<div>
 				<div>Header</div>
 				<div>
-					<div class="teste">
+					<div class="header">
 						<div>Name</div>
 						<Select
 							label="Font Size"
@@ -60,7 +86,7 @@ const curriculumIndex = CurriculumIndexStore.get()
 							v-model="defaultConfig.Header.UserName.align"
 						/>
 					</div>
-					<div class="teste">
+					<div class="header">
 						<div>Role</div>
 						<Select
 							label="Font Size"
@@ -184,12 +210,23 @@ const curriculumIndex = CurriculumIndexStore.get()
 					v-model="defaultConfig.AcademicBackground.dateMonth"
 				/>
 			</div>
-		</form>
 
+			<div class="actions">
+				<AppButton
+					fitContent
+					@click="defaultConfigStore.setDefaultConfig(curriculumIndex)"
+				>
+					set Values to Current Curriculum
+				</AppButton>
+				<AppButton
+					fitContent
+					@click="defaultConfigStore.setDefaultConfigToAll()"
+				>
+					set Values to All Curriculums
+				</AppButton>
+			</div>
+		</form>
 		<template #footer>
-			<AppButton @click="defaultConfigStore.setDefaultConfig(curriculumIndex)">
-				set Values
-			</AppButton>
 			<AppButton @click="defaultConfigStore.save()"> Save </AppButton>
 		</template>
 	</Modal>
@@ -201,37 +238,58 @@ const curriculumIndex = CurriculumIndexStore.get()
 		display: grid;
 		gap: 1rem;
 
+		--_padding: 0.8rem;
+
 		> div {
 			display: grid;
 			gap: 1rem;
+			align-items: start;
 
 			background: var(--surface-container-low);
-
-			padding: 0.8rem;
+			padding: var(--_padding);
 			border-radius: var(--border-radius);
-			grid-template-columns: 1fr 1fr 1fr;
 
-			> div:nth-child(1) {
-				grid-area: 1 / span 3;
+			&:not(.actions, :has(ul)) {
+				grid-template-columns: 1fr 1fr 1fr;
+
+				> div:nth-child(1) {
+					grid-area: 1 / span 3;
+				}
 			}
 
-			> div:has(.teste) {
+			> div:has(.header) {
 				grid-area: 2 / span 3;
 				display: grid;
 				gap: 1rem;
 
 				padding: 0px;
-				padding-left: 0.8rem;
+				padding-left: var(--_padding);
+
+				.header {
+					display: grid;
+					gap: 1rem;
+					grid-template-columns: 1fr 1fr 1fr;
+
+					> div:nth-child(1) {
+						grid-area: 1 / span 3;
+					}
+				}
 			}
 		}
 
-		.teste {
-			display: grid;
+		.actions {
+			display: flex;
 			gap: 1rem;
-			grid-template-columns: 1fr 1fr 1fr;
+			justify-content: center;
+		}
 
-			> div:nth-child(1) {
-				grid-area: 1 / span 3;
+		ul {
+			padding-left: var(--_padding);
+
+			li {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
 			}
 		}
 	}

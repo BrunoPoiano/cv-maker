@@ -1,9 +1,6 @@
 import { defineAsyncComponent } from 'vue'
 
 import type { MenuModalItem } from '@/types'
-const ModalOrder = defineAsyncComponent(
-	() => import('../modals/modalOrder.vue')
-)
 
 const ModalExperience = defineAsyncComponent(
 	() => import('../modals/experience/modalExperience.vue')
@@ -37,12 +34,12 @@ export const sideMenuItems: MenuModalItem[] = [
 		backgroundColor: 'var(--surface-container-low)',
 		label: 'Default Config'
 	},
-	{
-		modal: ModalOrder,
-		id: 'modalCvOrder',
-		backgroundColor: 'var(--surface-container-low)',
-		label: 'Order'
-	},
+	// {
+	// 	modal: ModalOrder,
+	// 	id: 'modalCvOrder',
+	// 	backgroundColor: 'var(--surface-container-low)',
+	// 	label: 'Order'
+	// },
 	{
 		modal: ModalSettings,
 		id: 'modalCvSettings',

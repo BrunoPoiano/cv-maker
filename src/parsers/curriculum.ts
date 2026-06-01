@@ -97,7 +97,7 @@ export function parseCurriculum(value: unknown): Curriculum {
 		}
 	}
 
-	if (isObject(value.Contact) && isObject(value.Contact.value)) {
+	if (isObject(value.Contact)) {
 		cv.Contact.sideBySide = isBooleanOrDefault(
 			value.Contact.sideBySide,
 			defaultConfig.value.Contact.sideBySide
@@ -115,14 +115,16 @@ export function parseCurriculum(value: unknown): Curriculum {
 
 		type ContactValue = keyof Curriculum['Contact']['value']
 
-		for (const key of Object.keys(value.Contact.value)) {
-			if (isObject(value.Contact.value[key])) {
-				cv.Contact.value[key as ContactValue] = {
-					value: isExtendedStringOrDefault(
-						value.Contact.value[key].value,
-						cv.Contact.value[key as ContactValue]?.value || ''
-					),
-					bolder: isBooleanOrDefault(value.Contact.value[key].bolder)
+		if (isObject(value.Contact.value)) {
+			for (const key of Object.keys(value.Contact.value)) {
+				if (isObject(value.Contact.value[key])) {
+					cv.Contact.value[key as ContactValue] = {
+						value: isExtendedStringOrDefault(
+							value.Contact.value[key].value,
+							cv.Contact.value[key as ContactValue]?.value || ''
+						),
+						bolder: isBooleanOrDefault(value.Contact.value[key].bolder)
+					}
 				}
 			}
 		}
@@ -396,7 +398,7 @@ export function parseDefaultConfig(value: unknown): DefaultConfig {
 		}
 	}
 
-	if (isObject(value.Contact) && isObject(value.Contact.value)) {
+	if (isObject(value.Contact)) {
 		cv.Contact.sideBySide = isBooleanOrDefault(value.Contact.sideBySide, true)
 		cv.Contact.size = isOneOforDefault(
 			value.Contact.size,

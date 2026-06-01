@@ -180,14 +180,16 @@ export type MenuModalItem = {
 	backgroundColor?: string
 }
 
-type RemoveValue<T> = T extends { value: Array<unknown> }
-	? Omit<T, 'value'>
-	: T extends { value: object }
-		? T['value'] extends Record<string, unknown>
-			? Omit<T, 'value'>
-			: Omit<T, 'value'> & { value: RemoveValue<T['value']> }
-		: T extends object
-			? {
-					[K in keyof T as K extends 'value' ? never : K]: RemoveValue<T[K]>
-				}
-			: T
+type RemoveValue<T> = T extends readonly unknown[]
+	? T
+	: T extends { value: Array<unknown> }
+		? Omit<T, 'value'>
+		: T extends { value: object }
+			? T['value'] extends Record<string, unknown>
+				? Omit<T, 'value'>
+				: Omit<T, 'value'> & { value: RemoveValue<T['value']> }
+			: T extends object
+				? {
+						[K in keyof T as K extends 'value' ? never : K]: RemoveValue<T[K]>
+					}
+				: T
