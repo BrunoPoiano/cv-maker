@@ -5,7 +5,7 @@ import type { localStorageKeys } from '@/keys'
 
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
-import type { dateStyle } from './constants/monthOptions'
+import type { dateStyle } from './constants/dateOptions'
 import type { textAlign } from './constants/text-align'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
@@ -19,6 +19,10 @@ export type MonthOptions = Extract<
 	Intl.DateTimeFormatOptions['month'],
 	'2-digit' | 'short' | 'long'
 >
+export type YearOptions = Extract<
+	Intl.DateTimeFormatOptions['year'],
+	'numeric' | '2-digit'
+>
 
 type Each<T extends string> = {
 	[K in T]: string
@@ -27,15 +31,15 @@ type Each<T extends string> = {
 export type BoldMatchReturn =
 	| string
 	| (
-			| string
-			| VNode<
-					RendererNode,
-					RendererElement,
-					{
-						[key: string]: unknown
-					}
-			  >
-	  )[]
+		| string
+		| VNode<
+			RendererNode,
+			RendererElement,
+			{
+				[key: string]: unknown
+			}
+		>
+	)[]
 
 type Contact = {
 	size: FontSize
@@ -119,6 +123,7 @@ export type Experience = {
 	show: boolean
 	dateStyle: DateStyle
 	dateMonth: MonthOptions
+	dateYear: YearOptions
 	sideBySide: boolean
 	size: {
 		title: FontSize
@@ -140,6 +145,7 @@ type AcademicBackground = {
 	show: boolean
 	dateMonth: MonthOptions
 	dateStyle: DateStyle
+	dateYear: YearOptions
 	size: FontSize
 	value: Array<Course>
 }
@@ -183,13 +189,13 @@ export type MenuModalItem = {
 type RemoveValue<T> = T extends readonly unknown[]
 	? T
 	: T extends { value: Array<unknown> }
-		? Omit<T, 'value'>
-		: T extends { value: object }
-			? T['value'] extends Record<string, unknown>
-				? Omit<T, 'value'>
-				: Omit<T, 'value'> & { value: RemoveValue<T['value']> }
-			: T extends object
-				? {
-						[K in keyof T as K extends 'value' ? never : K]: RemoveValue<T[K]>
-					}
-				: T
+	? Omit<T, 'value'>
+	: T extends { value: object }
+	? T['value'] extends Record<string, unknown>
+	? Omit<T, 'value'>
+	: Omit<T, 'value'> & { value: RemoveValue<T['value']> }
+	: T extends object
+	? {
+		[K in keyof T as K extends 'value' ? never : K]: RemoveValue<T[K]>
+	}
+	: T

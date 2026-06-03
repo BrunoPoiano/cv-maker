@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { fontSizeSelect } from '@/constants/font-size'
-import { dateStyleSelect, monthOptionsSelect } from '@/constants/monthOptions'
+import { dateStyleSelect, monthOptionsSelect } from '@/constants/dateOptions'
 import { a4gapSelect, marginListSelect } from '@/constants/spacings'
 import { textAlignSelect } from '@/constants/text-align'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
@@ -29,41 +29,20 @@ const curriculumIndex = CurriculumIndexStore.get()
 		<form>
 			<div>
 				<div>Settings</div>
-				<Select
-					label="Curriculum Margin"
-					:items="marginListSelect"
-					v-model="defaultConfig.Settings.margin"
-				/>
-				<Select
-					label="Curriculum Gap"
-					:items="a4gapSelect"
-					v-model="defaultConfig.Settings.gap"
-				/>
-				<Select
-					label="Section Header"
-					:items="fontSizeSelect"
-					v-model="defaultConfig.Settings.section.size"
-				/>
+				<Select label="Curriculum Margin" :items="marginListSelect" v-model="defaultConfig.Settings.margin" />
+				<Select label="Curriculum Gap" :items="a4gapSelect" v-model="defaultConfig.Settings.gap" />
+				<Select label="Section Header" :items="fontSizeSelect" v-model="defaultConfig.Settings.section.size" />
 			</div>
 			<div>
 				<div>Order</div>
 				<ul>
-					<li
-						v-for="(value, index) in defaultConfig.Settings.order"
-						:key="value"
-					>
-						<AppButton
-							iconButton
-							@click="defaultConfigStore.moveSettingsOrder(index, index - 1)"
-							:disabled="index === 0"
-						>
+					<li v-for="(value, index) in defaultConfig.Settings.order" :key="value">
+						<AppButton iconButton @click="defaultConfigStore.moveSettingsOrder(index, index - 1)"
+							:disabled="index === 0">
 							<SvgArrow direction="up" />
 						</AppButton>
-						<AppButton
-							iconButton
-							@click="defaultConfigStore.moveSettingsOrder(index, index + 1)"
-							:disabled="index === defaultConfig.Settings.order.length - 1"
-						>
+						<AppButton iconButton @click="defaultConfigStore.moveSettingsOrder(index, index + 1)"
+							:disabled="index === defaultConfig.Settings.order.length - 1">
 							<SvgArrow direction="down" />
 						</AppButton>
 						{{ value }}
@@ -75,153 +54,59 @@ const curriculumIndex = CurriculumIndexStore.get()
 				<div>
 					<div class="header">
 						<div>Name</div>
-						<Select
-							label="Font Size"
-							:items="fontSizeSelect"
-							v-model="defaultConfig.Header.UserName.size"
-						/>
-						<Select
-							label="Text Align"
-							:items="textAlignSelect"
-							v-model="defaultConfig.Header.UserName.align"
-						/>
+						<Select label="Font Size" :items="fontSizeSelect"
+							v-model="defaultConfig.Header.UserName.size" />
+						<Select label="Text Align" :items="textAlignSelect"
+							v-model="defaultConfig.Header.UserName.align" />
 					</div>
 					<div class="header">
 						<div>Role</div>
-						<Select
-							label="Font Size"
-							:items="fontSizeSelect"
-							v-model="defaultConfig.Header.Role.size"
-						/>
-						<Select
-							label="Text Align"
-							:items="textAlignSelect"
-							v-model="defaultConfig.Header.Role.align"
-						/>
+						<Select label="Font Size" :items="fontSizeSelect" v-model="defaultConfig.Header.Role.size" />
+						<Select label="Text Align" :items="textAlignSelect" v-model="defaultConfig.Header.Role.align" />
 					</div>
 				</div>
 			</div>
 			<div>
 				<div>Contact</div>
-				<AppInput
-					type="checkbox"
-					label="Side by Side"
-					v-model="defaultConfig.Contact.sideBySide"
-				/>
-				<Select
-					label="Text Align"
-					:items="textAlignSelect"
-					v-model="defaultConfig.Contact.align"
-				/>
-				<Select
-					label="Font Size"
-					:items="fontSizeSelect"
-					v-model="defaultConfig.Contact.size"
-				/>
+				<AppInput type="checkbox" label="Side by Side" v-model="defaultConfig.Contact.sideBySide" />
+				<Select label="Text Align" :items="textAlignSelect" v-model="defaultConfig.Contact.align" />
+				<Select label="Font Size" :items="fontSizeSelect" v-model="defaultConfig.Contact.size" />
 			</div>
 			<div>
-				<AppInput
-					type="checkbox"
-					label="Summary"
-					v-model="defaultConfig.Summary.show"
-				/>
-				<Select
-					label="Font Size"
-					:items="fontSizeSelect"
-					v-model="defaultConfig.Summary.size"
-				/>
+				<AppInput type="checkbox" label="Summary" v-model="defaultConfig.Summary.show" />
+				<Select label="Font Size" :items="fontSizeSelect" v-model="defaultConfig.Summary.size" />
 			</div>
 			<div>
-				<AppInput
-					type="checkbox"
-					label="Core Skills"
-					v-model="defaultConfig.CoreSkills.show"
-				/>
-				<AppInput
-					type="checkbox"
-					label="Side by Side"
-					v-model="defaultConfig.CoreSkills.sideBySide"
-				/>
-				<Select
-					label="Font Size"
-					:items="fontSizeSelect"
-					v-model="defaultConfig.CoreSkills.size"
-				/>
+				<AppInput type="checkbox" label="Core Skills" v-model="defaultConfig.CoreSkills.show" />
+				<AppInput type="checkbox" label="Side by Side" v-model="defaultConfig.CoreSkills.sideBySide" />
+				<Select label="Font Size" :items="fontSizeSelect" v-model="defaultConfig.CoreSkills.size" />
 			</div>
 			<div>
-				<AppInput
-					type="checkbox"
-					label="Experience"
-					v-model="defaultConfig.Experience.show"
-				/>
-				<AppInput
-					type="checkbox"
-					label="Side by Side"
-					v-model="defaultConfig.Experience.sideBySide"
-				/>
-				<Select
-					label="Title"
-					:items="fontSizeSelect"
-					v-model="defaultConfig.Experience.size.title"
-				/>
-				<Select
-					v-if="!defaultConfig.Experience.sideBySide"
-					label="Subtitle"
-					:items="fontSizeSelect"
-					v-model="defaultConfig.Experience.size.subTitle"
-				/>
-				<Select
-					label="Description"
-					:items="fontSizeSelect"
-					v-model="defaultConfig.Experience.size.description"
-				/>
-				<Select
-					label="Date Style"
-					:items="dateStyleSelect"
-					v-model="defaultConfig.Experience.dateStyle"
-				/>
-				<Select
-					v-if="defaultConfig.Experience.dateStyle === 'date'"
-					label="Month"
-					:items="monthOptionsSelect"
-					v-model="defaultConfig.Experience.dateMonth"
-				/>
+				<AppInput type="checkbox" label="Experience" v-model="defaultConfig.Experience.show" />
+				<AppInput type="checkbox" label="Side by Side" v-model="defaultConfig.Experience.sideBySide" />
+				<Select label="Title" :items="fontSizeSelect" v-model="defaultConfig.Experience.size.title" />
+				<Select v-if="!defaultConfig.Experience.sideBySide" label="Subtitle" :items="fontSizeSelect"
+					v-model="defaultConfig.Experience.size.subTitle" />
+				<Select label="Description" :items="fontSizeSelect"
+					v-model="defaultConfig.Experience.size.description" />
+				<Select label="Date Style" :items="dateStyleSelect" v-model="defaultConfig.Experience.dateStyle" />
+				<Select v-if="defaultConfig.Experience.dateStyle === 'date'" label="Month" :items="monthOptionsSelect"
+					v-model="defaultConfig.Experience.dateMonth" />
 			</div>
 			<div>
-				<AppInput
-					type="checkbox"
-					label="Academic Background"
-					v-model="defaultConfig.AcademicBackground.show"
-				/>
-				<Select
-					label="Size"
-					:items="fontSizeSelect"
-					v-model="defaultConfig.AcademicBackground.size"
-				/>
-				<Select
-					label="Date Style"
-					:items="dateStyleSelect"
-					v-model="defaultConfig.AcademicBackground.dateStyle"
-				/>
-				<Select
-					v-if="defaultConfig.AcademicBackground.dateStyle === 'date'"
-					label="Month"
-					:items="monthOptionsSelect"
-					v-model="defaultConfig.AcademicBackground.dateMonth"
-				/>
+				<AppInput type="checkbox" label="Academic Background" v-model="defaultConfig.AcademicBackground.show" />
+				<Select label="Size" :items="fontSizeSelect" v-model="defaultConfig.AcademicBackground.size" />
+				<Select label="Date Style" :items="dateStyleSelect"
+					v-model="defaultConfig.AcademicBackground.dateStyle" />
+				<Select v-if="defaultConfig.AcademicBackground.dateStyle === 'date'" label="Month"
+					:items="monthOptionsSelect" v-model="defaultConfig.AcademicBackground.dateMonth" />
 			</div>
 
 			<div class="actions">
-				<AppButton
-					fitContent
-					@click="defaultConfigStore.setDefaultConfig(curriculumIndex)"
-				>
+				<AppButton fitContent @click="defaultConfigStore.setDefaultConfig(curriculumIndex)">
 					set Values to Current Curriculum
 				</AppButton>
-				<AppButton
-					fitContent
-					@click="defaultConfigStore.setDefaultConfigToAll()"
-				>
+				<AppButton fitContent @click="defaultConfigStore.setDefaultConfigToAll()">
 					set Values to All Curriculums
 				</AppButton>
 			</div>
@@ -240,7 +125,7 @@ const curriculumIndex = CurriculumIndexStore.get()
 
 		--_padding: 0.8rem;
 
-		> div {
+		>div {
 			display: grid;
 			gap: 1rem;
 			align-items: start;
@@ -252,12 +137,12 @@ const curriculumIndex = CurriculumIndexStore.get()
 			&:not(.actions, :has(ul)) {
 				grid-template-columns: 1fr 1fr 1fr;
 
-				> div:nth-child(1) {
+				>div:nth-child(1) {
 					grid-area: 1 / span 3;
 				}
 			}
 
-			> div:has(.header) {
+			>div:has(.header) {
 				grid-area: 2 / span 3;
 				display: grid;
 				gap: 1rem;
@@ -270,7 +155,7 @@ const curriculumIndex = CurriculumIndexStore.get()
 					gap: 1rem;
 					grid-template-columns: 1fr 1fr 1fr;
 
-					> div:nth-child(1) {
+					>div:nth-child(1) {
 						grid-area: 1 / span 3;
 					}
 				}

@@ -3,7 +3,7 @@ import { curriculumOrderArray } from '@/constants/curriculumOrder'
 import { DefaultConfigConst } from '@/constants/defaultConfig'
 import { fontSize } from '@/constants/font-size'
 import { languages } from '@/constants/language'
-import { dateStyle, monthOptions } from '@/constants/monthOptions'
+import { dateStyle, monthOptions, yearOptions } from '@/constants/dateOptions'
 import { textAlign } from '@/constants/text-align'
 import { generateKey } from '@/helpers/generateKey'
 import { defaultConfigStore } from '@/stores/defaultConfig'
@@ -443,6 +443,12 @@ export function parseDefaultConfig(value: unknown): DefaultConfig {
 			'2-digit'
 		)
 
+		cv.Experience.dateYear = isOneOforDefault(
+			value.Experience.dateMonth,
+			yearOptions,
+			'numeric'
+		)
+
 		cv.Experience.dateStyle = isOneOforDefault(
 			value.Experience.dateStyle,
 			dateStyle,
@@ -481,6 +487,13 @@ export function parseDefaultConfig(value: unknown): DefaultConfig {
 			monthOptions,
 			'2-digit'
 		)
+
+		cv.AcademicBackground.dateYear = isOneOforDefault(
+			value.AcademicBackground.dateMonth,
+			yearOptions,
+			'numeric'
+		)
+
 		cv.AcademicBackground.dateStyle = isOneOforDefault(
 			value.AcademicBackground.dateStyle,
 			dateStyle,

@@ -2,14 +2,15 @@ import type { Temporal } from '@js-temporal/polyfill'
 
 import { Translate } from '@/constants/translations'
 import { isValidDateOrNull } from '@/parsers/typeValidation'
-import type { Curriculum, Languages, MonthOptions } from '@/types'
+import type { Curriculum, Languages, MonthOptions, YearOptions } from '@/types'
 
 type GenerateDateProps = {
 	source:
-		| Curriculum['Experience']['value'][number]
-		| Curriculum['AcademicBackground']['value'][number]
+	| Curriculum['Experience']['value'][number]
+	| Curriculum['AcademicBackground']['value'][number]
 	language: Languages
 	dateFormat: MonthOptions
+	yearFormat: YearOptions
 	showPresent: boolean
 	range?: boolean
 }
@@ -38,15 +39,16 @@ export function generateDate({
 	language,
 	dateFormat,
 	showPresent,
-	range
+	range,
+	yearFormat
 }: GenerateDateProps): string {
 	if (range && source.StartDate && source.EndDate) {
 		return getYearsBetween(source.StartDate, source.EndDate, language)
 	}
 
-	const startDate = fixDate(source.StartDate, language, dateFormat)
+	const startDate = fixDate(source.StartDate, language, dateFormat, yearFormat)
 	const endDate = source.EndDate
-		? fixDate(source.EndDate, language, dateFormat)
+		? fixDate(source.EndDate, language, dateFormat, yearFormat)
 		: showPresent
 			? Translate['present'][language]
 			: ''
@@ -57,7 +59,8 @@ export function generateDate({
 export function fixDate(
 	date: unknown,
 	language: Languages,
-	dateFormat: MonthOptions
+	dateFormat: MonthOptions,
+	yearFormat: YearOptions
 ): string {
 	const newDate = isValidDateOrNull(date)
 
@@ -66,8 +69,11 @@ export function fixDate(
 	return newDate
 		.toLocaleString(language, {
 			month: dateFormat,
-			year: 'numeric'
+			year: yearFormat,
+
 		})
+		.replace('. de ', '/')
+		.replace(' de ', '/')
 		.replace(' ', '/')
 }
 

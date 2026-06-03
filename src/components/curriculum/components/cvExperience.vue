@@ -37,46 +37,24 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 			}}</Title>
 			<div class="experience">
 				<div v-for="job in curriculum.Experience.value" :key="job.id">
-					<div
-						:data-side-by-side="curriculum.Experience.sideBySide"
-						class="job-title"
-					>
-						<span
-							class="title"
-							:style="{ fontSize: `var(${curriculum.Experience.size.title})` }"
-						>
+					<div :data-side-by-side="curriculum.Experience.sideBySide" class="job-title">
+						<span class="title" :style="{ fontSize: `var(${curriculum.Experience.size.title})` }">
 							<template v-if="readonly">
 								{{ generateJobTitle(job) }}
 							</template>
 							<div class="inputs" v-else>
 								<AppInput v-model="job.Role" cv-input placeholder="Role" />
-								<AppInput
-									v-model="job.CompanyName"
-									cv-input
-									placeholder="Company Name"
-								/>
+								<AppInput v-model="job.CompanyName" cv-input placeholder="Company Name" />
 							</div>
 						</span>
-						<span
-							class="sub-title"
-							:style="{
-								fontSize: `var(${curriculum.Experience.sideBySide ? curriculum.Experience.size.title : curriculum.Experience.size.subTitle})`
-							}"
-						>
+						<span class="sub-title" :style="{
+							fontSize: `var(${curriculum.Experience.sideBySide ? curriculum.Experience.size.title : curriculum.Experience.size.subTitle})`
+						}">
 							<template v-if="!readonly">
 								<div class="date">
-									<ExDateInput
-										data-cvInput
-										type="date"
-										placeholder="Start Date"
-										v-model="job.StartDate"
-									/>
-									<ExDateInput
-										data-cvInput
-										type="date"
-										placeholder="EndDate"
-										v-model="job.EndDate"
-									/>
+									<ExDateInput data-cvInput type="date" placeholder="Start Date"
+										v-model="job.StartDate" />
+									<ExDateInput data-cvInput type="date" placeholder="EndDate" v-model="job.EndDate" />
 								</div>
 							</template>
 
@@ -87,7 +65,8 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 										language: curriculum.Settings.language,
 										dateFormat: curriculum.Experience.dateMonth,
 										showPresent: true,
-										range: curriculum.Experience.dateStyle === 'range'
+										range: curriculum.Experience.dateStyle === 'range',
+										yearFormat: curriculum.Experience.dateYear
 									})
 								}}
 							</span>
@@ -106,36 +85,21 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 						</span>
 					</div>
 					<template v-if="!readonly">
-						<span
-							:style="{
-								fontSize: `var(${curriculum.Experience.size.description})`,
-								color: `var(--on-surface-variant)`
-							}"
-						>
-							<ExDescription
-								cvTextArea
-								:rows="
-									Array.isArray(curriculum.Summary.value)
-										? curriculum.Summary.value.length
-										: curriculum.Summary.smallText.split('\n').length
-								"
-								:list="Array.isArray(job.Description)"
-								v-model="job.Description"
-							/>
+						<span :style="{
+							fontSize: `var(${curriculum.Experience.size.description})`,
+							color: `var(--on-surface-variant)`
+						}">
+							<ExDescription cvTextArea :rows="Array.isArray(curriculum.Summary.value)
+									? curriculum.Summary.value.length
+									: curriculum.Summary.smallText.split('\n').length
+								" :list="Array.isArray(job.Description)" v-model="job.Description" />
 						</span>
 					</template>
 					<template v-else>
-						<List
-							:genericList="job.Description"
-							v-if="Array.isArray(job.Description)"
-							:boldMatches="bolderStore.matches"
-							:fontSize="curriculum.Experience.size.description"
-							:language="curriculum.Settings.language"
-						/>
-						<Paragraph
-							v-else
-							:fontSize="curriculum.Experience.size.description"
-						>
+						<List :genericList="job.Description" v-if="Array.isArray(job.Description)"
+							:boldMatches="bolderStore.matches" :fontSize="curriculum.Experience.size.description"
+							:language="curriculum.Settings.language" />
+						<Paragraph v-else :fontSize="curriculum.Experience.size.description">
 							<AppBoldMatch :value="bolderStore.matches(job.Description)" />
 						</Paragraph>
 					</template>
@@ -188,7 +152,7 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 				align-items: center;
 				gap: 0.5ch;
 
-				> span {
+				>span {
 					text-box-trim: trim-both;
 					text-box-edge: cap alphabetic;
 				}
@@ -208,11 +172,11 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 		justify-content: space-between;
 		flex-wrap: wrap;
 
-		> .title {
+		>.title {
 			margin-bottom: 0px;
 		}
 
-		> .sub-title {
+		>.sub-title {
 			flex-direction: row-reverse;
 		}
 	}

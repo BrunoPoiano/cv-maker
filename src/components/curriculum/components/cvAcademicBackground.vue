@@ -18,69 +18,38 @@ const readonly = ReadonlyStore.get()
 </script>
 
 <template>
-	<div
-		v-if="
-			curriculum.AcademicBackground.show &&
-			curriculum.AcademicBackground.value.length
-		"
-	>
+	<div v-if="
+		curriculum.AcademicBackground.show &&
+		curriculum.AcademicBackground.value.length
+	">
 		<AppAnchor>
 			<Title :fontsize="curriculum.Settings.section.size">{{
 				Translate['academic background'][curriculum.Settings.language]
 			}}</Title>
 			<div class="academic">
-				<div
-					v-for="acBack in curriculum.AcademicBackground.value"
-					:key="acBack.id"
-				>
+				<div v-for="acBack in curriculum.AcademicBackground.value" :key="acBack.id">
 					<div class="aca-title">
-						<span
-							class="title"
-							:style="{
-								fontSize: `var(${curriculum.AcademicBackground.size})`
-							}"
-						>
+						<span class="title" :style="{
+							fontSize: `var(${curriculum.AcademicBackground.size})`
+						}">
 							<template v-if="readonly">
 								{{ generateAcademicTitle(acBack) }}
 							</template>
 							<div class="inputs" v-else>
-								<AppInput
-									v-model="acBack.Institution"
-									cv-input
-									placeholder="Institution"
-								/>
-								<AppInput
-									v-model="acBack.Diploma"
-									cv-input
-									placeholder="Diploma"
-								/>
-								<AppInput
-									v-model="acBack.Course"
-									cv-input
-									placeholder="Course"
-								/>
+								<AppInput v-model="acBack.Institution" cv-input placeholder="Institution" />
+								<AppInput v-model="acBack.Diploma" cv-input placeholder="Diploma" />
+								<AppInput v-model="acBack.Course" cv-input placeholder="Course" />
 							</div>
 						</span>
-						<span
-							class="sub-title"
-							:style="{
-								fontSize: `var(${curriculum.AcademicBackground.size})`
-							}"
-						>
+						<span class="sub-title" :style="{
+							fontSize: `var(${curriculum.AcademicBackground.size})`
+						}">
 							<template v-if="!readonly">
 								<div class="date">
-									<ExDateInput
-										data-cvInput
-										type="date"
-										placeholder="Start Date"
-										v-model="acBack.StartDate"
-									/>
-									<ExDateInput
-										data-cvInput
-										type="date"
-										placeholder="EndDate"
-										v-model="acBack.EndDate"
-									/>
+									<ExDateInput data-cvInput type="date" placeholder="Start Date"
+										v-model="acBack.StartDate" />
+									<ExDateInput data-cvInput type="date" placeholder="EndDate"
+										v-model="acBack.EndDate" />
 								</div>
 							</template>
 
@@ -91,7 +60,8 @@ const readonly = ReadonlyStore.get()
 										language: curriculum.Settings.language,
 										dateFormat: curriculum.AcademicBackground.dateMonth,
 										showPresent: false,
-										range: curriculum.AcademicBackground.dateStyle === 'range'
+										range: curriculum.AcademicBackground.dateStyle === 'range',
+										yearFormat: curriculum.AcademicBackground.dateYear
 									})
 								}}
 							</span>
@@ -150,7 +120,7 @@ const readonly = ReadonlyStore.get()
 				align-items: center;
 				gap: 0.5ch;
 
-				> span {
+				>span {
 					text-box-trim: trim-both;
 					text-box-edge: cap alphabetic;
 				}

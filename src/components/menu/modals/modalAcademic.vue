@@ -2,7 +2,7 @@
 import { inject } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
-import { dateStyleSelect, monthOptionsSelect } from '@/constants/monthOptions'
+import { dateStyleSelect, monthOptionsSelect, yearOptionsSelect } from '@/constants/dateOptions.ts'
 import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
@@ -54,20 +54,12 @@ function closeModal() {
 </script>
 
 <template>
-	<Modal
-		:id="id"
-		closeLabel="close"
-		minWidth="50rem"
-		:close-action="closeModal"
-	>
+	<Modal :id="id" closeLabel="close" minWidth="50rem" :close-action="closeModal">
 		<template #header>
 			<div class="modalHeader">
 				<h3>
-					<AppInput
-						type="checkbox"
-						label="Academic Background"
-						v-model="curriculum.AcademicBackground.show"
-					/>
+					<AppInput type="checkbox" label="Academic Background"
+						v-model="curriculum.AcademicBackground.show" />
 				</h3>
 				<Button icon-button @click="newCourse" title="New Academic Background">
 					<SvgNewDocument />
@@ -76,106 +68,51 @@ function closeModal() {
 		</template>
 		<form>
 			<div class="align">
-				<Button
-					title="Set Company Name, Remote, Start and End Date to default values"
-					icon-button
-					@click="CurriculumStore.setAcademicDefaultValue(curriculumIndex)"
-				>
+				<Button title="Set Company Name, Remote, Start and End Date to default values" icon-button
+					@click="CurriculumStore.setAcademicDefaultValue(curriculumIndex)">
 					<SvgDefault />
 				</Button>
 			</div>
 			<div class="size">
-				<Select
-					label="Size"
-					:items="fontSizeSelect"
-					v-model="curriculum.AcademicBackground.size"
-				/>
-				<Select
-					label="Date Style"
-					:items="dateStyleSelect"
-					v-model="curriculum.AcademicBackground.dateStyle"
-				/>
-				<Select
-					v-if="curriculum.AcademicBackground.dateStyle === 'date'"
-					label="Month"
-					:items="monthOptionsSelect"
-					v-model="curriculum.AcademicBackground.dateMonth"
-				/>
+				<Select label="Size" :items="fontSizeSelect" v-model="curriculum.AcademicBackground.size" />
+				<Select label="Date Style" :items="dateStyleSelect" v-model="curriculum.AcademicBackground.dateStyle" />
+				<Select v-if="curriculum.AcademicBackground.dateStyle === 'date'" label="Month"
+					:items="monthOptionsSelect" v-model="curriculum.AcademicBackground.dateMonth" />
+				<Select v-if="curriculum.AcademicBackground.dateStyle === 'date'" label="Year"
+					:items="yearOptionsSelect" v-model="curriculum.AcademicBackground.dateYear" />
 			</div>
 
-			<div
-				v-for="(ab, index) in curriculum.AcademicBackground.value"
-				class="academic"
-				:key="ab.id"
-			>
+			<div v-for="(ab, index) in curriculum.AcademicBackground.value" class="academic" :key="ab.id">
 				<div class="directions">
-					<Button
-						iconButton
-						@click="
-							CurriculumStore.moveAcademicSkill(
-								curriculumIndex,
-								index,
-								index - 1
-							)
-						"
-						:disabled="index === 0"
-					>
+					<Button iconButton @click="
+						CurriculumStore.moveAcademicSkill(
+							curriculumIndex,
+							index,
+							index - 1
+						)
+						" :disabled="index === 0">
 						<SvgArrow direction="up" />
 					</Button>
-					<Button
-						iconButton
-						@click="
-							CurriculumStore.moveAcademicSkill(
-								curriculumIndex,
-								index,
-								index + 1
-							)
-						"
-						:disabled="index === curriculum.AcademicBackground.value.length - 1"
-					>
+					<Button iconButton @click="
+						CurriculumStore.moveAcademicSkill(
+							curriculumIndex,
+							index,
+							index + 1
+						)
+						" :disabled="index === curriculum.AcademicBackground.value.length - 1">
 						<SvgArrow direction="down" />
 					</Button>
 				</div>
-				<Button
-					icon-button
-					@click="deleteCourse(ab.id)"
-					hover-background="var(--red)"
-					title="Delete Course"
-				>
+				<Button icon-button @click="deleteCourse(ab.id)" hover-background="var(--red)" title="Delete Course">
 					<SvgTrash />
 				</Button>
 
-				<AppInput
-					type="text"
-					label="Institution"
-					placeholder="Institution"
-					v-model="ab.Institution"
-				/>
-				<AppInput
-					type="text"
-					label="Diploma"
-					placeholder="Diploma"
-					v-model="ab.Diploma"
-				/>
-				<AppInput
-					type="text"
-					label="Course"
-					placeholder="Course"
-					v-model="ab.Course"
-				/>
+				<AppInput type="text" label="Institution" placeholder="Institution" v-model="ab.Institution" />
+				<AppInput type="text" label="Diploma" placeholder="Diploma" v-model="ab.Diploma" />
+				<AppInput type="text" label="Course" placeholder="Course" v-model="ab.Course" />
 
-				<ExDateInput
-					type="date"
-					label="Start Date"
-					placeholder="Start Date"
-					v-model="ab.StartDate"
-				/>
-				<ExDateInput
-					type="date"
-					label="End Date"
-					placeholder="EndDate"
-					v-model="ab.EndDate"
-				/>
+				<ExDateInput type="date" label="Start Date" placeholder="Start Date" v-model="ab.StartDate" />
+				<ExDateInput type="date" label="End Date" placeholder="EndDate" v-model="ab.EndDate" />
 			</div>
 		</form>
 	</Modal>
