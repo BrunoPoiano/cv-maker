@@ -3,9 +3,9 @@ import type { Component, RendererElement, RendererNode, VNode } from 'vue'
 
 import type { localStorageKeys } from '@/keys'
 
+import type { dateStyle } from './constants/dateOptions'
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
-import type { dateStyle } from './constants/dateOptions'
 import type { textAlign } from './constants/text-align'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
@@ -24,6 +24,12 @@ export type YearOptions = Extract<
 	'numeric' | '2-digit'
 >
 
+export type BaseItem<T extends string> = {
+	[K in T]: {
+		label: string
+	}
+}
+
 type Each<T extends string> = {
 	[K in T]: string
 }
@@ -31,15 +37,15 @@ type Each<T extends string> = {
 export type BoldMatchReturn =
 	| string
 	| (
-		| string
-		| VNode<
-			RendererNode,
-			RendererElement,
-			{
-				[key: string]: unknown
-			}
-		>
-	)[]
+			| string
+			| VNode<
+					RendererNode,
+					RendererElement,
+					{
+						[key: string]: unknown
+					}
+			  >
+	  )[]
 
 type Contact = {
 	size: FontSize
@@ -189,13 +195,13 @@ export type MenuModalItem = {
 type RemoveValue<T> = T extends readonly unknown[]
 	? T
 	: T extends { value: Array<unknown> }
-	? Omit<T, 'value'>
-	: T extends { value: object }
-	? T['value'] extends Record<string, unknown>
-	? Omit<T, 'value'>
-	: Omit<T, 'value'> & { value: RemoveValue<T['value']> }
-	: T extends object
-	? {
-		[K in keyof T as K extends 'value' ? never : K]: RemoveValue<T[K]>
-	}
-	: T
+		? Omit<T, 'value'>
+		: T extends { value: object }
+			? T['value'] extends Record<string, unknown>
+				? Omit<T, 'value'>
+				: Omit<T, 'value'> & { value: RemoveValue<T['value']> }
+			: T extends object
+				? {
+						[K in keyof T as K extends 'value' ? never : K]: RemoveValue<T[K]>
+					}
+				: T

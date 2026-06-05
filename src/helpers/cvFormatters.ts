@@ -6,8 +6,8 @@ import type { Curriculum, Languages, MonthOptions, YearOptions } from '@/types'
 
 type GenerateDateProps = {
 	source:
-	| Curriculum['Experience']['value'][number]
-	| Curriculum['AcademicBackground']['value'][number]
+		| Curriculum['Experience']['value'][number]
+		| Curriculum['AcademicBackground']['value'][number]
 	language: Languages
 	dateFormat: MonthOptions
 	yearFormat: YearOptions
@@ -69,8 +69,7 @@ export function fixDate(
 	return newDate
 		.toLocaleString(language, {
 			month: dateFormat,
-			year: yearFormat,
-
+			year: yearFormat
 		})
 		.replace('. de ', '/')
 		.replace(' de ', '/')
@@ -139,3 +138,6 @@ export function curriculumOnlyValue(cv: Curriculum) {
 		}
 	}
 }
+
+export const CapitalizeFirstLetter = (item: string) =>
+	`${item.charAt(0).toUpperCase()}${item.substring(1)}`

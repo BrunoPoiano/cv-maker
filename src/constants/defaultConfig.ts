@@ -45,7 +45,7 @@ export function DefaultConfigConst(): DefaultConfig {
 		Experience: {
 			dateMonth: '2-digit',
 			dateStyle: 'date',
-			dateYear: "numeric",
+			dateYear: 'numeric',
 			show: true,
 			sideBySide: false,
 			size: {
@@ -56,7 +56,7 @@ export function DefaultConfigConst(): DefaultConfig {
 		},
 		AcademicBackground: {
 			dateMonth: '2-digit',
-			dateYear: "numeric",
+			dateYear: 'numeric',
 			dateStyle: 'date',
 			show: true,
 			size: '--font-size-base'

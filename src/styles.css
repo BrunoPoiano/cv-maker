@@ -250,10 +250,13 @@
 		box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.44);
 
 		background: var(--background);
+		overscroll-behavior: contain;
 
 		&::backdrop {
 			background: #00000078;
 			filter: blur(1.5rem);
+			overflow: hidden;
+			overscroll-behavior: contain;
 		}
 	}
 
