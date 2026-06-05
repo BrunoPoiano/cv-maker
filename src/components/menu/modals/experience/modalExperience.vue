@@ -2,8 +2,12 @@
 import { Temporal } from '@js-temporal/polyfill'
 import { inject, ref } from 'vue'
 
+import {
+	dateStyleSelect,
+	monthOptionsSelect,
+	yearOptionsSelect
+} from '@/constants/dateOptions.ts'
 import { fontSizeSelect } from '@/constants/font-size'
-import { dateStyleSelect, monthOptionsSelect } from '@/constants/monthOptions'
 import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
@@ -134,6 +138,12 @@ function closeModal() {
 					label="Month"
 					:items="monthOptionsSelect"
 					v-model="curriculum.Experience.dateMonth"
+				/>
+				<Select
+					v-if="curriculum.Experience.dateStyle === 'date'"
+					label="Year"
+					:items="yearOptionsSelect"
+					v-model="curriculum.Experience.dateYear"
 				/>
 			</div>
 

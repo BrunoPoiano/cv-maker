@@ -87,7 +87,8 @@ function isRemote(job: Curriculum['Experience']['value'][number]) {
 										language: curriculum.Settings.language,
 										dateFormat: curriculum.Experience.dateMonth,
 										showPresent: true,
-										range: curriculum.Experience.dateStyle === 'range'
+										range: curriculum.Experience.dateStyle === 'range',
+										yearFormat: curriculum.Experience.dateYear
 									})
 								}}
 							</span>

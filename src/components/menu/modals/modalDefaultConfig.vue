@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { dateStyleSelect, monthOptionsSelect } from '@/constants/dateOptions'
 import { fontSizeSelect } from '@/constants/font-size'
-import { dateStyleSelect, monthOptionsSelect } from '@/constants/monthOptions'
 import { a4gapSelect, marginListSelect } from '@/constants/spacings'
 import { textAlignSelect } from '@/constants/text-align'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'

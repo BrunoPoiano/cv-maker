@@ -91,7 +91,8 @@ const readonly = ReadonlyStore.get()
 										language: curriculum.Settings.language,
 										dateFormat: curriculum.AcademicBackground.dateMonth,
 										showPresent: false,
-										range: curriculum.AcademicBackground.dateStyle === 'range'
+										range: curriculum.AcademicBackground.dateStyle === 'range',
+										yearFormat: curriculum.AcademicBackground.dateYear
 									})
 								}}
 							</span>

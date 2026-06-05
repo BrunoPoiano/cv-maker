@@ -3,9 +3,9 @@ import type { Component, RendererElement, RendererNode, VNode } from 'vue'
 
 import type { localStorageKeys } from '@/keys'
 
+import type { dateStyle } from './constants/dateOptions'
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
-import type { dateStyle } from './constants/monthOptions'
 import type { textAlign } from './constants/text-align'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
@@ -19,6 +19,16 @@ export type MonthOptions = Extract<
 	Intl.DateTimeFormatOptions['month'],
 	'2-digit' | 'short' | 'long'
 >
+export type YearOptions = Extract<
+	Intl.DateTimeFormatOptions['year'],
+	'numeric' | '2-digit'
+>
+
+export type BaseItem<T extends string> = {
+	[K in T]: {
+		label: string
+	}
+}
 
 type Each<T extends string> = {
 	[K in T]: string
@@ -119,6 +129,7 @@ export type Experience = {
 	show: boolean
 	dateStyle: DateStyle
 	dateMonth: MonthOptions
+	dateYear: YearOptions
 	sideBySide: boolean
 	size: {
 		title: FontSize
@@ -140,6 +151,7 @@ type AcademicBackground = {
 	show: boolean
 	dateMonth: MonthOptions
 	dateStyle: DateStyle
+	dateYear: YearOptions
 	size: FontSize
 	value: Array<Course>
 }
