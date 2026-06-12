@@ -42,7 +42,7 @@ const anchor = `--${generateKey(5, 'string')}`
 			padding-inline: var(--_padding-inline);
 			padding-block: var(--_padding-block);
 			border-radius: var(--border-radius);
-			border: 1px solid hsl(from var(--background) h s 80%);
+			border: 1px solid var(--outline-variant);
 
 			width: fit-content;
 			max-width: 25ch;

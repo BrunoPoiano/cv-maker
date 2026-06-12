@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 
 import { languagesSelect } from '@/constants/language'
 import { generateKey } from '@/helpers/generateKey'
@@ -21,7 +21,9 @@ import { topMenuItems } from './menuitems/topMenuItems'
 const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
 const readonly = ReadonlyStore.get()
-const buttonItems = buttonItemsList(curriculum.value, curriculumIndex.value)
+const buttonItems = computed(() =>
+	buttonItemsList(curriculum.value, curriculumIndex.value)
+)
 
 function updateLanguage(val: Languages) {
 	CurriculumStore.setLanguage(curriculumIndex.value, val)
@@ -58,6 +60,7 @@ function updateLanguage(val: Languages) {
 					icon-button
 					@click="button.click"
 					:hover-background="button.hoverBackground"
+					:disabled="button.disabled"
 				>
 					<component :is="button.svg" />
 				</Button>
@@ -98,7 +101,7 @@ function updateLanguage(val: Languages) {
 		place-items: center;
 		gap: 1.5rem;
 
-		button:last-child {
+		:has(button):last-child {
 			margin-top: 1rem;
 		}
 	}
