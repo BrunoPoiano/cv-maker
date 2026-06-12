@@ -6,10 +6,12 @@ import { ProviderKey, ProviderSkillKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { CurriculumStore } from '@/stores/curriculumStore'
 import SvgArrow from '@/svgs/svgArrow.vue'
+import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
+import AppPopover from '@/ui/appPopover.vue'
 import Select from '@/ui/appSelect.vue'
 import AppSmall from '@/ui/appSmall.vue'
 import Textarea from '@/ui/appTextarea.vue'
@@ -39,7 +41,12 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 					/>
 					<AppSmall>Items will be separeted by commas (,)</AppSmall>
 				</h3>
-				<AppButton modal :id="ModalCoreSkillNameID"> New Core Skill </AppButton>
+				<AppPopover>
+					<AppButton modal icon-button :id="ModalCoreSkillNameID">
+						<SvgNewDocument />
+					</AppButton>
+					<template #popover> New Core Skill </template>
+				</AppPopover>
 			</div>
 		</template>
 		<div class="settings">

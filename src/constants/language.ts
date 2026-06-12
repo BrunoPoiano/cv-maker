@@ -1,6 +1,6 @@
 import type { BaseItem, SelectItem } from '@/types'
 
-export const languages = ['en-us', 'pt-br'] as const
+export const languages = ['en-us', 'pt-br'] as const satisfies Array<string>
 
 const baseLanguages: BaseItem<(typeof languages)[number]> = {
 	'en-us': {
@@ -13,7 +13,7 @@ const baseLanguages: BaseItem<(typeof languages)[number]> = {
 
 export const languagesSelect = languages.reduce<SelectItem>((acc, item) => {
 	acc.push({
-		value: item as string,
+		value: item,
 		label: baseLanguages[item].label
 	})
 	return acc

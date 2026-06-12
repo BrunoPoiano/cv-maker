@@ -2,27 +2,26 @@
 import { inject } from 'vue'
 
 import { languagesSelect } from '@/constants/language'
+import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { CurriculumStore } from '@/stores/curriculumStore'
 import { ReadonlyStore } from '@/stores/readonlyStore'
-import SvgCopy from '@/svgs/svgCopy.vue'
-import SvgNewDocument from '@/svgs/svgNewDocument.vue'
-import SvgPin from '@/svgs/svgPin.vue'
-import SvgSave from '@/svgs/svgSave.vue'
-import SvgTrash from '@/svgs/svgTrash.vue'
 import type { Languages } from '@/types'
 import Button from '@/ui/appButton.vue'
 import AppMenuModalItems from '@/ui/appMenuModalItems.vue'
+import AppPopover from '@/ui/appPopover.vue'
 import AppSelect from '@/ui/appSelect.vue'
 import appToggleText from '@/ui/appToggleText.vue'
 
+import { buttonItemsList } from './menuitems/buttonItems'
 import { sideMenuItems } from './menuitems/sideMenuItems'
 import { topMenuItems } from './menuitems/topMenuItems'
 
 const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
 const readonly = ReadonlyStore.get()
+const buttonItems = buttonItemsList(curriculum.value, curriculumIndex.value)
 
 function updateLanguage(val: Languages) {
 	CurriculumStore.setLanguage(curriculumIndex.value, val)
@@ -53,50 +52,20 @@ function updateLanguage(val: Languages) {
 			:afterChange="ReadonlyStore.save"
 		/>
 
-		<Button
-			icon-button
-			@click="CurriculumStore.save()"
-			hover-background="var(--green)"
-			title="Save Curriculums"
-		>
-			<SvgSave />
-		</Button>
-
-		<Button
-			icon-button
-			@click="CurriculumStore.copy(curriculum)"
-			hover-background="var(--blue)"
-			title="Copy Curriculum"
-		>
-			<SvgCopy />
-		</Button>
-		<Button
-			icon-button
-			@click="CurriculumStore.new()"
-			hover-background="var(--green)"
-			title="New Curriculum"
-		>
-			<SvgNewDocument />
-		</Button>
-
-		<Button
-			icon-button
-			@click="CurriculumStore.setAsDefault(curriculumIndex)"
-			hover-background="var(--green)"
-			title="Set Curriculum as default"
-			:disabled="curriculumIndex === 0"
-		>
-			<SvgPin />
-		</Button>
-		<Button
-			icon-button
-			@click="CurriculumStore.delete(curriculumIndex)"
-			:disabled="curriculumIndex === 0"
-			hover-background="var(--red)"
-			title="Delete Curriculum"
-		>
-			<SvgTrash />
-		</Button>
+		<template v-for="(button, index) in buttonItems" :key="generateKey(index)">
+			<AppPopover positionArea="top left" nowrap>
+				<Button
+					icon-button
+					@click="button.click"
+					:hover-background="button.hoverBackground"
+				>
+					<component :is="button.svg" />
+				</Button>
+				<template #popover>
+					{{ button.title }}
+				</template>
+			</AppPopover>
+		</template>
 	</nav>
 </template>
 

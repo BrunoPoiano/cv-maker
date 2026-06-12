@@ -7,6 +7,7 @@ import type { dateStyle } from './constants/dateOptions'
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
 import type { textAlign } from './constants/text-align'
+import type { CurriculumStore } from './stores/curriculumStore'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
 export type Languages = (typeof languages)[number]
@@ -190,6 +191,18 @@ export type MenuModalItem = {
 	icon?: Component
 	label: string
 	backgroundColor?: string
+}
+
+type CVStore = keyof typeof CurriculumStore
+
+export type MenuButtonList = {
+	click: {
+		[T in CVStore]: (typeof CurriculumStore)[T]
+	}[CVStore]
+	hoverBackground: string
+	title: string
+	disabled?: boolean
+	svg: Component
 }
 
 type RemoveValue<T> = T extends readonly unknown[]

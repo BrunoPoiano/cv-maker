@@ -18,6 +18,7 @@ import SvgTrash from '@/svgs/svgTrash.vue'
 import Button from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
+import AppPopover from '@/ui/appPopover.vue'
 import Select from '@/ui/appSelect.vue'
 
 import ExDateInput from './experience/components/exDateInput.vue'
@@ -73,20 +74,27 @@ function closeModal() {
 						v-model="curriculum.AcademicBackground.show"
 					/>
 				</h3>
-				<Button icon-button @click="newCourse" title="New Academic Background">
-					<SvgNewDocument />
-				</Button>
+				<AppPopover>
+					<Button icon-button @click="newCourse">
+						<SvgNewDocument />
+					</Button>
+					<template #popover>New Academic Background</template>
+				</AppPopover>
 			</div>
 		</template>
 		<form>
 			<div class="align">
-				<Button
-					title="Set Company Name, Remote, Start and End Date to default values"
-					icon-button
-					@click="CurriculumStore.setAcademicDefaultValue(curriculumIndex)"
-				>
-					<SvgDefault />
-				</Button>
+				<AppPopover>
+					<Button
+						icon-button
+						@click="CurriculumStore.setAcademicDefaultValue(curriculumIndex)"
+					>
+						<SvgDefault />
+					</Button>
+					<template #popover>
+						Set Company Name, Remote, Start and End Date to default values
+					</template>
+				</AppPopover>
 			</div>
 			<div class="size">
 				<Select
@@ -203,7 +211,7 @@ function closeModal() {
 			display: grid;
 		}
 
-		button {
+		:has(button) {
 			place-self: end;
 			align-self: start;
 		}

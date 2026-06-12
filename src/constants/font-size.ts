@@ -9,11 +9,11 @@ export const fontSize = [
 	'--font-size-xxl',
 	'--font-size-xxxl',
 	'--font-size-xxxxl'
-] as const
+] as const satisfies Array<string>
 
 export const fontSizeSelect = fontSize.reduce<SelectItem>((acc, item) => {
 	acc.push({
-		value: item as string,
+		value: item,
 		label: item.replace('--font-size-', '').toUpperCase()
 	})
 	return acc
