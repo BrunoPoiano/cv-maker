@@ -121,7 +121,7 @@ function updateLanguage(val: Languages) {
 
 			&:deep(button[data-menu-button='true']),
 			&:deep(select[data-menu-select]) {
-				min-width: 14rem;
+				width: min(14rem, 100%);
 				border-radius: 0px;
 			}
 		}

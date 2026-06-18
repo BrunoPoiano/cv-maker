@@ -12,9 +12,9 @@ const gap = computed(() => curriculum.value.Settings.gap)
 <template>
 	<section>
 		<div
-			class="a4-page page"
+			class="a4-page"
 			id="curriculumPage"
-			:style="{ padding: `${margin}cm`, '--_a4-gap': `${gap}rem` }"
+			:style="{ '--_padding': `${margin}cm`, '--_a4-gap': `${gap}rem` }"
 		>
 			<template v-for="order in curriculum.Settings.order" :key="order">
 				<component :is="curriculumOrder[order]" />
@@ -32,7 +32,8 @@ const gap = computed(() => curriculum.value.Settings.gap)
 			grid-area: curriculum;
 			--_a4-gap: 1.3rem;
 
-			width: 230mm;
+			overflow-x: auto;
+			max-width: 230mm;
 			min-height: 297mm;
 			box-sizing: border-box;
 
@@ -40,7 +41,7 @@ const gap = computed(() => curriculum.value.Settings.gap)
 			align-content: baseline;
 			gap: var(--_a4-gap);
 
-			padding: 1cm;
+			padding: var(--_padding, 1cm);
 			margin-inline: auto;
 			margin-block: 2rem;
 
