@@ -10,6 +10,7 @@ import SvgDefault from '@/svgs/SvgDefault.vue'
 import AppButton from '@/ui/appButton.vue'
 import Input from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
+import AppPopover from '@/ui/appPopover.vue'
 import Select from '@/ui/appSelect.vue'
 const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
@@ -47,13 +48,15 @@ const { id } = defineProps<Props>()
 					v-model="curriculum.Contact.size"
 					fitContent
 				/>
-				<AppButton
-					title="Set default values"
-					icon-button
-					@click="CurriculumStore.setContactDefaultValue(curriculumIndex)"
-				>
-					<SvgDefault />
-				</AppButton>
+				<AppPopover>
+					<AppButton
+						icon-button
+						@click="CurriculumStore.setContactDefaultValue(curriculumIndex)"
+					>
+						<SvgDefault />
+					</AppButton>
+					<template #popover>Set default values</template>
+				</AppPopover>
 			</div>
 			<template v-for="(_, type) in curriculum.Contact.value" :key="type">
 				<div>
@@ -93,7 +96,7 @@ const { id } = defineProps<Props>()
 			grid-template-columns: 10ch 10ch 1fr;
 			align-items: end;
 
-			button {
+			:has(button) {
 				justify-self: end;
 			}
 		}

@@ -1,8 +1,15 @@
 import type { BaseItem, SelectItem } from '@/types'
 
-export const dateStyle = ['date', 'range'] as const
-export const monthOptions = ['2-digit', 'short', 'long'] as const
-export const yearOptions = ['2-digit', 'numeric'] as const
+export const dateStyle = ['date', 'range'] as const satisfies Array<string>
+export const monthOptions = [
+	'2-digit',
+	'short',
+	'long'
+] as const satisfies Array<string>
+export const yearOptions = [
+	'2-digit',
+	'numeric'
+] as const satisfies Array<string>
 
 export const dateStyleSelect = dateStyle.reduce<SelectItem>((acc, item) => {
 	acc.push({
