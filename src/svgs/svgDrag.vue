@@ -22,8 +22,11 @@
 </template>
 <style scoped>
 @layer utilities {
-	svg path {
-		stroke: currentColor;
+	svg {
+		cursor: grab;
+		path {
+			stroke: currentColor;
+		}
 	}
 }
 </style>
