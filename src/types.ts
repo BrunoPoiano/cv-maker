@@ -35,6 +35,11 @@ type Each<T extends string> = {
 	[K in T]: string
 }
 
+export type Profile = {
+	id: number
+	name: string
+}
+
 export type BoldMatchReturn =
 	| string
 	| (
@@ -116,9 +121,11 @@ export type CoreSkills = {
 	show: boolean
 }
 
+export type Order = Array<keyof Omit<Curriculum, 'Settings' | 'ProfileId'>>
+
 type Settings = {
 	language: Languages
-	order: Array<keyof Omit<Curriculum, 'Settings'>>
+	order: Order
 	margin: number
 	gap: number
 	section: {
@@ -158,6 +165,7 @@ type AcademicBackground = {
 }
 
 export type Curriculum = {
+	ProfileId: number
 	Settings: Settings
 	Header: Header
 	Contact: Contact
@@ -167,11 +175,14 @@ export type Curriculum = {
 	AcademicBackground: AcademicBackground
 }
 
-export type DefaultConfig = {
-	[T in keyof Curriculum]: RemoveValue<
-		T extends 'Settings' ? Omit<Curriculum[T], 'language'> : Curriculum[T]
-	>
-}
+export type DefaultConfig = Omit<
+	{
+		[T in keyof Curriculum]: RemoveValue<
+			T extends 'Settings' ? Omit<Curriculum[T], 'language'> : Curriculum[T]
+		>
+	},
+	'ProfileId'
+>
 
 export type HasShow = keyof Pick<
 	Curriculum,
@@ -181,7 +192,7 @@ export type HasShow = keyof Pick<
 >
 
 export type CurriculumOrder = Record<
-	keyof Omit<Curriculum, 'Settings'>,
+	keyof Omit<Curriculum, 'Settings' | 'ProfileId'>,
 	Component
 >
 

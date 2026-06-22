@@ -4,6 +4,8 @@ import { computed, inject } from 'vue'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfileIndexStore } from '@/stores/profileIndexStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import { ReadonlyStore } from '@/stores/readonlyStore'
 import SvgDocument from '@/svgs/svgDocument.vue'
 import Button from '@/ui/appButton.vue'
@@ -11,12 +13,22 @@ import AppSelect from '@/ui/appSelect.vue'
 
 const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
+const profileIndex = ProfileIndexStore.get()
 const readonly = ReadonlyStore.get()
 
 const cvSelect = computed(() =>
-	CurriculumStore.get().value.map((curriculum, index) => ({
-		label: `${curriculum.Settings.language} - ${curriculum.Header.Role.value}`,
-		value: index
+	CurriculumStore.get()
+		.value.filter((item) => item.ProfileId === profileIndex.value)
+		.map((curriculum, index) => ({
+			label: `${curriculum.Settings.language} - ${curriculum.Header.Role.value}`,
+			value: index
+		}))
+)
+
+const profileSelect = computed(() =>
+	ProfilesStore.get().value.map((profile) => ({
+		label: profile.name,
+		value: profile.id
 	}))
 )
 
@@ -45,10 +57,17 @@ function savePDF() {
 		</h1>
 		<div>
 			<AppSelect
+				:items="profileSelect"
+				v-model="profileIndex"
+				@vue:updated="ProfileIndexStore.save()"
+			/>
+
+			<AppSelect
 				:items="cvSelect"
 				v-model="curriculumIndex"
 				@vue:updated="CurriculumIndexStore.save()"
 			/>
+
 			<Button :disabled="!readonly" @click="savePDF" background="var(--primary)"
 				>Generate PDF
 			</Button>

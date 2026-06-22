@@ -28,6 +28,8 @@ export function parseCurriculum(value: unknown): Curriculum {
 		return cv
 	}
 
+	cv.ProfileId = isNumberOrDefault(value.ProfileId, 1)
+
 	if (isObject(value.Settings)) {
 		cv.Settings.language = isOneOforDefault(
 			value.Settings.language,
@@ -46,7 +48,7 @@ export function parseCurriculum(value: unknown): Curriculum {
 
 		if (Array.isArray(value.Settings.order)) {
 			cv.Settings.order = value.Settings.order.reduce<
-				Array<keyof Omit<Curriculum, 'Settings'>>
+				Array<keyof Omit<Curriculum, 'Settings' | 'ProfileId'>>
 			>((acc, item) => {
 				if (isOneOf(item, curriculumOrderArray)) {
 					acc.push(item)
@@ -357,7 +359,7 @@ export function parseDefaultConfig(value: unknown): DefaultConfig {
 
 		if (Array.isArray(value.Settings.order)) {
 			cv.Settings.order = value.Settings.order.reduce<
-				Array<keyof Omit<Curriculum, 'Settings'>>
+				Array<keyof Omit<Curriculum, 'Settings' | 'ProfileId'>>
 			>((acc, item) => {
 				if (isOneOf(item, curriculumOrderArray)) {
 					acc.push(item)

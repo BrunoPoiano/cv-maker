@@ -278,6 +278,15 @@
 			scroll-padding-top: 4rem;
 		}
 	}
+
+	.dragging {
+		background-color: var(--surface);
+		padding: 0.5rem 0.7rem;
+		max-width: 60ch;
+		opacity: 1;
+		transform: rotate(3deg);
+		box-shadow: 0 8px 20px rgb(0 0 0 / 30%);
+	}
 }
 
 @layer print {

@@ -5,6 +5,7 @@ export function CurriculumConst(): Curriculum {
 	const defaultConfig = defaultConfigStore.get()
 
 	return {
+		ProfileId: 1,
 		Settings: {
 			language: 'en-us',
 			order: [
