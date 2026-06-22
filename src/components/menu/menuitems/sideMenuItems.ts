@@ -21,7 +21,7 @@ const ModalSummary = defineAsyncComponent(
 	() => import('../modals/modalSummary.vue')
 )
 const ModalSettings = defineAsyncComponent(
-	() => import('../modals/modalSettings.vue')
+	() => import('../modals/settings/modalSettings.vue')
 )
 const ModalDefaultConfig = defineAsyncComponent(
 	() => import('../modals/modalDefaultConfig.vue')

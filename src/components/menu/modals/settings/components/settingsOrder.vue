@@ -1,23 +1,24 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 
-import { curriculumOrder } from '@/constants/curriculumOrder'
 import { ProviderKey } from '@/keys'
 import { isNumberOrDefault } from '@/parsers/typeValidation'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { CurriculumStore } from '@/stores/curriculumStore'
+import SvgDrag from '@/svgs/svgDrag.vue'
+import type { HasShow } from '@/types'
+import AppInput from '@/ui/appInput.vue'
 
-const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
-const margin = computed(() => curriculum.value.Settings.margin)
-const gap = computed(() => curriculum.value.Settings.gap)
+const { curriculum } = inject(ProviderKey)!
 const lastHovered = ref<number>(-1)
 const dragging = ref<number>(-1)
 
 onMounted(() => {
-	const curriculumPage = document.getElementById('curriculumPage')!
+	const settingsOrderUl = document.getElementById('settingsOrderUl')!
+
 	for (const el of curriculum.value.Settings.order) {
-		const item = document.getElementById(`main-${el}`)
+		const item = document.getElementById(`li-${el}`)
 		if (item) {
 			item.addEventListener('dragstart', (el) => {
 				const dragImage = item.cloneNode(true) as HTMLElement
@@ -28,7 +29,7 @@ onMounted(() => {
 
 				const target = el.target as HTMLElement
 				dragging.value = isNumberOrDefault(target.dataset.index, -1)
-				el.dataTransfer?.setDragImage(dragImage, 100, 20)
+				el.dataTransfer?.setDragImage(dragImage, 30, 20)
 
 				item.addEventListener('dragend', () => dragImage.remove(), {
 					once: true
@@ -37,7 +38,7 @@ onMounted(() => {
 		}
 	}
 
-	curriculumPage.addEventListener('drop', () => {
+	settingsOrderUl.addEventListener('drop', () => {
 		if (dragging.value < 0 || lastHovered.value < 0) {
 			return
 		}
@@ -52,7 +53,7 @@ onMounted(() => {
 		lastHovered.value = -1
 	})
 
-	curriculumPage.addEventListener('dragover', (e) => {
+	settingsOrderUl.addEventListener('dragover', (e) => {
 		e.preventDefault()
 		const target = document.elementFromPoint(
 			e.clientX,
@@ -74,55 +75,55 @@ onMounted(() => {
 </script>
 
 <template>
-	<section>
-		<div
-			class="a4-page"
-			id="curriculumPage"
-			:style="{ '--_padding': `${margin}cm`, '--_a4-gap': `${gap}rem` }"
-		>
-			<template
-				v-for="(order, index) in curriculum.Settings.order"
-				:key="order"
+	<div>
+		<span> Order </span>
+		<ul id="settingsOrderUl">
+			<li
+				:id="`li-${value}`"
+				:data-index="index"
+				class="cvElement"
+				draggable="true"
+				v-for="(value, index) in curriculum.Settings.order"
+				:key="value"
 			>
-				<component
-					:id="`main-${order}`"
-					:data-index="index"
-					class="cvElement"
-					draggable="true"
-					:is="curriculumOrder[order]"
+				<AppInput
+					type="checkbox"
+					:divStyle="{ width: '1rem' }"
+					v-if="Object.prototype.hasOwnProperty.call(curriculum[value], 'show')"
+					v-model="curriculum[value as HasShow].show"
 				/>
-			</template>
-		</div>
-	</section>
+				<span v-else :style="{ width: '1rem' }" />
+
+				<SvgDrag />
+
+				{{ value.replace(/([a-z])([A-Z])/g, '$1 $2') }}
+			</li>
+		</ul>
+	</div>
 </template>
 
 <style scoped>
 @layer utilities {
-	section {
-		background-color: var(--surface);
+	.dragging {
+		display: flex;
+		> div,
+		svg {
+			display: none;
+		}
+	}
+	div:has(ul) {
+		grid-column: span 2;
 
-		.a4-page {
-			grid-area: curriculum;
-			--_a4-gap: 1.3rem;
+		ul {
+			padding: 0px;
 
-			overflow-x: auto;
-			max-width: 230mm;
-			min-height: 297mm;
-			box-sizing: border-box;
-
-			display: grid;
-			align-content: baseline;
-			gap: var(--_a4-gap);
-
-			padding: var(--_padding, 1cm);
-			margin-inline: auto;
-			margin-block: 2rem;
-
-			box-sizing: border-box;
-			background-color: light-dark(white, black);
-
-			border: 1px var(--outline-variant) solid;
-			border-radius: calc(var(--border-radius) * 0.5);
+			li {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				padding: 0.5rem 0.3rem;
+				cursor: grab;
+			}
 		}
 	}
 }
