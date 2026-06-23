@@ -35,6 +35,8 @@ type Each<T extends string> = {
 	[K in T]: string
 }
 
+export type BolderWords = Record<number, Array<string>>
+
 export type Profile = {
 	id: number
 	name: string
