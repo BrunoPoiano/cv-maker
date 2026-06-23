@@ -24,13 +24,6 @@ const profiles = ref(
 				curriculums: [
 					deepClone({ obj: CurriculumConst(), parseFunction: parseCurriculum })
 				]
-			},
-			{
-				id: 2,
-				name: 'User',
-				curriculums: [
-					deepClone({ obj: CurriculumConst(), parseFunction: parseCurriculum })
-				]
 			}
 		]
 	})
@@ -96,7 +89,6 @@ export const ProfilesStore = {
 
 		profiles.value[profileIndex].curriculums.push(CurriculumConst())
 		const cvLenght = currentCvLenght(profileIndex)
-		console.log({ cvLenght })
 		CurriculumIndexStore.changeValue(cvLenght - 1)
 	},
 	copyCurriculum(curriculum: Curriculum) {

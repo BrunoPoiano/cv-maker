@@ -21,6 +21,7 @@ import { topMenuItems } from './menuitems/topMenuItems'
 const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
 const readonly = ReadonlyStore.get()
+
 const buttonItems = computed(() =>
 	buttonItemsList(curriculum.value, curriculumIndex.value)
 )

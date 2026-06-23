@@ -12,7 +12,9 @@ const bolder = ref(
 	getDataFromLocalStorage({
 		key: 'bolder',
 		parseFunction: parseBolderWords,
-		initialValue: {}
+		initialValue: {
+			0: []
+		}
 	})
 )
 

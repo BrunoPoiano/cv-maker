@@ -6,8 +6,6 @@ import {
 } from '@/helpers/localstorage'
 import { isNumberOrDefault } from '@/parsers/typeValidation'
 
-import { CurriculumIndexStore } from './curriculumIndexStore'
-
 const profileIndex = ref(
 	getDataFromLocalStorage({
 		key: 'profileIndex',
@@ -25,7 +23,6 @@ export const ProfileIndexStore = {
 			key: 'profileIndex',
 			initialValue: profileIndex.value
 		})
-		CurriculumIndexStore.changeValue(0)
 	},
 	changeValue(value: number | boolean) {
 		const newValue =

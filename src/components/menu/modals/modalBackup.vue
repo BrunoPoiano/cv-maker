@@ -14,7 +14,6 @@ type Props = {
 
 const { id } = defineProps<Props>()
 
-const curriculumIndex = CurriculumIndexStore.get()
 const curriculum = ProfilesStore.getCurriculums()
 const file = ref<File | null>(null)
 const alert = ref<string | null>(null)
@@ -49,7 +48,7 @@ function importFile(e: Event) {
 
 			ProfilesStore.updateCurriculum(newCvs)
 			alert.value = `imported successfully!`
-			curriculumIndex.value = 0
+			CurriculumIndexStore.changeValue(0)
 		} catch (error) {
 			console.error('Error parsing JSON:', error)
 			alert.value = `Error updating file!`

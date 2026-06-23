@@ -1,22 +1,32 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
-import { isNumberOrDefault } from '@/parsers/typeValidation'
+import { parseCurriculumIndex } from '@/parsers/stringArray'
+
+import { ProfileIndexStore } from './profileIndexStore'
 
 const curriculumIndex = ref(
 	getDataFromLocalStorage({
 		key: 'curriculumIndex',
-		parseFunction: (value: unknown) => isNumberOrDefault(value, 0),
-		initialValue: 0
+		parseFunction: parseCurriculumIndex,
+		initialValue: { 0: 0 }
 	})
 )
 
+const currentCurriculumIndex = ref(
+	curriculumIndex.value[ProfileIndexStore.get().value] || 0
+)
+
+watch(ProfileIndexStore.get(), (newIndex) => {
+	currentCurriculumIndex.value = curriculumIndex.value[newIndex] || 0
+})
+
 export const CurriculumIndexStore = {
 	get() {
-		return curriculumIndex
+		return currentCurriculumIndex
 	},
 	save() {
 		saveDataToLocalStorage({
@@ -25,17 +35,25 @@ export const CurriculumIndexStore = {
 		})
 	},
 	changeValue(value: number | boolean) {
-		const newValue =
-			typeof value === 'number'
-				? value
-				: value
-					? curriculumIndex.value + 1
-					: curriculumIndex.value - 1
-		curriculumIndex.value = newValue
+		const profileIndex = ProfileIndexStore.get().value
 
-		saveDataToLocalStorage({
-			key: 'curriculumIndex',
-			initialValue: newValue
-		})
+		if (!curriculumIndex.value[profileIndex]) {
+			curriculumIndex.value[profileIndex] = 0
+		}
+
+		if (typeof value === 'boolean') {
+			const newValue = value
+				? curriculumIndex.value[profileIndex] + 1
+				: curriculumIndex.value[profileIndex] == 0
+					? 0
+					: curriculumIndex.value[profileIndex] - 1
+
+			currentCurriculumIndex.value = newValue
+		} else {
+			curriculumIndex.value[profileIndex] = value
+			currentCurriculumIndex.value = value
+		}
+
+		this.save()
 	}
 }

@@ -11,9 +11,9 @@ import Button from '@/ui/appButton.vue'
 import AppSelect from '@/ui/appSelect.vue'
 
 const { curriculum } = inject(ProviderKey)!
-const curriculumIndex = CurriculumIndexStore.get()
 const profileIndex = ProfileIndexStore.get()
 const readonly = ReadonlyStore.get()
+const curriculumIndex = CurriculumIndexStore.get()
 
 const cvSelect = computed(() => {
 	return ProfilesStore.getCurriculums().map((curriculum, index) => ({
@@ -62,7 +62,7 @@ function savePDF() {
 			<AppSelect
 				:items="cvSelect"
 				v-model="curriculumIndex"
-				@vue:updated="CurriculumIndexStore.save()"
+				@vue:updated="CurriculumIndexStore.changeValue(curriculumIndex)"
 			/>
 
 			<Button :disabled="!readonly" @click="savePDF" background="var(--primary)"

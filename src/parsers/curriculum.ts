@@ -340,7 +340,6 @@ export function parseCurriculumToSave(value: Array<Curriculum>) {
 		}
 	})
 
-	console.log({ newVcs })
 	return newVcs
 }
 

@@ -18,7 +18,6 @@ const curriculumIndex = CurriculumIndexStore.get()
 
 const currentCurriculum = computed({
 	get() {
-		console.log({ curriculumIndex: curriculumIndex.value })
 		return (
 			ProfilesStore.getCurriculums()[curriculumIndex.value] ??
 			deepClone({ obj: CurriculumConst(), parseFunction: parseCurriculum })
