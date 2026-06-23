@@ -3,7 +3,7 @@ import { inject, onMounted, onUnmounted, ref } from 'vue'
 
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import SvgDrag from '@/svgs/svgDrag.vue'
 import type { HasShow } from '@/types'
 import AppInput from '@/ui/appInput.vue'
@@ -20,11 +20,7 @@ onMounted(() => {
 		itemsClass: 'liElement',
 		itemsList: curriculum.value.Settings.order,
 		action: (fromIndex, toIndex) =>
-			CurriculumStore.moveSettingsOrder(
-				curriculumIndex.value,
-				fromIndex,
-				toIndex
-			)
+			ProfilesStore.moveSettingsOrder(curriculumIndex.value, fromIndex, toIndex)
 	})
 })
 

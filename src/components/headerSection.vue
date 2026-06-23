@@ -3,7 +3,6 @@ import { computed, inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
 import { ProfileIndexStore } from '@/stores/profileIndexStore'
 import { ProfilesStore } from '@/stores/profileStore'
 import { ReadonlyStore } from '@/stores/readonlyStore'
@@ -16,19 +15,17 @@ const curriculumIndex = CurriculumIndexStore.get()
 const profileIndex = ProfileIndexStore.get()
 const readonly = ReadonlyStore.get()
 
-const cvSelect = computed(() =>
-	CurriculumStore.get()
-		.value.filter((item) => item.ProfileId === profileIndex.value)
-		.map((curriculum, index) => ({
-			label: `${curriculum.Settings.language} - ${curriculum.Header.Role.value}`,
-			value: index
-		}))
-)
+const cvSelect = computed(() => {
+	return ProfilesStore.getCurriculums().map((curriculum, index) => ({
+		label: `${curriculum.Settings.language} - ${curriculum.Header.Role.value}`,
+		value: index
+	}))
+})
 
 const profileSelect = computed(() =>
-	ProfilesStore.get().value.map((profile) => ({
+	ProfilesStore.get().value.map((profile, index) => ({
 		label: profile.name,
-		value: profile.id
+		value: index
 	}))
 )
 

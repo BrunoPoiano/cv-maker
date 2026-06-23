@@ -10,7 +10,7 @@ import { fontSizeSelect } from '@/constants/font-size'
 import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import SvgArrow from '@/svgs/svgArrow.vue'
 import SvgDefault from '@/svgs/SvgDefault.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
@@ -87,7 +87,7 @@ function closeModal() {
 				<AppPopover>
 					<Button
 						icon-button
-						@click="CurriculumStore.setAcademicDefaultValue(curriculumIndex)"
+						@click="ProfilesStore.setAcademicDefaultValue(curriculumIndex)"
 					>
 						<SvgDefault />
 					</Button>
@@ -130,11 +130,7 @@ function closeModal() {
 					<Button
 						iconButton
 						@click="
-							CurriculumStore.moveAcademicSkill(
-								curriculumIndex,
-								index,
-								index - 1
-							)
+							ProfilesStore.moveAcademicSkill(curriculumIndex, index, index - 1)
 						"
 						:disabled="index === 0"
 					>
@@ -143,11 +139,7 @@ function closeModal() {
 					<Button
 						iconButton
 						@click="
-							CurriculumStore.moveAcademicSkill(
-								curriculumIndex,
-								index,
-								index + 1
-							)
+							ProfilesStore.moveAcademicSkill(curriculumIndex, index, index + 1)
 						"
 						:disabled="index === curriculum.AcademicBackground.value.length - 1"
 					>

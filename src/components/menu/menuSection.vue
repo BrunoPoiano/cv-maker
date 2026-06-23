@@ -5,7 +5,7 @@ import { languagesSelect } from '@/constants/language'
 import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import { ReadonlyStore } from '@/stores/readonlyStore'
 import type { Languages } from '@/types'
 import Button from '@/ui/appButton.vue'
@@ -26,7 +26,7 @@ const buttonItems = computed(() =>
 )
 
 function updateLanguage(val: Languages) {
-	CurriculumStore.setLanguage(curriculumIndex.value, val)
+	ProfilesStore.setLanguageCurriculum(curriculumIndex.value, val)
 }
 </script>
 

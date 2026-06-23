@@ -7,7 +7,7 @@ import type { dateStyle } from './constants/dateOptions'
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
 import type { textAlign } from './constants/text-align'
-import type { CurriculumStore } from './stores/curriculumStore'
+import type { ProfilesStore } from './stores/profileStore'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
 export type Languages = (typeof languages)[number]
@@ -38,6 +38,7 @@ type Each<T extends string> = {
 export type Profile = {
 	id: number
 	name: string
+	curriculums: Array<Curriculum>
 }
 
 export type BoldMatchReturn =
@@ -121,7 +122,7 @@ export type CoreSkills = {
 	show: boolean
 }
 
-export type Order = Array<keyof Omit<Curriculum, 'Settings' | 'ProfileId'>>
+export type Order = Array<keyof Omit<Curriculum, 'Settings'>>
 
 type Settings = {
 	language: Languages
@@ -165,7 +166,6 @@ type AcademicBackground = {
 }
 
 export type Curriculum = {
-	ProfileId: number
 	Settings: Settings
 	Header: Header
 	Contact: Contact
@@ -175,14 +175,11 @@ export type Curriculum = {
 	AcademicBackground: AcademicBackground
 }
 
-export type DefaultConfig = Omit<
-	{
-		[T in keyof Curriculum]: RemoveValue<
-			T extends 'Settings' ? Omit<Curriculum[T], 'language'> : Curriculum[T]
-		>
-	},
-	'ProfileId'
->
+export type DefaultConfig = {
+	[T in keyof Curriculum]: RemoveValue<
+		T extends 'Settings' ? Omit<Curriculum[T], 'language'> : Curriculum[T]
+	>
+}
 
 export type HasShow = keyof Pick<
 	Curriculum,
@@ -192,7 +189,7 @@ export type HasShow = keyof Pick<
 >
 
 export type CurriculumOrder = Record<
-	keyof Omit<Curriculum, 'Settings' | 'ProfileId'>,
+	keyof Omit<Curriculum, 'Settings'>,
 	Component
 >
 
@@ -204,12 +201,12 @@ export type MenuModalItem = {
 	backgroundColor?: string
 }
 
-type CVStore = keyof typeof CurriculumStore
+type ProfileStore = keyof typeof ProfilesStore
 
 export type MenuButtonList = {
 	click: {
-		[T in CVStore]: (typeof CurriculumStore)[T]
-	}[CVStore]
+		[T in ProfileStore]: (typeof ProfilesStore)[T]
+	}[ProfileStore]
 	hoverBackground: string
 	title: string
 	disabled?: boolean

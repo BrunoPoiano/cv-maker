@@ -5,7 +5,7 @@ import { fontSizeSelect } from '@/constants/font-size'
 import { textAlignSelect } from '@/constants/text-align'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import SvgDefault from '@/svgs/SvgDefault.vue'
 import AppButton from '@/ui/appButton.vue'
 import Input from '@/ui/appInput.vue'
@@ -51,7 +51,7 @@ const { id } = defineProps<Props>()
 				<AppPopover>
 					<AppButton
 						icon-button
-						@click="CurriculumStore.setContactDefaultValue(curriculumIndex)"
+						@click="ProfilesStore.setContactDefaultValue(curriculumIndex)"
 					>
 						<SvgDefault />
 					</AppButton>

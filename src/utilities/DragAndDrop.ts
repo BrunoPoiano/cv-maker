@@ -88,9 +88,7 @@ export function DragAndDrop({
 
 				item.addEventListener(
 					'dragleave',
-					() => {
-						item.classList.remove('drag-highlight')
-					},
+					() => item.classList.remove('drag-highlight'),
 					{ signal }
 				)
 			}

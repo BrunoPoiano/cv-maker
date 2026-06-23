@@ -11,21 +11,21 @@ import { CurriculumConst } from './constants/curriculum'
 import { deepClone } from './helpers/clone'
 import { parseCurriculum } from './parsers/curriculum'
 import { CurriculumIndexStore } from './stores/curriculumIndexStore'
-import { CurriculumStore } from './stores/curriculumStore'
 import { HueStore } from './stores/hueStore'
+import { ProfilesStore } from './stores/profileStore'
 
-const curriculumList = CurriculumStore.get()
 const curriculumIndex = CurriculumIndexStore.get()
 
 const currentCurriculum = computed({
 	get() {
+		console.log({ curriculumIndex: curriculumIndex.value })
 		return (
-			curriculumList.value[curriculumIndex.value] ??
+			ProfilesStore.getCurriculums()[curriculumIndex.value] ??
 			deepClone({ obj: CurriculumConst(), parseFunction: parseCurriculum })
 		)
 	},
 	set(value) {
-		curriculumList.value[curriculumIndex.value] = value
+		ProfilesStore.getCurriculums()[curriculumIndex.value] = value
 	}
 })
 

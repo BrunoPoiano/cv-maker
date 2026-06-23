@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
@@ -21,7 +21,7 @@ function AddCoreSkill() {
 		return
 	}
 
-	CurriculumStore.newCoreSkill(curriculumIndex.value, name.value)
+	ProfilesStore.newCoreSkill(curriculumIndex.value, name.value)
 	name.value = ''
 }
 </script>

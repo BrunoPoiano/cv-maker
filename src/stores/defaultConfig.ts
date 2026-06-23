@@ -8,7 +8,7 @@ import {
 } from '@/helpers/localstorage'
 import { parseDefaultConfig } from '@/parsers/curriculum'
 
-import { CurriculumStore } from './curriculumStore'
+import { ProfilesStore } from './profileStore'
 
 const defaultConfig = ref(
 	getDataFromLocalStorage({
@@ -42,7 +42,7 @@ export const defaultConfigStore = {
 			key: 'defaultConfig'
 		})
 
-		const curriculums = CurriculumStore.get().value.length
+		const curriculums = ProfilesStore.getCurriculums().length
 		for (let i = 0; i < curriculums; i++) {
 			setDefaultConfigToCv(i)
 		}
@@ -60,70 +60,65 @@ export const defaultConfigStore = {
 }
 
 function setDefaultConfigToCv(curriculumIndex: number) {
-	const curriculums = CurriculumStore.get()
+	const curriculums = ProfilesStore.getCurriculums()
 
-	if (!curriculums.value[curriculumIndex]) {
+	if (!curriculums[curriculumIndex]) {
 		return
 	}
 
-	curriculums.value[curriculumIndex].Settings.gap =
-		defaultConfig.value.Settings.gap
-	curriculums.value[curriculumIndex].Settings.margin =
+	curriculums[curriculumIndex].Settings.gap = defaultConfig.value.Settings.gap
+	curriculums[curriculumIndex].Settings.margin =
 		defaultConfig.value.Settings.margin
-	curriculums.value[curriculumIndex].Settings.section = deepClone({
+	curriculums[curriculumIndex].Settings.section = deepClone({
 		obj: defaultConfig.value.Settings.section
 	})
-	curriculums.value[curriculumIndex].Settings.order = deepClone({
+	curriculums[curriculumIndex].Settings.order = deepClone({
 		obj: defaultConfig.value.Settings.order
 	})
 
-	curriculums.value[curriculumIndex].Header.UserName.align =
+	curriculums[curriculumIndex].Header.UserName.align =
 		defaultConfig.value.Header.UserName.align
-	curriculums.value[curriculumIndex].Header.UserName.size =
+	curriculums[curriculumIndex].Header.UserName.size =
 		defaultConfig.value.Header.UserName.size
 
-	curriculums.value[curriculumIndex].Header.Role.align =
+	curriculums[curriculumIndex].Header.Role.align =
 		defaultConfig.value.Header.Role.align
-	curriculums.value[curriculumIndex].Header.Role.size =
+	curriculums[curriculumIndex].Header.Role.size =
 		defaultConfig.value.Header.Role.size
 
-	curriculums.value[curriculumIndex].Contact.align =
-		defaultConfig.value.Contact.align
-	curriculums.value[curriculumIndex].Contact.sideBySide =
+	curriculums[curriculumIndex].Contact.align = defaultConfig.value.Contact.align
+	curriculums[curriculumIndex].Contact.sideBySide =
 		defaultConfig.value.Contact.sideBySide
-	curriculums.value[curriculumIndex].Contact.size =
-		defaultConfig.value.Contact.size
+	curriculums[curriculumIndex].Contact.size = defaultConfig.value.Contact.size
 
-	curriculums.value[curriculumIndex].CoreSkills.show =
+	curriculums[curriculumIndex].CoreSkills.show =
 		defaultConfig.value.CoreSkills.show
-	curriculums.value[curriculumIndex].CoreSkills.sideBySide =
+	curriculums[curriculumIndex].CoreSkills.sideBySide =
 		defaultConfig.value.CoreSkills.sideBySide
-	curriculums.value[curriculumIndex].CoreSkills.size =
+	curriculums[curriculumIndex].CoreSkills.size =
 		defaultConfig.value.CoreSkills.size
 
-	curriculums.value[curriculumIndex].Summary.show =
-		defaultConfig.value.Summary.show
-	curriculums.value[curriculumIndex].Summary.size =
-		defaultConfig.value.Summary.size
+	curriculums[curriculumIndex].Summary.show = defaultConfig.value.Summary.show
+	curriculums[curriculumIndex].Summary.size = defaultConfig.value.Summary.size
 
-	curriculums.value[curriculumIndex].Experience.dateMonth =
+	curriculums[curriculumIndex].Experience.dateMonth =
 		defaultConfig.value.Experience.dateMonth
-	curriculums.value[curriculumIndex].Experience.dateStyle =
+	curriculums[curriculumIndex].Experience.dateStyle =
 		defaultConfig.value.Experience.dateStyle
-	curriculums.value[curriculumIndex].Experience.show =
+	curriculums[curriculumIndex].Experience.show =
 		defaultConfig.value.Experience.show
-	curriculums.value[curriculumIndex].Experience.size = deepClone({
+	curriculums[curriculumIndex].Experience.size = deepClone({
 		obj: defaultConfig.value.Experience.size
 	})
-	curriculums.value[curriculumIndex].Experience.sideBySide =
+	curriculums[curriculumIndex].Experience.sideBySide =
 		defaultConfig.value.Experience.sideBySide
 
-	curriculums.value[curriculumIndex].AcademicBackground.dateMonth =
+	curriculums[curriculumIndex].AcademicBackground.dateMonth =
 		defaultConfig.value.AcademicBackground.dateMonth
-	curriculums.value[curriculumIndex].AcademicBackground.dateStyle =
+	curriculums[curriculumIndex].AcademicBackground.dateStyle =
 		defaultConfig.value.AcademicBackground.dateStyle
-	curriculums.value[curriculumIndex].AcademicBackground.show =
+	curriculums[curriculumIndex].AcademicBackground.show =
 		defaultConfig.value.AcademicBackground.show
-	curriculums.value[curriculumIndex].AcademicBackground.size =
+	curriculums[curriculumIndex].AcademicBackground.size =
 		defaultConfig.value.AcademicBackground.size
 }

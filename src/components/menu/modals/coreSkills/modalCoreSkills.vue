@@ -4,7 +4,7 @@ import { inject, ref } from 'vue'
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey, ProviderSkillKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import SvgArrow from '@/svgs/svgArrow.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
@@ -68,7 +68,7 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 						<AppButton
 							iconButton
 							@click="
-								CurriculumStore.moveCoreSkill(curriculumIndex, core, index - 1)
+								ProfilesStore.moveCoreSkill(curriculumIndex, core, index - 1)
 							"
 							:disabled="index === 0"
 						>
@@ -77,7 +77,7 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 						<AppButton
 							iconButton
 							@click="
-								CurriculumStore.moveCoreSkill(curriculumIndex, core, index + 1)
+								ProfilesStore.moveCoreSkill(curriculumIndex, core, index + 1)
 							"
 							:disabled="index === Object.keys(skillsProxy).length - 1"
 						>
@@ -90,7 +90,7 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 					<AppButton
 						iconButton
 						hover-background="var(--red)"
-						@click="CurriculumStore.removeCoreSkill(curriculumIndex, core)"
+						@click="ProfilesStore.removeCoreSkill(curriculumIndex, core)"
 					>
 						<SvgTrash />
 					</AppButton>

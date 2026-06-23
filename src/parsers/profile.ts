@@ -1,5 +1,6 @@
 import type { Profile } from '@/types'
 
+import { parseCurriculumList } from './curriculum'
 import {
 	isNumberOrDefault,
 	isObject,
@@ -21,7 +22,8 @@ export function parseProfiles(value: unknown): Array<Profile> {
 
 		acc.push({
 			id,
-			name: isStringOrDefault(item.name, '')
+			name: isStringOrDefault(item.name, ''),
+			curriculums: parseCurriculumList(item.curriculums)
 		})
 		return acc
 	}, [])

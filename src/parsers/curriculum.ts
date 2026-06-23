@@ -28,8 +28,6 @@ export function parseCurriculum(value: unknown): Curriculum {
 		return cv
 	}
 
-	cv.ProfileId = isNumberOrDefault(value.ProfileId, 1)
-
 	if (isObject(value.Settings)) {
 		cv.Settings.language = isOneOforDefault(
 			value.Settings.language,

@@ -4,7 +4,7 @@ import { computed, inject, onMounted, onUnmounted, ref } from 'vue'
 import { curriculumOrder } from '@/constants/curriculumOrder'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import { DragAndDrop } from '@/utilities/DragAndDrop'
 
 const { curriculum } = inject(ProviderKey)!
@@ -20,11 +20,7 @@ onMounted(() => {
 		itemsList: curriculum.value.Settings.order,
 		itemsClass: 'cvElement',
 		action: (fromIndex, toIndex) =>
-			CurriculumStore.moveSettingsOrder(
-				curriculumIndex.value,
-				fromIndex,
-				toIndex
-			)
+			ProfilesStore.moveSettingsOrder(curriculumIndex.value, fromIndex, toIndex)
 	})
 })
 

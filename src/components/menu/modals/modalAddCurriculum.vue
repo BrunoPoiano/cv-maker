@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 import { basicCurriculum } from '@/constants/basicCurriculum'
 import { parseCurriculumList } from '@/parsers/curriculum'
-import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import type { Curriculum } from '@/types'
 import AppButton from '@/ui/appButton.vue'
 import Modal from '@/ui/appModal.vue'
@@ -29,7 +29,7 @@ function addCv() {
 		}
 
 		curriculumList.forEach((curriculum) => {
-			CurriculumStore.add(curriculum)
+			ProfilesStore.addCurriculum(curriculum)
 		})
 
 		newCv.value = basicCurriculum

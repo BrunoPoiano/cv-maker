@@ -1,4 +1,4 @@
-import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import SvgCopy from '@/svgs/svgCopy.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import SvgPin from '@/svgs/svgPin.vue'
@@ -12,33 +12,33 @@ export function buttonItemsList(
 ): MenuButtonList[] {
 	return [
 		{
-			click: CurriculumStore.save,
+			click: ProfilesStore.save,
 			hoverBackground: 'var(--green)',
 			title: 'Save Curriculums',
 			svg: SvgSave
 		},
 		{
-			click: () => CurriculumStore.copy(curriculum),
+			click: () => ProfilesStore.copyCurriculum(curriculum),
 			hoverBackground: 'var(--blue)',
 			title: 'Copy Curriculum',
 			svg: SvgCopy
 		},
 		{
-			click: CurriculumStore.new,
+			click: ProfilesStore.newCurriculum,
 			hoverBackground: 'var(--green)',
 			title: 'New Curriculum',
 			svg: SvgNewDocument
 		},
 
 		{
-			click: () => CurriculumStore.setAsDefault(curriculumIndex),
+			click: () => ProfilesStore.setAsDefaultCurriculum(curriculumIndex),
 			hoverBackground: 'var(--green)',
 			title: 'Set Curriculum as default',
 			disabled: curriculumIndex === 0,
 			svg: SvgPin
 		},
 		{
-			click: () => CurriculumStore.delete(curriculumIndex),
+			click: () => ProfilesStore.deleteCurriculum(curriculumIndex),
 			disabled: curriculumIndex === 0,
 			hoverBackground: 'var(--red)',
 			title: 'Delete Curriculum',

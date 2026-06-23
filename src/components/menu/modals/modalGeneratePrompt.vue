@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 
 import { curriculumOnlyValue } from '@/helpers/cvFormatters'
-import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import Button from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
@@ -18,14 +18,14 @@ const curriculumSelected = ref(0)
 const promptFullCv = ref(false)
 
 const cvSelect = computed(() =>
-	CurriculumStore.get().value.map((curriculum, index) => ({
+	ProfilesStore.getCurriculums().map((curriculum, index) => ({
 		label: `${curriculum.Settings.language} - ${curriculum.Header.Role.value}`,
 		value: index
 	}))
 )
 
 const curriculumParsed = computed(() => {
-	const cv = CurriculumStore.get().value[curriculumSelected.value]
+	const cv = ProfilesStore.getCurriculums()[curriculumSelected.value]
 	if (!cv) {
 		return null
 	}
@@ -98,7 +98,7 @@ ATS-SPECIFIC RULES:
 - Ensure keyword density without keyword stuffing.
 
 OUTPUT:
-  revised resume JSON 
+  revised resume JSON
   changes made: Bullet describing each significant change,Keyword additions,Removed content,Rewritten achievements
   keyword coverage: matched - list of matched keywords, missing - important keywords not represented
 `
