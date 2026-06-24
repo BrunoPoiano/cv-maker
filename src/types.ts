@@ -16,6 +16,7 @@ export type TextAlign = (typeof textAlign)[number]
 export type DateStyle = (typeof dateStyle)[number]
 export type SelectItem = Array<{ value: string | number; label: string }>
 export type Translation = Record<string, Each<Languages>>
+
 export type MonthOptions = Extract<
 	Intl.DateTimeFormatOptions['month'],
 	'2-digit' | 'short' | 'long'
@@ -34,6 +35,15 @@ export type BaseItem<T extends string> = {
 type Each<T extends string> = {
 	[K in T]: string
 }
+
+export type TableProps = Array<
+	Record<string, unknown> & {
+		actions: {
+			component: Component
+			props: Record<string, unknown>
+		}
+	}
+>
 
 export type BolderWords = Record<number, Array<string>>
 export type CurriculumIndex = Record<number, number>

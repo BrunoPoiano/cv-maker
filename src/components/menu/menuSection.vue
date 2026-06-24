@@ -5,10 +5,13 @@ import { languagesSelect } from '@/constants/language'
 import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
+import { ProfileIndexStore } from '@/stores/profileIndexStore'
 import { ProfilesStore } from '@/stores/profileStore'
 import { ReadonlyStore } from '@/stores/readonlyStore'
+import SvgGear from '@/svgs/svgGear.vue'
 import type { Languages } from '@/types'
 import Button from '@/ui/appButton.vue'
+import AppButton from '@/ui/appButton.vue'
 import AppMenuModalItems from '@/ui/appMenuModalItems.vue'
 import AppPopover from '@/ui/appPopover.vue'
 import AppSelect from '@/ui/appSelect.vue'
@@ -17,10 +20,26 @@ import appToggleText from '@/ui/appToggleText.vue'
 import { buttonItemsList } from './menuitems/buttonItems'
 import { sideMenuItems } from './menuitems/sideMenuItems'
 import { topMenuItems } from './menuitems/topMenuItems'
+import ModalProfileConfig from './modals/ProfileConfig/modalProfileConfig.vue'
 
 const { curriculum } = inject(ProviderKey)!
-const curriculumIndex = CurriculumIndexStore.get()
 const readonly = ReadonlyStore.get()
+const profileIndex = ProfileIndexStore.get()
+const curriculumIndex = CurriculumIndexStore.get()
+
+const cvSelect = computed(() => {
+	return ProfilesStore.getCurriculums().map((curriculum, index) => ({
+		label: `${curriculum.Settings.language} - ${curriculum.Header.Role.value}`,
+		value: index
+	}))
+})
+
+const profileSelect = computed(() =>
+	ProfilesStore.get().value.map((profile, index) => ({
+		label: profile.name,
+		value: index
+	}))
+)
 
 const buttonItems = computed(() =>
 	buttonItemsList(curriculum.value, curriculumIndex.value)
@@ -44,6 +63,25 @@ function updateLanguage(val: Languages) {
 			<AppMenuModalItems :menu-items="sideMenuItems" menu-button />
 		</div>
 	</aside>
+	<div class="profileMenu">
+		<AppSelect
+			width="20ch"
+			:items="profileSelect"
+			v-model="profileIndex"
+			@vue:updated="ProfileIndexStore.save()"
+		/>
+
+		<AppSelect
+			width="25ch"
+			:items="cvSelect"
+			v-model="curriculumIndex"
+			@vue:updated="CurriculumIndexStore.changeValue(curriculumIndex)"
+		/>
+		<AppButton id="modalProfileConfig" modal iconButton>
+			<SvgGear />
+		</AppButton>
+		<ModalProfileConfig />
+	</div>
 	<nav class="menu">
 		<AppMenuModalItems :menu-items="topMenuItems" />
 	</nav>
@@ -75,13 +113,20 @@ function updateLanguage(val: Languages) {
 
 <style scoped>
 @layer utilities {
+	.profileMenu {
+		grid-area: profileMenu;
+		display: flex;
+		gap: 1rem;
+		padding: 0.5rem 1rem;
+		justify-content: flex-end;
+	}
 	.menu {
 		grid-area: submenu;
 		display: flex;
 		gap: 1rem;
 
+		padding-block: 0.5rem 1rem;
 		padding-inline-start: 2rem;
-		padding-block: 1rem;
 
 		&:deep(.toggle-text) {
 			margin-left: auto;

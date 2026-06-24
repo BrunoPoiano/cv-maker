@@ -94,6 +94,7 @@ onBeforeMount(() => {
 
 		grid-template-areas:
 			'header header header'
+			'menu profileMenu profileMenu'
 			'menu submenu curriculumMenu'
 			'menu curriculum curriculumMenu'
 			'menu footer footer';

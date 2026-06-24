@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, onMounted, onUnmounted, ref } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey, ProviderSkillKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { ProfilesStore } from '@/stores/profileStore'
-import SvgArrow from '@/svgs/svgArrow.vue'
+import SvgDrag from '@/svgs/svgDrag.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
 import AppButton from '@/ui/appButton.vue'
@@ -15,6 +15,7 @@ import AppPopover from '@/ui/appPopover.vue'
 import Select from '@/ui/appSelect.vue'
 import AppSmall from '@/ui/appSmall.vue'
 import Textarea from '@/ui/appTextarea.vue'
+import { DragAndDrop } from '@/utilities/DragAndDrop'
 
 import ModalCoreSkillName from './components/ModalCoreSkillName.vue'
 
@@ -27,6 +28,22 @@ const { skillsProxy, onInput } = inject(ProviderSkillKey)!
 const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
 const ModalCoreSkillNameID = ref('modal-core-skill-name')
+const controller = ref(new AbortController())
+
+onMounted(() => {
+	controller.value = DragAndDrop({
+		areaId: 'coreSkillsList',
+		idPrefix: 'core-skill-',
+		itemsList: Object.keys(curriculum.value.CoreSkills.value),
+		itemsClass: 'skills',
+		action: (fromIndex, toIndex) =>
+			ProfilesStore.moveCoreSkill(curriculumIndex.value, fromIndex, toIndex)
+	})
+})
+
+onUnmounted(() => {
+	controller.value.abort()
+})
 </script>
 
 <template>
@@ -61,28 +78,18 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 				v-model="curriculum.CoreSkills.size"
 			/>
 		</div>
-		<form>
-			<div v-for="(_, core, index) in skillsProxy" class="skills" :key="core">
+		<div class="coreSkillsList" id="coreSkillsList">
+			<div
+				v-for="(_, core, index) in skillsProxy"
+				:id="`core-skill-${core}`"
+				:data-index="index"
+				:key="core"
+				class="skills"
+				draggable="true"
+			>
 				<div class="header-items">
 					<div>
-						<AppButton
-							iconButton
-							@click="
-								ProfilesStore.moveCoreSkill(curriculumIndex, core, index - 1)
-							"
-							:disabled="index === 0"
-						>
-							<SvgArrow direction="up" />
-						</AppButton>
-						<AppButton
-							iconButton
-							@click="
-								ProfilesStore.moveCoreSkill(curriculumIndex, core, index + 1)
-							"
-							:disabled="index === Object.keys(skillsProxy).length - 1"
-						>
-							<SvgArrow direction="down" />
-						</AppButton>
+						<SvgDrag />
 						<span>
 							{{ core.replace('_', ' & ') }}
 						</span>
@@ -102,7 +109,7 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 					minHeight="100px"
 				/>
 			</div>
-		</form>
+		</div>
 		<ModalCoreSkillName :id="ModalCoreSkillNameID" />
 	</Modal>
 </template>
@@ -126,7 +133,7 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 		margin-bottom: 1rem;
 	}
 
-	form {
+	.coreSkillsList {
 		display: grid;
 		gap: 1rem;
 

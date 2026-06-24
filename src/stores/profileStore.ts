@@ -8,7 +8,7 @@ import {
 } from '@/helpers/localstorage'
 import { parseCurriculum } from '@/parsers/curriculum'
 import { parseProfiles } from '@/parsers/profile'
-import type { Curriculum, Languages, Profile } from '@/types'
+import type { Curriculum, Languages } from '@/types'
 
 import { CurriculumIndexStore } from './curriculumIndexStore'
 import { ProfileIndexStore } from './profileIndexStore'
@@ -51,8 +51,17 @@ export const ProfilesStore = {
 	save() {
 		saveDataToLocalStorage({ key: 'profiles', initialValue: profiles.value })
 	},
-	add(profile: Profile) {
-		profiles.value.push(profile)
+	add(name: string) {
+		const id = (profiles.value[profiles.value.length - 1]?.id || 0) + 1
+
+		profiles.value.push({
+			id,
+			name,
+			curriculums: [
+				deepClone({ obj: CurriculumConst(), parseFunction: parseCurriculum })
+			]
+		})
+
 		this.save()
 	},
 	delete(profileIndex: number) {
@@ -62,10 +71,10 @@ export const ProfilesStore = {
 		profiles.value.splice(profileIndex, 1)
 		this.save()
 	},
-	update(profile: Profile) {
-		profiles.value = profiles.value.map((item) => {
-			if (item.id === profile.id) {
-				item = profile
+	update(profileIndex: number, name: string) {
+		profiles.value = profiles.value.map((item, index) => {
+			if (index === profileIndex) {
+				item = { ...item, name }
 			}
 			return item
 		})
@@ -241,32 +250,41 @@ export const ProfilesStore = {
 		delete profiles.value[profileIndex].curriculums[curriculumIndex].CoreSkills
 			.value[core]
 	},
-	moveCoreSkill(curriculumIndex: number, core: string, newIndex: number) {
+	moveCoreSkill(curriculumIndex: number, fromIndex: number, toIndex: number) {
 		const profileIndex = ProfileIndexStore.get().value
+
 		if (
 			!profiles.value[profileIndex] ||
-			!profiles.value[profileIndex].curriculums[curriculumIndex] ||
-			!profiles.value[profileIndex].curriculums[curriculumIndex].CoreSkills
-				.value[core] ||
-			newIndex === -1
+			!profiles.value[profileIndex].curriculums[curriculumIndex]
 		) {
 			return
 		}
 
-		const entries = Object.entries(
+		const olderCoreSkill =
+			profiles.value[profileIndex].curriculums[curriculumIndex].CoreSkills.value
+
+		const order = Object.keys(
 			profiles.value[profileIndex].curriculums[curriculumIndex].CoreSkills.value
 		)
-		const currentIndex = entries.findIndex(([k]) => k === core)
 
-		if (currentIndex === -1) return
+		const item = order[fromIndex]
+		if (!item) {
+			return
+		}
 
-		const [item] = entries.splice(currentIndex, 1)
-		if (item) {
-			entries.splice(newIndex, 0, item)
+		order.splice(fromIndex, 1)
+		order.splice(toIndex, 0, item)
+
+		const newTest: typeof olderCoreSkill = {}
+
+		for (const item of order) {
+			if (olderCoreSkill[item]) {
+				newTest[item] = olderCoreSkill[item]
+			}
 		}
 
 		profiles.value[profileIndex].curriculums[curriculumIndex].CoreSkills.value =
-			Object.fromEntries(entries)
+			newTest
 	},
 	moveAcademicSkill(
 		curriculumIndex: number,
@@ -274,6 +292,7 @@ export const ProfilesStore = {
 		toIndex: number
 	) {
 		const profileIndex = ProfileIndexStore.get().value
+
 		if (
 			!profiles.value[profileIndex] ||
 			!profiles.value[profileIndex].curriculums[curriculumIndex] ||
@@ -293,6 +312,7 @@ export const ProfilesStore = {
 		profiles.value[profileIndex].curriculums[
 			curriculumIndex
 		].AcademicBackground.value.splice(fromIndex, 1)
+
 		profiles.value[profileIndex].curriculums[
 			curriculumIndex
 		].AcademicBackground.value.splice(toIndex, 0, academic)

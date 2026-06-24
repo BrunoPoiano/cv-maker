@@ -1,33 +1,13 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
-import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { ProfileIndexStore } from '@/stores/profileIndexStore'
-import { ProfilesStore } from '@/stores/profileStore'
 import { ReadonlyStore } from '@/stores/readonlyStore'
 import SvgDocument from '@/svgs/svgDocument.vue'
 import Button from '@/ui/appButton.vue'
-import AppSelect from '@/ui/appSelect.vue'
 
 const { curriculum } = inject(ProviderKey)!
-const profileIndex = ProfileIndexStore.get()
 const readonly = ReadonlyStore.get()
-const curriculumIndex = CurriculumIndexStore.get()
-
-const cvSelect = computed(() => {
-	return ProfilesStore.getCurriculums().map((curriculum, index) => ({
-		label: `${curriculum.Settings.language} - ${curriculum.Header.Role.value}`,
-		value: index
-	}))
-})
-
-const profileSelect = computed(() =>
-	ProfilesStore.get().value.map((profile, index) => ({
-		label: profile.name,
-		value: index
-	}))
-)
 
 function savePDF() {
 	const originalTitle = document.title
@@ -53,18 +33,6 @@ function savePDF() {
 			CV-Maker
 		</h1>
 		<div>
-			<AppSelect
-				:items="profileSelect"
-				v-model="profileIndex"
-				@vue:updated="ProfileIndexStore.save()"
-			/>
-
-			<AppSelect
-				:items="cvSelect"
-				v-model="curriculumIndex"
-				@vue:updated="CurriculumIndexStore.changeValue(curriculumIndex)"
-			/>
-
 			<Button :disabled="!readonly" @click="savePDF" background="var(--primary)"
 				>Generate PDF
 			</Button>

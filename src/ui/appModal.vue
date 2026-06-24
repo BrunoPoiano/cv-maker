@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue'
+
 import Button from '@/ui/appButton.vue'
 
 const props = defineProps({
@@ -20,19 +22,38 @@ const props = defineProps({
 		validator: (v: string) => ['none', 'closerequest', 'any'].includes(v)
 	}
 })
+
+const dialogRef = ref<HTMLDialogElement>()
+
+onMounted(() => {
+	const observer = new MutationObserver(() => {
+		if (dialogRef.value?.open) {
+			props.openAction?.()
+		}
+	})
+
+	if (dialogRef.value) {
+		observer.observe(dialogRef.value, {
+			attributes: true,
+			attributeFilter: ['open']
+		})
+	}
+
+	onUnmounted(() => observer.disconnect())
+})
 </script>
 
 <template>
 	<Teleport to="#app">
 		<dialog
 			v-bind="$attrs"
+			ref="dialogRef"
 			:closedby="props.closedby || 'any'"
 			:id="props.id"
 			:style="{
 				minWidth: `min(${props.minWidth || '10rem'}, 100%)`,
 				maxWidth: `${props.maxWidth || '100%'}`
 			}"
-			@show="props.openAction?.()"
 			@close="props.closeAction?.()"
 		>
 			<div class="header">
