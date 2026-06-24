@@ -37,6 +37,7 @@ type Each<T extends string> = {
 
 export type BolderWords = Record<number, Array<string>>
 export type CurriculumIndex = Record<number, number>
+export type ProfileDefaultConfig = Record<number, DefaultConfig>
 
 export type Profile = {
 	id: number
