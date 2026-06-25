@@ -34,19 +34,29 @@ const tableProfiled = computed(() => {
 		maxWidth="min(80ch,100%)"
 	>
 		<template #header>
-			<h3>Profile Config</h3>
-			<AppButton modal id="modalProfileForm"><SvgNewDocument /></AppButton>
-			<ModalProfileForm id="modalProfileForm" />
+			<div class="header">
+				<h3>Profile Config</h3>
+				<AppButton iconButton modal id="modalProfileForm"
+					><SvgNewDocument
+				/></AppButton>
+			</div>
 		</template>
 
 		<AppTable
 			:content="tableProfiled"
 			:header="['id', 'name', 'curriculums', 'actions']"
 		/>
+		<ModalProfileForm id="modalProfileForm" />
 	</AppModal>
 </template>
 
 <style scoped>
 @layer utilities {
+	.header {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		justify-content: space-between;
+	}
 }
 </style>
