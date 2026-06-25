@@ -21,6 +21,7 @@ const tableProfiled = computed(() => {
 	return profiles.value.map((item, index) => {
 		return {
 			...item,
+			'#': item.id,
 			curriculums: item.curriculums.length,
 			actions: {
 				component: TableActions,
@@ -50,7 +51,7 @@ const tableProfiled = computed(() => {
 		<AppTable
 			:bolder="(item: number) => item === profileIndex"
 			:content="tableProfiled"
-			:header="['id', 'name', 'curriculums', 'actions']"
+			:header="['#', 'name', 'curriculums', 'actions']"
 		/>
 		<ModalProfileForm id="modalProfileForm" />
 	</AppModal>

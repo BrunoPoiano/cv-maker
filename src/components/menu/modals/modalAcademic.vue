@@ -73,12 +73,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<Modal
-		:id="id"
-		closeLabel="close"
-		minWidth="50rem"
-		:close-action="closeModal"
-	>
+	<Modal :id="id" closeLabel="close" minWidth="50rem">
 		<template #header>
 			<div class="modalHeader">
 				<h3>

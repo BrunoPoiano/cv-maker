@@ -24,6 +24,7 @@ function confirmForm() {
 	switch (props.id) {
 		case 'modalProfileForm':
 			ProfilesStore.add(name.value)
+			name.value = ''
 			break
 		case `modalProfileFormEdit${props.index}`: {
 			if (props.index !== undefined) {
@@ -31,8 +32,6 @@ function confirmForm() {
 			}
 		}
 	}
-
-	name.value = ''
 }
 
 function checkName() {

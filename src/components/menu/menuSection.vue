@@ -21,7 +21,7 @@ import { sideMenuItems } from './menuitems/sideMenuItems'
 import { topMenuItems } from './menuitems/topMenuItems'
 
 const ModalProfileConfig = defineAsyncComponent(
-	() => import('./modals/ProfileConfig/modalProfileConfig.vue')
+	() => import('./modals/profileConfig/modalProfileConfig.vue')
 )
 
 const { curriculum } = inject(ProviderKey)!
