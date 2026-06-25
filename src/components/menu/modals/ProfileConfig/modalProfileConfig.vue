@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, defineAsyncComponent } from 'vue'
 
+import { ProfileIndexStore } from '@/stores/profileIndexStore'
 import { ProfilesStore } from '@/stores/profileStore'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppModal from '@/ui/appModal.vue'
 import AppTable from '@/ui/appTable.vue'
 
-import ModalProfileForm from './components/ModalProfileForm.vue'
 import TableActions from './components/tableActions.vue'
 
+const ModalProfileForm = defineAsyncComponent(
+	() => import('./components/ModalProfileForm.vue')
+)
+
 const profiles = ProfilesStore.get()
+const profileIndex = ProfileIndexStore.get()
 
 const tableProfiled = computed(() => {
 	return profiles.value.map((item, index) => {
@@ -43,6 +48,7 @@ const tableProfiled = computed(() => {
 		</template>
 
 		<AppTable
+			:bolder="(item: number) => item === profileIndex"
 			:content="tableProfiled"
 			:header="['id', 'name', 'curriculums', 'actions']"
 		/>

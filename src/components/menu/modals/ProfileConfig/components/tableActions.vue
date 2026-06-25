@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue'
+
 import { ProfileIndexStore } from '@/stores/profileIndexStore'
 import { ProfilesStore } from '@/stores/profileStore'
 import SvgPen from '@/svgs/SvgPen.vue'
@@ -6,7 +8,9 @@ import SvgTrash from '@/svgs/svgTrash.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppPopover from '@/ui/appPopover.vue'
 
-import ModalProfileForm from './ModalProfileForm.vue'
+const ModalProfileForm = defineAsyncComponent(
+	() => import('./ModalProfileForm.vue')
+)
 
 type Props = {
 	index: number
@@ -18,7 +22,7 @@ const currentlyProfile = ProfileIndexStore.get()
 </script>
 <template>
 	<div class="actions">
-		<AppPopover positionArea="top left" color="var(--red)" nowrap>
+		<AppPopover color="var(--red)" nowrap>
 			<AppButton
 				iconButton
 				hoverBackground="var(--red)"
@@ -27,7 +31,15 @@ const currentlyProfile = ProfileIndexStore.get()
 			>
 				<SvgTrash />
 			</AppButton>
-			<template #popover> This action cannot be undone </template>
+			<template #popover>
+				{{
+					props.index === 0
+						? 'First profile cannot be deleted'
+						: props.index === currentlyProfile
+							? 'Selected profile cannot be deleted'
+							: 'This action cannot be undone'
+				}}
+			</template>
 		</AppPopover>
 		<AppPopover>
 			<AppButton iconButton modal :id="modalEditId"> <SvgPen /> </AppButton>

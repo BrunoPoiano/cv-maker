@@ -4,6 +4,7 @@ import type { TableProps } from '@/types'
 type Props = {
 	header: Array<string>
 	content: TableProps
+	bolder?: (b: number) => boolean
 }
 
 const props = defineProps<Props>()
@@ -22,7 +23,11 @@ defineOptions({
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="(c, index) in props.content" :key="index">
+			<tr
+				v-for="(c, index) in props.content"
+				:key="index"
+				:data-bolder="bolder?.(index)"
+			>
 				<td v-for="(h, hIndex) in props.header" :key="hIndex">
 					<template v-if="h === 'actions'">
 						<component :is="c.actions.component" v-bind="c.actions.props" />
@@ -35,3 +40,11 @@ defineOptions({
 		</tbody>
 	</table>
 </template>
+
+<style scoped>
+@layer components {
+	[data-bolder='true'] {
+		font-weight: bolder;
+	}
+}
+</style>

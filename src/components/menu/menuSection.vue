@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed, defineAsyncComponent, inject } from 'vue'
 
 import { languagesSelect } from '@/constants/language'
 import { generateKey } from '@/helpers/generateKey'
@@ -20,7 +20,10 @@ import appToggleText from '@/ui/appToggleText.vue'
 import { buttonItemsList } from './menuitems/buttonItems'
 import { sideMenuItems } from './menuitems/sideMenuItems'
 import { topMenuItems } from './menuitems/topMenuItems'
-import ModalProfileConfig from './modals/ProfileConfig/modalProfileConfig.vue'
+
+const ModalProfileConfig = defineAsyncComponent(
+	() => import('./modals/ProfileConfig/modalProfileConfig.vue')
+)
 
 const { curriculum } = inject(ProviderKey)!
 const readonly = ReadonlyStore.get()

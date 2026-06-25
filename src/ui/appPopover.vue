@@ -51,6 +51,7 @@ const anchor = `--${generateKey(5, 'string')}`
 			white-space: var(--_nowrap);
 			background-color: var(--background);
 			color: var(--_color);
+			font-weight: normal;
 			box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
 			padding-inline: var(--_padding-inline);
