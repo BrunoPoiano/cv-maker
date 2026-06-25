@@ -28,10 +28,9 @@ const { skillsProxy, onInput } = inject(ProviderSkillKey)!
 const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
 const ModalCoreSkillNameID = ref('modal-core-skill-name')
-const controller = ref(new AbortController())
 
 onMounted(() => {
-	controller.value = DragAndDrop({
+	const controller = DragAndDrop({
 		areaId: 'coreSkillsList',
 		idPrefix: 'core-skill-',
 		itemsList: Object.keys(curriculum.value.CoreSkills.value),
@@ -39,10 +38,7 @@ onMounted(() => {
 		action: (fromIndex, toIndex) =>
 			ProfilesStore.moveCoreSkill(curriculumIndex.value, fromIndex, toIndex)
 	})
-})
-
-onUnmounted(() => {
-	controller.value.abort()
+	onUnmounted(() => controller.abort())
 })
 </script>
 

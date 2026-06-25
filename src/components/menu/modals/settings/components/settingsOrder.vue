@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onMounted, onUnmounted, ref } from 'vue'
+import { inject, onMounted, onUnmounted } from 'vue'
 
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
@@ -11,10 +11,9 @@ import { DragAndDrop } from '@/utilities/DragAndDrop'
 
 const curriculumIndex = CurriculumIndexStore.get()
 const { curriculum } = inject(ProviderKey)!
-const controller = ref(new AbortController())
 
 onMounted(() => {
-	controller.value = DragAndDrop({
+	const controller = DragAndDrop({
 		areaId: 'settingsOrderUl',
 		idPrefix: 'li-',
 		itemsClass: 'liElement',
@@ -22,10 +21,7 @@ onMounted(() => {
 		action: (fromIndex, toIndex) =>
 			ProfilesStore.moveSettingsOrder(curriculumIndex.value, fromIndex, toIndex)
 	})
-})
-
-onUnmounted(() => {
-	controller.value.abort()
+	onUnmounted(() => controller.abort())
 })
 </script>
 

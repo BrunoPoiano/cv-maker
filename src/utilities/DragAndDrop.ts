@@ -6,6 +6,7 @@ type DragAndDropProps = {
 	idPrefix: string
 	itemsClass: string
 	action: (fromIndex: number, toIndex: number) => void
+	dragImageWidth?: CSSStyleDeclaration['width']
 }
 
 export function DragAndDrop({
@@ -13,7 +14,8 @@ export function DragAndDrop({
 	itemsList,
 	idPrefix,
 	itemsClass,
-	action
+	action,
+	dragImageWidth
 }: DragAndDropProps): AbortController {
 	const controller = new AbortController()
 	const { signal } = controller
@@ -32,6 +34,9 @@ export function DragAndDrop({
 					dragImage.classList.add('dragging')
 					dragImage.style.position = 'absolute'
 					dragImage.style.zIndex = '-10000'
+					if (dragImageWidth) {
+						dragImage.style.maxWidth = dragImageWidth
+					}
 					document.body.appendChild(dragImage)
 
 					const target = el.target as HTMLElement

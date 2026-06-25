@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 
 import { dateStyleSelect, monthOptionsSelect } from '@/constants/dateOptions'
 import { fontSizeSelect } from '@/constants/font-size'
@@ -19,22 +19,19 @@ type Props = {
 }
 
 const { id } = defineProps<Props>()
-const controller = ref(new AbortController())
 
 const defaultConfig = defaultConfigStore.get()
 const curriculumIndex = CurriculumIndexStore.get()
 onMounted(() => {
-	controller.value = DragAndDrop({
+	const controller = DragAndDrop({
 		areaId: 'defaultConfigOrderUl',
 		idPrefix: 'defaultConfigElementli-',
 		itemsList: defaultConfig.value.Settings.order,
 		itemsClass: 'defaultConfigElement',
 		action: defaultConfigStore.moveSettingsOrder
 	})
-})
 
-onUnmounted(() => {
-	controller.value.abort()
+	onUnmounted(() => controller.abort())
 })
 </script>
 

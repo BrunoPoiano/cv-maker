@@ -15,19 +15,22 @@ export function buttonItemsList(
 			click: ProfilesStore.save,
 			hoverBackground: 'var(--green)',
 			title: 'Save Curriculums',
+			id: 'save_curriculums',
 			svg: SvgSave
 		},
 		{
 			click: () => ProfilesStore.copyCurriculum(curriculum),
 			hoverBackground: 'var(--blue)',
 			title: 'Copy Curriculum',
+			id: 'copy_curriculums',
 			svg: SvgCopy
 		},
 		{
 			click: ProfilesStore.newCurriculum,
 			hoverBackground: 'var(--green)',
 			title: 'New Curriculum',
-			svg: SvgNewDocument
+			svg: SvgNewDocument,
+			id: 'new_curriculum'
 		},
 
 		{
@@ -35,12 +38,14 @@ export function buttonItemsList(
 			hoverBackground: 'var(--green)',
 			title: 'Set Curriculum as default',
 			disabled: curriculumIndex === 0,
+			id: 'set_curriculum_default',
 			svg: SvgPin
 		},
 		{
 			click: () => ProfilesStore.deleteCurriculum(curriculumIndex),
 			disabled: curriculumIndex === 0,
 			hoverBackground: 'var(--red)',
+			id: 'delete_curriculum',
 			title: 'Delete Curriculum',
 			svg: SvgTrash
 		}

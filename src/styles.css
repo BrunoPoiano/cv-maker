@@ -320,10 +320,10 @@
 		max-width: 60ch;
 		opacity: 1;
 		transform: rotate(3deg);
-		box-shadow: 0 8px 20px rgb(0 0 0 / 30%);
+		box-shadow: var(--shadow-ambient);
 	}
 	.drag-highlight {
-		outline: 5px solid var(--hover-surface-shift);
+		outline: 5px solid var(--focus-outline);
 	}
 }
 

@@ -2,7 +2,6 @@
 import { computed, defineAsyncComponent, inject } from 'vue'
 
 import { languagesSelect } from '@/constants/language'
-import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { ProfileIndexStore } from '@/stores/profileIndexStore'
@@ -96,7 +95,7 @@ function updateLanguage(val: Languages) {
 			:afterChange="ReadonlyStore.save"
 		/>
 
-		<template v-for="(button, index) in buttonItems" :key="generateKey(index)">
+		<template v-for="button in buttonItems" :key="button.id">
 			<AppPopover positionArea="top left" nowrap>
 				<Button
 					icon-button

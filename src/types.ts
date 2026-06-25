@@ -221,6 +221,7 @@ export type MenuButtonList = {
 	click: {
 		[T in ProfileStore]: (typeof ProfilesStore)[T]
 	}[ProfileStore]
+	id: string
 	hoverBackground: string
 	title: string
 	disabled?: boolean

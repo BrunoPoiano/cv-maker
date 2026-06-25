@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, onMounted, onUnmounted } from 'vue'
 
 import {
 	dateStyleSelect,
@@ -11,8 +11,8 @@ import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { ProfilesStore } from '@/stores/profileStore'
-import SvgArrow from '@/svgs/svgArrow.vue'
 import SvgDefault from '@/svgs/SvgDefault.vue'
+import SvgDrag from '@/svgs/svgDrag.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
 import Button from '@/ui/appButton.vue'
@@ -20,6 +20,7 @@ import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import AppPopover from '@/ui/appPopover.vue'
 import Select from '@/ui/appSelect.vue'
+import { DragAndDrop } from '@/utilities/DragAndDrop'
 
 import ExDateInput from './experience/components/exDateInput.vue'
 
@@ -56,6 +57,19 @@ function closeModal() {
 		return 1
 	})
 }
+
+onMounted(() => {
+	const controller = DragAndDrop({
+		areaId: 'academicList',
+		idPrefix: 'academic-',
+		itemsList: curriculum.value.AcademicBackground.value.map((item) => item.id),
+		itemsClass: 'academic',
+		action: (fromIndex, toIndex) =>
+			ProfilesStore.moveAcademicSkill(curriculumIndex.value, fromIndex, toIndex)
+	})
+
+	onUnmounted(() => controller.abort())
+})
 </script>
 
 <template>
@@ -120,72 +134,57 @@ function closeModal() {
 					v-model="curriculum.AcademicBackground.dateYear"
 				/>
 			</div>
-
-			<div
-				v-for="(ab, index) in curriculum.AcademicBackground.value"
-				class="academic"
-				:key="ab.id"
-			>
-				<div class="directions">
-					<Button
-						iconButton
-						@click="
-							ProfilesStore.moveAcademicSkill(curriculumIndex, index, index - 1)
-						"
-						:disabled="index === 0"
-					>
-						<SvgArrow direction="up" />
-					</Button>
-					<Button
-						iconButton
-						@click="
-							ProfilesStore.moveAcademicSkill(curriculumIndex, index, index + 1)
-						"
-						:disabled="index === curriculum.AcademicBackground.value.length - 1"
-					>
-						<SvgArrow direction="down" />
-					</Button>
-				</div>
-				<Button
-					icon-button
-					@click="deleteCourse(ab.id)"
-					hover-background="var(--red)"
-					title="Delete Course"
+			<div id="academicList">
+				<div
+					v-for="(ab, index) in curriculum.AcademicBackground.value"
+					class="academic"
+					:data-index="index"
+					draggable="true"
+					:id="`academic-${ab.id}`"
+					:key="ab.id"
 				>
-					<SvgTrash />
-				</Button>
+					<SvgDrag />
+					<Button
+						icon-button
+						@click="deleteCourse(ab.id)"
+						hover-background="var(--red)"
+						title="Delete Course"
+					>
+						<SvgTrash />
+					</Button>
 
-				<AppInput
-					type="text"
-					label="Institution"
-					placeholder="Institution"
-					v-model="ab.Institution"
-				/>
-				<AppInput
-					type="text"
-					label="Diploma"
-					placeholder="Diploma"
-					v-model="ab.Diploma"
-				/>
-				<AppInput
-					type="text"
-					label="Course"
-					placeholder="Course"
-					v-model="ab.Course"
-				/>
+					<AppInput
+						type="text"
+						label="Institution"
+						placeholder="Institution"
+						v-model="ab.Institution"
+					/>
+					<AppInput
+						type="text"
+						label="Diploma"
+						placeholder="Diploma"
+						v-model="ab.Diploma"
+					/>
+					<AppInput
+						type="text"
+						label="Course"
+						placeholder="Course"
+						v-model="ab.Course"
+					/>
 
-				<ExDateInput
-					type="date"
-					label="Start Date"
-					placeholder="Start Date"
-					v-model="ab.StartDate"
-				/>
-				<ExDateInput
-					type="date"
-					label="End Date"
-					placeholder="EndDate"
-					v-model="ab.EndDate"
-				/>
+					<ExDateInput
+						type="date"
+						label="Start Date"
+						placeholder="Start Date"
+						v-model="ab.StartDate"
+					/>
+					<ExDateInput
+						type="date"
+						label="End Date"
+						placeholder="EndDate"
+						v-model="ab.EndDate"
+					/>
+				</div>
 			</div>
 		</form>
 	</Modal>
@@ -226,30 +225,29 @@ function closeModal() {
 			gap: 0.8rem;
 		}
 
-		.academic {
+		#academicList {
 			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 0.8rem;
-			background: var(--surface-container-low);
+			gap: 1rem;
 
-			padding: 0.8rem;
-			border-radius: var(--border-radius);
+			.academic {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 0.8rem;
+				background: var(--surface-container-low);
 
-			transition: background 500ms ease;
+				padding: 0.8rem;
+				border-radius: var(--border-radius);
 
-			.directions {
-				grid-area: 1 / 1;
-				display: flex;
-				gap: 0.25rem;
-			}
+				transition: background 500ms ease;
 
-			button {
-				grid-area: 1 / 2;
-				justify-self: end;
-			}
+				button {
+					grid-area: 1 / 2;
+					justify-self: end;
+				}
 
-			&:hover {
-				background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+				&:hover {
+					background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+				}
 			}
 		}
 	}
