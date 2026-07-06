@@ -103,8 +103,8 @@
 
 		--font-weight: 400;
 
-		--red: hwb(12 17% 38%);
-		--blue: hwb(var(--app_hue) 71% 2%);
+		--red: hwb(0 19.6% 13.7%);
+		--blue: hwb(193.9 71% 2%);
 		--orange: hwb(29 32% 4%);
 		--yellow: hsl(55, 90%, 85%);
 		--green: hsl(130, 90%, 85%);
@@ -324,6 +324,49 @@
 	}
 	.drag-highlight {
 		outline: 5px solid var(--focus-outline);
+	}
+}
+
+@layer utilities {
+	#notification {
+		--_animation: cubic-bezier(0.86, 0, 0.14, 1);
+		white-space: nowrap;
+		position: fixed;
+		bottom: 2rem;
+		right: -2rem;
+
+		width: 100%;
+		max-width: 30ch;
+		padding: 0.5rem 1rem;
+
+		background: var(--_background, var(--blue));
+
+		animation:
+			animate-pop 600ms var(--_animation),
+			hide 500ms var(--_animation) 1500ms forwards;
+	}
+
+	@keyframes animate-pop {
+		from {
+			width: 0px;
+		}
+
+		to {
+			width: 100%;
+		}
+	}
+
+	@keyframes hide {
+		0% {
+			width: 100%;
+		}
+		95% {
+			width: 0px;
+		}
+		100% {
+			width: 0px;
+			right: -2rem;
+		}
 	}
 }
 

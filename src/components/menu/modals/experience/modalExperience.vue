@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Temporal } from '@js-temporal/polyfill'
 import { inject, ref } from 'vue'
 
 import {
@@ -8,7 +7,6 @@ import {
 	yearOptionsSelect
 } from '@/constants/dateOptions.ts'
 import { fontSizeSelect } from '@/constants/font-size'
-import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { ProfilesStore } from '@/stores/profileStore'
@@ -37,24 +35,6 @@ const curriculumIndex = CurriculumIndexStore.get()
 const list = ref(
 	Array.isArray(curriculum.value.Experience.value[0]?.Description)
 )
-
-function newExperience() {
-	curriculum.value.Experience.value.unshift({
-		id: generateKey(5, 'number'),
-		CompanyName: '',
-		Role: '',
-		StartDate: Temporal.Now.plainDateISO(),
-		EndDate: null,
-		Description: '',
-		Remote: false
-	})
-}
-
-function deleteExperience(id: string) {
-	curriculum.value.Experience.value = curriculum.value.Experience.value.filter(
-		(item) => item.id !== id
-	)
-}
 
 function closeModal() {
 	curriculum.value.Experience.value.sort((cv1, cv2) => {
@@ -86,7 +66,10 @@ function closeModal() {
 					}}</AppSmall>
 				</h3>
 				<AppPopover>
-					<Button icon-button @click="newExperience">
+					<Button
+						icon-button
+						@click="ProfilesStore.newExperience(curriculumIndex)"
+					>
 						<SvgNewDocument />
 					</Button>
 					<template #popover>New Experience</template>
@@ -161,7 +144,7 @@ function closeModal() {
 					<AppInput type="checkbox" label="Remote" v-model="job.Remote" />
 					<Button
 						icon-button
-						@click="deleteExperience(job.id)"
+						@click="ProfilesStore.deleteExperience(curriculumIndex, job.id)"
 						hover-background="var(--red)"
 						title="Delete Experience"
 					>

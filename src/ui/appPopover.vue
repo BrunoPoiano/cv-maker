@@ -66,7 +66,9 @@ const anchor = `--${generateKey(5, 'string')}`
 			position-anchor: v-bind(anchor);
 			position-area: var(--position-area, var(--_default-position));
 			position-try-fallbacks:
-				--top-right, --top-left, --bottom-right, --bottom-left;
+				flip-block,
+				flip-inline,
+				flip-block flip-inline;
 
 			opacity: 0;
 			visibility: hidden;

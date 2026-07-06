@@ -1,7 +1,9 @@
+import { Temporal } from '@js-temporal/polyfill'
 import { ref } from 'vue'
 
 import { CurriculumConst } from '@/constants/curriculum'
 import { deepClone } from '@/helpers/clone'
+import { generateKey } from '@/helpers/generateKey'
 import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
@@ -9,6 +11,7 @@ import {
 import { parseCurriculum } from '@/parsers/curriculum'
 import { parseProfiles } from '@/parsers/profile'
 import type { Curriculum, Languages } from '@/types'
+import { Notification } from '@/utilities/Notification'
 
 import { CurriculumIndexStore } from './curriculumIndexStore'
 import { ProfileIndexStore } from './profileIndexStore'
@@ -50,6 +53,7 @@ export const ProfilesStore = {
 	},
 	save() {
 		saveDataToLocalStorage({ key: 'profiles', initialValue: profiles.value })
+		Notification({ message: 'Profile Saved', type: 'success' })
 	},
 	add(name: string) {
 		const id = (profiles.value[profiles.value.length - 1]?.id || 0) + 1
@@ -69,7 +73,8 @@ export const ProfilesStore = {
 		if (profileIndex === 0) return
 
 		profiles.value.splice(profileIndex, 1)
-		this.save()
+		saveDataToLocalStorage({ key: 'profiles', initialValue: profiles.value })
+		Notification({ message: 'Item Deleted', type: 'success' })
 	},
 	update(profileIndex: number, name: string) {
 		profiles.value = profiles.value.map((item, index) => {
@@ -78,7 +83,8 @@ export const ProfilesStore = {
 			}
 			return item
 		})
-		this.save()
+		saveDataToLocalStorage({ key: 'profiles', initialValue: profiles.value })
+		Notification({ message: 'Item Updated', type: 'success' })
 	},
 	deleteCurriculum(curriculumIndex: number) {
 		const profileIndex = ProfileIndexStore.get().value
@@ -88,6 +94,7 @@ export const ProfilesStore = {
 
 		profiles.value[profileIndex].curriculums.splice(curriculumIndex, 1)
 		CurriculumIndexStore.changeValue(false)
+		Notification({ message: 'Curricullum deleted', type: 'success' })
 	},
 	newCurriculum() {
 		const profileIndex = ProfileIndexStore.get().value
@@ -99,6 +106,7 @@ export const ProfilesStore = {
 		profiles.value[profileIndex].curriculums.push(CurriculumConst())
 		const cvLenght = currentCvLenght(profileIndex)
 		CurriculumIndexStore.changeValue(cvLenght - 1)
+		Notification({ message: 'Curricullum added', type: 'success' })
 	},
 	copyCurriculum(curriculum: Curriculum) {
 		const profileIndex = ProfileIndexStore.get().value
@@ -123,6 +131,7 @@ export const ProfilesStore = {
 
 		const cvLenght = currentCvLenght(profileIndex)
 		CurriculumIndexStore.changeValue(cvLenght - 1)
+		Notification({ message: 'Curricullum copied', type: 'success' })
 	},
 	updateCurriculum(curriculumList: Curriculum[]) {
 		const profileIndex = ProfileIndexStore.get().value
@@ -136,6 +145,7 @@ export const ProfilesStore = {
 			cvLenght,
 			...curriculumList
 		)
+		Notification({ message: 'Curricullum updated', type: 'success' })
 	},
 	addCurriculum(curriculum: Curriculum) {
 		const profileIndex = ProfileIndexStore.get().value
@@ -144,6 +154,7 @@ export const ProfilesStore = {
 		}
 		profiles.value[profileIndex].curriculums.push(curriculum)
 		CurriculumIndexStore.changeValue(currentCvLenght(profileIndex) - 1)
+		Notification({ message: 'Curricullum added', type: 'success' })
 	},
 	setLanguageCurriculum(curriculumIndex: number, language: Languages) {
 		const profileIndex = ProfileIndexStore.get().value
@@ -172,6 +183,46 @@ export const ProfilesStore = {
 		profiles.value[profileIndex].curriculums.splice(curriculumIndex, 1)
 		profiles.value[profileIndex].curriculums.unshift(cv)
 		CurriculumIndexStore.changeValue(0)
+		Notification({ message: 'Curricullum set as default', type: 'success' })
+	},
+	newExperience(curriculumIndex: number) {
+		const profileIndex = ProfileIndexStore.get().value
+		if (
+			!profiles.value[profileIndex] ||
+			!profiles.value[profileIndex].curriculums[0] ||
+			!profiles.value[profileIndex].curriculums[curriculumIndex]
+		) {
+			return
+		}
+
+		profiles.value[profileIndex].curriculums[
+			curriculumIndex
+		].Experience.value.unshift({
+			id: generateKey(5, 'number'),
+			CompanyName: '',
+			Role: '',
+			StartDate: Temporal.Now.plainDateISO(),
+			EndDate: null,
+			Description: '',
+			Remote: false
+		})
+	},
+	deleteExperience(curriculumIndex: number, id: string) {
+		const profileIndex = ProfileIndexStore.get().value
+		if (
+			!profiles.value[profileIndex] ||
+			!profiles.value[profileIndex].curriculums[0] ||
+			!profiles.value[profileIndex].curriculums[curriculumIndex]
+		) {
+			return
+		}
+
+		profiles.value[profileIndex].curriculums[curriculumIndex].Experience.value =
+			profiles.value[profileIndex].curriculums[
+				curriculumIndex
+			].Experience.value.filter((item) => item.id !== id)
+
+		Notification({ message: 'Experience Deleted', type: 'success' })
 	},
 	setExperienceDefaultValue(curriculumIndex: number) {
 		const profileIndex = ProfileIndexStore.get().value
@@ -229,6 +280,8 @@ export const ProfilesStore = {
 		profiles.value[profileIndex].curriculums[curriculumIndex].CoreSkills.value[
 			newCore
 		] = []
+
+		Notification({ message: 'New Core Skill Added', type: 'success' })
 	},
 	removeCoreSkill(curriculumIndex: number, core: string) {
 		const profileIndex = ProfileIndexStore.get().value
@@ -249,6 +302,7 @@ export const ProfilesStore = {
 
 		delete profiles.value[profileIndex].curriculums[curriculumIndex].CoreSkills
 			.value[core]
+		Notification({ message: 'Core Skill Deleted', type: 'success' })
 	},
 	moveCoreSkill(curriculumIndex: number, fromIndex: number, toIndex: number) {
 		const profileIndex = ProfileIndexStore.get().value
@@ -316,6 +370,47 @@ export const ProfilesStore = {
 		profiles.value[profileIndex].curriculums[
 			curriculumIndex
 		].AcademicBackground.value.splice(toIndex, 0, academic)
+	},
+	newAcademicSkill(curriculumIndex: number) {
+		const profileIndex = ProfileIndexStore.get().value
+		if (
+			!profiles.value[profileIndex] ||
+			!profiles.value[profileIndex].curriculums[0] ||
+			!profiles.value[profileIndex].curriculums[curriculumIndex]
+		) {
+			return
+		}
+
+		profiles.value[profileIndex].curriculums[
+			curriculumIndex
+		].AcademicBackground.value.unshift({
+			id: generateKey(5, 'number'),
+			Course: '',
+			Diploma: '',
+			Institution: '',
+			StartDate: null,
+			EndDate: null
+		})
+	},
+	deleteAcademicSkill(curriculumIndex: number, id: string) {
+		const profileIndex = ProfileIndexStore.get().value
+
+		if (
+			!profiles.value[profileIndex] ||
+			!profiles.value[profileIndex].curriculums[curriculumIndex]
+		) {
+			return
+		}
+
+		const academic = profiles.value[profileIndex].curriculums[
+			curriculumIndex
+		].AcademicBackground.value.filter((item) => item.id !== id)
+
+		profiles.value[profileIndex].curriculums[
+			curriculumIndex
+		].AcademicBackground.value = academic
+
+		Notification({ message: 'Academic Skill Deleted', type: 'success' })
 	},
 	moveSettingsOrder(
 		curriculumIndex: number,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onMounted, onUnmounted } from 'vue'
+import { inject, onMounted, onUnmounted, ref, watch } from 'vue'
 
 import {
 	dateStyleSelect,
@@ -7,7 +7,6 @@ import {
 	yearOptionsSelect
 } from '@/constants/dateOptions.ts'
 import { fontSizeSelect } from '@/constants/font-size'
-import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { ProfilesStore } from '@/stores/profileStore'
@@ -32,34 +31,11 @@ const { id } = defineProps<Props>()
 
 const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
+const controller = ref<AbortController>()
 
-function newCourse() {
-	curriculum.value.AcademicBackground.value.unshift({
-		id: generateKey(5, 'number'),
-		Course: '',
-		Diploma: '',
-		Institution: '',
-		StartDate: null,
-		EndDate: null
-	})
-}
-
-function deleteCourse(id: string) {
-	curriculum.value.AcademicBackground.value =
-		curriculum.value.AcademicBackground.value.filter((item) => item.id !== id)
-}
-
-function closeModal() {
-	curriculum.value.AcademicBackground.value.sort((cv1, cv2) => {
-		if (cv1.StartDate && cv2.StartDate) {
-			return cv2.StartDate.year - cv1.StartDate.year
-		}
-		return 1
-	})
-}
-
-onMounted(() => {
-	const controller = DragAndDrop({
+function createDragAndDrop() {
+	controller.value?.abort()
+	return DragAndDrop({
 		areaId: 'academicList',
 		idPrefix: 'academic-',
 		itemsList: curriculum.value.AcademicBackground.value.map((item) => item.id),
@@ -67,9 +43,15 @@ onMounted(() => {
 		action: (fromIndex, toIndex) =>
 			ProfilesStore.moveAcademicSkill(curriculumIndex.value, fromIndex, toIndex)
 	})
-
-	onUnmounted(() => controller.abort())
+}
+onMounted(() => {
+	controller.value = createDragAndDrop()
+	onUnmounted(() => controller.value?.abort())
 })
+watch(
+	curriculum.value.AcademicBackground.value,
+	() => (controller.value = createDragAndDrop())
+)
 </script>
 
 <template>
@@ -84,7 +66,10 @@ onMounted(() => {
 					/>
 				</h3>
 				<AppPopover>
-					<Button icon-button @click="newCourse">
+					<Button
+						icon-button
+						@click="ProfilesStore.newAcademicSkill(curriculumIndex)"
+					>
 						<SvgNewDocument />
 					</Button>
 					<template #popover>New Academic Background</template>
@@ -141,7 +126,7 @@ onMounted(() => {
 					<SvgDrag />
 					<Button
 						icon-button
-						@click="deleteCourse(ab.id)"
+						@click="ProfilesStore.deleteAcademicSkill(curriculumIndex, ab.id)"
 						hover-background="var(--red)"
 						title="Delete Course"
 					>
