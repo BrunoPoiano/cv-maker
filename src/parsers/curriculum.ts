@@ -46,7 +46,7 @@ export function parseCurriculum(value: unknown): Curriculum {
 
 		if (Array.isArray(value.Settings.order)) {
 			cv.Settings.order = value.Settings.order.reduce<
-				Array<keyof Omit<Curriculum, 'Settings'>>
+				Array<keyof Omit<Curriculum, 'Settings' | 'ProfileId'>>
 			>((acc, item) => {
 				if (isOneOf(item, curriculumOrderArray)) {
 					acc.push(item)
@@ -340,7 +340,6 @@ export function parseCurriculumToSave(value: Array<Curriculum>) {
 		}
 	})
 
-	console.log({ newVcs })
 	return newVcs
 }
 
@@ -357,7 +356,7 @@ export function parseDefaultConfig(value: unknown): DefaultConfig {
 
 		if (Array.isArray(value.Settings.order)) {
 			cv.Settings.order = value.Settings.order.reduce<
-				Array<keyof Omit<Curriculum, 'Settings'>>
+				Array<keyof Omit<Curriculum, 'Settings' | 'ProfileId'>>
 			>((acc, item) => {
 				if (isOneOf(item, curriculumOrderArray)) {
 					acc.push(item)

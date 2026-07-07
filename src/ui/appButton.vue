@@ -81,10 +81,6 @@ defineOptions({
 			background 500ms,
 			color 500ms,
 			transform 200ms ease-out;
-		/* 
-	&> :deep(svg) {
-		margin-left: calc(var(--_padding-inline) * -0.5);
-	} */
 
 		&[data-fit-content='true'] {
 			width: fit-content;

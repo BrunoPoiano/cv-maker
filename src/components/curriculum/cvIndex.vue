@@ -1,12 +1,29 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed, inject, onMounted, onUnmounted } from 'vue'
 
 import { curriculumOrder } from '@/constants/curriculumOrder'
 import { ProviderKey } from '@/keys'
+import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
+import { ProfilesStore } from '@/stores/profileStore'
+import { DragAndDrop } from '@/utilities/DragAndDrop'
 
 const { curriculum } = inject(ProviderKey)!
+const curriculumIndex = CurriculumIndexStore.get()
 const margin = computed(() => curriculum.value.Settings.margin)
 const gap = computed(() => curriculum.value.Settings.gap)
+
+onMounted(() => {
+	const controller = DragAndDrop({
+		areaId: 'curriculumPage',
+		idPrefix: 'main-',
+		itemsList: curriculum.value.Settings.order,
+		itemsClass: 'cvElement',
+		action: (fromIndex, toIndex) =>
+			ProfilesStore.moveSettingsOrder(curriculumIndex.value, fromIndex, toIndex)
+	})
+
+	onUnmounted(() => controller.abort())
+})
 </script>
 
 <template>
@@ -16,8 +33,17 @@ const gap = computed(() => curriculum.value.Settings.gap)
 			id="curriculumPage"
 			:style="{ '--_padding': `${margin}cm`, '--_a4-gap': `${gap}rem` }"
 		>
-			<template v-for="order in curriculum.Settings.order" :key="order">
-				<component :is="curriculumOrder[order]" />
+			<template
+				v-for="(order, index) in curriculum.Settings.order"
+				:key="order"
+			>
+				<component
+					:id="`main-${order}`"
+					:data-index="index"
+					class="cvElement"
+					draggable="true"
+					:is="curriculumOrder[order]"
+				/>
 			</template>
 		</div>
 	</section>

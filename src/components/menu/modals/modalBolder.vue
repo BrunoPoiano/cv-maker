@@ -12,11 +12,9 @@ type Props = {
 const { id } = defineProps<Props>()
 const debouncedSave = ref<undefined | number>()
 
-const bolderValue = bolderStore.get()
-
 const bolder = computed<string>({
 	get() {
-		return bolderValue.join(', ')
+		return bolderStore.get().join(', ')
 	},
 	set(value: string) {
 		clearTimeout(debouncedSave.value)

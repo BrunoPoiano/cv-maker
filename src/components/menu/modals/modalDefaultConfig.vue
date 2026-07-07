@@ -1,15 +1,18 @@
 <script setup lang="ts">
+import { onMounted, onUnmounted } from 'vue'
+
 import { dateStyleSelect, monthOptionsSelect } from '@/constants/dateOptions'
 import { fontSizeSelect } from '@/constants/font-size'
 import { a4gapSelect, marginListSelect } from '@/constants/spacings'
 import { textAlignSelect } from '@/constants/text-align'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { defaultConfigStore } from '@/stores/defaultConfig'
-import SvgArrow from '@/svgs/svgArrow.vue'
+import SvgDrag from '@/svgs/svgDrag.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
+import { DragAndDrop } from '@/utilities/DragAndDrop'
 
 type Props = {
 	id: string
@@ -19,6 +22,17 @@ const { id } = defineProps<Props>()
 
 const defaultConfig = defaultConfigStore.get()
 const curriculumIndex = CurriculumIndexStore.get()
+onMounted(() => {
+	const controller = DragAndDrop({
+		areaId: 'defaultConfigOrderUl',
+		idPrefix: 'defaultConfigElementli-',
+		itemsList: defaultConfig.value.Settings.order,
+		itemsClass: 'defaultConfigElement',
+		action: defaultConfigStore.moveSettingsOrder
+	})
+
+	onUnmounted(() => controller.abort())
+})
 </script>
 
 <template>
@@ -47,25 +61,16 @@ const curriculumIndex = CurriculumIndexStore.get()
 			</div>
 			<div>
 				<div>Order</div>
-				<ul>
+				<ul id="defaultConfigOrderUl">
 					<li
+						:id="`defaultConfigElementli-${value}`"
+						:data-index="index"
+						class="defaultConfigElement"
+						draggable="true"
 						v-for="(value, index) in defaultConfig.Settings.order"
 						:key="value"
 					>
-						<AppButton
-							iconButton
-							@click="defaultConfigStore.moveSettingsOrder(index, index - 1)"
-							:disabled="index === 0"
-						>
-							<SvgArrow direction="up" />
-						</AppButton>
-						<AppButton
-							iconButton
-							@click="defaultConfigStore.moveSettingsOrder(index, index + 1)"
-							:disabled="index === defaultConfig.Settings.order.length - 1"
-						>
-							<SvgArrow direction="down" />
-						</AppButton>
+						<SvgDrag />
 						{{ value }}
 					</li>
 				</ul>
@@ -285,13 +290,21 @@ const curriculumIndex = CurriculumIndexStore.get()
 
 		ul {
 			padding-left: var(--_padding);
-
+			margin: 0px;
 			li {
 				display: flex;
 				align-items: center;
 				gap: 0.5rem;
+				padding: 0.25rem 0.3rem;
 			}
 		}
+	}
+}
+.dragging {
+	display: flex;
+	> div,
+	svg {
+		display: none;
 	}
 }
 </style>

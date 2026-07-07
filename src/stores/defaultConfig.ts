@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 import { DefaultConfigConst } from '@/constants/defaultConfig'
 import { deepClone } from '@/helpers/clone'
@@ -6,29 +6,44 @@ import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
-import { parseDefaultConfig } from '@/parsers/curriculum'
+import { parseProfileDefaultConfig } from '@/parsers/profile'
 
-import { CurriculumStore } from './curriculumStore'
+import { ProfileIndexStore } from './profileIndexStore'
+import { ProfilesStore } from './profileStore'
 
 const defaultConfig = ref(
 	getDataFromLocalStorage({
-		initialValue: DefaultConfigConst(),
-		parseFunction: parseDefaultConfig,
+		initialValue: { 0: DefaultConfigConst() },
+		parseFunction: parseProfileDefaultConfig,
 		key: 'defaultConfig'
 	})
 )
 
+const currentDefaultConfig = ref(
+	defaultConfig.value[ProfileIndexStore.get().value]!
+)
+
+watch(ProfileIndexStore.get(), (newIndex) => {
+	currentDefaultConfig.value = defaultConfig.value[newIndex]!
+})
+
 export const defaultConfigStore = {
 	get() {
-		return defaultConfig
+		return currentDefaultConfig
 	},
 	save() {
+		defaultConfig.value[ProfileIndexStore.get().value] =
+			currentDefaultConfig.value
+
 		saveDataToLocalStorage({
 			initialValue: defaultConfig.value,
 			key: 'defaultConfig'
 		})
 	},
 	setDefaultConfig(curriculumIndex: number) {
+		defaultConfig.value[ProfileIndexStore.get().value] =
+			currentDefaultConfig.value
+
 		saveDataToLocalStorage({
 			initialValue: defaultConfig.value,
 			key: 'defaultConfig'
@@ -37,93 +52,99 @@ export const defaultConfigStore = {
 		setDefaultConfigToCv(curriculumIndex)
 	},
 	setDefaultConfigToAll() {
+		defaultConfig.value[ProfileIndexStore.get().value] =
+			currentDefaultConfig.value
+
 		saveDataToLocalStorage({
 			initialValue: defaultConfig.value,
 			key: 'defaultConfig'
 		})
 
-		const curriculums = CurriculumStore.get().value.length
+		const curriculums = ProfilesStore.getCurriculums().length
 		for (let i = 0; i < curriculums; i++) {
 			setDefaultConfigToCv(i)
 		}
 	},
 	moveSettingsOrder(fromIndex: number, toIndex: number) {
-		const component = defaultConfig.value.Settings.order[fromIndex]
+		const component = currentDefaultConfig.value.Settings.order[fromIndex]
 
 		if (!component) {
 			return
 		}
 
-		defaultConfig.value.Settings.order.splice(fromIndex, 1)
-		defaultConfig.value.Settings.order.splice(toIndex, 0, component)
+		currentDefaultConfig.value.Settings.order.splice(fromIndex, 1)
+		currentDefaultConfig.value.Settings.order.splice(toIndex, 0, component)
+
+		defaultConfig.value[ProfileIndexStore.get().value] =
+			currentDefaultConfig.value
 	}
 }
 
 function setDefaultConfigToCv(curriculumIndex: number) {
-	const curriculums = CurriculumStore.get()
+	const curriculums = ProfilesStore.getCurriculums()
 
-	if (!curriculums.value[curriculumIndex]) {
+	if (!curriculums[curriculumIndex]) {
 		return
 	}
 
-	curriculums.value[curriculumIndex].Settings.gap =
-		defaultConfig.value.Settings.gap
-	curriculums.value[curriculumIndex].Settings.margin =
-		defaultConfig.value.Settings.margin
-	curriculums.value[curriculumIndex].Settings.section = deepClone({
-		obj: defaultConfig.value.Settings.section
+	curriculums[curriculumIndex].Settings.gap =
+		currentDefaultConfig.value.Settings.gap
+	curriculums[curriculumIndex].Settings.margin =
+		currentDefaultConfig.value.Settings.margin
+	curriculums[curriculumIndex].Settings.section = deepClone({
+		obj: currentDefaultConfig.value.Settings.section
 	})
-	curriculums.value[curriculumIndex].Settings.order = deepClone({
-		obj: defaultConfig.value.Settings.order
+	curriculums[curriculumIndex].Settings.order = deepClone({
+		obj: currentDefaultConfig.value.Settings.order
 	})
 
-	curriculums.value[curriculumIndex].Header.UserName.align =
-		defaultConfig.value.Header.UserName.align
-	curriculums.value[curriculumIndex].Header.UserName.size =
-		defaultConfig.value.Header.UserName.size
+	curriculums[curriculumIndex].Header.UserName.align =
+		currentDefaultConfig.value.Header.UserName.align
+	curriculums[curriculumIndex].Header.UserName.size =
+		currentDefaultConfig.value.Header.UserName.size
 
-	curriculums.value[curriculumIndex].Header.Role.align =
-		defaultConfig.value.Header.Role.align
-	curriculums.value[curriculumIndex].Header.Role.size =
-		defaultConfig.value.Header.Role.size
+	curriculums[curriculumIndex].Header.Role.align =
+		currentDefaultConfig.value.Header.Role.align
+	curriculums[curriculumIndex].Header.Role.size =
+		currentDefaultConfig.value.Header.Role.size
 
-	curriculums.value[curriculumIndex].Contact.align =
-		defaultConfig.value.Contact.align
-	curriculums.value[curriculumIndex].Contact.sideBySide =
-		defaultConfig.value.Contact.sideBySide
-	curriculums.value[curriculumIndex].Contact.size =
-		defaultConfig.value.Contact.size
+	curriculums[curriculumIndex].Contact.align =
+		currentDefaultConfig.value.Contact.align
+	curriculums[curriculumIndex].Contact.sideBySide =
+		currentDefaultConfig.value.Contact.sideBySide
+	curriculums[curriculumIndex].Contact.size =
+		currentDefaultConfig.value.Contact.size
 
-	curriculums.value[curriculumIndex].CoreSkills.show =
-		defaultConfig.value.CoreSkills.show
-	curriculums.value[curriculumIndex].CoreSkills.sideBySide =
-		defaultConfig.value.CoreSkills.sideBySide
-	curriculums.value[curriculumIndex].CoreSkills.size =
-		defaultConfig.value.CoreSkills.size
+	curriculums[curriculumIndex].CoreSkills.show =
+		currentDefaultConfig.value.CoreSkills.show
+	curriculums[curriculumIndex].CoreSkills.sideBySide =
+		currentDefaultConfig.value.CoreSkills.sideBySide
+	curriculums[curriculumIndex].CoreSkills.size =
+		currentDefaultConfig.value.CoreSkills.size
 
-	curriculums.value[curriculumIndex].Summary.show =
-		defaultConfig.value.Summary.show
-	curriculums.value[curriculumIndex].Summary.size =
-		defaultConfig.value.Summary.size
+	curriculums[curriculumIndex].Summary.show =
+		currentDefaultConfig.value.Summary.show
+	curriculums[curriculumIndex].Summary.size =
+		currentDefaultConfig.value.Summary.size
 
-	curriculums.value[curriculumIndex].Experience.dateMonth =
-		defaultConfig.value.Experience.dateMonth
-	curriculums.value[curriculumIndex].Experience.dateStyle =
-		defaultConfig.value.Experience.dateStyle
-	curriculums.value[curriculumIndex].Experience.show =
-		defaultConfig.value.Experience.show
-	curriculums.value[curriculumIndex].Experience.size = deepClone({
-		obj: defaultConfig.value.Experience.size
+	curriculums[curriculumIndex].Experience.dateMonth =
+		currentDefaultConfig.value.Experience.dateMonth
+	curriculums[curriculumIndex].Experience.dateStyle =
+		currentDefaultConfig.value.Experience.dateStyle
+	curriculums[curriculumIndex].Experience.show =
+		currentDefaultConfig.value.Experience.show
+	curriculums[curriculumIndex].Experience.size = deepClone({
+		obj: currentDefaultConfig.value.Experience.size
 	})
-	curriculums.value[curriculumIndex].Experience.sideBySide =
-		defaultConfig.value.Experience.sideBySide
+	curriculums[curriculumIndex].Experience.sideBySide =
+		currentDefaultConfig.value.Experience.sideBySide
 
-	curriculums.value[curriculumIndex].AcademicBackground.dateMonth =
-		defaultConfig.value.AcademicBackground.dateMonth
-	curriculums.value[curriculumIndex].AcademicBackground.dateStyle =
-		defaultConfig.value.AcademicBackground.dateStyle
-	curriculums.value[curriculumIndex].AcademicBackground.show =
-		defaultConfig.value.AcademicBackground.show
-	curriculums.value[curriculumIndex].AcademicBackground.size =
-		defaultConfig.value.AcademicBackground.size
+	curriculums[curriculumIndex].AcademicBackground.dateMonth =
+		currentDefaultConfig.value.AcademicBackground.dateMonth
+	curriculums[curriculumIndex].AcademicBackground.dateStyle =
+		currentDefaultConfig.value.AcademicBackground.dateStyle
+	curriculums[curriculumIndex].AcademicBackground.show =
+		currentDefaultConfig.value.AcademicBackground.show
+	curriculums[curriculumIndex].AcademicBackground.size =
+		currentDefaultConfig.value.AcademicBackground.size
 }

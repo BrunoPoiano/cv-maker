@@ -1,24 +1,31 @@
-import { h, reactive } from 'vue'
+import { h, ref } from 'vue'
 
 import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
-import { parseStringArray } from '@/parsers/stringArray'
+import { parseBolderWords } from '@/parsers/stringArray'
 
-const bolder = reactive(
+import { ProfileIndexStore } from './profileIndexStore'
+
+const bolder = ref(
 	getDataFromLocalStorage({
 		key: 'bolder',
-		parseFunction: parseStringArray,
-		initialValue: []
+		parseFunction: parseBolderWords,
+		initialValue: {
+			0: []
+		}
 	})
 )
 
 export const bolderStore = {
 	get() {
-		return bolder
+		const profileIndex = ProfileIndexStore.get().value
+		return bolder.value[profileIndex] || []
 	},
 	save(values: string[]) {
+		const profileIndex = ProfileIndexStore.get().value
+
 		const parsed = values.reduce<Array<string>>((acc, item) => {
 			if (item !== '') {
 				acc.push(item.trim())
@@ -26,20 +33,28 @@ export const bolderStore = {
 			return acc
 		}, [])
 
-		bolder.splice(0, bolder.length, ...parsed)
-		saveDataToLocalStorage({ key: 'bolder', initialValue: parsed })
+		bolder.value[profileIndex] = parsed
+		saveDataToLocalStorage({ key: 'bolder', initialValue: bolder.value })
 	},
 	matches(value: string) {
-		if (!bolder.length) return value
+		const profileIndex = ProfileIndexStore.get().value
 
-		const escaped = bolder.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+		if (!bolder.value[profileIndex] || !bolder.value[profileIndex].length) {
+			return value
+		}
+
+		const escaped = bolder.value[profileIndex].map((t) =>
+			t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+		)
 
 		const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi')
 
 		const parts = value.split(regex)
 
 		return parts.map((part) =>
-			bolder.some((b) => b.toLowerCase() === part.toLowerCase())
+			(bolder.value[profileIndex] || []).some(
+				(b) => b.toLowerCase() === part.toLowerCase()
+			)
 				? h('b', part)
 				: part
 		)

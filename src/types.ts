@@ -7,7 +7,7 @@ import type { dateStyle } from './constants/dateOptions'
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
 import type { textAlign } from './constants/text-align'
-import type { CurriculumStore } from './stores/curriculumStore'
+import type { ProfilesStore } from './stores/profileStore'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
 export type Languages = (typeof languages)[number]
@@ -16,6 +16,7 @@ export type TextAlign = (typeof textAlign)[number]
 export type DateStyle = (typeof dateStyle)[number]
 export type SelectItem = Array<{ value: string | number; label: string }>
 export type Translation = Record<string, Each<Languages>>
+
 export type MonthOptions = Extract<
 	Intl.DateTimeFormatOptions['month'],
 	'2-digit' | 'short' | 'long'
@@ -33,6 +34,25 @@ export type BaseItem<T extends string> = {
 
 type Each<T extends string> = {
 	[K in T]: string
+}
+
+export type TableProps = Array<
+	Record<string, unknown> & {
+		actions: {
+			component: Component
+			props: Record<string, unknown>
+		}
+	}
+>
+
+export type BolderWords = Record<number, Array<string>>
+export type CurriculumIndex = Record<number, number>
+export type ProfileDefaultConfig = Record<number, DefaultConfig>
+
+export type Profile = {
+	id: number
+	name: string
+	curriculums: Array<Curriculum>
 }
 
 export type BoldMatchReturn =
@@ -116,9 +136,11 @@ export type CoreSkills = {
 	show: boolean
 }
 
+export type Order = Array<keyof Omit<Curriculum, 'Settings'>>
+
 type Settings = {
 	language: Languages
-	order: Array<keyof Omit<Curriculum, 'Settings'>>
+	order: Order
 	margin: number
 	gap: number
 	section: {
@@ -193,12 +215,13 @@ export type MenuModalItem = {
 	backgroundColor?: string
 }
 
-type CVStore = keyof typeof CurriculumStore
+type ProfileStore = keyof typeof ProfilesStore
 
 export type MenuButtonList = {
 	click: {
-		[T in CVStore]: (typeof CurriculumStore)[T]
-	}[CVStore]
+		[T in ProfileStore]: (typeof ProfilesStore)[T]
+	}[ProfileStore]
+	id: string
 	hoverBackground: string
 	title: string
 	disabled?: boolean

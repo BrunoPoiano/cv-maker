@@ -18,5 +18,6 @@ export const localStorageKeys = [
 	'bolder',
 	'readonly',
 	'hue',
-	'defaultConfig'
+	'defaultConfig',
+	'profiles'
 ] as const

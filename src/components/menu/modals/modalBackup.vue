@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 import { parseCurriculumList } from '@/parsers/curriculum'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
@@ -14,13 +14,12 @@ type Props = {
 
 const { id } = defineProps<Props>()
 
-const curriculumIndex = CurriculumIndexStore.get()
-const curriculum = CurriculumStore.get()
+const curriculum = ProfilesStore.getCurriculums()
 const file = ref<File | null>(null)
 const alert = ref<string | null>(null)
 
 function exportFile() {
-	const blob = new Blob([JSON.stringify(curriculum.value, null, 2)], {
+	const blob = new Blob([JSON.stringify(curriculum, null, 2)], {
 		type: 'application/json'
 	})
 
@@ -47,9 +46,9 @@ function importFile(e: Event) {
 			const importedData = JSON.parse(event.target?.result as string)
 			const newCvs = parseCurriculumList(importedData)
 
-			CurriculumStore.update(newCvs)
+			ProfilesStore.updateCurriculum(newCvs)
 			alert.value = `imported successfully!`
-			curriculumIndex.value = 0
+			CurriculumIndexStore.changeValue(0)
 		} catch (error) {
 			console.error('Error parsing JSON:', error)
 			alert.value = `Error updating file!`

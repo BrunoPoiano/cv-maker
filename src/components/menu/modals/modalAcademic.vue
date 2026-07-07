@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, onMounted, onUnmounted, ref, watch } from 'vue'
 
 import {
 	dateStyleSelect,
@@ -7,12 +7,11 @@ import {
 	yearOptionsSelect
 } from '@/constants/dateOptions.ts'
 import { fontSizeSelect } from '@/constants/font-size'
-import { generateKey } from '@/helpers/generateKey'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
-import SvgArrow from '@/svgs/svgArrow.vue'
+import { ProfilesStore } from '@/stores/profileStore'
 import SvgDefault from '@/svgs/SvgDefault.vue'
+import SvgDrag from '@/svgs/svgDrag.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
 import Button from '@/ui/appButton.vue'
@@ -20,6 +19,7 @@ import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import AppPopover from '@/ui/appPopover.vue'
 import Select from '@/ui/appSelect.vue'
+import { DragAndDrop } from '@/utilities/DragAndDrop'
 
 import ExDateInput from './experience/components/exDateInput.vue'
 
@@ -31,40 +31,31 @@ const { id } = defineProps<Props>()
 
 const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
+const controller = ref<AbortController>()
 
-function newCourse() {
-	curriculum.value.AcademicBackground.value.unshift({
-		id: generateKey(5, 'number'),
-		Course: '',
-		Diploma: '',
-		Institution: '',
-		StartDate: null,
-		EndDate: null
+function createDragAndDrop() {
+	controller.value?.abort()
+	return DragAndDrop({
+		areaId: 'academicList',
+		idPrefix: 'academic-',
+		itemsList: curriculum.value.AcademicBackground.value.map((item) => item.id),
+		itemsClass: 'academic',
+		action: (fromIndex, toIndex) =>
+			ProfilesStore.moveAcademicSkill(curriculumIndex.value, fromIndex, toIndex)
 	})
 }
-
-function deleteCourse(id: string) {
-	curriculum.value.AcademicBackground.value =
-		curriculum.value.AcademicBackground.value.filter((item) => item.id !== id)
-}
-
-function closeModal() {
-	curriculum.value.AcademicBackground.value.sort((cv1, cv2) => {
-		if (cv1.StartDate && cv2.StartDate) {
-			return cv2.StartDate.year - cv1.StartDate.year
-		}
-		return 1
-	})
-}
+onMounted(() => {
+	controller.value = createDragAndDrop()
+	onUnmounted(() => controller.value?.abort())
+})
+watch(
+	curriculum.value.AcademicBackground.value,
+	() => (controller.value = createDragAndDrop())
+)
 </script>
 
 <template>
-	<Modal
-		:id="id"
-		closeLabel="close"
-		minWidth="50rem"
-		:close-action="closeModal"
-	>
+	<Modal :id="id" closeLabel="close" minWidth="50rem">
 		<template #header>
 			<div class="modalHeader">
 				<h3>
@@ -75,7 +66,10 @@ function closeModal() {
 					/>
 				</h3>
 				<AppPopover>
-					<Button icon-button @click="newCourse">
+					<Button
+						icon-button
+						@click="ProfilesStore.newAcademicSkill(curriculumIndex)"
+					>
 						<SvgNewDocument />
 					</Button>
 					<template #popover>New Academic Background</template>
@@ -87,7 +81,7 @@ function closeModal() {
 				<AppPopover>
 					<Button
 						icon-button
-						@click="CurriculumStore.setAcademicDefaultValue(curriculumIndex)"
+						@click="ProfilesStore.setAcademicDefaultValue(curriculumIndex)"
 					>
 						<SvgDefault />
 					</Button>
@@ -120,80 +114,57 @@ function closeModal() {
 					v-model="curriculum.AcademicBackground.dateYear"
 				/>
 			</div>
-
-			<div
-				v-for="(ab, index) in curriculum.AcademicBackground.value"
-				class="academic"
-				:key="ab.id"
-			>
-				<div class="directions">
-					<Button
-						iconButton
-						@click="
-							CurriculumStore.moveAcademicSkill(
-								curriculumIndex,
-								index,
-								index - 1
-							)
-						"
-						:disabled="index === 0"
-					>
-						<SvgArrow direction="up" />
-					</Button>
-					<Button
-						iconButton
-						@click="
-							CurriculumStore.moveAcademicSkill(
-								curriculumIndex,
-								index,
-								index + 1
-							)
-						"
-						:disabled="index === curriculum.AcademicBackground.value.length - 1"
-					>
-						<SvgArrow direction="down" />
-					</Button>
-				</div>
-				<Button
-					icon-button
-					@click="deleteCourse(ab.id)"
-					hover-background="var(--red)"
-					title="Delete Course"
+			<div id="academicList">
+				<div
+					v-for="(ab, index) in curriculum.AcademicBackground.value"
+					class="academic"
+					:data-index="index"
+					draggable="true"
+					:id="`academic-${ab.id}`"
+					:key="ab.id"
 				>
-					<SvgTrash />
-				</Button>
+					<SvgDrag />
+					<Button
+						icon-button
+						@click="ProfilesStore.deleteAcademicSkill(curriculumIndex, ab.id)"
+						hover-background="var(--red)"
+						title="Delete Course"
+					>
+						<SvgTrash />
+					</Button>
 
-				<AppInput
-					type="text"
-					label="Institution"
-					placeholder="Institution"
-					v-model="ab.Institution"
-				/>
-				<AppInput
-					type="text"
-					label="Diploma"
-					placeholder="Diploma"
-					v-model="ab.Diploma"
-				/>
-				<AppInput
-					type="text"
-					label="Course"
-					placeholder="Course"
-					v-model="ab.Course"
-				/>
+					<AppInput
+						type="text"
+						label="Institution"
+						placeholder="Institution"
+						v-model="ab.Institution"
+					/>
+					<AppInput
+						type="text"
+						label="Diploma"
+						placeholder="Diploma"
+						v-model="ab.Diploma"
+					/>
+					<AppInput
+						type="text"
+						label="Course"
+						placeholder="Course"
+						v-model="ab.Course"
+					/>
 
-				<ExDateInput
-					type="date"
-					label="Start Date"
-					placeholder="Start Date"
-					v-model="ab.StartDate"
-				/>
-				<ExDateInput
-					type="date"
-					label="End Date"
-					placeholder="EndDate"
-					v-model="ab.EndDate"
-				/>
+					<ExDateInput
+						type="date"
+						label="Start Date"
+						placeholder="Start Date"
+						v-model="ab.StartDate"
+					/>
+					<ExDateInput
+						type="date"
+						label="End Date"
+						placeholder="EndDate"
+						v-model="ab.EndDate"
+					/>
+				</div>
 			</div>
 		</form>
 	</Modal>
@@ -234,30 +205,29 @@ function closeModal() {
 			gap: 0.8rem;
 		}
 
-		.academic {
+		#academicList {
 			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 0.8rem;
-			background: var(--surface-container-low);
+			gap: 1rem;
 
-			padding: 0.8rem;
-			border-radius: var(--border-radius);
+			.academic {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 0.8rem;
+				background: var(--surface-container-low);
 
-			transition: background 500ms ease;
+				padding: 0.8rem;
+				border-radius: var(--border-radius);
 
-			.directions {
-				grid-area: 1 / 1;
-				display: flex;
-				gap: 0.25rem;
-			}
+				transition: background 500ms ease;
 
-			button {
-				grid-area: 1 / 2;
-				justify-self: end;
-			}
+				button {
+					grid-area: 1 / 2;
+					justify-self: end;
+				}
 
-			&:hover {
-				background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+				&:hover {
+					background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+				}
 			}
 		}
 	}

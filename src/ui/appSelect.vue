@@ -16,12 +16,20 @@ type Props = {
 	small?: true
 	fitContent?: true
 	fullWidth?: true
+	width?: string
 }
 const props = defineProps<Props>()
 const key = generateKey(5)
 const model = defineModel()
 
 function selectWidth(): CSSProperties {
+	if (props.width) {
+		return {
+			width: '100%',
+			maxWidth: props.width
+		}
+	}
+
 	if (props.fullWidth) {
 		return {
 			width: '100%',

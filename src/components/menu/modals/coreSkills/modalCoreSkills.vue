@@ -3,19 +3,15 @@ import { inject, ref } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey, ProviderSkillKey } from '@/keys'
-import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
-import SvgArrow from '@/svgs/svgArrow.vue'
 import SvgNewDocument from '@/svgs/svgNewDocument.vue'
-import SvgTrash from '@/svgs/svgTrash.vue'
 import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import AppPopover from '@/ui/appPopover.vue'
 import Select from '@/ui/appSelect.vue'
 import AppSmall from '@/ui/appSmall.vue'
-import Textarea from '@/ui/appTextarea.vue'
 
+import CoreSkillInput from './components/CoreSkillInput.vue'
 import ModalCoreSkillName from './components/ModalCoreSkillName.vue'
 
 type Props = {
@@ -23,9 +19,8 @@ type Props = {
 }
 
 const { id } = defineProps<Props>()
-const { skillsProxy, onInput } = inject(ProviderSkillKey)!
+const { skillsProxy } = inject(ProviderSkillKey)!
 const { curriculum } = inject(ProviderKey)!
-const curriculumIndex = CurriculumIndexStore.get()
 const ModalCoreSkillNameID = ref('modal-core-skill-name')
 </script>
 
@@ -61,48 +56,14 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 				v-model="curriculum.CoreSkills.size"
 			/>
 		</div>
-		<form>
-			<div v-for="(_, core, index) in skillsProxy" class="skills" :key="core">
-				<div class="header-items">
-					<div>
-						<AppButton
-							iconButton
-							@click="
-								CurriculumStore.moveCoreSkill(curriculumIndex, core, index - 1)
-							"
-							:disabled="index === 0"
-						>
-							<SvgArrow direction="up" />
-						</AppButton>
-						<AppButton
-							iconButton
-							@click="
-								CurriculumStore.moveCoreSkill(curriculumIndex, core, index + 1)
-							"
-							:disabled="index === Object.keys(skillsProxy).length - 1"
-						>
-							<SvgArrow direction="down" />
-						</AppButton>
-						<span>
-							{{ core.replace('_', ' & ') }}
-						</span>
-					</div>
-					<AppButton
-						iconButton
-						hover-background="var(--red)"
-						@click="CurriculumStore.removeCoreSkill(curriculumIndex, core)"
-					>
-						<SvgTrash />
-					</AppButton>
-				</div>
-				<Textarea
-					:placeholder="core"
-					v-model="skillsProxy[core]"
-					@update:modelValue="onInput(core, $event)"
-					minHeight="100px"
-				/>
-			</div>
-		</form>
+		<div class="coreSkillsList" id="coreSkillsList">
+			<CoreSkillInput
+				v-for="(_, core, index) in skillsProxy"
+				:key="core"
+				:index="index"
+				:core="core"
+			/>
+		</div>
 		<ModalCoreSkillName :id="ModalCoreSkillNameID" />
 	</Modal>
 </template>
@@ -126,39 +87,15 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 		margin-bottom: 1rem;
 	}
 
-	form {
+	.coreSkillsList {
 		display: grid;
 		gap: 1rem;
-
-		> div {
-			background: var(--surface-container-low);
-			padding: 0.8rem;
-			border-radius: var(--border-radius);
-
-			transition: background 500ms ease;
-
-			&:hover {
-				background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
-			}
-		}
 	}
 
 	.header {
 		display: grid;
 		grid-template-columns: 1fr auto;
 		align-items: center;
-	}
-
-	.header-items {
-		display: grid;
-		grid-template-columns: 1fr auto;
-		align-items: center;
-
-		> div {
-			display: flex;
-			align-items: center;
-			gap: 0.5ch;
-		}
 	}
 }
 </style>

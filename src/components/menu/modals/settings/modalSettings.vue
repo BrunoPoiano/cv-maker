@@ -4,21 +4,17 @@ import { inject } from 'vue'
 import { fontSizeSelect } from '@/constants/font-size'
 import { a4gapSelect, marginListSelect } from '@/constants/spacings'
 import { ProviderKey } from '@/keys'
-import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
 import { HueStore } from '@/stores/hueStore'
-import SvgArrow from '@/svgs/svgArrow.vue'
-import type { HasShow } from '@/types'
-import AppButton from '@/ui/appButton.vue'
 import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
+
+import SettingsOrder from './components/settingsOrder.vue'
 
 type Props = {
 	id: string
 }
 
-const curriculumIndex = CurriculumIndexStore.get()
 const { curriculum } = inject(ProviderKey)!
 const { id } = defineProps<Props>()
 
@@ -59,50 +55,7 @@ function handleColorChange() {
 				min="1"
 				@change="handleColorChange"
 			/>
-			<div>
-				<span> Order </span>
-				<ul>
-					<li v-for="(value, index) in curriculum.Settings.order" :key="value">
-						<AppInput
-							type="checkbox"
-							:divStyle="{ width: '1rem' }"
-							v-if="
-								Object.prototype.hasOwnProperty.call(curriculum[value], 'show')
-							"
-							v-model="curriculum[value as HasShow].show"
-						/>
-						<span v-else :style="{ width: '1rem' }" />
-
-						<AppButton
-							iconButton
-							@click="
-								CurriculumStore.moveSettingsOrder(
-									curriculumIndex,
-									index,
-									index - 1
-								)
-							"
-							:disabled="index === 0"
-						>
-							<SvgArrow direction="up" />
-						</AppButton>
-						<AppButton
-							iconButton
-							@click="
-								CurriculumStore.moveSettingsOrder(
-									curriculumIndex,
-									index,
-									index + 1
-								)
-							"
-							:disabled="index === curriculum.Settings.order.length - 1"
-						>
-							<SvgArrow direction="down" />
-						</AppButton>
-						{{ value.replace(/([a-z])([A-Z])/g, '$1 $2') }}
-					</li>
-				</ul>
-			</div>
+			<SettingsOrder />
 		</form>
 	</Modal>
 </template>

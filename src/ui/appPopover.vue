@@ -4,6 +4,7 @@ import { generateKey } from '@/helpers/generateKey'
 const props = defineProps<{
 	nowrap?: true
 	positionArea?: string
+	color?: string
 }>()
 
 const anchor = `--${generateKey(5, 'string')}`
@@ -15,7 +16,17 @@ const anchor = `--${generateKey(5, 'string')}`
 		<span
 			data-popover
 			:style="{
-				'--nowrap': props.nowrap ? 'nowrap' : 'wrap',
+				...(props.nowrap
+					? {
+							'--_nowrap': 'nowrap',
+							'--_max-width': 'fit-content'
+						}
+					: {}),
+				...(props.color
+					? {
+							'--_color': props.color
+						}
+					: {}),
 				'--position-area': props.positionArea
 			}"
 		>
@@ -33,10 +44,14 @@ const anchor = `--${generateKey(5, 'string')}`
 			--_padding-block: 0.4rem;
 			--_padding-inline: calc(var(--_padding-block) * 2);
 			--_default-position: top right;
+			--_max-width: 25ch;
+			--_nowrap: wrap;
+			--_color: var(--on-surface);
 
-			white-space: var(--nowrap);
+			white-space: var(--_nowrap);
 			background-color: var(--background);
-			color: currentColor;
+			color: var(--_color);
+			font-weight: normal;
 			box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
 			padding-inline: var(--_padding-inline);
@@ -45,13 +60,15 @@ const anchor = `--${generateKey(5, 'string')}`
 			border: 1px solid var(--outline-variant);
 
 			width: fit-content;
-			max-width: 25ch;
+			max-width: var(--_max-width);
 			position: absolute;
 
 			position-anchor: v-bind(anchor);
 			position-area: var(--position-area, var(--_default-position));
 			position-try-fallbacks:
-				--top-right, --top-left, --bottom-right, --bottom-left;
+				flip-block,
+				flip-inline,
+				flip-block flip-inline;
 
 			opacity: 0;
 			visibility: hidden;

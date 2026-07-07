@@ -3,7 +3,7 @@ import { inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
+import { ProfilesStore } from '@/stores/profileStore'
 import SvgArrow from '@/svgs/svgArrow.vue'
 import type { HasShow } from '@/types'
 import AppButton from '@/ui/appButton.vue'
@@ -40,11 +40,7 @@ const curriculumIndex = CurriculumIndexStore.get()
 					<AppButton
 						iconButton
 						@click="
-							CurriculumStore.moveSettingsOrder(
-								curriculumIndex,
-								index,
-								index - 1
-							)
+							ProfilesStore.moveSettingsOrder(curriculumIndex, index, index - 1)
 						"
 						:disabled="index === 0"
 					>
@@ -53,11 +49,7 @@ const curriculumIndex = CurriculumIndexStore.get()
 					<AppButton
 						iconButton
 						@click="
-							CurriculumStore.moveSettingsOrder(
-								curriculumIndex,
-								index,
-								index + 1
-							)
+							ProfilesStore.moveSettingsOrder(curriculumIndex, index, index + 1)
 						"
 						:disabled="index === curriculum.Settings.order.length - 1"
 					>

@@ -1,24 +1,13 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
-import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
-import { CurriculumStore } from '@/stores/curriculumStore'
 import { ReadonlyStore } from '@/stores/readonlyStore'
 import SvgDocument from '@/svgs/svgDocument.vue'
 import Button from '@/ui/appButton.vue'
-import AppSelect from '@/ui/appSelect.vue'
 
 const { curriculum } = inject(ProviderKey)!
-const curriculumIndex = CurriculumIndexStore.get()
 const readonly = ReadonlyStore.get()
-
-const cvSelect = computed(() =>
-	CurriculumStore.get().value.map((curriculum, index) => ({
-		label: `${curriculum.Settings.language} - ${curriculum.Header.Role.value}`,
-		value: index
-	}))
-)
 
 function savePDF() {
 	const originalTitle = document.title
@@ -44,11 +33,6 @@ function savePDF() {
 			CV-Maker
 		</h1>
 		<div>
-			<AppSelect
-				:items="cvSelect"
-				v-model="curriculumIndex"
-				@vue:updated="CurriculumIndexStore.save()"
-			/>
 			<Button :disabled="!readonly" @click="savePDF" background="var(--primary)"
 				>Generate PDF
 			</Button>
