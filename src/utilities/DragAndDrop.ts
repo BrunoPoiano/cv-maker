@@ -65,10 +65,8 @@ export function DragAndDrop({
 			dragging = -1
 			lastHovered = -1
 
-			for (const el of itemsList) {
-				document
-					.getElementById(`${idPrefix}${el}`)
-					?.classList.remove('drag-highlight')
+			for (const div of area.children) {
+				div.classList.remove('drag-highlight')
 			}
 		},
 		{ signal }
