@@ -113,6 +113,8 @@
 
 		--border-radius: 0.25rem;
 		--cv-border-radius: 3px;
+
+		--base-transition_timing: 300ms;
 	}
 
 	html {
@@ -241,6 +243,9 @@
 
 	dialog {
 		--_padding: 1.5rem;
+
+		--_transition_timing-function: cubic-bezier(0.86, 0, 0.14, 1);
+
 		margin: auto;
 		min-width: min(20rem, 100%);
 		border: none;
@@ -252,7 +257,45 @@
 		background: var(--background);
 		overscroll-behavior: contain;
 
+		transition:
+			opacity var(--base-transition_timing) ease,
+			scale var(--base-transition_timing) ease,
+			display var(--base-transition_timing) allow-discrete,
+			overlay var(--base-transition_timing) allow-discrete;
+
+		transition-timing-function: var(--_transition_timing-function);
+
+		opacity: 0;
+		scale: 0.8;
+
+		&[open] {
+			opacity: 1;
+			scale: 1;
+
+			@starting-style {
+				opacity: 0;
+				scale: 0.8;
+			}
+
+			&::backdrop {
+				opacity: 1;
+
+				transition:
+					opacity var(--base-transition_timing) ease,
+					display var(--base-transition_timing) allow-discrete,
+					overlay var(--base-transition_timing) allow-discrete;
+
+				transition-timing-function: var(--base-transition_timing-function);
+
+				@starting-style {
+					opacity: 0;
+				}
+			}
+		}
+
 		&::backdrop {
+			opacity: 0;
+
 			background: #00000078;
 			filter: blur(1.5rem);
 			overflow: hidden;
