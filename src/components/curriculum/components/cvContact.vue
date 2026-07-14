@@ -3,6 +3,7 @@ import { inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
 import { ReadonlyStore } from '@/stores/readonlyStore'
+import SvgDrag from '@/svgs/svgDrag.vue'
 import SvgPen from '@/svgs/SvgPen.vue'
 import AppAnchor from '@/ui/appAnchor.vue'
 import AppButton from '@/ui/appButton.vue'
@@ -14,8 +15,12 @@ const { curriculum } = inject(ProviderKey)!
 </script>
 
 <template>
-	<AppAnchor margin-bottom="-1rem">
-		<div class="contact" :data-side-by-side="curriculum.Contact.sideBySide">
+	<AppAnchor margin-bottom="-1rem" class="contact-anchor">
+		<SvgDrag v-if="!readonly" />
+		<div
+			class="contact"
+			:data-side-by-side="!readonly ? false : curriculum.Contact.sideBySide"
+		>
 			<template v-for="(_, type) in curriculum.Contact.value" :key="type">
 				<div
 					:style="{ '--font_size': `var(${curriculum.Contact.size})` }"
@@ -51,6 +56,14 @@ const { curriculum } = inject(ProviderKey)!
 
 <style scoped>
 @layer utilities {
+	.contact-anchor {
+		display: grid;
+
+		&:has(.svg-drag) {
+			grid-template-columns: auto 1fr;
+		}
+	}
+
 	.contact {
 		display: grid;
 		gap: calc((var(--_a4-gap) * 0.5));

@@ -3,6 +3,7 @@ import { inject } from 'vue'
 
 import { ProviderKey } from '@/keys'
 import { ReadonlyStore } from '@/stores/readonlyStore'
+import SvgDrag from '@/svgs/svgDrag.vue'
 import SvgPen from '@/svgs/SvgPen.vue'
 import AppAnchor from '@/ui/appAnchor.vue'
 import AppButton from '@/ui/appButton.vue'
@@ -36,6 +37,7 @@ const { curriculum } = inject(ProviderKey)!
 				</span>
 			</template>
 			<template v-else>
+				<SvgDrag />
 				<h1
 					:style="{ '--font_size': `var(${curriculum.Header.UserName.size})` }"
 				>
@@ -93,6 +95,21 @@ const { curriculum } = inject(ProviderKey)!
 			text-transform: uppercase;
 			text-box-trim: trim-both;
 			text-box-edge: cap alphabetic;
+		}
+	}
+
+	.header:has(svg) {
+		display: grid;
+		grid-template-columns: auto 1fr;
+
+		svg {
+			grid-area: 1/1;
+		}
+		h1 {
+			grid-area: 1/2;
+		}
+		span {
+			grid-area: 2 / span 2;
 		}
 	}
 

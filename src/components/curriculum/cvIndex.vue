@@ -5,12 +5,14 @@ import { curriculumOrder } from '@/constants/curriculumOrder'
 import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { ProfilesStore } from '@/stores/profileStore'
+import { ReadonlyStore } from '@/stores/readonlyStore'
 import { DragAndDrop } from '@/utilities/DragAndDrop'
 
 const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
 const margin = computed(() => curriculum.value.Settings.margin)
 const gap = computed(() => curriculum.value.Settings.gap)
+const readOnly = ReadonlyStore.get()
 
 onMounted(() => {
 	const controller = DragAndDrop({
@@ -41,7 +43,7 @@ onMounted(() => {
 					:id="`main-${order}`"
 					:data-index="index"
 					class="cvElement"
-					draggable="true"
+					:draggable="!readOnly"
 					:is="curriculumOrder[order]"
 				/>
 			</template>
