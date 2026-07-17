@@ -3,11 +3,12 @@
 		:id="`core-skill-${props.core}`"
 		:data-index="props.index"
 		class="skills"
-		draggable="true"
 	>
 		<div class="header-items">
 			<div>
-				<SvgDrag />
+				<div data-drag-handle draggable="true">
+					<SvgDrag />
+				</div>
 				<span>
 					{{ core.replace('_', ' & ') }}
 				</span>

@@ -66,11 +66,12 @@ onMounted(() => {
 						:id="`defaultConfigElementli-${value}`"
 						:data-index="index"
 						class="defaultConfigElement"
-						draggable="true"
 						v-for="(value, index) in defaultConfig.Settings.order"
 						:key="value"
 					>
-						<SvgDrag />
+						<div data-drag-handle draggable="true">
+							<SvgDrag />
+						</div>
 						{{ value }}
 					</li>
 				</ul>

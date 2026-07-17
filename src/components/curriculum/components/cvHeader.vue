@@ -37,7 +37,9 @@ const { curriculum } = inject(ProviderKey)!
 				</span>
 			</template>
 			<template v-else>
-				<SvgDrag />
+				<div data-drag-handle draggable="true">
+					<SvgDrag />
+				</div>
 				<h1
 					:style="{ '--font_size': `var(${curriculum.Header.UserName.size})` }"
 				>

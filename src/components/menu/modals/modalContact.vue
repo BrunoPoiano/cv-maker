@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, onMounted, onUnmounted } from 'vue'
 
 import { fontSizeSelect } from '@/constants/font-size'
 import { textAlignSelect } from '@/constants/text-align'
@@ -7,11 +7,13 @@ import { ProviderKey } from '@/keys'
 import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { ProfilesStore } from '@/stores/profileStore'
 import SvgDefault from '@/svgs/SvgDefault.vue'
+import SvgDrag from '@/svgs/svgDrag.vue'
 import AppButton from '@/ui/appButton.vue'
-import Input from '@/ui/appInput.vue'
+import appInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import AppPopover from '@/ui/appPopover.vue'
 import Select from '@/ui/appSelect.vue'
+import { DragAndDrop } from '@/utilities/DragAndDrop'
 const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
 type Props = {
@@ -19,6 +21,21 @@ type Props = {
 }
 
 const { id } = defineProps<Props>()
+
+onMounted(() => {
+	console.log(Object.keys(curriculum.value.Contact.value))
+
+	const controller = DragAndDrop({
+		areaId: 'contactsValuesOrder',
+		idPrefix: 'contactsValuesOrder-',
+		itemsList: Object.keys(curriculum.value.Contact.value),
+		itemsClass: 'itemContactsValuesOrder',
+		action: (fromIndex, toIndex) =>
+			ProfilesStore.moveContactOrder(curriculumIndex.value, fromIndex, toIndex)
+	})
+
+	onUnmounted(() => controller.abort())
+})
 </script>
 
 <template>
@@ -58,21 +75,34 @@ const { id } = defineProps<Props>()
 					<template #popover>Set default values</template>
 				</AppPopover>
 			</div>
-			<template v-for="(_, type) in curriculum.Contact.value" :key="type">
-				<div>
-					<Input
+			<div id="contactsValuesOrder">
+				<div
+					v-for="(_, type, index) in curriculum.Contact.value"
+					:key="type"
+					:id="`contactsValuesOrder-${type}`"
+					:data-index="index"
+					class="itemContactsValuesOrder"
+				>
+					<appInput
 						type="text"
 						:label="type"
 						:placeholder="type"
 						v-model="curriculum.Contact.value[type].value"
-					/>
-					<Input
+					>
+						<template #label>
+							<div data-drag-handle draggable="true">
+								<SvgDrag />
+								{{ type }}
+							</div>
+						</template>
+					</appInput>
+					<appInput
 						type="checkbox"
 						label="bolder"
 						v-model="curriculum.Contact.value[type].bolder"
 					/>
 				</div>
-			</template>
+			</div>
 		</form>
 	</Modal>
 </template>
@@ -101,15 +131,27 @@ const { id } = defineProps<Props>()
 			}
 		}
 
-		> div:not(.settings) {
-			background: var(--surface-container-low);
-			padding: 0.8rem;
-			border-radius: var(--border-radius);
+		#contactsValuesOrder {
+			display: grid;
+			gap: 1rem;
 
-			transition: background 500ms ease;
+			.itemContactsValuesOrder {
+				background: var(--surface-container-low);
+				padding: 0.8rem;
+				border-radius: var(--border-radius);
 
-			&:hover {
-				background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+				transition: background 500ms ease;
+
+				[data-drag-handle] {
+					display: flex;
+					gap: 0.3ch;
+					align-items: center;
+					text-transform: capitalize;
+				}
+
+				&:hover {
+					background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+				}
 			}
 		}
 	}

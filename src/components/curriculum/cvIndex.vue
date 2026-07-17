@@ -43,7 +43,6 @@ onMounted(() => {
 					:id="`main-${order}`"
 					:data-index="index"
 					class="cvElement"
-					:draggable="!readOnly"
 					:is="curriculumOrder[order]"
 				/>
 			</template>

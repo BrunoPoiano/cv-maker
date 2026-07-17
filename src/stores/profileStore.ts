@@ -10,7 +10,7 @@ import {
 } from '@/helpers/localstorage'
 import { parseCurriculum } from '@/parsers/curriculum'
 import { parseProfiles } from '@/parsers/profile'
-import type { Curriculum, Languages } from '@/types'
+import type { Contact, Curriculum, Languages } from '@/types'
 import { Notification } from '@/utilities/Notification'
 
 import { CurriculumIndexStore } from './curriculumIndexStore'
@@ -329,16 +329,16 @@ export const ProfilesStore = {
 		order.splice(fromIndex, 1)
 		order.splice(toIndex, 0, item)
 
-		const newTest: typeof olderCoreSkill = {}
+		const newCore: typeof olderCoreSkill = {}
 
 		for (const item of order) {
 			if (olderCoreSkill[item]) {
-				newTest[item] = olderCoreSkill[item]
+				newCore[item] = olderCoreSkill[item]
 			}
 		}
 
 		profiles.value[profileIndex].curriculums[curriculumIndex].CoreSkills.value =
-			newTest
+			newCore
 	},
 	moveAcademicSkill(
 		curriculumIndex: number,
@@ -456,5 +456,48 @@ export const ProfilesStore = {
 			curriculumIndex
 		].AcademicBackground =
 			profiles.value[profileIndex].curriculums[0].AcademicBackground
+	},
+	moveContactOrder(
+		curriculumIndex: number,
+		fromIndex: number,
+		toIndex: number
+	) {
+		const profileIndex = ProfileIndexStore.get().value
+		if (
+			!profiles.value[profileIndex] ||
+			!profiles.value[profileIndex].curriculums[curriculumIndex] ||
+			toIndex === -1
+		) {
+			return
+		}
+
+		console.log({ curriculumIndex, fromIndex, toIndex })
+
+		const olderContact =
+			profiles.value[profileIndex].curriculums[curriculumIndex].Contact.value
+
+		const order = Object.keys(
+			profiles.value[profileIndex].curriculums[curriculumIndex].Contact.value
+		) as Array<keyof Contact['value']>
+
+		const item = order[fromIndex]
+		console.log('order', order)
+		if (!item) {
+			return
+		}
+
+		order.splice(fromIndex, 1)
+		order.splice(toIndex, 0, item)
+
+		const newContact = {} as Contact['value']
+
+		for (const item of order) {
+			if (olderContact[item]) {
+				newContact[item] = olderContact[item]
+			}
+		}
+
+		profiles.value[profileIndex].curriculums[curriculumIndex].Contact.value =
+			newContact
 	}
 }

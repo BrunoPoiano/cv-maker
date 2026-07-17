@@ -68,36 +68,25 @@ export type BoldMatchReturn =
 			  >
 	  )[]
 
-type Contact = {
+export type ContactValues =
+	| 'email'
+	| 'linkedin'
+	| 'github'
+	| 'location'
+	| 'website'
+	| 'telephone'
+
+export type Contact = {
 	size: FontSize
 	sideBySide: boolean
 	align: TextAlign
-	value: {
-		email: {
+	value: Record<
+		ContactValues,
+		{
 			value: string
 			bolder: boolean
 		}
-		linkedin: {
-			value: string
-			bolder: boolean
-		}
-		github: {
-			value: string
-			bolder: boolean
-		}
-		location: {
-			value: string
-			bolder: boolean
-		}
-		website: {
-			value: string
-			bolder: boolean
-		}
-		telephone: {
-			value: string
-			bolder: boolean
-		}
-	}
+	>
 }
 
 export type Course = {

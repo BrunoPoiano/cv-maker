@@ -33,7 +33,6 @@ onMounted(() => {
 				:id="`li-${value}`"
 				:data-index="index"
 				class="liElement"
-				draggable="true"
 				v-for="(value, index) in curriculum.Settings.order"
 				:key="value"
 			>
@@ -45,7 +44,9 @@ onMounted(() => {
 				/>
 				<span v-else :style="{ width: '1rem' }" />
 
-				<SvgDrag />
+				<div data-drag-handle draggable="true">
+					<SvgDrag />
+				</div>
 
 				{{ value.replace(/([a-z])([A-Z])/g, '$1 $2') }}
 			</li>
@@ -73,7 +74,6 @@ onMounted(() => {
 				align-items: center;
 				gap: 0.5rem;
 				padding: 0.25rem 0.3rem;
-				cursor: grab;
 			}
 		}
 	}

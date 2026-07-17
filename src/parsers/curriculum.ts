@@ -7,7 +7,13 @@ import { languages } from '@/constants/language'
 import { textAlign } from '@/constants/text-align'
 import { generateKey } from '@/helpers/generateKey'
 import { defaultConfigStore } from '@/stores/defaultConfig'
-import type { Curriculum, DefaultConfig, Experience } from '@/types'
+import type {
+	Contact,
+	ContactValues,
+	Curriculum,
+	DefaultConfig,
+	Experience
+} from '@/types'
 
 import {
 	isBooleanOrDefault,
@@ -113,20 +119,25 @@ export function parseCurriculum(value: unknown): Curriculum {
 			defaultConfig.value.Contact.align
 		)
 
-		type ContactValue = keyof Curriculum['Contact']['value']
-
 		if (isObject(value.Contact.value)) {
+			const newContactValue = {} as Contact['value']
 			for (const key of Object.keys(value.Contact.value)) {
+				const ContactValueskey = key as ContactValues
+
 				if (isObject(value.Contact.value[key])) {
-					cv.Contact.value[key as ContactValue] = {
+					newContactValue[ContactValueskey] = {
 						value: isExtendedStringOrDefault(
 							value.Contact.value[key].value,
-							cv.Contact.value[key as ContactValue]?.value || ''
+							cv.Contact.value[ContactValueskey]?.value || ''
 						),
 						bolder: isBooleanOrDefault(value.Contact.value[key].bolder)
 					}
+				} else {
+					newContactValue[ContactValueskey] = cv.Contact.value[ContactValueskey]
 				}
 			}
+
+			cv.Contact.value = newContactValue
 		}
 	}
 
@@ -311,36 +322,6 @@ export function parseCurriculumList(value: unknown): Array<Curriculum> {
 		.sort((cv1) => (cv1.Settings.language === 'en-us' ? 0 : 1))
 
 	return cvList
-}
-
-export function parseCurriculumToSave(value: Array<Curriculum>) {
-	const newVcs = value.map((item) => {
-		return {
-			...item,
-			AcademicBackground: {
-				...item.AcademicBackground,
-				value: item.AcademicBackground.value.map((ab) => {
-					return {
-						...ab,
-						StartDate: ab.StartDate?.toJSON(),
-						EndDate: ab.EndDate?.toJSON()
-					}
-				})
-			},
-			Experience: {
-				...item.Experience,
-				value: item.Experience.value.map((ab) => {
-					return {
-						...ab,
-						StartDate: ab.StartDate?.toJSON(),
-						EndDate: ab.EndDate?.toJSON()
-					}
-				})
-			}
-		}
-	})
-
-	return newVcs
 }
 
 export function parseDefaultConfig(value: unknown): DefaultConfig {

@@ -119,11 +119,12 @@ watch(
 					v-for="(ab, index) in curriculum.AcademicBackground.value"
 					class="academic"
 					:data-index="index"
-					draggable="true"
 					:id="`academic-${ab.id}`"
 					:key="ab.id"
 				>
-					<SvgDrag />
+					<div data-drag-handle draggable="true">
+						<SvgDrag />
+					</div>
 					<Button
 						icon-button
 						@click="ProfilesStore.deleteAcademicSkill(curriculumIndex, ab.id)"

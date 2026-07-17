@@ -16,7 +16,9 @@ const { curriculum } = inject(ProviderKey)!
 
 <template>
 	<AppAnchor margin-bottom="-1rem" class="contact-anchor">
-		<SvgDrag v-if="!readonly" />
+		<div v-if="!readonly" data-drag-handle draggable="true">
+			<SvgDrag />
+		</div>
 		<div
 			class="contact"
 			:data-side-by-side="!readonly ? false : curriculum.Contact.sideBySide"

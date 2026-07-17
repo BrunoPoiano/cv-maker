@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CSSProperties, InputTypeHTMLAttribute } from 'vue'
+import { type CSSProperties, type InputTypeHTMLAttribute,useSlots } from 'vue'
 
 import { generateKey } from '@/helpers/generateKey'
 
@@ -13,11 +13,12 @@ type Props = {
 	style?: CSSProperties | string
 	cvInput?: true
 }
-
+const slots = useSlots()
 const model = defineModel()
 const props = defineProps<Props>()
 const key = generateKey(5)
 
+const hasLabel = !!slots.label
 defineOptions({
 	inheritAttrs: false
 })
@@ -33,7 +34,8 @@ defineOptions({
 		v-model="model"
 	/>
 	<div v-else class="content" :style="props.divStyle">
-		<label :for="id ?? key" @click="props.labelClick" v-if="props.label">{{
+		<slot v-if="hasLabel" name="label" />
+		<label :for="id ?? key" @click="props.labelClick" v-else-if="props.label">{{
 			props.label
 		}}</label>
 		<input
