@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { dateStyleSelect, monthOptionsSelect } from '@/constants/dateOptions'
+import {
+	dateStyleSelect,
+	monthOptionsSelect,
+	yearOptionsSelect
+} from '@/constants/dateOptions'
 import { fontSizeSelect } from '@/constants/font-size'
 import { defaultConfigStore } from '@/stores/defaultConfig'
 import AppInput from '@/ui/appInput.vue'
@@ -45,6 +49,12 @@ const defaultConfig = defaultConfigStore.get()
 			label="Month"
 			:items="monthOptionsSelect"
 			v-model="defaultConfig.Experience.dateMonth"
+		/>
+		<AppSelect
+			v-if="defaultConfig.Experience.dateStyle === 'date'"
+			label="Year"
+			:items="yearOptionsSelect"
+			v-model="defaultConfig.Experience.dateYear"
 		/>
 	</div>
 </template>

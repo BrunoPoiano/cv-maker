@@ -143,6 +143,8 @@ function setDefaultConfigToCv(curriculumIndex: number) {
 
 	curriculums[curriculumIndex].Experience.dateMonth =
 		currentDefaultConfig.value.Experience.dateMonth
+	curriculums[curriculumIndex].Experience.dateYear =
+		currentDefaultConfig.value.Experience.dateYear
 	curriculums[curriculumIndex].Experience.dateStyle =
 		currentDefaultConfig.value.Experience.dateStyle
 	curriculums[curriculumIndex].Experience.show =

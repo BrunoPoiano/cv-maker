@@ -19,7 +19,7 @@ export type Translation = Record<string, Each<Languages>>
 
 export type MonthOptions = Extract<
 	Intl.DateTimeFormatOptions['month'],
-	'2-digit' | 'short' | 'long'
+	'numeric' | '2-digit' | 'long' | 'short' | 'narrow'
 >
 export type YearOptions = Extract<
 	Intl.DateTimeFormatOptions['year'],
