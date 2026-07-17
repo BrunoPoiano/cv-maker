@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type CSSProperties, type InputTypeHTMLAttribute,useSlots } from 'vue'
+import { type CSSProperties, type InputTypeHTMLAttribute, useSlots } from 'vue'
 
 import { generateKey } from '@/helpers/generateKey'
 

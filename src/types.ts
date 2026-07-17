@@ -180,7 +180,11 @@ export type Curriculum = {
 
 export type DefaultConfig = {
 	[T in keyof Curriculum]: RemoveValue<
-		T extends 'Settings' ? Omit<Curriculum[T], 'language'> : Curriculum[T]
+		T extends 'Settings'
+			? Omit<Curriculum[T], 'language'>
+			: T extends 'Contact'
+				? Curriculum[T] & { valueOrder: Array<ContactValues> }
+				: Curriculum[T]
 	>
 }
 

@@ -24,7 +24,7 @@ const ModalSettings = defineAsyncComponent(
 	() => import('../modals/settings/modalSettings.vue')
 )
 const ModalDefaultConfig = defineAsyncComponent(
-	() => import('../modals/modalDefaultConfig.vue')
+	() => import('../modals/modalDefaultConfig/modalDefaultConfig.vue')
 )
 
 export const sideMenuItems: MenuModalItem[] = [

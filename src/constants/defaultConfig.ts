@@ -30,7 +30,15 @@ export function DefaultConfigConst(): DefaultConfig {
 		Contact: {
 			size: '--font-size-sm',
 			sideBySide: false,
-			align: 'start'
+			align: 'start',
+			valueOrder: [
+				'email',
+				'github',
+				'linkedin',
+				'location',
+				'telephone',
+				'website'
+			]
 		},
 		Summary: {
 			smallText: '',

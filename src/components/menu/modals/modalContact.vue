@@ -23,8 +23,6 @@ type Props = {
 const { id } = defineProps<Props>()
 
 onMounted(() => {
-	console.log(Object.keys(curriculum.value.Contact.value))
-
 	const controller = DragAndDrop({
 		areaId: 'contactsValuesOrder',
 		idPrefix: 'contactsValuesOrder-',
