@@ -27,7 +27,7 @@ const curriculumIndex = CurriculumIndexStore.get()
 		<template #header>
 			<h3>Default Configuration</h3>
 		</template>
-		<form>
+		<form class="defaultConfigForm">
 			<DefaultSettings />
 			<DefaultOrder />
 			<DefaultHeader />
@@ -59,7 +59,7 @@ const curriculumIndex = CurriculumIndexStore.get()
 
 <style scoped>
 @layer utilities {
-	form {
+	.defaultConfigForm {
 		display: grid;
 		gap: 1rem;
 
@@ -101,15 +101,15 @@ const curriculumIndex = CurriculumIndexStore.get()
 					}
 				}
 			}
+
+			&.actions {
+				display: flex;
+				gap: 1rem;
+				justify-content: center;
+			}
 		}
 
-		.actions {
-			display: flex;
-			gap: 1rem;
-			justify-content: center;
-		}
-
-		:deep(ul) {
+		> :deep(ul) {
 			padding-left: var(--_padding);
 			margin: 0px;
 			li {

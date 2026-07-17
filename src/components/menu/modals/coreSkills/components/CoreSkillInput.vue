@@ -38,6 +38,7 @@ import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { ProfilesStore } from '@/stores/profileStore'
 import SvgDrag from '@/svgs/svgDrag.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
+import AppButton from '@/ui/appButton.vue'
 import AppTextarea from '@/ui/appTextarea.vue'
 import { DragAndDrop } from '@/utilities/DragAndDrop'
 
