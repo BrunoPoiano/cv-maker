@@ -314,12 +314,10 @@ export function parseCurriculumList(value: unknown): Array<Curriculum> {
 		return [CurriculumConst()]
 	}
 
-	const cvList = value
-		.reduce<Array<Curriculum>>((acc, item) => {
-			acc.push(parseCurriculum(item))
-			return acc
-		}, [])
-		.sort((cv1) => (cv1.Settings.language === 'en-us' ? 0 : 1))
+	const cvList = value.reduce<Array<Curriculum>>((acc, item) => {
+		acc.push(parseCurriculum(item))
+		return acc
+	}, [])
 
 	return cvList
 }

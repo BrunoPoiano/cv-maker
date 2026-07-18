@@ -1,14 +1,9 @@
-<script setup lang="ts">
-import ColorScheme from './colorScheme.vue'
-</script>
-
 <template>
 	<footer>
 		<span
 			>{{ new Date().getFullYear() }} | Bruno |
 			<a href="https://github.com/BrunoPoiano/cv-maker">Source Code</a>
 		</span>
-		<ColorScheme />
 	</footer>
 </template>
 

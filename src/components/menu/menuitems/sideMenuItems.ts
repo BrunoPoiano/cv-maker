@@ -23,23 +23,15 @@ const ModalSummary = defineAsyncComponent(
 const ModalSettings = defineAsyncComponent(
 	() => import('../modals/settings/modalSettings.vue')
 )
-const ModalDefaultConfig = defineAsyncComponent(
-	() => import('../modals/modalDefaultConfig/modalDefaultConfig.vue')
-)
 
 export const sideMenuItems: MenuModalItem[] = [
-	{
-		modal: ModalDefaultConfig,
-		id: 'modalDefaultConfig',
-		backgroundColor: 'var(--surface-container-low)',
-		label: 'Default Config'
-	},
 	// {
-	// 	modal: ModalOrder,
-	// 	id: 'modalCvOrder',
+	// 	modal: ModalDefaultConfig,
+	// 	id: 'modalDefaultConfig',
 	// 	backgroundColor: 'var(--surface-container-low)',
-	// 	label: 'Order'
+	// 	label: 'Default Config'
 	// },
+
 	{
 		modal: ModalSettings,
 		id: 'modalCvSettings',

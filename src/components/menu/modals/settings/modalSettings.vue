@@ -4,8 +4,6 @@ import { inject } from 'vue'
 import { fontSizeSelect } from '@/constants/font-size'
 import { a4gapSelect, marginListSelect } from '@/constants/spacings'
 import { ProviderKey } from '@/keys'
-import { HueStore } from '@/stores/hueStore'
-import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import Select from '@/ui/appSelect.vue'
 
@@ -17,13 +15,6 @@ type Props = {
 
 const { curriculum } = inject(ProviderKey)!
 const { id } = defineProps<Props>()
-
-const colorRange = HueStore.get()
-
-function handleColorChange() {
-	HueStore.set()
-	HueStore.save()
-}
 </script>
 
 <template>
@@ -47,14 +38,7 @@ function handleColorChange() {
 				:items="fontSizeSelect"
 				v-model="curriculum.Settings.section.size"
 			/>
-			<AppInput
-				label="App Color"
-				type="range"
-				v-model="colorRange"
-				max="360"
-				min="1"
-				@change="handleColorChange"
-			/>
+
 			<SettingsOrder />
 		</form>
 	</Modal>
@@ -72,6 +56,10 @@ function handleColorChange() {
 			padding: var(--_padding);
 			background: var(--surface-container-low);
 			border-radius: var(--border-radius);
+
+			&:hover {
+				background: hsl(from var(--surface-container-low) h s calc(l - 2.75));
+			}
 		}
 	}
 
