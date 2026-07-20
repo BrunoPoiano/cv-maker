@@ -499,5 +499,21 @@ export const ProfilesStore = {
 
 		profiles.value[profileIndex].curriculums[curriculumIndex].Contact.value =
 			newContact
+	},
+	moveCurriculum(fromIndex: number, toIndex: number) {
+		const profileIndex = ProfileIndexStore.get().value
+
+		if (!profiles.value[profileIndex] || toIndex === -1) {
+			return
+		}
+
+		const curriculum = profiles.value[profileIndex].curriculums[fromIndex]
+
+		if (!curriculum) {
+			return
+		}
+
+		profiles.value[profileIndex].curriculums.splice(fromIndex, 1)
+		profiles.value[profileIndex].curriculums.splice(toIndex, 0, curriculum)
 	}
 }

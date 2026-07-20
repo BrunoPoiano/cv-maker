@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onMounted, onUnmounted, ref, watch } from 'vue'
+import { inject, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 
 import {
 	dateStyleSelect,
@@ -48,9 +48,14 @@ onMounted(() => {
 	controller.value = createDragAndDrop()
 	onUnmounted(() => controller.value?.abort())
 })
+
 watch(
-	curriculum.value.AcademicBackground.value,
-	() => (controller.value = createDragAndDrop())
+	() => curriculum.value.AcademicBackground.value.length,
+	async () => {
+		controller.value?.abort()
+		await nextTick()
+		controller.value = createDragAndDrop()
+	}
 )
 </script>
 

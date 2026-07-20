@@ -17,8 +17,12 @@ const ModalProfileForm = defineAsyncComponent(
 	() => import('./components/ModalProfileForm.vue')
 )
 
+const ModalCurriculumOrder = defineAsyncComponent(
+	() => import('./components/modalCurriculumOrder.vue')
+)
+
 const ModalDefaultConfig = defineAsyncComponent(
-	() => import('../modalDefaultConfig/modalDefaultConfig.vue')
+	() => import('./components/modalDefaultConfig/modalDefaultConfig.vue')
 )
 
 const profiles = ProfilesStore.get()
@@ -72,6 +76,12 @@ const tableProfiled = computed(() => {
 					Curriculum Default Configuration
 				</AppButton>
 				<ModalDefaultConfig id="modalDefaultConfig" />
+			</div>
+			<div class="defaultConfig">
+				<AppButton modal id="modalCurriculumORder">
+					Curriculum Order
+				</AppButton>
+				<ModalCurriculumOrder id="modalCurriculumORder" />
 			</div>
 
 			<div>

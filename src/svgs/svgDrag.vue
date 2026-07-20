@@ -24,7 +24,6 @@
 <style scoped>
 @layer utilities {
 	svg {
-		cursor: grab;
 		path {
 			stroke: currentColor;
 		}

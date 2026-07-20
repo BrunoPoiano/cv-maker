@@ -9,11 +9,12 @@ import { ProfilesStore } from '@/stores/profileStore'
 import SvgDefault from '@/svgs/SvgDefault.vue'
 import SvgDrag from '@/svgs/svgDrag.vue'
 import AppButton from '@/ui/appButton.vue'
-import appInput from '@/ui/appInput.vue'
+import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
 import AppPopover from '@/ui/appPopover.vue'
 import Select from '@/ui/appSelect.vue'
 import { DragAndDrop } from '@/utilities/DragAndDrop'
+
 const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
 type Props = {
@@ -41,7 +42,7 @@ onMounted(() => {
 		<template #header>
 			<div class="header">
 				<h3>Contact</h3>
-				<Input
+				<AppInput
 					type="checkbox"
 					label="Side by Side"
 					v-model="curriculum.Contact.sideBySide"
@@ -81,7 +82,7 @@ onMounted(() => {
 					:data-index="index"
 					class="itemContactsValuesOrder"
 				>
-					<appInput
+					<AppInput
 						type="text"
 						:label="type"
 						:placeholder="type"
@@ -93,8 +94,8 @@ onMounted(() => {
 								{{ type }}
 							</div>
 						</template>
-					</appInput>
-					<appInput
+					</AppInput>
+					<AppInput
 						type="checkbox"
 						label="bolder"
 						v-model="curriculum.Contact.value[type].bolder"
