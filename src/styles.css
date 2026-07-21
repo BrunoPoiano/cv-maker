@@ -357,6 +357,13 @@
 		}
 	}
 
+	[data-drag-handle] {
+		width: fit-content;
+		align-content: center;
+	}
+	[draggable='true'] {
+		cursor: grab;
+	}
 	.dragging {
 		background-color: var(--surface);
 		padding: 0.5rem 0.7rem;

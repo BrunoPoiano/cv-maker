@@ -3,11 +3,12 @@
 		:id="`core-skill-${props.core}`"
 		:data-index="props.index"
 		class="skills"
-		draggable="true"
 	>
 		<div class="header-items">
 			<div>
-				<SvgDrag />
+				<div data-drag-handle draggable="true">
+					<SvgDrag />
+				</div>
 				<span>
 					{{ core.replace('_', ' & ') }}
 				</span>
@@ -37,6 +38,7 @@ import { CurriculumIndexStore } from '@/stores/curriculumIndexStore'
 import { ProfilesStore } from '@/stores/profileStore'
 import SvgDrag from '@/svgs/svgDrag.vue'
 import SvgTrash from '@/svgs/svgTrash.vue'
+import AppButton from '@/ui/appButton.vue'
 import AppTextarea from '@/ui/appTextarea.vue'
 import { DragAndDrop } from '@/utilities/DragAndDrop'
 

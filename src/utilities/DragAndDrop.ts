@@ -26,31 +26,28 @@ export function DragAndDrop({
 
 	for (const el of itemsList) {
 		const item = document.getElementById(`${idPrefix}${el}`)
-		if (item) {
-			item.addEventListener(
-				'dragstart',
-				(el) => {
-					const dragImage = item.cloneNode(true) as HTMLElement
-					dragImage.classList.add('dragging')
-					dragImage.style.position = 'absolute'
-					dragImage.style.zIndex = '-10000'
-					if (dragImageWidth) {
-						dragImage.style.maxWidth = dragImageWidth
-					}
-					document.body.appendChild(dragImage)
+		if (!item) continue
 
-					const target = el.target as HTMLElement
-					dragging = isNumberOrDefault(target.dataset.index, -1)
-					el.dataTransfer?.setDragImage(dragImage, 100, 20)
+		const dragHandle = item.querySelector('[data-drag-handle]') as HTMLElement
 
-					item.addEventListener('dragend', () => dragImage.remove(), {
-						once: true,
-						signal
-					})
-				},
-				{ signal }
-			)
-		}
+		if (!dragHandle) continue
+
+		dragHandle.addEventListener(
+			'dragstart',
+			(el) => {
+				const dragImage = createDragImage(item, dragImageWidth)
+				document.body.appendChild(dragImage)
+
+				dragging = isNumberOrDefault(item.dataset.index, -1)
+				el.dataTransfer?.setDragImage(dragImage, 100, 20)
+
+				dragHandle.addEventListener('dragend', () => dragImage.remove(), {
+					once: true,
+					signal
+				})
+			},
+			{ signal }
+		)
 	}
 
 	area.addEventListener(
@@ -85,19 +82,35 @@ export function DragAndDrop({
 
 			const item = target.closest(`.${itemsClass}`)
 
-			if (item) {
-				item.classList.add('drag-highlight')
-				lastHovered = isNumberOrDefault((item as HTMLElement).dataset.index, -1)
+			if (!item) return
 
-				item.addEventListener(
-					'dragleave',
-					() => item.classList.remove('drag-highlight'),
-					{ signal }
-				)
-			}
+			item.classList.add('drag-highlight')
+			lastHovered = isNumberOrDefault((item as HTMLElement).dataset.index, -1)
+
+			item.addEventListener(
+				'dragleave',
+				() => item.classList.remove('drag-highlight'),
+				{ once: true, signal }
+			)
 		},
 		{ signal }
 	)
 
 	return controller
+}
+
+function createDragImage(
+	item: HTMLElement,
+	dragImageWidth?: CSSStyleDeclaration['width']
+) {
+	const image = item.cloneNode(true) as HTMLElement
+	image.classList.add('dragging')
+	image.style.position = 'absolute'
+	image.style.zIndex = '-10000'
+	if (dragImageWidth) {
+		image.style.maxWidth = dragImageWidth
+		image.style.width = '100%'
+	}
+
+	return image
 }

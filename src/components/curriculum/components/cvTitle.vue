@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ReadonlyStore } from '@/stores/readonlyStore'
+import SvgDrag from '@/svgs/svgDrag.vue'
 import type { FontSize } from '@/types'
 
 type Props = {
@@ -6,10 +8,18 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+const readOnly = ReadonlyStore.get()
 </script>
 
 <template>
 	<h3 :style="{ fontSize: `var(${props.fontsize})` }">
+		<div
+			:style="readOnly ? { display: 'none' } : ''"
+			data-drag-handle
+			draggable="true"
+		>
+			<SvgDrag />
+		</div>
 		<slot />
 	</h3>
 </template>
@@ -17,6 +27,10 @@ const props = defineProps<Props>()
 <style scoped>
 @layer utilities {
 	h3 {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		align-items: center;
+
 		font-size: var(--font-size-lg);
 		font-weight: var(--font-weight);
 		letter-spacing: 0.099em;

@@ -11,7 +11,7 @@ const { marginBottom } = defineProps({
 </script>
 
 <template>
-	<div data-anchor>
+	<div v-bind="$attrs" data-anchor>
 		<slot />
 		<slot name="button" />
 	</div>

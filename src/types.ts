@@ -19,7 +19,7 @@ export type Translation = Record<string, Each<Languages>>
 
 export type MonthOptions = Extract<
 	Intl.DateTimeFormatOptions['month'],
-	'2-digit' | 'short' | 'long'
+	'numeric' | '2-digit' | 'long' | 'short' | 'narrow'
 >
 export type YearOptions = Extract<
 	Intl.DateTimeFormatOptions['year'],
@@ -68,36 +68,25 @@ export type BoldMatchReturn =
 			  >
 	  )[]
 
-type Contact = {
+export type ContactValues =
+	| 'email'
+	| 'linkedin'
+	| 'github'
+	| 'location'
+	| 'website'
+	| 'telephone'
+
+export type Contact = {
 	size: FontSize
 	sideBySide: boolean
 	align: TextAlign
-	value: {
-		email: {
+	value: Record<
+		ContactValues,
+		{
 			value: string
 			bolder: boolean
 		}
-		linkedin: {
-			value: string
-			bolder: boolean
-		}
-		github: {
-			value: string
-			bolder: boolean
-		}
-		location: {
-			value: string
-			bolder: boolean
-		}
-		website: {
-			value: string
-			bolder: boolean
-		}
-		telephone: {
-			value: string
-			bolder: boolean
-		}
-	}
+	>
 }
 
 export type Course = {
@@ -191,7 +180,11 @@ export type Curriculum = {
 
 export type DefaultConfig = {
 	[T in keyof Curriculum]: RemoveValue<
-		T extends 'Settings' ? Omit<Curriculum[T], 'language'> : Curriculum[T]
+		T extends 'Settings'
+			? Omit<Curriculum[T], 'language'>
+			: T extends 'Contact'
+				? Curriculum[T] & { valueOrder: Array<ContactValues> }
+				: Curriculum[T]
 	>
 }
 

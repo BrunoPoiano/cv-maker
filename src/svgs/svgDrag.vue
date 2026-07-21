@@ -5,6 +5,7 @@
 		height="22px"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
+		class="svg-drag"
 	>
 		<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 		<g
@@ -23,7 +24,6 @@
 <style scoped>
 @layer utilities {
 	svg {
-		cursor: grab;
 		path {
 			stroke: currentColor;
 		}

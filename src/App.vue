@@ -10,6 +10,7 @@ import Menu from './components/menu/menuSection.vue'
 import { CurriculumConst } from './constants/curriculum'
 import { deepClone } from './helpers/clone'
 import { parseCurriculum } from './parsers/curriculum'
+import { ColorSchemeStore } from './stores/colorSchemeStore'
 import { CurriculumIndexStore } from './stores/curriculumIndexStore'
 import { HueStore } from './stores/hueStore'
 import { ProfilesStore } from './stores/profileStore'
@@ -74,6 +75,7 @@ provide(ProviderKey, {
 
 onBeforeMount(() => {
 	HueStore.set()
+	ColorSchemeStore.set()
 })
 </script>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, onUnmounted } from 'vue'
+import { computed, inject, nextTick, onMounted, onUnmounted } from 'vue'
 
 import { curriculumOrder } from '@/constants/curriculumOrder'
 import { ProviderKey } from '@/keys'
@@ -12,7 +12,8 @@ const curriculumIndex = CurriculumIndexStore.get()
 const margin = computed(() => curriculum.value.Settings.margin)
 const gap = computed(() => curriculum.value.Settings.gap)
 
-onMounted(() => {
+onMounted(async () => {
+	await nextTick()
 	const controller = DragAndDrop({
 		areaId: 'curriculumPage',
 		idPrefix: 'main-',
@@ -41,7 +42,6 @@ onMounted(() => {
 					:id="`main-${order}`"
 					:data-index="index"
 					class="cvElement"
-					draggable="true"
 					:is="curriculumOrder[order]"
 				/>
 			</template>

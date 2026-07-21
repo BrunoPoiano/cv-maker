@@ -1,18 +1,13 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue'
 
-import { fontSizeSelect } from '@/constants/font-size'
 import { ProviderKey, ProviderSkillKey } from '@/keys'
-import SvgNewDocument from '@/svgs/svgNewDocument.vue'
-import AppButton from '@/ui/appButton.vue'
-import AppInput from '@/ui/appInput.vue'
 import Modal from '@/ui/appModal.vue'
-import AppPopover from '@/ui/appPopover.vue'
-import Select from '@/ui/appSelect.vue'
-import AppSmall from '@/ui/appSmall.vue'
 
-import CoreSkillInput from './components/CoreSkillInput.vue'
-import ModalCoreSkillName from './components/ModalCoreSkillName.vue'
+import CoreSkillHeader from './components/coreSkillHeader.vue'
+import CoreSkillInput from './components/coreSkillInput.vue'
+import CoreSkillsOptions from './components/coreSkillsOptions.vue'
+import ModalCoreSkillName from './components/modalCoreSkillName.vue'
 
 type Props = {
 	id: string
@@ -27,35 +22,9 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 <template>
 	<Modal :id="id" closeLabel="close" minWidth="40rem" v-if="curriculum">
 		<template #header>
-			<div class="header">
-				<h3>
-					<AppInput
-						type="checkbox"
-						label="Core Skills"
-						v-model="curriculum.CoreSkills.show"
-					/>
-					<AppSmall>Items will be separeted by commas (,)</AppSmall>
-				</h3>
-				<AppPopover>
-					<AppButton modal icon-button :id="ModalCoreSkillNameID">
-						<SvgNewDocument />
-					</AppButton>
-					<template #popover> New Core Skill </template>
-				</AppPopover>
-			</div>
+			<CoreSkillHeader :id="ModalCoreSkillNameID" />
 		</template>
-		<div class="settings">
-			<AppInput
-				type="checkbox"
-				label="Side by Side"
-				v-model="curriculum.CoreSkills.sideBySide"
-			/>
-			<Select
-				label="Font Size"
-				:items="fontSizeSelect"
-				v-model="curriculum.CoreSkills.size"
-			/>
-		</div>
+		<CoreSkillsOptions />
 		<div class="coreSkillsList" id="coreSkillsList">
 			<CoreSkillInput
 				v-for="(_, core, index) in skillsProxy"
@@ -77,14 +46,6 @@ const ModalCoreSkillNameID = ref('modal-core-skill-name')
 		span {
 			text-transform: capitalize;
 		}
-	}
-
-	.settings {
-		display: grid;
-		grid-template-columns: auto 1fr;
-		align-items: center;
-		gap: 1rem;
-		margin-bottom: 1rem;
 	}
 
 	.coreSkillsList {

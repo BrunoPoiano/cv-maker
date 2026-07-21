@@ -7,6 +7,7 @@ import {
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
 import { parseProfileDefaultConfig } from '@/parsers/profile'
+import type { Contact } from '@/types'
 
 import { ProfileIndexStore } from './profileIndexStore'
 import { ProfilesStore } from './profileStore'
@@ -77,6 +78,19 @@ export const defaultConfigStore = {
 
 		defaultConfig.value[ProfileIndexStore.get().value] =
 			currentDefaultConfig.value
+	},
+	moveContactOrder(fromIndex: number, toIndex: number) {
+		const component = currentDefaultConfig.value.Contact.valueOrder[fromIndex]
+
+		if (!component) {
+			return
+		}
+
+		currentDefaultConfig.value.Contact.valueOrder.splice(fromIndex, 1)
+		currentDefaultConfig.value.Contact.valueOrder.splice(toIndex, 0, component)
+
+		defaultConfig.value[ProfileIndexStore.get().value] =
+			currentDefaultConfig.value
 	}
 }
 
@@ -129,6 +143,8 @@ function setDefaultConfigToCv(curriculumIndex: number) {
 
 	curriculums[curriculumIndex].Experience.dateMonth =
 		currentDefaultConfig.value.Experience.dateMonth
+	curriculums[curriculumIndex].Experience.dateYear =
+		currentDefaultConfig.value.Experience.dateYear
 	curriculums[curriculumIndex].Experience.dateStyle =
 		currentDefaultConfig.value.Experience.dateStyle
 	curriculums[curriculumIndex].Experience.show =
@@ -147,4 +163,10 @@ function setDefaultConfigToCv(curriculumIndex: number) {
 		currentDefaultConfig.value.AcademicBackground.show
 	curriculums[curriculumIndex].AcademicBackground.size =
 		currentDefaultConfig.value.AcademicBackground.size
+
+	const newContact = {} as Contact['value']
+	for (const item of currentDefaultConfig.value.Contact.valueOrder) {
+		newContact[item] = curriculums[curriculumIndex].Contact.value[item]
+	}
+	curriculums[curriculumIndex].Contact.value = newContact
 }
