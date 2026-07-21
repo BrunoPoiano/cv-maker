@@ -16,7 +16,11 @@ const { curriculum } = inject(ProviderKey)!
 
 <template>
 	<AppAnchor margin-bottom="-1rem" class="contact-anchor">
-		<div v-if="!readonly" data-drag-handle draggable="true">
+		<div
+			:style="readonly ? { display: 'none' } : ''"
+			data-drag-handle
+			draggable="true"
+		>
 			<SvgDrag />
 		</div>
 		<div

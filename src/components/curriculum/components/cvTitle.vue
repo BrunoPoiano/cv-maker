@@ -13,7 +13,11 @@ const readOnly = ReadonlyStore.get()
 
 <template>
 	<h3 :style="{ fontSize: `var(${props.fontsize})` }">
-		<div v-if="!readOnly" data-drag-handle draggable="true">
+		<div
+			:style="readOnly ? { display: 'none' } : ''"
+			data-drag-handle
+			draggable="true"
+		>
 			<SvgDrag />
 		</div>
 		<slot />

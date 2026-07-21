@@ -17,6 +17,13 @@ const { curriculum } = inject(ProviderKey)!
 <template>
 	<AppAnchor>
 		<div class="header">
+			<div
+				:style="readonly ? { display: 'none' } : ''"
+				data-drag-handle
+				draggable="true"
+			>
+				<SvgDrag />
+			</div>
 			<template v-if="readonly">
 				<h1
 					:style="{
@@ -37,9 +44,6 @@ const { curriculum } = inject(ProviderKey)!
 				</span>
 			</template>
 			<template v-else>
-				<div data-drag-handle draggable="true">
-					<SvgDrag />
-				</div>
 				<h1
 					:style="{ '--font_size': `var(${curriculum.Header.UserName.size})` }"
 				>
