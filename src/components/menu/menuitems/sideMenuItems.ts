@@ -6,7 +6,7 @@ const ModalExperience = defineAsyncComponent(
 	() => import('../modals/experience/modalExperience.vue')
 )
 const ModalAcademic = defineAsyncComponent(
-	() => import('../modals/modalAcademic.vue')
+	() => import('../modals/modalAcademic/modalAcademic.vue')
 )
 const ModalContact = defineAsyncComponent(
 	() => import('../modals/modalContact.vue')
