@@ -16,11 +16,7 @@ const { curriculum } = inject(ProviderKey)!
 
 <template>
 	<AppAnchor margin-bottom="-1rem" class="contact-anchor">
-		<div
-			:style="readonly ? { display: 'none' } : ''"
-			data-drag-handle
-			draggable="true"
-		>
+		<div :data-readonly="readonly" data-drag-handle draggable="true">
 			<SvgDrag />
 		</div>
 		<div
@@ -64,9 +60,13 @@ const { curriculum } = inject(ProviderKey)!
 @layer utilities {
 	.contact-anchor {
 		display: grid;
+		grid-template-columns: auto 1fr;
 
-		&:has(.svg-drag) {
-			grid-template-columns: auto 1fr;
+		&:has([data-readonly='true']) {
+			grid-template-columns: 1fr;
+			[data-drag-handle] {
+				display: none;
+			}
 		}
 	}
 
