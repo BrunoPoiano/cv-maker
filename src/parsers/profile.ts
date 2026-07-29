@@ -1,6 +1,6 @@
-import type { Profile, ProfileDefaultConfig } from '@/types'
+import type { Profile } from '@/types'
 
-import { parseCurriculumList, parseDefaultConfig } from './curriculum'
+import { parseCurriculumList } from './curriculum'
 import {
 	isNumberOrDefault,
 	isObject,
@@ -27,18 +27,4 @@ export function parseProfiles(value: unknown): Array<Profile> {
 		})
 		return acc
 	}, [])
-}
-
-export function parseProfileDefaultConfig(
-	value: unknown
-): ProfileDefaultConfig {
-	if (!isObject(value)) return {}
-
-	return Object.values(value).reduce<ProfileDefaultConfig>(
-		(acc, item, index) => {
-			acc[index] = parseDefaultConfig(item)
-			return acc
-		},
-		{}
-	)
 }

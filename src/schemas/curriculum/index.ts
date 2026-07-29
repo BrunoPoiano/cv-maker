@@ -20,32 +20,48 @@ export const CurriculumSchema = z.object({
 })
 
 export const DefaultConfigSchema = z.object({
-	Settings: CurriculumSchema.shape.Settings.omit({
-		language: true
-	}),
+	Settings: z.clone(
+		CurriculumSchema.shape.Settings.omit({
+			language: true
+		})
+	),
 	Header: z.object({
-		Role: CurriculumSchema.shape.Header.shape.Role.omit({
+		Role: z.clone(
+			CurriculumSchema.shape.Header.shape.Role.omit({
+				value: true
+			})
+		),
+		UserName: z.clone(
+			CurriculumSchema.shape.Header.shape.UserName.omit({
+				value: true
+			})
+		)
+	}),
+	Contact: z.clone(
+		CurriculumSchema.shape.Contact.omit({
 			value: true
-		}),
-		UserName: CurriculumSchema.shape.Header.shape.UserName.omit({
+		}).extend({
+			valueOrder: ContactsArrayCheck
+		})
+	),
+	Summary: z.clone(
+		CurriculumSchema.shape.Summary.omit({
 			value: true
 		})
-	}),
-	Contact: CurriculumSchema.shape.Contact.omit({
-		value: true
-	}).extend({
-		valueOrder: ContactsArrayCheck
-	}),
-	Summary: CurriculumSchema.shape.Summary.omit({
-		value: true
-	}),
-	CoreSkills: CurriculumSchema.shape.CoreSkills.omit({
-		value: true
-	}),
-	Experience: CurriculumSchema.shape.Experience.omit({
-		value: true
-	}),
-	AcademicBackground: CurriculumSchema.shape.AcademicBackground.omit({
-		value: true
-	})
+	),
+	CoreSkills: z.clone(
+		CurriculumSchema.shape.CoreSkills.omit({
+			value: true
+		})
+	),
+	Experience: z.clone(
+		CurriculumSchema.shape.Experience.omit({
+			value: true
+		})
+	),
+	AcademicBackground: z.clone(
+		CurriculumSchema.shape.AcademicBackground.omit({
+			value: true
+		})
+	)
 })
