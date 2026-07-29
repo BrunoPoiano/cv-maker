@@ -20,6 +20,7 @@ import type { CoreSkillsSchema } from './schemas/curriculum/coreSkills'
 import type { ExperienceSchema } from './schemas/curriculum/experience'
 import type { curriculumIndexSchema } from './schemas/curriculumIndex'
 import type { profileDefaultConfigSchema } from './schemas/profileDefaultConfig'
+import type { ProfilesSchema } from './schemas/profiles'
 import type { ProfilesStore } from './stores/profileStore'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
@@ -62,12 +63,7 @@ export type TableProps = Array<
 export type BolderWords = z.infer<typeof bolderWordsSchema>
 export type CurriculumIndex = z.infer<typeof curriculumIndexSchema>
 export type ProfileDefaultConfig = z.infer<typeof profileDefaultConfigSchema>
-
-export type Profile = {
-	id: number
-	name: string
-	curriculums: Array<Curriculum>
-}
+export type Profile = z.infer<typeof ProfilesSchema>
 
 export type BoldMatchReturn =
 	| string

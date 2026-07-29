@@ -7,7 +7,7 @@ import { dateStyle, monthOptions, yearOptions } from '@/constants/dateOptions'
 import { fontSize } from '@/constants/font-size'
 import { languages } from '@/constants/language'
 import { textAlign } from '@/constants/text-align'
-import { isOneOf, isValidDateOrNull } from '@/parsers/typeValidation'
+import { isValidDateOrNull } from '@/parsers/temporalValidation'
 import type { Order } from '@/types'
 
 export const LanguageCheck = z.enum(languages).catch('en-us')
@@ -21,7 +21,7 @@ export const ContactsEnumCheck = z.enum(contacts).catch('email')
 export const OrderCheck = z.custom<Order>((value) => {
 	if (Array.isArray(value)) {
 		return value.reduce<Array<Order>>((acc, item) => {
-			if (isOneOf(item, curriculumOrderArray)) {
+			if (curriculumOrderArray.includes(item)) {
 				acc.push(item)
 			}
 			return acc
@@ -35,7 +35,7 @@ type Contacts = (typeof contacts)[number]
 export const ContactsArrayCheck = z.custom<Array<Contacts>>((value) => {
 	if (Array.isArray(value)) {
 		return value.reduce<Array<Contacts>>((acc, item) => {
-			if (isOneOf(item, contacts)) {
+			if (contacts.includes(item)) {
 				acc.push(item)
 			}
 			return acc
@@ -52,3 +52,12 @@ export const NullableTemporalDateCheck = z.preprocess(
 	isValidDateOrNull,
 	TemporalDateSchema.nullable()
 )
+
+export const BooleanCheck = z.preprocess((value) => {
+	if (value === 1 || value === '1' || value === 'true') return true
+	if (value === 0 || value === '0' || value === 'false') return false
+
+	return value
+}, z.boolean())
+
+export const NumberCheck = z.coerce.number().default(0)

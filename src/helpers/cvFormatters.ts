@@ -1,7 +1,7 @@
 import type { Temporal } from '@js-temporal/polyfill'
 
 import { Translate } from '@/constants/translations'
-import { isValidDateOrNull } from '@/parsers/typeValidation'
+import { isValidDateOrNull } from '@/parsers/temporalValidation'
 import type { Curriculum, Languages, MonthOptions, YearOptions } from '@/types'
 
 type GenerateDateProps = {

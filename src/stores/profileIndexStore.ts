@@ -4,12 +4,15 @@ import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
-import { isNumberOrDefault } from '@/parsers/typeValidation'
+import { NumberCheck } from '@/schemas/helpers'
 
 const profileIndex = ref(
 	getDataFromLocalStorage({
 		key: 'profileIndex',
-		parseFunction: (value: unknown) => isNumberOrDefault(value, 0),
+		parseFunction: (value: unknown) => {
+			const data = NumberCheck.safeParse(value)
+			return data.success ? data.data : 0
+		},
 		initialValue: 0
 	})
 )

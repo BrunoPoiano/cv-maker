@@ -1,4 +1,4 @@
-import { isNumberOrDefault } from '@/parsers/typeValidation'
+import { NumberCheck } from '@/schemas/helpers'
 
 type DragAndDropProps = {
 	areaId: string
@@ -38,7 +38,8 @@ export function DragAndDrop({
 				const dragImage = createDragImage(item, dragImageWidth)
 				document.body.appendChild(dragImage)
 
-				dragging = isNumberOrDefault(item.dataset.index, -1)
+				const numCheck = NumberCheck.safeParse(item.dataset.index)
+				dragging = numCheck.success ? numCheck.data : -1
 				el.dataTransfer?.setDragImage(dragImage, 100, 20)
 
 				dragHandle.addEventListener('dragend', () => dragImage.remove(), {
@@ -85,7 +86,10 @@ export function DragAndDrop({
 			if (!item) return
 
 			item.classList.add('drag-highlight')
-			lastHovered = isNumberOrDefault((item as HTMLElement).dataset.index, -1)
+			const numCheck = NumberCheck.safeParse(
+				(item as HTMLElement).dataset.index
+			)
+			lastHovered = numCheck.success ? numCheck.data : -1
 
 			item.addEventListener(
 				'dragleave',

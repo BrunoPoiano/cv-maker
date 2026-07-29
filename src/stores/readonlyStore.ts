@@ -4,12 +4,15 @@ import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
-import { isBooleanOrDefault } from '@/parsers/typeValidation'
+import { BooleanCheck } from '@/schemas/helpers'
 
 const readonly = ref(
 	getDataFromLocalStorage({
 		key: 'readonly',
-		parseFunction: (value: unknown) => isBooleanOrDefault(value, false),
+		parseFunction: (value: unknown) => {
+			const check = BooleanCheck.safeParse(value)
+			return check.success ? check.data : false
+		},
 		initialValue: true
 	})
 )
