@@ -1,12 +1,19 @@
-import type { Temporal } from '@js-temporal/polyfill'
 import type { Component, RendererElement, RendererNode, VNode } from 'vue'
+import type z from 'zod'
 
 import type { localStorageKeys } from '@/keys'
 
+import type { contacts } from './constants/contact'
+import type { curriculumOrderArray } from './constants/curriculumOrder'
 import type { dateStyle } from './constants/dateOptions'
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
 import type { textAlign } from './constants/text-align'
+import type { CurriculumSchema } from './schemas/curriculum'
+import type { CourseSchema } from './schemas/curriculum/academic'
+import type { ContactSchema } from './schemas/curriculum/contact'
+import type { CoreSkillsSchema } from './schemas/curriculum/coreSkills'
+import type { ExperienceSchema } from './schemas/curriculum/experience'
 import type { ProfilesStore } from './stores/profileStore'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
@@ -16,6 +23,7 @@ export type TextAlign = (typeof textAlign)[number]
 export type DateStyle = (typeof dateStyle)[number]
 export type SelectItem = Array<{ value: string | number; label: string }>
 export type Translation = Record<string, Each<Languages>>
+export type ContactValues = (typeof contacts)[number]
 
 export type MonthOptions = Extract<
 	Intl.DateTimeFormatOptions['month'],
@@ -68,115 +76,12 @@ export type BoldMatchReturn =
 			  >
 	  )[]
 
-export type ContactValues =
-	| 'email'
-	| 'linkedin'
-	| 'github'
-	| 'location'
-	| 'website'
-	| 'telephone'
-
-export type Contact = {
-	size: FontSize
-	sideBySide: boolean
-	align: TextAlign
-	value: Record<
-		ContactValues,
-		{
-			value: string
-			bolder: boolean
-		}
-	>
-}
-
-export type Course = {
-	id: string
-	Course: string
-	Diploma: string
-	Institution: string
-	StartDate: Temporal.PlainDate | null
-	EndDate: Temporal.PlainDate | null
-}
-
-type Header = {
-	UserName: {
-		value: string
-		size: FontSize
-		align: TextAlign
-	}
-	Role: {
-		value: string
-		size: FontSize
-		align: TextAlign
-	}
-}
-
-type Summary = {
-	smallText: string
-	value: Array<string> | string
-	size: FontSize
-	show: boolean
-}
-
-export type CoreSkills = {
-	value: Record<string, Array<string>>
-	sideBySide: boolean
-	size: FontSize
-	show: boolean
-}
-
-export type Order = Array<keyof Omit<Curriculum, 'Settings'>>
-
-type Settings = {
-	language: Languages
-	order: Order
-	margin: number
-	gap: number
-	section: {
-		size: FontSize
-	}
-}
-
-export type Experience = {
-	show: boolean
-	dateStyle: DateStyle
-	dateMonth: MonthOptions
-	dateYear: YearOptions
-	sideBySide: boolean
-	size: {
-		title: FontSize
-		subTitle: FontSize
-		description: FontSize
-	}
-	value: Array<{
-		id: string
-		Role: string
-		CompanyName: string
-		StartDate: Temporal.PlainDate | null
-		EndDate: Temporal.PlainDate | null
-		Description: Array<string> | string
-		Remote: boolean
-	}>
-}
-
-type AcademicBackground = {
-	show: boolean
-	dateMonth: MonthOptions
-	dateStyle: DateStyle
-	dateYear: YearOptions
-	size: FontSize
-	value: Array<Course>
-}
-
-export type Curriculum = {
-	Settings: Settings
-	Header: Header
-	Contact: Contact
-	Summary: Summary
-	CoreSkills: CoreSkills
-	Experience: Experience
-	AcademicBackground: AcademicBackground
-}
+export type Contact = z.infer<typeof ContactSchema>
+export type Course = z.infer<typeof CourseSchema>
+export type CoreSkills = z.infer<typeof CoreSkillsSchema>
+export type Experience = z.infer<typeof ExperienceSchema>
+export type Order = Array<(typeof curriculumOrderArray)[number]>
+export type Curriculum = z.infer<typeof CurriculumSchema>
 
 export type DefaultConfig = {
 	[T in keyof Curriculum]: RemoveValue<
