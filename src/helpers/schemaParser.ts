@@ -18,7 +18,7 @@ export function parseSchemaArray<T>(value: unknown, schema: z.ZodObject): T[] {
 
 export function parseSchemaObj<T>(
 	value: unknown,
-	schema: z.ZodObject,
+	schema: z.ZodObject | z.ZodRecord,
 	defaultValue: T
 ): T {
 	const item = schema.safeParse(value)

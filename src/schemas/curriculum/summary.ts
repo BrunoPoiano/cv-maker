@@ -8,10 +8,3 @@ export const SummarySchema = z.object({
 	size: FontSizeCheck,
 	show: z.boolean().default(false)
 })
-
-// type Summary = {
-// 	smallText: string
-// 	value: Array<string> | string
-// 	size: FontSize
-// 	show: boolean
-// }

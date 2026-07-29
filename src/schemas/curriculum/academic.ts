@@ -25,23 +25,3 @@ export const AcademicBackgroundSchema = z.object({
 	size: FontSizeCheck,
 	value: z.array(CourseSchema)
 })
-
-export type AcademicBackground = z.infer<typeof AcademicBackgroundSchema>
-
-// export type Course = {
-// 	id: string
-// 	Course: string
-// 	Diploma: string
-// 	Institution: string
-// 	StartDate: Temporal.PlainDate | null
-// 	EndDate: Temporal.PlainDate | null
-// }
-
-// type AcademicBackground = {
-// 	show: boolean
-// 	dateMonth: MonthOptions
-// 	dateStyle: DateStyle
-// 	dateYear: YearOptions
-// 	size: FontSize
-// 	value: Array<Course>
-// }

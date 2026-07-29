@@ -8,10 +8,3 @@ export const CoreSkillsSchema = z.object({
 	size: FontSizeCheck,
 	show: z.boolean().default(false)
 })
-
-// export type CoreSkills = {
-// 	value: Record<string, Array<string>>
-// 	sideBySide: boolean
-// 	size: FontSize
-// 	show: boolean
-// }

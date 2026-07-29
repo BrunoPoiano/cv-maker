@@ -11,15 +11,3 @@ export const SettingsSchema = z.object({
 		size: FontSizeCheck
 	})
 })
-
-export type Settings = z.infer<typeof SettingsSchema>
-
-// type Settings = {
-// 	language: Languages
-// 	order: Order
-// 	margin: number
-// 	gap: number
-// 	section: {
-// 		size: FontSize
-// 	}
-// }

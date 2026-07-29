@@ -33,27 +33,3 @@ export const ExperienceSchema = z.object({
 	size,
 	value: z.array(value)
 })
-
-export type Experience = z.infer<typeof ExperienceSchema>
-
-// export type Experience = {
-// 	show: boolean
-// 	dateStyle: DateStyle
-// 	dateMonth: MonthOptions
-// 	dateYear: YearOptions
-// 	sideBySide: boolean
-// 	size: {
-// 		title: FontSize
-// 		subTitle: FontSize
-// 		description: FontSize
-// 	}
-// 	value: Array<{
-// 		id: string
-// 		Role: string
-// 		CompanyName: string
-// 		StartDate: Temporal.PlainDate | null
-// 		EndDate: Temporal.PlainDate | null
-// 		Description: Array<string> | string
-// 		Remote: boolean
-// 	}>
-// }

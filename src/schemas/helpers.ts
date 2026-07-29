@@ -16,12 +16,26 @@ export const TextAlignCheck = z.enum(textAlign).catch('start')
 export const MonthOptionsCheck = z.enum(monthOptions).catch('numeric')
 export const DateStyleCheck = z.enum(dateStyle).catch('date')
 export const YearOptionsCheck = z.enum(yearOptions).catch('2-digit')
-export const ContactsCheck = z.enum(contacts).catch('email')
+export const ContactsEnumCheck = z.enum(contacts).catch('email')
 
 export const OrderCheck = z.custom<Order>((value) => {
 	if (Array.isArray(value)) {
 		return value.reduce<Array<Order>>((acc, item) => {
 			if (isOneOf(item, curriculumOrderArray)) {
+				acc.push(item)
+			}
+			return acc
+		}, [])
+	}
+
+	return []
+})
+
+type Contacts = (typeof contacts)[number]
+export const ContactsArrayCheck = z.custom<Array<Contacts>>((value) => {
+	if (Array.isArray(value)) {
+		return value.reduce<Array<Contacts>>((acc, item) => {
+			if (isOneOf(item, contacts)) {
 				acc.push(item)
 			}
 			return acc

@@ -9,11 +9,16 @@ import type { dateStyle } from './constants/dateOptions'
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
 import type { textAlign } from './constants/text-align'
-import type { CurriculumSchema } from './schemas/curriculum'
+import type { bolderWordsSchema } from './schemas/bolderWords'
+import type {
+	CurriculumSchema,
+	DefaultConfigSchema
+} from './schemas/curriculum'
 import type { CourseSchema } from './schemas/curriculum/academic'
 import type { ContactSchema } from './schemas/curriculum/contact'
 import type { CoreSkillsSchema } from './schemas/curriculum/coreSkills'
 import type { ExperienceSchema } from './schemas/curriculum/experience'
+import type { curriculumIndexSchema } from './schemas/curriculumIndex'
 import type { ProfilesStore } from './stores/profileStore'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
@@ -53,8 +58,8 @@ export type TableProps = Array<
 	}
 >
 
-export type BolderWords = Record<number, Array<string>>
-export type CurriculumIndex = Record<number, number>
+export type BolderWords = z.infer<typeof bolderWordsSchema>
+export type CurriculumIndex = z.infer<typeof curriculumIndexSchema>
 export type ProfileDefaultConfig = Record<number, DefaultConfig>
 
 export type Profile = {
@@ -83,15 +88,7 @@ export type Experience = z.infer<typeof ExperienceSchema>
 export type Order = Array<(typeof curriculumOrderArray)[number]>
 export type Curriculum = z.infer<typeof CurriculumSchema>
 
-export type DefaultConfig = {
-	[T in keyof Curriculum]: RemoveValue<
-		T extends 'Settings'
-			? Omit<Curriculum[T], 'language'>
-			: T extends 'Contact'
-				? Curriculum[T] & { valueOrder: Array<ContactValues> }
-				: Curriculum[T]
-	>
-}
+export type DefaultConfig = z.infer<typeof DefaultConfigSchema>
 
 export type HasShow = keyof Pick<
 	Curriculum,
@@ -125,17 +122,3 @@ export type MenuButtonList = {
 	disabled?: boolean
 	svg: Component
 }
-
-type RemoveValue<T> = T extends readonly unknown[]
-	? T
-	: T extends { value: Array<unknown> }
-		? Omit<T, 'value'>
-		: T extends { value: object }
-			? T['value'] extends Record<string, unknown>
-				? Omit<T, 'value'>
-				: Omit<T, 'value'> & { value: RemoveValue<T['value']> }
-			: T extends object
-				? {
-						[K in keyof T as K extends 'value' ? never : K]: RemoveValue<T[K]>
-					}
-				: T
