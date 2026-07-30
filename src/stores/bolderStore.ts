@@ -4,17 +4,18 @@ import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
-import { parseBolderWords } from '@/parsers/stringArray'
+import { parseSchemaObj } from '@/helpers/schemaParser'
+import { bolderWordsSchema } from '@/schemas/bolderWords'
+import type { BolderWords } from '@/types'
 
 import { ProfileIndexStore } from './profileIndexStore'
 
 const bolder = ref(
 	getDataFromLocalStorage({
 		key: 'bolder',
-		parseFunction: parseBolderWords,
-		initialValue: {
-			0: []
-		}
+		parseFunction: (value) =>
+			parseSchemaObj<BolderWords>(value, bolderWordsSchema, { 0: [] }),
+		initialValue: { 0: [] }
 	})
 )
 

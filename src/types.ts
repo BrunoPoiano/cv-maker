@@ -1,12 +1,26 @@
-import type { Temporal } from '@js-temporal/polyfill'
 import type { Component, RendererElement, RendererNode, VNode } from 'vue'
+import type z from 'zod'
 
 import type { localStorageKeys } from '@/keys'
 
+import type { contacts } from './constants/contact'
+import type { curriculumOrderArray } from './constants/curriculumOrder'
 import type { dateStyle } from './constants/dateOptions'
 import type { fontSize } from './constants/font-size'
 import type { languages } from './constants/language'
 import type { textAlign } from './constants/text-align'
+import type { bolderWordsSchema } from './schemas/bolderWords'
+import type {
+	CurriculumSchema,
+	DefaultConfigSchema
+} from './schemas/curriculum'
+import type { CourseSchema } from './schemas/curriculum/academic'
+import type { ContactSchema } from './schemas/curriculum/contact'
+import type { CoreSkillsSchema } from './schemas/curriculum/coreSkills'
+import type { ExperienceSchema } from './schemas/curriculum/experience'
+import type { curriculumIndexSchema } from './schemas/curriculumIndex'
+import type { profileDefaultConfigSchema } from './schemas/profileDefaultConfig'
+import type { ProfilesSchema } from './schemas/profiles'
 import type { ProfilesStore } from './stores/profileStore'
 
 export type LocalStorageKeys = (typeof localStorageKeys)[number]
@@ -16,6 +30,20 @@ export type TextAlign = (typeof textAlign)[number]
 export type DateStyle = (typeof dateStyle)[number]
 export type SelectItem = Array<{ value: string | number; label: string }>
 export type Translation = Record<string, Each<Languages>>
+export type ContactValues = (typeof contacts)[number]
+
+export type BolderWords = z.infer<typeof bolderWordsSchema>
+export type CurriculumIndex = z.infer<typeof curriculumIndexSchema>
+export type ProfileDefaultConfig = z.infer<typeof profileDefaultConfigSchema>
+export type Profile = z.infer<typeof ProfilesSchema>
+export type Contact = z.infer<typeof ContactSchema>
+export type Course = z.infer<typeof CourseSchema>
+export type CoreSkills = z.infer<typeof CoreSkillsSchema>
+export type Experience = z.infer<typeof ExperienceSchema>
+export type Order = Array<(typeof curriculumOrderArray)[number]>
+export type Curriculum = z.infer<typeof CurriculumSchema>
+export type DefaultConfig = z.infer<typeof DefaultConfigSchema>
+type ProfileStore = keyof typeof ProfilesStore
 
 export type MonthOptions = Extract<
 	Intl.DateTimeFormatOptions['month'],
@@ -26,14 +54,23 @@ export type YearOptions = Extract<
 	'numeric' | '2-digit'
 >
 
-export type BaseItem<T extends string> = {
-	[K in T]: {
-		label: string
-	}
+export type MenuModalItem = {
+	modal: Component
+	id: string
+	icon?: Component
+	label: string
+	backgroundColor?: string
 }
 
-type Each<T extends string> = {
-	[K in T]: string
+export type MenuButtonList = {
+	click: {
+		[T in ProfileStore]: (typeof ProfilesStore)[T]
+	}[ProfileStore]
+	id: string
+	hoverBackground: string
+	title: string
+	disabled?: boolean
+	svg: Component
 }
 
 export type TableProps = Array<
@@ -45,15 +82,17 @@ export type TableProps = Array<
 	}
 >
 
-export type BolderWords = Record<number, Array<string>>
-export type CurriculumIndex = Record<number, number>
-export type ProfileDefaultConfig = Record<number, DefaultConfig>
+export type HasShow = keyof Pick<
+	Curriculum,
+	{
+		[K in keyof Curriculum]: Curriculum[K] extends { show: boolean } ? K : never
+	}[keyof Curriculum]
+>
 
-export type Profile = {
-	id: number
-	name: string
-	curriculums: Array<Curriculum>
-}
+export type CurriculumOrder = Record<
+	keyof Omit<Curriculum, 'Settings'>,
+	Component
+>
 
 export type BoldMatchReturn =
 	| string
@@ -68,169 +107,12 @@ export type BoldMatchReturn =
 			  >
 	  )[]
 
-export type ContactValues =
-	| 'email'
-	| 'linkedin'
-	| 'github'
-	| 'location'
-	| 'website'
-	| 'telephone'
-
-export type Contact = {
-	size: FontSize
-	sideBySide: boolean
-	align: TextAlign
-	value: Record<
-		ContactValues,
-		{
-			value: string
-			bolder: boolean
-		}
-	>
-}
-
-export type Course = {
-	id: string
-	Course: string
-	Diploma: string
-	Institution: string
-	StartDate: Temporal.PlainDate | null
-	EndDate: Temporal.PlainDate | null
-}
-
-type Header = {
-	UserName: {
-		value: string
-		size: FontSize
-		align: TextAlign
-	}
-	Role: {
-		value: string
-		size: FontSize
-		align: TextAlign
+export type BaseItem<T extends string> = {
+	[K in T]: {
+		label: string
 	}
 }
 
-type Summary = {
-	smallText: string
-	value: Array<string> | string
-	size: FontSize
-	show: boolean
+type Each<T extends string> = {
+	[K in T]: string
 }
-
-export type CoreSkills = {
-	value: Record<string, Array<string>>
-	sideBySide: boolean
-	size: FontSize
-	show: boolean
-}
-
-export type Order = Array<keyof Omit<Curriculum, 'Settings'>>
-
-type Settings = {
-	language: Languages
-	order: Order
-	margin: number
-	gap: number
-	section: {
-		size: FontSize
-	}
-}
-
-export type Experience = {
-	show: boolean
-	dateStyle: DateStyle
-	dateMonth: MonthOptions
-	dateYear: YearOptions
-	sideBySide: boolean
-	size: {
-		title: FontSize
-		subTitle: FontSize
-		description: FontSize
-	}
-	value: Array<{
-		id: string
-		Role: string
-		CompanyName: string
-		StartDate: Temporal.PlainDate | null
-		EndDate: Temporal.PlainDate | null
-		Description: Array<string> | string
-		Remote: boolean
-	}>
-}
-
-type AcademicBackground = {
-	show: boolean
-	dateMonth: MonthOptions
-	dateStyle: DateStyle
-	dateYear: YearOptions
-	size: FontSize
-	value: Array<Course>
-}
-
-export type Curriculum = {
-	Settings: Settings
-	Header: Header
-	Contact: Contact
-	Summary: Summary
-	CoreSkills: CoreSkills
-	Experience: Experience
-	AcademicBackground: AcademicBackground
-}
-
-export type DefaultConfig = {
-	[T in keyof Curriculum]: RemoveValue<
-		T extends 'Settings'
-			? Omit<Curriculum[T], 'language'>
-			: T extends 'Contact'
-				? Curriculum[T] & { valueOrder: Array<ContactValues> }
-				: Curriculum[T]
-	>
-}
-
-export type HasShow = keyof Pick<
-	Curriculum,
-	{
-		[K in keyof Curriculum]: Curriculum[K] extends { show: boolean } ? K : never
-	}[keyof Curriculum]
->
-
-export type CurriculumOrder = Record<
-	keyof Omit<Curriculum, 'Settings'>,
-	Component
->
-
-export type MenuModalItem = {
-	modal: Component
-	id: string
-	icon?: Component
-	label: string
-	backgroundColor?: string
-}
-
-type ProfileStore = keyof typeof ProfilesStore
-
-export type MenuButtonList = {
-	click: {
-		[T in ProfileStore]: (typeof ProfilesStore)[T]
-	}[ProfileStore]
-	id: string
-	hoverBackground: string
-	title: string
-	disabled?: boolean
-	svg: Component
-}
-
-type RemoveValue<T> = T extends readonly unknown[]
-	? T
-	: T extends { value: Array<unknown> }
-		? Omit<T, 'value'>
-		: T extends { value: object }
-			? T['value'] extends Record<string, unknown>
-				? Omit<T, 'value'>
-				: Omit<T, 'value'> & { value: RemoveValue<T['value']> }
-			: T extends object
-				? {
-						[K in keyof T as K extends 'value' ? never : K]: RemoveValue<T[K]>
-					}
-				: T

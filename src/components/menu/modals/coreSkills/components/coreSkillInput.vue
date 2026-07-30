@@ -56,7 +56,7 @@ const { skillsProxy, onInput } = inject(ProviderSkillKey)!
 const curriculumIndex = CurriculumIndexStore.get()
 
 onMounted(() => {
-	const controller = DragAndDrop({
+	const cleanup = DragAndDrop({
 		areaId: 'coreSkillsList',
 		idPrefix: 'core-skill-',
 		itemsList: [props.core],
@@ -64,7 +64,7 @@ onMounted(() => {
 		action: (fromIndex, toIndex) =>
 			ProfilesStore.moveCoreSkill(curriculumIndex.value, fromIndex, toIndex)
 	})
-	onUnmounted(() => controller.abort())
+	onUnmounted(() => cleanup())
 })
 </script>
 

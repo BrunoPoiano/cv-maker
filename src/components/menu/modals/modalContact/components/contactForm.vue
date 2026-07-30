@@ -19,7 +19,7 @@ const { curriculum } = inject(ProviderKey)!
 const curriculumIndex = CurriculumIndexStore.get()
 
 onMounted(() => {
-	const controller = DragAndDrop({
+	const cleanup = DragAndDrop({
 		areaId: 'contactsValuesOrder',
 		idPrefix: 'contactsValuesOrder-',
 		itemsList: [props.type],
@@ -28,7 +28,7 @@ onMounted(() => {
 			ProfilesStore.moveContactOrder(curriculumIndex.value, fromIndex, toIndex)
 	})
 
-	onUnmounted(() => controller.abort())
+	onUnmounted(() => cleanup())
 })
 </script>
 

@@ -18,7 +18,7 @@ const ModalProfileForm = defineAsyncComponent(
 )
 
 const ModalCurriculumOrder = defineAsyncComponent(
-	() => import('./components/modalCurriculumOrder.vue')
+	() => import('./components/modalCurriculumOrder/modalCurriculumOrder.vue')
 )
 
 const ModalDefaultConfig = defineAsyncComponent(

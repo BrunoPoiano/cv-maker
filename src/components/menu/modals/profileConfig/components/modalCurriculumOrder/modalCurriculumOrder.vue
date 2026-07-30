@@ -1,23 +1,17 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed } from 'vue'
 
 import { ProfilesStore } from '@/stores/profileStore'
-import SvgDrag from '@/svgs/svgDrag.vue'
-import SvgTrash from '@/svgs/svgTrash.vue'
 import type { Curriculum } from '@/types'
-import AppButton from '@/ui/appButton.vue'
 import AppModal from '@/ui/appModal.vue'
-import { DragAndDrop } from '@/utilities/DragAndDrop'
+
+import CvItem from './components/cvItem.vue'
 type Props = {
 	id: string
 }
 
 const { id } = defineProps<Props>()
-const controller = ref<AbortController>()
 const curriculums = computed(() => ProfilesStore.getCurriculums())
-const cvList = computed(() =>
-	curriculums.value.map((el, index) => cvLabel(el, index))
-)
 
 function cvLabel(cv: Curriculum, index?: number) {
 	if (index != undefined) {
@@ -30,28 +24,6 @@ function cvLabel(cv: Curriculum, index?: number) {
 
 	return `${cv.Settings.language} - ${cv.Header.Role.value}`.toLocaleLowerCase()
 }
-
-function createDragAndDrop() {
-	controller.value?.abort()
-	return DragAndDrop({
-		areaId: 'curriculumOrderUl',
-		idPrefix: 'li-',
-		itemsClass: 'liElement',
-		itemsList: cvList.value,
-		action: ProfilesStore.moveCurriculum
-	})
-}
-
-onMounted(() => {
-	controller.value = createDragAndDrop()
-	onUnmounted(() => controller.value?.abort())
-})
-
-watch(cvList, async () => {
-	await nextTick()
-	controller.value?.abort()
-	controller.value = createDragAndDrop()
-})
 </script>
 
 <template>
@@ -61,27 +33,13 @@ watch(cvList, async () => {
 		</template>
 		<div class="content">
 			<ul id="curriculumOrderUl">
-				<li
-					:id="`li-${cvLabel(cv, index)}`"
-					:data-index="index"
-					class="liElement"
+				<CvItem
 					v-for="(cv, index) in curriculums"
 					:key="cvLabel(cv, index)"
-				>
-					<div data-drag-handle draggable="true">
-						<SvgDrag />
-					</div>
-					<span>
-						{{ cvLabel(cv) }}
-					</span>
-					<AppButton
-						iconButton
-						hoverBackground="var(--red)"
-						@click="ProfilesStore.deleteCurriculum(index)"
-					>
-						<SvgTrash />
-					</AppButton>
-				</li>
+					:index="index"
+					:label="cvLabel(cv)"
+					:labelIndex="cvLabel(cv, index)"
+				/>
 			</ul>
 		</div>
 	</AppModal>

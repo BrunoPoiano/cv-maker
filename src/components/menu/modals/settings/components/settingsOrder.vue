@@ -13,7 +13,7 @@ const curriculumIndex = CurriculumIndexStore.get()
 const { curriculum } = inject(ProviderKey)!
 
 onMounted(() => {
-	const controller = DragAndDrop({
+	const cleanup = DragAndDrop({
 		areaId: 'settingsOrderUl',
 		idPrefix: 'li-',
 		itemsClass: 'liElement',
@@ -21,7 +21,8 @@ onMounted(() => {
 		action: (fromIndex, toIndex) =>
 			ProfilesStore.moveSettingsOrder(curriculumIndex.value, fromIndex, toIndex)
 	})
-	onUnmounted(() => controller.abort())
+
+	onUnmounted(() => cleanup())
 })
 </script>
 

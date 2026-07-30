@@ -1,28 +1,27 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ],
-  "compilerOptions": {
-    "strict": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "allowUnusedLabels":false,
-      "noUncheckedSideEffectImports": true,
-      "noFallthroughCasesInSwitch": true,
-      "allowUnreachableCode": false,
+	"files": [],
+	"references": [
+		{
+			"path": "./tsconfig.node.json"
+		},
+		{
+			"path": "./tsconfig.app.json"
+		}
+	],
+	"compilerOptions": {
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"allowUnusedLabels": false,
+		"noUncheckedSideEffectImports": true,
+		"noFallthroughCasesInSwitch": true,
+		"allowUnreachableCode": false,
 
+		"noUncheckedIndexedAccess": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"erasableSyntaxOnly": true,
 
-      "noUncheckedIndexedAccess": true,
-      "noPropertyAccessFromIndexSignature": true,
-      "erasableSyntaxOnly": true,
-
-      "noImplicitOverride": true,
-      "exactOptionalPropertyTypes": true
-    }
+		"noImplicitOverride": true,
+		"exactOptionalPropertyTypes": true
+	}
 }

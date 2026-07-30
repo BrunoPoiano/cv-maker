@@ -1,4 +1,4 @@
-import { isNumberOrDefault } from '@/parsers/typeValidation'
+import { NumberCheck } from '@/schemas/helpers'
 
 type DragAndDropProps = {
 	areaId: string
@@ -16,7 +16,7 @@ export function DragAndDrop({
 	itemsClass,
 	action,
 	dragImageWidth
-}: DragAndDropProps): AbortController {
+}: DragAndDropProps) {
 	const controller = new AbortController()
 	const { signal } = controller
 
@@ -38,7 +38,8 @@ export function DragAndDrop({
 				const dragImage = createDragImage(item, dragImageWidth)
 				document.body.appendChild(dragImage)
 
-				dragging = isNumberOrDefault(item.dataset.index, -1)
+				const numCheck = NumberCheck.safeParse(item.dataset.index)
+				dragging = numCheck.success ? numCheck.data : -1
 				el.dataTransfer?.setDragImage(dragImage, 100, 20)
 
 				dragHandle.addEventListener('dragend', () => dragImage.remove(), {
@@ -51,6 +52,17 @@ export function DragAndDrop({
 	}
 
 	area.addEventListener(
+		'dragend',
+		() => {
+			for (const div of area.children) {
+				div.classList.remove('drag-highlight')
+			}
+			highlighted = null
+		},
+		{ signal }
+	)
+
+	area.addEventListener(
 		'drop',
 		() => {
 			if (dragging < 0 || lastHovered < 0) {
@@ -61,6 +73,7 @@ export function DragAndDrop({
 
 			dragging = -1
 			lastHovered = -1
+			highlighted = null
 
 			for (const div of area.children) {
 				div.classList.remove('drag-highlight')
@@ -69,34 +82,35 @@ export function DragAndDrop({
 		{ signal }
 	)
 
+	let highlighted: HTMLElement | null = null
 	area.addEventListener(
 		'dragover',
 		(e) => {
 			e.preventDefault()
-			const target = document.elementFromPoint(
-				e.clientX,
-				e.clientY
-			) as HTMLElement | null
+			const target = document
+				.elementFromPoint(e.clientX, e.clientY)
+				?.closest(`.${itemsClass}`) as HTMLElement | null
 
 			if (!target) return
 
-			const item = target.closest(`.${itemsClass}`)
+			if (target !== highlighted) {
+				highlighted?.classList.remove('drag-highlight')
+				highlighted = target
+				highlighted.classList.add('drag-highlight')
 
-			if (!item) return
-
-			item.classList.add('drag-highlight')
-			lastHovered = isNumberOrDefault((item as HTMLElement).dataset.index, -1)
-
-			item.addEventListener(
-				'dragleave',
-				() => item.classList.remove('drag-highlight'),
-				{ once: true, signal }
-			)
+				const numCheck = NumberCheck.safeParse(
+					(target as HTMLElement).dataset.index
+				)
+				lastHovered = numCheck.success ? numCheck.data : -1
+			}
 		},
 		{ signal }
 	)
 
-	return controller
+	return () => {
+		controller.abort()
+		console.log('aqui')
+	}
 }
 
 function createDragImage(

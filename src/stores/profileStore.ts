@@ -8,8 +8,9 @@ import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
+import { parseSchemaArray } from '@/helpers/schemaParser'
 import { parseCurriculum } from '@/parsers/curriculum'
-import { parseProfiles } from '@/parsers/profile'
+import { ProfilesSchema } from '@/schemas/profiles'
 import type { Contact, Curriculum, Languages } from '@/types'
 import { Notification } from '@/utilities/Notification'
 
@@ -19,7 +20,7 @@ import { ProfileIndexStore } from './profileIndexStore'
 const profiles = ref(
 	getDataFromLocalStorage({
 		key: 'profiles',
-		parseFunction: parseProfiles,
+		parseFunction: (value) => parseSchemaArray(value, ProfilesSchema),
 		initialValue: [
 			{
 				id: 1,

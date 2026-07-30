@@ -6,8 +6,9 @@ import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
-import { parseProfileDefaultConfig } from '@/parsers/profile'
-import type { Contact } from '@/types'
+import { parseSchemaObj } from '@/helpers/schemaParser'
+import { profileDefaultConfigSchema } from '@/schemas/profileDefaultConfig'
+import type { Contact, ProfileDefaultConfig } from '@/types'
 
 import { ProfileIndexStore } from './profileIndexStore'
 import { ProfilesStore } from './profileStore'
@@ -15,7 +16,12 @@ import { ProfilesStore } from './profileStore'
 const defaultConfig = ref(
 	getDataFromLocalStorage({
 		initialValue: { 0: DefaultConfigConst() },
-		parseFunction: parseProfileDefaultConfig,
+		parseFunction: (value) =>
+			parseSchemaObj<ProfileDefaultConfig>(
+				value,
+				profileDefaultConfigSchema,
+				{}
+			),
 		key: 'defaultConfig'
 	})
 )

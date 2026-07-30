@@ -4,14 +4,17 @@ import {
 	getDataFromLocalStorage,
 	saveDataToLocalStorage
 } from '@/helpers/localstorage'
-import { parseCurriculumIndex } from '@/parsers/stringArray'
+import { parseSchemaObj } from '@/helpers/schemaParser'
+import { curriculumIndexSchema } from '@/schemas/curriculumIndex'
+import type { CurriculumIndex } from '@/types'
 
 import { ProfileIndexStore } from './profileIndexStore'
 
 const curriculumIndex = ref(
 	getDataFromLocalStorage({
 		key: 'curriculumIndex',
-		parseFunction: parseCurriculumIndex,
+		parseFunction: (value) =>
+			parseSchemaObj<CurriculumIndex>(value, curriculumIndexSchema, { 0: 0 }),
 		initialValue: { 0: 0 }
 	})
 )
