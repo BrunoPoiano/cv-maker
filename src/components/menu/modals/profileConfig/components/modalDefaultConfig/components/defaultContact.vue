@@ -11,17 +11,14 @@ import { DragAndDrop } from '@/utilities/DragAndDrop'
 const defaultConfig = defaultConfigStore.get()
 
 onMounted(() => {
-	const contactOrderController = DragAndDrop({
+	const cleanup = DragAndDrop({
 		areaId: 'defaultContactOrderUl',
 		idPrefix: 'defaultContactOrderli-',
 		itemsList: defaultConfig.value.Contact.valueOrder,
 		itemsClass: 'defaultContactElement',
 		action: defaultConfigStore.moveContactOrder
 	})
-
-	onUnmounted(() => {
-		contactOrderController.abort()
-	})
+	onUnmounted(() => cleanup())
 })
 </script>
 

@@ -16,5 +16,5 @@ export const curriculumOrder: CurriculumOrder = {
 }
 
 export const curriculumOrderArray = Object.keys(curriculumOrder) as Array<
-	keyof Omit<CurriculumOrder, 'Settings'>
+	keyof CurriculumOrder
 >

@@ -14,7 +14,7 @@ const gap = computed(() => curriculum.value.Settings.gap)
 
 onMounted(async () => {
 	await nextTick()
-	const controller = DragAndDrop({
+	const cleanup = DragAndDrop({
 		areaId: 'curriculumPage',
 		idPrefix: 'main-',
 		itemsList: curriculum.value.Settings.order,
@@ -22,8 +22,7 @@ onMounted(async () => {
 		action: (fromIndex, toIndex) =>
 			ProfilesStore.moveSettingsOrder(curriculumIndex.value, fromIndex, toIndex)
 	})
-
-	onUnmounted(() => controller.abort())
+	onUnmounted(() => cleanup())
 })
 </script>
 

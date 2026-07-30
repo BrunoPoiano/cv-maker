@@ -29,7 +29,7 @@ defineOptions({
 
 onMounted(async () => {
 	nextTick()
-	const controller = DragAndDrop({
+	const cleanup = DragAndDrop({
 		areaId: 'academicList',
 		idPrefix: 'academic-',
 		itemsList: [academicBackground.value.id],
@@ -37,7 +37,7 @@ onMounted(async () => {
 		action: (fromIndex, toIndex) =>
 			ProfilesStore.moveAcademicSkill(curriculumIndex.value, fromIndex, toIndex)
 	})
-	onUnmounted(() => controller.abort())
+	onUnmounted(() => cleanup())
 })
 </script>
 

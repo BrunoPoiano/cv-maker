@@ -32,6 +32,19 @@ export type SelectItem = Array<{ value: string | number; label: string }>
 export type Translation = Record<string, Each<Languages>>
 export type ContactValues = (typeof contacts)[number]
 
+export type BolderWords = z.infer<typeof bolderWordsSchema>
+export type CurriculumIndex = z.infer<typeof curriculumIndexSchema>
+export type ProfileDefaultConfig = z.infer<typeof profileDefaultConfigSchema>
+export type Profile = z.infer<typeof ProfilesSchema>
+export type Contact = z.infer<typeof ContactSchema>
+export type Course = z.infer<typeof CourseSchema>
+export type CoreSkills = z.infer<typeof CoreSkillsSchema>
+export type Experience = z.infer<typeof ExperienceSchema>
+export type Order = Array<(typeof curriculumOrderArray)[number]>
+export type Curriculum = z.infer<typeof CurriculumSchema>
+export type DefaultConfig = z.infer<typeof DefaultConfigSchema>
+type ProfileStore = keyof typeof ProfilesStore
+
 export type MonthOptions = Extract<
 	Intl.DateTimeFormatOptions['month'],
 	'numeric' | '2-digit' | 'long' | 'short' | 'narrow'
@@ -41,14 +54,23 @@ export type YearOptions = Extract<
 	'numeric' | '2-digit'
 >
 
-export type BaseItem<T extends string> = {
-	[K in T]: {
-		label: string
-	}
+export type MenuModalItem = {
+	modal: Component
+	id: string
+	icon?: Component
+	label: string
+	backgroundColor?: string
 }
 
-type Each<T extends string> = {
-	[K in T]: string
+export type MenuButtonList = {
+	click: {
+		[T in ProfileStore]: (typeof ProfilesStore)[T]
+	}[ProfileStore]
+	id: string
+	hoverBackground: string
+	title: string
+	disabled?: boolean
+	svg: Component
 }
 
 export type TableProps = Array<
@@ -60,10 +82,17 @@ export type TableProps = Array<
 	}
 >
 
-export type BolderWords = z.infer<typeof bolderWordsSchema>
-export type CurriculumIndex = z.infer<typeof curriculumIndexSchema>
-export type ProfileDefaultConfig = z.infer<typeof profileDefaultConfigSchema>
-export type Profile = z.infer<typeof ProfilesSchema>
+export type HasShow = keyof Pick<
+	Curriculum,
+	{
+		[K in keyof Curriculum]: Curriculum[K] extends { show: boolean } ? K : never
+	}[keyof Curriculum]
+>
+
+export type CurriculumOrder = Record<
+	keyof Omit<Curriculum, 'Settings'>,
+	Component
+>
 
 export type BoldMatchReturn =
 	| string
@@ -78,44 +107,12 @@ export type BoldMatchReturn =
 			  >
 	  )[]
 
-export type Contact = z.infer<typeof ContactSchema>
-export type Course = z.infer<typeof CourseSchema>
-export type CoreSkills = z.infer<typeof CoreSkillsSchema>
-export type Experience = z.infer<typeof ExperienceSchema>
-export type Order = Array<(typeof curriculumOrderArray)[number]>
-export type Curriculum = z.infer<typeof CurriculumSchema>
-
-export type DefaultConfig = z.infer<typeof DefaultConfigSchema>
-
-export type HasShow = keyof Pick<
-	Curriculum,
-	{
-		[K in keyof Curriculum]: Curriculum[K] extends { show: boolean } ? K : never
-	}[keyof Curriculum]
->
-
-export type CurriculumOrder = Record<
-	keyof Omit<Curriculum, 'Settings'>,
-	Component
->
-
-export type MenuModalItem = {
-	modal: Component
-	id: string
-	icon?: Component
-	label: string
-	backgroundColor?: string
+export type BaseItem<T extends string> = {
+	[K in T]: {
+		label: string
+	}
 }
 
-type ProfileStore = keyof typeof ProfilesStore
-
-export type MenuButtonList = {
-	click: {
-		[T in ProfileStore]: (typeof ProfilesStore)[T]
-	}[ProfileStore]
-	id: string
-	hoverBackground: string
-	title: string
-	disabled?: boolean
-	svg: Component
+type Each<T extends string> = {
+	[K in T]: string
 }

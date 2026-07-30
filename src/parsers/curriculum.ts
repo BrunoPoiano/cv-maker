@@ -1,8 +1,7 @@
 import { CurriculumConst } from '@/constants/curriculum'
-import { DefaultConfigConst } from '@/constants/defaultConfig'
 import { parseSchemaArray, parseSchemaObj } from '@/helpers/schemaParser'
-import { CurriculumSchema, DefaultConfigSchema } from '@/schemas/curriculum'
-import type { Curriculum, DefaultConfig } from '@/types'
+import { CurriculumSchema } from '@/schemas/curriculum'
+import type { Curriculum } from '@/types'
 
 export function parseCurriculum(value: unknown): Curriculum {
 	const cv = CurriculumConst()
@@ -15,10 +14,4 @@ export function parseCurriculumList(value: unknown): Array<Curriculum> {
 	}
 
 	return parseSchemaArray(value, CurriculumSchema)
-}
-
-export function parseDefaultConfig(value: unknown): DefaultConfig {
-	const cv = DefaultConfigConst()
-
-	return parseSchemaObj(value, DefaultConfigSchema, cv)
 }

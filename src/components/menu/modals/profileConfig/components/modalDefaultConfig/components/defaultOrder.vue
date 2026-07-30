@@ -8,7 +8,7 @@ import { DragAndDrop } from '@/utilities/DragAndDrop'
 const defaultConfig = defaultConfigStore.get()
 
 onMounted(() => {
-	const settingsOrderController = DragAndDrop({
+	const cleanup = DragAndDrop({
 		areaId: 'defaultConfigOrderUl',
 		idPrefix: 'defaultConfigElementli-',
 		itemsList: defaultConfig.value.Settings.order,
@@ -16,7 +16,7 @@ onMounted(() => {
 		action: defaultConfigStore.moveSettingsOrder
 	})
 
-	onUnmounted(() => settingsOrderController.abort())
+	onUnmounted(() => cleanup())
 })
 </script>
 <template>
