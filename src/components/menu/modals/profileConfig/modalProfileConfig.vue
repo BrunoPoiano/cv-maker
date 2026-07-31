@@ -156,5 +156,9 @@ function editModal(cvs: Curriculum[], proIn: number) {
 			}
 		}
 	}
+	.defaultConfig {
+		display: grid;
+		place-items: center;
+	}
 }
 </style>
