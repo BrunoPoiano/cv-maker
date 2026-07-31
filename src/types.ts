@@ -74,12 +74,18 @@ export type MenuButtonList = {
 }
 
 export type TableProps = Array<
-	Record<string, unknown> & {
-		actions: {
-			component: Component
-			props: Record<string, unknown>
-		}
-	}
+	Record<
+		string,
+		| {
+				type: 'component'
+				component: Component
+				props: Record<string, unknown>
+		  }
+		| {
+				type: 'base'
+				value: string | number
+		  }
+	>
 >
 
 export type HasShow = keyof Pick<

@@ -97,6 +97,15 @@ export const ProfilesStore = {
 		CurriculumIndexStore.changeValue(false)
 		Notification({ message: 'Curricullum deleted', type: 'success' })
 	},
+	deleteProfileCurriculum(profileIndex: number, curriculumIndex: number) {
+		if (!profiles.value[profileIndex] || curriculumIndex === 0) {
+			return
+		}
+
+		profiles.value[profileIndex].curriculums.splice(curriculumIndex, 1)
+		CurriculumIndexStore.changeValue(false)
+		Notification({ message: 'Curricullum deleted', type: 'success' })
+	},
 	newCurriculum() {
 		const profileIndex = ProfileIndexStore.get().value
 
@@ -504,6 +513,24 @@ export const ProfilesStore = {
 	moveCurriculum(fromIndex: number, toIndex: number) {
 		const profileIndex = ProfileIndexStore.get().value
 
+		if (!profiles.value[profileIndex] || toIndex === -1) {
+			return
+		}
+
+		const curriculum = profiles.value[profileIndex].curriculums[fromIndex]
+
+		if (!curriculum) {
+			return
+		}
+
+		profiles.value[profileIndex].curriculums.splice(fromIndex, 1)
+		profiles.value[profileIndex].curriculums.splice(toIndex, 0, curriculum)
+	},
+	moveProfileCurriculum(
+		profileIndex: number,
+		fromIndex: number,
+		toIndex: number
+	) {
 		if (!profiles.value[profileIndex] || toIndex === -1) {
 			return
 		}
