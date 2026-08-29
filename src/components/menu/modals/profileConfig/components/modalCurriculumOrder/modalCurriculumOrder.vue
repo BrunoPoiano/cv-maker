@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref } from 'vue'
 
-import { ProfilesStore } from '@/stores/profileStore'
 import type { Curriculum } from '@/types'
 import AppModal from '@/ui/appModal.vue'
 
 import CvItem from './components/cvItem.vue'
 type Props = {
 	id: string
+	curriculums: Curriculum[]
+	profileIndex: number
+}
+
+type AppModalExpose = {
+	open(): void
 }
 
 const { id } = defineProps<Props>()
-const curriculums = computed(() => ProfilesStore.getCurriculums())
+const dialog = ref<AppModalExpose | null>(null)
 
 function cvLabel(cv: Curriculum, index?: number) {
 	if (index != undefined) {
@@ -24,10 +29,18 @@ function cvLabel(cv: Curriculum, index?: number) {
 
 	return `${cv.Settings.language} - ${cv.Header.Role.value}`.toLocaleLowerCase()
 }
+
+function open() {
+	dialog.value?.open()
+}
+
+defineExpose({
+	open
+})
 </script>
 
 <template>
-	<AppModal :id="id" closeLabel="close">
+	<AppModal ref="dialog" :id="id" closeLabel="close">
 		<template #header>
 			<h3>Curriculums</h3>
 		</template>
@@ -35,6 +48,7 @@ function cvLabel(cv: Curriculum, index?: number) {
 			<ul id="curriculumOrderUl">
 				<CvItem
 					v-for="(cv, index) in curriculums"
+					:profileIndex="profileIndex"
 					:key="cvLabel(cv, index)"
 					:index="index"
 					:label="cvLabel(cv)"

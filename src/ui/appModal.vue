@@ -4,6 +4,10 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import Button from '@/ui/appButton.vue'
 
 const props = defineProps({
+	propRef: {
+		type: HTMLDialogElement,
+		required: false
+	},
 	closeLabel: {
 		type: [String, Object],
 		required: false
@@ -25,6 +29,10 @@ const props = defineProps({
 
 const dialogRef = ref<HTMLDialogElement>()
 
+defineExpose({
+	open
+})
+
 onMounted(() => {
 	const observer = new MutationObserver(() => {
 		if (dialogRef.value?.open) {
@@ -41,6 +49,10 @@ onMounted(() => {
 
 	onUnmounted(() => observer.disconnect())
 })
+
+function open() {
+	dialogRef.value?.showModal()
+}
 </script>
 
 <template>

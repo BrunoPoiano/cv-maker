@@ -109,7 +109,6 @@ export function DragAndDrop({
 
 	return () => {
 		controller.abort()
-		console.log('aqui')
 	}
 }
 

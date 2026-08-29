@@ -1,4 +1,4 @@
-import z from 'zod'
+import * as z from 'zod'
 
 import { ContactsArrayCheck } from '../helpers'
 import { AcademicBackgroundSchema } from './academic'

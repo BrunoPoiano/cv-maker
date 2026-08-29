@@ -29,11 +29,11 @@ defineOptions({
 				:data-bolder="bolder?.(index)"
 			>
 				<td v-for="(h, hIndex) in props.header" :key="hIndex">
-					<template v-if="h === 'actions'">
-						<component :is="c.actions.component" v-bind="c.actions.props" />
+					<template v-if="c[h]?.type === 'component'">
+						<component :is="c[h].component" v-bind="c[h].props" />
 					</template>
 					<template v-else>
-						{{ c[h] }}
+						{{ c[h]?.value }}
 					</template>
 				</td>
 			</tr>

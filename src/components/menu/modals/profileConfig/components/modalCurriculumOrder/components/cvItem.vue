@@ -8,6 +8,7 @@ import AppButton from '@/ui/appButton.vue'
 import { DragAndDrop } from '@/utilities/DragAndDrop'
 
 type Props = {
+	profileIndex: number
 	labelIndex: string
 	label: string
 	index: number
@@ -21,7 +22,12 @@ onMounted(() => {
 		idPrefix: 'li-',
 		itemsClass: 'liElement',
 		itemsList: [props.labelIndex],
-		action: ProfilesStore.moveCurriculum
+		action: (fromIndex, toIndex) =>
+			ProfilesStore.moveProfileCurriculum(
+				props.profileIndex,
+				fromIndex,
+				toIndex
+			)
 	})
 
 	onUnmounted(() => cleanup())
@@ -44,7 +50,7 @@ onMounted(() => {
 			iconButton
 			:disabled="props.index === 0"
 			hoverBackground="var(--red)"
-			@click="ProfilesStore.deleteCurriculum(props.index)"
+			@click="ProfilesStore.deleteProfileCurriculum(profileIndex, props.index)"
 		>
 			<SvgTrash />
 		</AppButton>

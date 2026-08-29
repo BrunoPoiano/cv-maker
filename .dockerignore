@@ -3,4 +3,6 @@
 /build
 /.env
 /.env.local
-/.env.development   
+/.env.development
+stats.html
+.eslintcache

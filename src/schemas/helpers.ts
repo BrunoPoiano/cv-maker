@@ -1,5 +1,5 @@
 import { Temporal } from '@js-temporal/polyfill'
-import z from 'zod'
+import * as z from 'zod'
 
 import { contacts } from '@/constants/contact'
 import { curriculumOrderArray } from '@/constants/curriculumOrder'
